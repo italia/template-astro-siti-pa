@@ -2530,6 +2530,18 @@ enum PageModelOrderBy {
 
 """Record of type 📃 Page (page)"""
 type PageRecord implements RecordInterface {
+  _allChartLocales(
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+  ): [SettingsChartRecordMultiLocaleField!]
+  _allKpiLocales(
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+  ): [SettingsKpiRecordMultiLocaleField!]
   _allSeoLocales(
     """
     If you want to fallback to a default translation when a translation has not been found
@@ -2566,9 +2578,25 @@ type PageRecord implements RecordInterface {
   _status: ItemStatus!
   _unpublishingScheduledAt: DateTime
   _updatedAt: DateTime!
-  chart: SettingsChartRecord
+  chart(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+  ): SettingsChartRecord
   id: ItemId!
-  kpi: SettingsKpiRecord
+  kpi(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+  ): SettingsKpiRecord
   seo(
     """The locale to use to fetch the field's content"""
     locale: SiteLocale
@@ -2919,6 +2947,11 @@ type SettingsChartRecord implements RecordInterface {
   title: String
 }
 
+type SettingsChartRecordMultiLocaleField {
+  locale: SiteLocale
+  value: SettingsChartRecord
+}
+
 """Block of type 🟰 Impostazioni Kpi (settings_kpi)"""
 type SettingsKpiRecord implements RecordInterface {
   _createdAt: DateTime!
@@ -2943,6 +2976,11 @@ type SettingsKpiRecord implements RecordInterface {
   selectKpi: [KpiElementRecord!]!
   subtitle: String
   title: String
+}
+
+type SettingsKpiRecordMultiLocaleField {
+  locale: SiteLocale
+  value: SettingsKpiRecord
 }
 
 type Site {
