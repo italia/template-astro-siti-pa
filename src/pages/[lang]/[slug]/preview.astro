@@ -3,11 +3,7 @@ import type { TitleMetaLinkTag } from "@datocms/astro";
 import Layout from "../../../layouts/Layout.astro";
 import { executeQuery } from "../../../lib/datocms";
 import { PageBySlugQuery } from "../../../utils/query";
-import type {
-  SettingsChartRecord,
-  SettingsKpiRecord,
-  SiteLocale,
-} from "../../../graphql/types";
+import type { SiteLocale } from "../../../graphql/types";
 import { isDraftModeEnabled } from "../../../lib/draftMode";
 import DraftModeQueryListener from "../../../components/DraftModeQueryListener.astro";
 import { Chart } from "../../../components/charts/Chart";
@@ -22,26 +18,24 @@ if (!draftModeEnabled) {
 }
 
 const { lang, slug } = Astro.params;
+const locale = lang as SiteLocale;
 
 const response = await executeQuery(PageBySlugQuery, {
-  variables: { slug: slug!, locale: lang as SiteLocale },
+  variables: { slug: slug!, locale },
   includeDrafts: true,
 });
 
 const page = response.page;
-const chart = page?.chart as SettingsChartRecord | undefined;
-const kpi = page?.kpi as SettingsKpiRecord | undefined;
+const chart = page?.chart;
+const kpi = page?.kpi;
+
 const redirectUrl =
   typeof lang === "string" && typeof slug === "string"
     ? `/${lang}/${slug}`
     : "/";
 ---
 
-<Layout
-  redirectUrl={redirectUrl}
-  locale={lang!}
-  pageSeo={page?.seo as TitleMetaLinkTag[]}
->
+<Layout redirectUrl={redirectUrl} locale={locale} pageSeo={page?.seo}>
   <div class="mx-4">
     <h1>{page?.title}</h1>
     {kpi && <Kpi data={kpi} />}
@@ -58,5 +52,5 @@ const redirectUrl =
 </Layout>
 <DraftModeQueryListener
   query={PageBySlugQuery}
-  variables={{ slug: slug!, locale: lang as SiteLocale }}
+  variables={{ slug: slug!, locale }}
 />

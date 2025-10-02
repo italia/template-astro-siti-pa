@@ -1,8 +1,8 @@
 import { KpiItem, type KpiItemType } from "dataviz-components";
-import type { SettingsKpiRecord } from "../../graphql/types";
+import type { KpiFragmentType } from "../../graphql/commonFragments";
 
 type KpiProps = {
-  data: SettingsKpiRecord;
+  data: KpiFragmentType;
 };
 
 export const Kpi = ({ data }: KpiProps) => {
@@ -18,7 +18,7 @@ export const Kpi = ({ data }: KpiProps) => {
         {data.selectKpi?.map((item, index) => {
           return (
             <div key={index} className="col">
-              <KpiItem data={item} />
+              <KpiItem data={item as KpiItemType} />
             </div>
           );
         })}

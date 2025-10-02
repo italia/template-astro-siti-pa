@@ -3,25 +3,24 @@ import {
   type FieldDataType,
   type InfosType,
 } from "dataviz-components";
-import type { SettingsChartRecord } from "../../graphql/types";
+import type { ChartFragmentType } from "../../graphql/commonFragments";
 
 type ChartProps = {
-  data: SettingsChartRecord;
+  data: ChartFragmentType;
 };
 
 export const Chart = ({ data }: ChartProps) => {
-  const chartData = data.selectChart?.chartData as FieldDataType;
   const info: InfosType = {
-    text: data.info || "",
-    title: data.title,
-    subTitle: data.subtitle,
-    chartFooterText: data.footerText,
+    text: data.info ?? "",
+    title: data.title ?? undefined,
+    subTitle: data.subtitle ?? undefined,
+    chartFooterText: data.footerText ?? undefined,
   };
 
   const extra = {
     id: data.id || "default-chart-id",
-    enableDownloadData: data.downloadData || false,
-    enableDownloadImage: data.downloadImage || false,
+    enableDownloadData: data.downloadData,
+    enableDownloadImage: data.downloadImage,
     ...(data.showShare
       ? {
           shareFunction: (_: string, event?: React.MouseEvent) =>
@@ -32,7 +31,11 @@ export const Chart = ({ data }: ChartProps) => {
 
   return (
     <div className="d-flex align-items-center justify-content-center">
-      <ChartWrapper data={chartData} info={info} {...extra} />
+      <ChartWrapper
+        data={data.selectChart?.chartData as FieldDataType}
+        info={info}
+        {...extra}
+      />
     </div>
   );
 };

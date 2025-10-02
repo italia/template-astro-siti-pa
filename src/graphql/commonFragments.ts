@@ -1,4 +1,4 @@
-import { graphql } from "../graphql/graphql";
+import { graphql, type FragmentOf } from "../graphql/graphql";
 
 export const TagFragment = graphql(`
   fragment TagFragment on Tag @_unmask {
@@ -14,6 +14,8 @@ export const LocaleFragment = graphql(`
     value
   }
 `);
+
+export type LocaleFragmentType = FragmentOf<typeof LocaleFragment>;
 
 export const ChartFragment = graphql(`
   fragment ChartFragment on SettingsChartRecord @_unmask {
@@ -32,6 +34,8 @@ export const ChartFragment = graphql(`
     info
   }
 `);
+
+export type ChartFragmentType = FragmentOf<typeof ChartFragment>;
 
 export const KpiFragment = graphql(`
   fragment KpiFragment on SettingsKpiRecord @_unmask {
@@ -54,3 +58,5 @@ export const KpiFragment = graphql(`
     id
   }
 `);
+
+export type KpiFragmentType = FragmentOf<typeof KpiFragment>;

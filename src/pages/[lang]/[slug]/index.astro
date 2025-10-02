@@ -2,11 +2,7 @@
 import Layout from "../../../layouts/Layout.astro";
 import { executeQuery } from "../../../lib/datocms";
 import { AllPagesSlugQuery, PageBySlugQuery } from "../../../utils/query";
-import type {
-  SettingsChartRecord,
-  SiteLocale,
-  SettingsKpiRecord,
-} from "../../../graphql/types";
+import type { SiteLocale } from "../../../graphql/types";
 import { Chart } from "../../../components/charts/Chart";
 import Loader from "../../../components/Loader.astro";
 import { Kpi } from "../../../components/charts/Kpi";
@@ -41,8 +37,8 @@ const response = await executeQuery(PageBySlugQuery, {
 });
 
 const page = response.page;
-const chart = page?.chart as SettingsChartRecord | undefined;
-const kpi = page?.kpi as SettingsKpiRecord | undefined;
+const chart = page?.chart;
+const kpi = page?.kpi;
 ---
 
 <Layout locale={lang} pageSeo={page?.seo}>
