@@ -9,6 +9,7 @@ import DraftModeQueryListener from "../../../components/DraftModeQueryListener.a
 import { Chart } from "../../../components/charts/Chart";
 import Loader from "../../../components/Loader.astro";
 import { Kpi } from "../../../components/charts/Kpi";
+import { buildPageRefByLocales } from "../../../utils/generateWebsiteUrl";
 
 export const prerender = false;
 
@@ -29,13 +30,20 @@ const page = response.page;
 const chart = page?.chart;
 const kpi = page?.kpi;
 
+const pageRefByLocales = await buildPageRefByLocales(locale, slug!, true);
+
 const redirectUrl =
   typeof lang === "string" && typeof slug === "string"
     ? `/${lang}/${slug}`
     : "/";
 ---
 
-<Layout redirectUrl={redirectUrl} locale={locale} pageSeo={page?.seo}>
+<Layout
+  redirectUrl={redirectUrl}
+  locale={locale}
+  pageSeo={page?.seo}
+  pageRefByLocales={pageRefByLocales}
+>
   <div class="mx-4">
     <h1>{page?.title}</h1>
     {kpi && <Kpi data={kpi} />}

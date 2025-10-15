@@ -6,6 +6,7 @@ import type { SiteLocale } from "../../../graphql/types";
 import { Chart } from "../../../components/charts/Chart";
 import Loader from "../../../components/Loader.astro";
 import { Kpi } from "../../../components/charts/Kpi";
+import { buildPageRefByLocales } from "../../../utils/generateWebsiteUrl";
 
 export async function getStaticPaths() {
   type PathItem = {
@@ -39,9 +40,11 @@ const response = await executeQuery(PageBySlugQuery, {
 const page = response.page;
 const chart = page?.chart;
 const kpi = page?.kpi;
+
+const pageRefByLocales = await buildPageRefByLocales(lang, slug, false);
 ---
 
-<Layout locale={lang} pageSeo={page?.seo}>
+<Layout locale={lang} pageSeo={page?.seo} pageRefByLocales={pageRefByLocales}>
   <div class="mx-4">
     <h1>{page?.title}</h1>
     {kpi && <Kpi data={kpi} />}

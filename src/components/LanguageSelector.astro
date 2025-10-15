@@ -1,0 +1,60 @@
+---
+import { executeQuery } from "../lib/datocms";
+import { LocalesQuery } from "../utils/query";
+import { type pageReferencesUrl, type SiteLocale } from "../graphql/types";
+import { mappingLocale } from "../utils/const";
+
+type Props = {
+  currentLocale: SiteLocale;
+  pageRefByLocales: pageReferencesUrl;
+};
+const {
+  site: { locales },
+} = await executeQuery(LocalesQuery);
+const { currentLocale, pageRefByLocales } = Astro.props;
+---
+
+<div class="it-header-slim-right-zone">
+  <div class="nav-item dropdown">
+    <a
+      class="nav-link dropdown-toggle"
+      href="#"
+      role="button"
+      data-bs-toggle="dropdown"
+      aria-expanded="false"
+    >
+      <span class="visually-hidden">Selezione lingua: lingua selezionata</span>
+      <span>{mappingLocale[currentLocale].slice(0, 3).toUpperCase()}</span>
+      <svg class="icon d-none d-lg-block"
+        ><use href="/bsi-svg/sprites.svg#it-expand"></use></svg
+      >
+    </a>
+    <div class="dropdown-menu">
+      <div class="row">
+        <div class="col-12">
+          <div class="link-list-wrapper">
+            <ul class="link-list">
+              {
+                locales.map((locale) => (
+                  <li>
+                    <a
+                      class={`dropdown-item list-item ${locale === currentLocale ? "active" : ""}`}
+                      href={pageRefByLocales[locale]}
+                    >
+                      <span>
+                        {mappingLocale[locale]}
+                        {locale === currentLocale && (
+                          <span class="visually-hidden">selezionata</span>
+                        )}
+                      </span>
+                    </a>
+                  </li>
+                ))
+              }
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

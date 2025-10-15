@@ -1,3 +1,22 @@
+---
+import type { pageReferencesUrl, SiteLocale } from "../graphql/types";
+import { executeQuery } from "../lib/datocms";
+import { LayoutQuery } from "../utils/query";
+import LanguageSelector from "./LanguageSelector.astro";
+import { buildUrl } from "../utils/generateWebsiteUrl";
+
+type Props = {
+  lang: string;
+  currentPath: string;
+  pageRefByLocales: pageReferencesUrl;
+  isDraftMode: boolean;
+};
+
+const { lang, currentPath, pageRefByLocales, isDraftMode } = Astro.props;
+const locale = lang as SiteLocale;
+const response = await executeQuery(LayoutQuery, { variables: { locale } });
+---
+
 <header class="it-header-wrapper">
   <div class="it-header-slim-wrapper">
     <div class="container-xxl">
@@ -22,67 +41,36 @@
                 </a>
                 <div class="link-list-wrapper collapse" id="menuC1">
                   <ul class="link-list">
-                    <li>
-                      <a class="list-item active" href="/" aria-current="page"
-                        >Link 1</a
-                      >
-                    </li>
-                    <li>
-                      <a class="dropdown-item list-item" href="#">Link 2</a>
-                    </li>
-                    <li>
-                      <a class="dropdown-item list-item" href="#">Link 3</a>
-                    </li>
-                    <li>
-                      <a class="dropdown-item list-item" href="#">Link 4</a>
-                    </li>
+                    {
+                      response?.layout?.navigationBar.map((menuItem) => {
+                        const url = buildUrl(
+                          locale,
+                          menuItem.pointsTo.slug,
+                          isDraftMode,
+                        );
+                        return (
+                          <li id={menuItem.id}>
+                            <a
+                              class={
+                                "list-item " +
+                                (currentPath === url ? "active" : "")
+                              }
+                              href={url}
+                            >
+                              {menuItem.title}
+                            </a>
+                          </li>
+                        );
+                      })
+                    }
                   </ul>
                 </div>
               </nav>
             </div>
-            <div class="it-header-slim-right-zone">
-              <div class="nav-item dropdown">
-                <a
-                  class="nav-link dropdown-toggle"
-                  href="#"
-                  role="button"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  <span class="visually-hidden"
-                    >Selezione lingua: lingua selezionata</span
-                  >
-                  <span>ITA</span>
-                  <svg class="icon d-none d-lg-block"
-                    ><use href="/bsi-svg/sprites.svg#it-expand"></use></svg
-                  >
-                </a>
-                <div class="dropdown-menu">
-                  <div class="row">
-                    <div class="col-12">
-                      <div class="link-list-wrapper">
-                        <ul class="link-list">
-                          <li>
-                            <a class="dropdown-item list-item" href="#"
-                              ><span
-                                >ITA <span class="visually-hidden"
-                                  >selezionata</span
-                                ></span
-                              ></a
-                            >
-                          </li>
-                          <li>
-                            <a class="dropdown-item list-item" href="#"
-                              ><span>ENG</span></a
-                            >
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <LanguageSelector
+              currentLocale={locale}
+              pageRefByLocales={pageRefByLocales}
+            />
           </div>
         </div>
       </div>

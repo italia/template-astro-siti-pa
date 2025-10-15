@@ -1,5 +1,7 @@
 import type { SchemaTypes } from "@datocms/cma-client";
-import type { SiteLocale } from "../graphql/types";
+import type { pageReferencesUrl, SiteLocale } from "../graphql/types";
+import { executeQuery } from "../lib/datocms";
+import { AllPagesSlugQuery } from "./query";
 
 type LocalizedSchemaTypesItem = SchemaTypes.Item & {
   attributes: SchemaTypes.Item["attributes"] & {
@@ -21,4 +23,38 @@ export function generateWebsiteUrl(
 
   const slug = item.attributes.slug[locale];
   return `/${locale}/${slug}`;
+}
+
+export const buildUrl = (
+  locale: SiteLocale,
+  path: string,
+  isDraftMode: boolean,
+) => {
+  return `/${locale}/${path}${isDraftMode ? "/preview" : ""}`;
+};
+
+export async function buildPageRefByLocales(
+  currentLang: SiteLocale,
+  currentSlug: string,
+  isDraftMode: boolean,
+): Promise<pageReferencesUrl> {
+  const slugsResponse = await executeQuery(AllPagesSlugQuery);
+  const pageReferences = {} as pageReferencesUrl;
+  slugsResponse.allPages.forEach((page) => {
+    const pageFound = page.allSlugLocales?.find(
+      (item) => item.value === currentSlug && item.locale === currentLang,
+    );
+    if (pageFound) {
+      page.allSlugLocales?.forEach((item) => {
+        if (item.locale && item.value) {
+          pageReferences[item.locale] = buildUrl(
+            item.locale,
+            item.value,
+            isDraftMode,
+          );
+        }
+      });
+    }
+  });
+  return pageReferences;
 }

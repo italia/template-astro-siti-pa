@@ -2471,6 +2471,75 @@ type KpiElementRecord implements RecordInterface {
   valueSuffix: String
 }
 
+"""Record of type 🧱 Layout (layout)"""
+type LayoutRecord implements RecordInterface {
+  _allNavigationBarLocales(
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+  ): [MenuItemRecordListListNonNullMultiLocaleField!]
+  _createdAt: DateTime!
+
+  """Editing URL"""
+  _editingUrl: String
+  _firstPublishedAt: DateTime!
+  _isValid: BooleanType!
+  _locales: [SiteLocale!]!
+  _modelApiKey: String!
+  _publicationScheduledAt: DateTime
+  _publishedAt: DateTime!
+
+  """Generates SEO and Social card meta tags to be used in your frontend"""
+  _seoMetaTags(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+  ): [Tag!]!
+  _status: ItemStatus!
+  _unpublishingScheduledAt: DateTime
+  _updatedAt: DateTime!
+  id: ItemId!
+  navigationBar(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+  ): [MenuItemRecord!]!
+}
+
+"""Block of type ➡️ Menu Item (menu_item)"""
+type MenuItemRecord implements RecordInterface {
+  _createdAt: DateTime!
+
+  """Editing URL"""
+  _editingUrl: String
+  _firstPublishedAt: DateTime!
+  _isValid: BooleanType!
+  _modelApiKey: String!
+  _publicationScheduledAt: DateTime
+  _publishedAt: DateTime!
+
+  """Generates SEO and Social card meta tags to be used in your frontend"""
+  _seoMetaTags(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+  ): [Tag!]!
+  _status: ItemStatus!
+  _unpublishingScheduledAt: DateTime
+  _updatedAt: DateTime!
+  id: ItemId!
+  pointsTo: PageRecord!
+  title: String!
+}
+
+type MenuItemRecordListListNonNullMultiLocaleField {
+  locale: SiteLocale
+  value: [MenuItemRecord!]!
+}
+
 scalar MetaTagAttributes
 
 enum MuxThumbnailFormatType {
@@ -2806,6 +2875,17 @@ type Query {
     filter: KpiElementModelFilter
     orderBy: [KpiElementModelOrderBy] = [_updatedAt_DESC]
   ): KpiElementRecord
+
+  """Returns the single instance record"""
+  layout(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+  ): LayoutRecord
 
   """Returns a specific record"""
   page(

@@ -60,3 +60,18 @@ export const PageBySlugQuery = graphql(
   `,
   [TagFragment, ChartFragment, KpiFragment],
 );
+
+export const LayoutQuery = graphql(`
+  query Layout($locale: SiteLocale!) {
+    layout(locale: $locale) {
+      navigationBar {
+        title
+        id
+        pointsTo {
+          slug
+          id
+        }
+      }
+    }
+  }
+`);

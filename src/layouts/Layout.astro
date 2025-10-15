@@ -8,15 +8,18 @@ import { SiteMetaTagsQuery } from "../utils/query";
 import { executeQuery } from "../lib/datocms";
 import { isDraftModeEnabled } from "../lib/draftMode";
 import PreviewBar from "../components/PreviewBar.astro";
+import type { pageReferencesUrl } from "../utils/generateWebsiteUrl";
 
 type Props = {
   locale: string;
+  pageRefByLocales: pageReferencesUrl;
   pageSeo?: TitleMetaLinkTag[];
   redirectUrl?: string;
 };
 
-const { locale, pageSeo = [], redirectUrl } = Astro.props;
+const { locale, pageSeo = [], redirectUrl, pageRefByLocales } = Astro.props;
 const result = await executeQuery(SiteMetaTagsQuery);
+const draftModeEnabled = isDraftModeEnabled(Astro.cookies);
 
 const isShowingPreviewBar = isDraftModeEnabled(Astro.cookies) && redirectUrl;
 ---
@@ -36,7 +39,12 @@ const isShowingPreviewBar = isDraftModeEnabled(Astro.cookies) && redirectUrl;
   </head>
   <body>
     {isShowingPreviewBar && <PreviewBar redirectUrl={redirectUrl} />}
-    <Header />
+    <Header
+      lang={locale}
+      currentPath={Astro.url.pathname}
+      pageRefByLocales={pageRefByLocales}
+      isDraftMode={draftModeEnabled}
+    />
     <main>
       <slot />
     </main>
