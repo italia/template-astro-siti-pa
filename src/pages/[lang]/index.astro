@@ -2,6 +2,7 @@
 import Welcome from "../../components/Welcome.astro";
 import Layout from "../../layouts/Layout.astro";
 import { executeQuery } from "../../lib/datocms";
+import { buildPageRefByLocales } from "../../utils/generateWebsiteUrl";
 import { LocalesQuery } from "../../utils/query";
 
 export async function getStaticPaths() {
@@ -17,8 +18,10 @@ export async function getStaticPaths() {
 
 const { lang } = Astro.params;
 const random = Math.round(Math.random() * 100);
+
+const pageRefByLocales = { it: "/it", en: "/en" };
 ---
 
-<Layout locale={lang}>
+<Layout locale={lang} pageRefByLocales={pageRefByLocales}>
   <Welcome cta=`Hello world static ${random}` />
 </Layout>
