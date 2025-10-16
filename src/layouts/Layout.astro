@@ -8,7 +8,7 @@ import { SiteMetaTagsQuery } from "../utils/query";
 import { executeQuery } from "../lib/datocms";
 import { isDraftModeEnabled } from "../lib/draftMode";
 import PreviewBar from "../components/PreviewBar.astro";
-import type { pageReferencesUrl } from "../utils/generateWebsiteUrl";
+import type { pageReferencesUrl } from "../graphql/types";
 
 type Props = {
   locale: string;
