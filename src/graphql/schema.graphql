@@ -2471,6 +2471,75 @@ type KpiElementRecord implements RecordInterface {
   valueSuffix: String
 }
 
+"""Record of type 🧱 Layout (layout)"""
+type LayoutRecord implements RecordInterface {
+  _allNavigationBarLocales(
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+  ): [MenuItemRecordListListNonNullMultiLocaleField!]
+  _createdAt: DateTime!
+
+  """Editing URL"""
+  _editingUrl: String
+  _firstPublishedAt: DateTime!
+  _isValid: BooleanType!
+  _locales: [SiteLocale!]!
+  _modelApiKey: String!
+  _publicationScheduledAt: DateTime
+  _publishedAt: DateTime!
+
+  """Generates SEO and Social card meta tags to be used in your frontend"""
+  _seoMetaTags(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+  ): [Tag!]!
+  _status: ItemStatus!
+  _unpublishingScheduledAt: DateTime
+  _updatedAt: DateTime!
+  id: ItemId!
+  navigationBar(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+  ): [MenuItemRecord!]!
+}
+
+"""Block of type ➡️ Menu Item (menu_item)"""
+type MenuItemRecord implements RecordInterface {
+  _createdAt: DateTime!
+
+  """Editing URL"""
+  _editingUrl: String
+  _firstPublishedAt: DateTime!
+  _isValid: BooleanType!
+  _modelApiKey: String!
+  _publicationScheduledAt: DateTime
+  _publishedAt: DateTime!
+
+  """Generates SEO and Social card meta tags to be used in your frontend"""
+  _seoMetaTags(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+  ): [Tag!]!
+  _status: ItemStatus!
+  _unpublishingScheduledAt: DateTime
+  _updatedAt: DateTime!
+  id: ItemId!
+  pointsTo: PageRecord!
+  title: String!
+}
+
+type MenuItemRecordListListNonNullMultiLocaleField {
+  locale: SiteLocale
+  value: [MenuItemRecord!]!
+}
+
 scalar MetaTagAttributes
 
 enum MuxThumbnailFormatType {
@@ -2498,6 +2567,8 @@ input PageModelFilter {
   _status: StatusFilter
   _updatedAt: UpdatedAtFilter
   _isValid: BooleanFilter
+  content: TextFilter
+  description: StringFilter
   seo: SeoFilter
   slug: SlugFilter
   title: StringFilter
@@ -2524,6 +2595,8 @@ enum PageModelOrderBy {
   _updatedAt_DESC
   _isValid_ASC
   _isValid_DESC
+  description_ASC
+  description_DESC
   title_ASC
   title_DESC
 }
@@ -2536,6 +2609,21 @@ type PageRecord implements RecordInterface {
     """
     fallbackLocales: [SiteLocale!]
   ): [SettingsChartRecordMultiLocaleField!]
+  _allContentLocales(
+    """Process content as markdown"""
+    markdown: Boolean
+
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+  ): [StringNonNullMultiLocaleField!]
+  _allDescriptionLocales(
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+  ): [StringNonNullMultiLocaleField!]
   _allKpiLocales(
     """
     If you want to fallback to a default translation when a translation has not been found
@@ -2587,6 +2675,27 @@ type PageRecord implements RecordInterface {
     """
     fallbackLocales: [SiteLocale!]
   ): SettingsChartRecord
+  content(
+    """Process content as markdown"""
+    markdown: Boolean
+
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+  ): String!
+  description(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+  ): String!
   id: ItemId!
   kpi(
     """The locale to use to fetch the field's content"""
@@ -2806,6 +2915,17 @@ type Query {
     filter: KpiElementModelFilter
     orderBy: [KpiElementModelOrderBy] = [_updatedAt_DESC]
   ): KpiElementRecord
+
+  """Returns the single instance record"""
+  layout(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+  ): LayoutRecord
 
   """Returns a specific record"""
   page(
@@ -3088,6 +3208,30 @@ type Tag {
   attributes: MetaTagAttributes
   content: String
   tag: String!
+}
+
+"""Specifies how to filter text fields"""
+input TextFilter {
+  """Filter records based on a regular expression"""
+  matches: StringMatchesFilter
+
+  """Exclude records based on a regular expression"""
+  notMatches: StringMatchesFilter
+
+  """
+  Filter records with the specified field set as blank (null or empty string)
+  """
+  isBlank: BooleanType
+
+  """
+  Filter records with the specified field present (neither null, nor empty string)
+  """
+  isPresent: BooleanType
+
+  """
+  Filter records with the specified field defined (i.e. with any value) or not [DEPRECATED]
+  """
+  exists: BooleanType
 }
 
 """Specifies how to filter by upload type"""

@@ -46,6 +46,8 @@ export const PageBySlugQuery = graphql(
       page(filter: { slug: { eq: $slug } }, locale: $locale) {
         title
         slug
+        description
+        content
         seo: _seoMetaTags(locale: $locale) {
           ...TagFragment
         }
@@ -60,3 +62,15 @@ export const PageBySlugQuery = graphql(
   `,
   [TagFragment, ChartFragment, KpiFragment],
 );
+
+export const AllDocumentsQuery = graphql(`
+  query AllDocuments {
+    allPages {
+      id
+      slug
+      title
+      content
+      description
+    }
+  }
+`);

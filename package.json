@@ -3,7 +3,7 @@
   "type": "module",
   "version": "0.0.1",
   "scripts": {
-    "dev": "dotenv -c -- bash -c 'astro dev'",
+    "dev": "dotenv -c -- bash -c 'NODE_TLS_REJECT_UNAUTHORIZED=0 astro dev'",
     "build": "dotenv -c -- bash -c 'astro build'",
     "preview": "dotenv -c -- bash -c 'astro preview'",
     "astro": "dotenv -c -- bash -c 'astro'",
@@ -12,7 +12,9 @@
     "tada-doctor": "gql-tada doctor",
     "tada-check": "gql-tada check",
     "prepare": "husky",
-    "format": "prettier . --write --ignore-unknown"
+    "format": "prettier . --write --ignore-unknown",
+    "postbuild": "dotenv -c -- bash -c 'NODE_TLS_REJECT_UNAUTHORIZED=0 bun run index-opensearch.js'",
+    "index:opensearch": "dotenv -c -- bash -c 'NODE_TLS_REJECT_UNAUTHORIZED=0 bun run index-opensearch.js'"
   },
   "dependencies": {
     "@astrojs/react": "^4.3.1",
@@ -21,6 +23,7 @@
     "@datocms/astro": "^0.6.2",
     "@datocms/cda-client": "^0.2.7",
     "@datocms/cma-client": "^5.0.1",
+    "@opensearch-project/opensearch": "^3.5.1",
     "@types/react": "^19.1.13",
     "@types/react-dom": "^19.1.9",
     "astro": "^5.12.3",
