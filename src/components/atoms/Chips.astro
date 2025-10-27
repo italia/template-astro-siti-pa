@@ -1,0 +1,10 @@
+---
+type Props = {
+  label: string;
+};
+const { label } = Astro.props;
+---
+
+<div class="chip chip-primary chip-lg chip-simple">
+  <span class="chip-label">{label}</span>
+</div>

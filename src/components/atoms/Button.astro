@@ -1,0 +1,14 @@
+---
+type Props = {
+  label: string;
+  variant?: "primary" | "outline-primary" | "outline-white";
+};
+const { label, variant } = Astro.props;
+
+const style =
+  variant === "outline-white"
+    ? `btn border border-2 text-white border-white btn-lg`
+    : `btn btn-${variant || "primary"} btn-lg`;
+---
+
+<button type="button" class={style}>{label}</button>
