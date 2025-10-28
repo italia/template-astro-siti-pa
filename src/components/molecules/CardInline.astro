@@ -22,20 +22,20 @@ const { title, description, category, imageUrl } = Astro.props;
         {description}
       </p>
     </div>
+    <footer class="it-card-related it-card-footer">
+      <div class="it-card-taxonomy">
+        <Chips label={category} />
+      </div>
+    </footer>
   </div>
-  <footer class="it-card-related it-card-footer">
-    <div class="it-card-taxonomy">
-      <Chips label={category} />
+  <div class="it-card-image-wrapper">
+    <div class="ratio ratio-1x1">
+      <figure class="figure img-full">
+        <img
+          src="https://placeholderimage.eu/api/city/800/600"
+          alt="Breve descrizione immagine se ha senso nel contesto, marcare altrimenti come decorativa lasciando l'alt applicato ma vuoto."
+        />
+      </figure>
     </div>
-  </footer>
-</article>
-<div class="it-card-image-wrapper">
-  <div class="ratio ratio-1x1">
-    <figure class="figure img-full">
-      <img
-        src={imageUrl}
-        alt="Breve descrizione immagine se ha senso nel contesto, marcare altrimenti come decorativa lasciando l'alt applicato ma vuoto."
-      />
-    </figure>
   </div>
-</div>
+</article>
