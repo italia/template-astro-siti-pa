@@ -13,8 +13,8 @@
     "tada-check": "gql-tada check",
     "prepare": "husky",
     "format": "prettier . --write --ignore-unknown",
-    "postbuild": "dotenv -c -- bash -c 'NODE_TLS_REJECT_UNAUTHORIZED=0 bun run index-opensearch.js'",
-    "index:opensearch": "dotenv -c -- bash -c 'NODE_TLS_REJECT_UNAUTHORIZED=0 bun run index-opensearch.js'"
+    "postbuild": "dotenv -c -- bash -c 'NODE_TLS_REJECT_UNAUTHORIZED=0 bun run index-opensearch.ts'",
+    "index:opensearch": "dotenv -c -- bash -c 'NODE_TLS_REJECT_UNAUTHORIZED=0 bun run index-opensearch.ts'"
   },
   "dependencies": {
     "@astrojs/react": "^4.3.1",
