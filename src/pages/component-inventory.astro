@@ -38,10 +38,12 @@ const accordionItems = [
     <thead>
       <tr>
         <th>Accordion</th>
+        <th>Header filled</th>
       </tr>
     </thead>
     <tbody>
       <tr>
+        <td class="p-3"> Sfondo Light </td>
         <td class="p-3">
           <Accordion items={accordionItems} />
         </td>
@@ -111,10 +113,12 @@ const accordionItems = [
     <thead>
       <tr>
         <th>Card Inline</th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
       <tr>
+        <td> Con categoria </td>
         <td class="bg-primary p-3">
           <CardInline
             title="Titolo contenuto editoriale"
@@ -123,41 +127,52 @@ const accordionItems = [
             imageUrl="https://placeholderimage.eu/api/city/800/600"
           />
         </td>
+
+        <tr>
+          <td> Senza categoria </td>
+          <td class="bg-dark p-3">
+            <CardInline
+              title="Titolo contenuto editoriale"
+              description="Testo breve che riassume il contenuto della pagina di destinazione in massimo tre o quattro righe, senza troncamento."
+              imageUrl="https://placeholderimage.eu/api/city/800/600"
+            />
+          </td>
+        </tr>
       </tr>
     </tbody>
+
+    <h2 class="mb-4">Organisms</h2>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Header</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="p-3">
+            <Header />
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- FOOTER da chiarire -->
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Footer</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="p-3">
+            <Footer />
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </table>
 
-  <h2 class="mb-4">Organisms</h2>
-  <table class="table table-bordered">
-    <thead>
-      <tr>
-        <th>Header</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td class="p-3">
-          <Header />
-        </td>
-      </tr>
-    </tbody>
-  </table>
-
-  <!-- FOOTER da chiarire -->
-  <table class="table table-bordered">
-    <thead>
-      <tr>
-        <th>Footer</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td class="p-3">
-          <Footer />
-        </td>
-      </tr>
-    </tbody>
-  </table>
+  <script src={bsi}></script>
 </div>
-
-<script src={bsi}></script>
