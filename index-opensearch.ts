@@ -1,15 +1,7 @@
 import { Client } from "@opensearch-project/opensearch";
 import * as fs from "fs";
 import * as path from "path";
-
-type Document = {
-  slug: string;
-  title: string;
-  description: string;
-  content: string;
-  url: string;
-  [key: string]: any;
-};
+import type { Document } from "./src/graphql/types.js";
 
 const HOST = import.meta.env.OPENSEARCH_HOST;
 const USERNAME = import.meta.env.OPENSEARCH_USERNAME;

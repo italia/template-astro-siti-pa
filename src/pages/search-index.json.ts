@@ -1,8 +1,9 @@
+import type { APIRoute } from "astro";
 import { executeQuery } from "../lib/datocms";
 import { AllDocumentsQuery } from "../utils/query";
 
 /* TODO: gestire multilingua */
-export async function GET() {
+export const GET: APIRoute = async () => {
   const response = await executeQuery(AllDocumentsQuery);
 
   const indexableContent = await Promise.all(
@@ -24,6 +25,6 @@ export async function GET() {
       "Content-Type": "application/json",
     },
   });
-}
+};
 
 export const prerender = true;

@@ -2,16 +2,9 @@ import type { APIRoute } from "astro";
 import { Client } from "@opensearch-project/opensearch";
 import * as https from "https"; // Necessario per la gestione SSL
 import type { Search_RequestBody } from "@opensearch-project/opensearch/api/index.js";
+import type { SearchResult } from "../../graphql/types";
 
 export const prerender = false;
-/* TODO spostare */
-export interface SearchResult {
-  title: string;
-  description: string;
-  url: string;
-  slug: string;
-  id: string;
-}
 
 const HOST = import.meta.env.OPENSEARCH_HOST;
 const USERNAME = import.meta.env.OPENSEARCH_USERNAME;
