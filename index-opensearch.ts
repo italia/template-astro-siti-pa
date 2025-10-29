@@ -6,17 +6,17 @@ import type { Document } from "./src/graphql/types.js";
 const HOST = import.meta.env.OPENSEARCH_HOST;
 const USERNAME = import.meta.env.OPENSEARCH_USERNAME;
 const PASSWORD = import.meta.env.OPENSEARCH_PASSWORD;
-const INDEX_NAME = import.meta.env.OPENSEARCH_INDEX_NAME;
-const CONTENT_PATH = path.join(
-  process.cwd(),
-  "dist",
-  "client",
-  "search-index.json",
-);
+const INDEX_NAME_PREFIX = import.meta.env.OPENSEARCH_INDEX_NAME;
+const CONTENT_PATH = path.join(process.cwd(), "dist", "client", "indexing");
 
-if (!HOST || !USERNAME || !PASSWORD || !INDEX_NAME || !CONTENT_PATH) {
+const mappingLanguageAnalyzer: Record<string, string> = {
+  it: "italian",
+  en: "english",
+};
+
+if (!HOST || !USERNAME || !PASSWORD || !CONTENT_PATH || !INDEX_NAME_PREFIX) {
   throw new Error(
-    "Mancano le variabili d'ambiente di OpenSearch (HOST, USERNAME, PASSWORD, INDEX_NAME, CONTENT_PATH).",
+    "Missing environment variables for OpenSearch (HOST, USERNAME, PASSWORD, CONTENT_PATH, INDEX_NAME_PREFIX).",
   );
 }
 
@@ -28,7 +28,7 @@ const client = new Client({
   },
 });
 
-function getBulkBody(documents: Document[]) {
+function getBulkBody(documents: Document[], INDEX_NAME: string) {
   return documents.flatMap((doc) => [
     { index: { _index: INDEX_NAME, _id: doc.slug } },
     doc,
@@ -36,90 +36,96 @@ function getBulkBody(documents: Document[]) {
 }
 
 async function runIndexing() {
-  console.log(`🚀 Inizio indicizzazione su ${HOST}/${INDEX_NAME}`);
-
   if (!fs.existsSync(CONTENT_PATH)) {
     console.error(
-      `❌ Errore: File di contenuto non trovato in ${CONTENT_PATH}. Assicurati di aver eseguito 'astro build'.`,
+      `Error: Content file not found at ${CONTENT_PATH}. Please make sure to run 'astro build'.`,
     );
     return;
   }
+  const files = fs.readdirSync(CONTENT_PATH);
 
-  const rawContent = fs.readFileSync(CONTENT_PATH, "utf8");
-  const documents = JSON.parse(rawContent);
+  for (const file of files) {
+    const lang = file.split(".")[0];
+    const INDEX_NAME = INDEX_NAME_PREFIX + lang;
 
-  if (documents.length === 0) {
-    console.log("⚠️ Nessun documento da indicizzare. Operazione saltata.");
-    return;
-  }
+    console.log(`Starting indexing on ${HOST}/${INDEX_NAME}`);
 
-  try {
-    await client.indices.delete({
-      index: INDEX_NAME!,
-      ignore_unavailable: true,
-    });
-    console.log(`🧹 Indice '${INDEX_NAME}' eliminato (se esistente).`);
+    const rawContent = fs.readFileSync(path.join(CONTENT_PATH, file), "utf8");
+    const documents = JSON.parse(rawContent);
 
-    await client.indices.create({
-      index: INDEX_NAME!,
-      body: {
-        settings: {
-          number_of_shards: 1,
-          number_of_replicas: 0,
-        },
-        mappings: {
-          properties: {
-            title: { type: "text", analyzer: "italian" }, // Analizzatore specifico per l'italiano
-            content: { type: "text", analyzer: "italian" },
-            url: { type: "keyword" }, // Non analizzato, per i link
+    if (documents.length === 0) {
+      console.log("No documents to index. Skipping operation.");
+      return;
+    }
+
+    try {
+      await client.indices.delete({
+        index: INDEX_NAME,
+        ignore_unavailable: true,
+      });
+      console.log(`Index '${INDEX_NAME}' deleted (if existed).`);
+
+      await client.indices.create({
+        index: INDEX_NAME,
+        body: {
+          settings: {
+            number_of_shards: 1,
+            number_of_replicas: 0,
+          },
+          mappings: {
+            properties: {
+              title: { type: "text", analyzer: mappingLanguageAnalyzer[lang] },
+              content: {
+                type: "text",
+                analyzer: mappingLanguageAnalyzer[lang],
+              },
+              url: { type: "keyword" },
+            },
           },
         },
-      },
-    });
-    console.log(`✨ Nuovo indice '${INDEX_NAME}' creato.`);
-  } catch (error) {
-    let errorMessage = "Errore sconosciuto";
-    if (error instanceof Error) {
-      errorMessage = error.message;
-    } else if (
-      typeof error === "object" &&
-      error !== null &&
-      "message" in error
-    ) {
-      errorMessage = (error as { message: string }).message;
+      });
+      console.log(`Index '${INDEX_NAME}' created.`);
+    } catch (error) {
+      let errorMessage = "Unknown error";
+      if (error instanceof Error) {
+        errorMessage = error.message;
+      } else if (
+        typeof error === "object" &&
+        error !== null &&
+        "message" in error
+      ) {
+        errorMessage = (error as { message: string }).message;
+      }
+      console.error("Error creating/deleting index:", errorMessage);
     }
-    console.error(
-      "❌ Errore nella creazione/eliminazione dell'indice:",
-      errorMessage,
-    );
-  }
 
-  try {
-    const bulkResponse = await client.bulk({
-      body: getBulkBody(documents),
-    });
+    try {
+      const bulkResponse = await client.bulk({
+        body: getBulkBody(documents, INDEX_NAME),
+      });
 
-    if (bulkResponse.body.errors) {
-      console.error(
-        "❌ Errore nell'indicizzazione BULK. Alcuni documenti non sono stati indicizzati.",
-      );
-    } else {
-      console.log(
-        `✅ Indicizzazione completata! ${documents.length} documenti indicizzati.`,
-      );
+      if (bulkResponse.body.errors) {
+        console.error(
+          "Error during BULK indexing. Some documents may not have been indexed.",
+        );
+      } else {
+        console.log(
+          `Indexing completed! ${documents.length} documents indexed.`,
+        );
+      }
+    } catch (error) {
+      let errorMessage = "Unknown error";
+      if (error instanceof Error) {
+        errorMessage = error.message;
+      } else if (
+        typeof error === "object" &&
+        error !== null &&
+        "message" in error
+      ) {
+        errorMessage = (error as { message: string }).message;
+      }
+      console.error("Error during BULK operation:", errorMessage);
     }
-  } catch (error) {
-    let errorMessage = "Errore sconosciuto";
-    if (error instanceof Error) {
-      errorMessage = error.message;
-    } else if (
-      typeof error === "object" &&
-      error !== null &&
-      "message" in error
-    ) {
-      errorMessage = (error as { message: string }).message;
-    }
-    console.error("❌ Errore critico durante l'operazione BULK:", errorMessage);
   }
 }
 

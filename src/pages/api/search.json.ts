@@ -1,6 +1,6 @@
 import type { APIRoute } from "astro";
 import { Client } from "@opensearch-project/opensearch";
-import * as https from "https"; // Necessario per la gestione SSL
+import * as https from "https";
 import type { Search_RequestBody } from "@opensearch-project/opensearch/api/index.js";
 import type { SearchResult } from "../../graphql/types";
 
@@ -9,11 +9,11 @@ export const prerender = false;
 const HOST = import.meta.env.OPENSEARCH_HOST;
 const USERNAME = import.meta.env.OPENSEARCH_USERNAME;
 const PASSWORD = import.meta.env.OPENSEARCH_PASSWORD;
-const INDEX_NAME = import.meta.env.OPENSEARCH_INDEX_NAME;
+const INDEX_NAME_PREFIX = import.meta.env.OPENSEARCH_INDEX_NAME;
 
-if (!HOST || !USERNAME || !PASSWORD || !INDEX_NAME) {
+if (!HOST || !USERNAME || !PASSWORD || !INDEX_NAME_PREFIX) {
   throw new Error(
-    "Mancano le variabili d'ambiente di OpenSearch (HOST, USERNAME, PASSWORD, INDEX_NAME).",
+    "Missing OpenSearch environment variables (HOST, USERNAME, PASSWORD, INDEX_NAME_PREFIX).",
   );
 }
 
@@ -28,6 +28,8 @@ const client = new Client({
 
 export const GET: APIRoute = async ({ url }) => {
   const query = url.searchParams.get("query");
+  const lang = url.searchParams.get("lang");
+  const INDEX_NAME = INDEX_NAME_PREFIX + lang;
 
   if (!query || query.trim().length < 2) {
     return new Response(JSON.stringify([]), { status: 200 });
@@ -64,13 +66,13 @@ export const GET: APIRoute = async ({ url }) => {
     });
   } catch (error) {
     console.error(
-      `Errore di ricerca su OpenSearch (Indice ${INDEX_NAME}):`,
+      `Error during search on OpenSearch (Index ${INDEX_NAME}):`,
       (error as Error).message,
     );
 
     return new Response(
       JSON.stringify({
-        error: "Errore interno del server durante la ricerca.",
+        error: "Internal server error during search.",
       }),
       {
         status: 500,

@@ -1,9 +1,13 @@
-import { useCallback, useState, type ChangeEvent } from "react";
-import type { SearchResult } from "../pages/api/search.json";
+import { useState, type ChangeEvent } from "react";
 import { SearchBar } from "./SearchBar";
 import { SearchResultList } from "./SearchResultList";
+import type { SearchResult, SiteLocale } from "../graphql/types";
 const SEARCH_API_ENDPOINT = "/api/search.json";
-export const FullTextSearch = () => {
+
+type FullTextSearchProps = {
+  locale: SiteLocale;
+};
+export const FullTextSearch = ({ locale }: FullTextSearchProps) => {
   const [value, setValue] = useState<string>("");
   const [results, setResults] = useState<SearchResult[]>([]);
   const [loading, setLoading] = useState(false);
@@ -24,7 +28,7 @@ export const FullTextSearch = () => {
     setLoading(true);
     setError(null);
 
-    const url = `${SEARCH_API_ENDPOINT}?query=${encodeURIComponent(searchQuery)}`;
+    const url = `${SEARCH_API_ENDPOINT}?query=${encodeURIComponent(searchQuery)}&lang=${locale}`;
 
     try {
       const response = await fetch(url);

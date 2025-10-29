@@ -64,8 +64,8 @@ export const PageBySlugQuery = graphql(
 );
 
 export const AllDocumentsQuery = graphql(`
-  query AllDocuments {
-    allPages {
+  query AllDocuments($locale: SiteLocale!) {
+    allPages(locale: $locale) {
       id
       slug
       title

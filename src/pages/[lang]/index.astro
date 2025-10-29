@@ -23,11 +23,12 @@ const random = Math.round(Math.random() * 100);
 <Layout locale={lang}>
   <Welcome cta=`Hello world static ${random}` />
   <div class="py-4 col-12 text-center">
+    <!-- Grafica di esempio -->
     <h1 class="h1">Cerca</h1>
     <p class="lead h6">
       Trova risposte, informazioni e molto altro in un attimo
     </p>
 
-    <FullTextSearch client:only="react" />
+    <FullTextSearch client:only="react" locale={lang} />
   </div>
 </Layout>
