@@ -74,3 +74,13 @@ export const AllDocumentsQuery = graphql(`
     }
   }
 `);
+
+export const LocaleLabelsQuery = graphql(`
+  query LocaleLabels($locale: SiteLocale!) {
+    lang(locale: $locale) {
+      analyzer
+      longLabel
+      shortLabel
+    }
+  }
+`);

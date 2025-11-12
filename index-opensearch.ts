@@ -1,18 +1,15 @@
 import { Client } from "@opensearch-project/opensearch";
 import * as fs from "fs";
 import * as path from "path";
-import type { Document } from "./src/graphql/types.js";
+import type { Document, SiteLocale } from "./src/graphql/types.js";
+import { executeQuery } from "./src/lib/datocms.js";
+import { LocaleLabelsQuery } from "./src/utils/query.js";
 
 const HOST = import.meta.env.OPENSEARCH_HOST;
 const USERNAME = import.meta.env.OPENSEARCH_USERNAME;
 const PASSWORD = import.meta.env.OPENSEARCH_PASSWORD;
 const INDEX_NAME_PREFIX = import.meta.env.OPENSEARCH_INDEX_NAME;
 const CONTENT_PATH = path.join(process.cwd(), "dist", "client", "indexing");
-
-const mappingLanguageAnalyzer: Record<string, string> = {
-  it: "italian",
-  en: "english",
-};
 
 if (!HOST || !USERNAME || !PASSWORD || !CONTENT_PATH || !INDEX_NAME_PREFIX) {
   throw new Error(
@@ -45,7 +42,12 @@ async function runIndexing() {
   const files = fs.readdirSync(CONTENT_PATH);
 
   for (const file of files) {
-    const lang = file.split(".")[0];
+    const lang = file.split(".")[0] as SiteLocale;
+
+    const mappingLanguage = await executeQuery(LocaleLabelsQuery, {
+      variables: { locale: lang },
+    });
+
     const INDEX_NAME = INDEX_NAME_PREFIX + lang;
 
     console.log(`Starting indexing on ${HOST}/${INDEX_NAME}`);
@@ -74,10 +76,13 @@ async function runIndexing() {
           },
           mappings: {
             properties: {
-              title: { type: "text", analyzer: mappingLanguageAnalyzer[lang] },
+              title: {
+                type: "text",
+                analyzer: mappingLanguage?.lang?.analyzer,
+              },
               content: {
                 type: "text",
-                analyzer: mappingLanguageAnalyzer[lang],
+                analyzer: mappingLanguage?.lang?.analyzer,
               },
               url: { type: "keyword" },
             },
