@@ -8,11 +8,10 @@ type Props = {
 
 const { id, label, active, disabled } = Astro.props;
 
-const activeClass = "border-bottom border-3";
 const disabledClass = "disabled";
 const textColor = disabled ? "text-gray-400" : "text-white";
 const borderColor = active ? "border-white" : "border-gray-400";
-const className = `nav-link border-bottom border-3 ${active && activeClass} ${disabled && disabledClass} ${textColor} ${borderColor}`;
+const className = `nav-link border-bottom border-3 ${disabled && disabledClass} ${textColor} ${borderColor}`;
 
 const ariaCurrent = active ? "page" : undefined;
 const tabIndex = disabled ? "-1" : undefined;
