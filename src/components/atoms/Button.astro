@@ -7,8 +7,16 @@ const { label, variant } = Astro.props;
 
 const className =
   variant === "outline-white"
-    ? `btn border border-2 text-white border-white btn-lg`
+    ? `btn-outline-white btn border border-2 text-white border-white btn-lg`
     : `btn btn-${variant || "primary"} btn-lg`;
 ---
 
+<style>
+  .btn-outline-white:hover {
+    background-color: hsla(0, 0%, 100%, 0.1);
+  }
+  .btn-outline-white:active {
+    background-color: hsla(0, 0%, 100%, 0.25);
+  }
+</style>
 <button type="button" class={className}>{label}</button>
