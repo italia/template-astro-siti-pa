@@ -5,10 +5,8 @@ type Props = {
 };
 const { label, variant } = Astro.props;
 
-const className =
-  variant === "outline-white"
-    ? `btn-outline-white btn border border-2 text-white border-white btn-lg`
-    : `btn btn-${variant || "primary"} btn-lg`;
+const outlineClass = `border border-2 text-white border-white`;
+const className = `btn btn-${variant || "primary"} btn-lg ${variant === "outline-white" && outlineClass}`;
 ---
 
 <style>
