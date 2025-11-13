@@ -7,6 +7,7 @@ import Accordion from "../components/atoms/Accordion.astro";
 import Header from "../components/organisms/Header.astro";
 import Footer from "../components/organisms/Footer.astro";
 import CardInline from "../components/molecules/CardInline.astro";
+import Tabs from "../components/atoms/Tabs.astro";
 
 if (import.meta.env.PROD) {
   return new Response(null, {
@@ -25,6 +26,27 @@ const accordionItems = [
     id: "2",
     header: "Elemento Accordion #2",
     body: "Vestibulum hendrerit ultrices nibh, sed pharetra lacus ultrices eget. Morbi et ipsum et sapien dapibus facilisis. Integer eget semper nibh. Proin enim nulla, egestas ac rutrum eget, ullamcorper nec turpis.",
+  },
+];
+
+const tabsItems = [
+  {
+    id: "1",
+    label: "Tab #1",
+    active: true,
+    disabled: false,
+  },
+  {
+    id: "2",
+    label: "Tab #2",
+    active: false,
+    disabled: false,
+  },
+  {
+    id: "3",
+    label: "Tab #3",
+    active: false,
+    disabled: true,
   },
 ];
 ---
@@ -106,6 +128,21 @@ const accordionItems = [
         <Chips label="Informazione" variant="standard" /></td
       >
     </tr>
+  </table>
+
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Tabs</th>
+        <th>Primary</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="p-3">Sfondo Primary</td>
+        <td class="bg-primary p-3"><Tabs items={tabsItems} /></td>
+      </tr>
+    </tbody>
   </table>
 
   <h2 class="mb-4">Molecules</h2>
