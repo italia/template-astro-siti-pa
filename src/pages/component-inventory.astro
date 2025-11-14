@@ -6,7 +6,7 @@ import Chips from "../components/atoms/Chips.astro";
 import Header from "../components/organisms/Header.astro";
 import Footer from "../components/organisms/Footer.astro";
 import { CardInline } from "../components/molecules/CardInline";
-import Hero from "../components/organisms/Hero.astro";
+import { Hero } from "../components/organisms/Hero";
 import ButtonLink from "../components/atoms/ButtonLink.astro";
 import { Breadcrumb } from "../components/molecules/Breadcrumb";
 import { Tabs } from "../components/molecules/Tabs";
@@ -302,6 +302,7 @@ const breadcrumbItems = [
                   category="Titolo occhiello"
                   title="Titolo della sezione"
                   paragraph="Platea dictumst vestibulum rhoncus est pellentesque elit ullamcorper dignissim cras. Dictum sit amet justo donec enim diam vulputate ut. Eu nisl nunc mi ipsum faucibus."
+                  imageUrl="https://animals.sandiegozoo.org/sites/default/files/2016-08/animals_hero_mountains.jpg"
                 />
               </td>
             </tr>
@@ -313,6 +314,21 @@ const breadcrumbItems = [
                   title="Titolo della sezione"
                   paragraph="Platea dictumst vestibulum rhoncus est pellentesque elit ullamcorper dignissim cras. Dictum sit amet justo donec enim diam vulputate ut. Eu nisl nunc mi ipsum faucibus."
                   size="small"
+                  imageUrl="https://animals.sandiegozoo.org/sites/default/files/2016-08/animals_hero_mountains.jpg"
+                >
+                  <Breadcrumb slot="category" items={breadcrumbItems} /></Hero
+                >
+              </td>
+            </tr>
+
+            <tr>
+              <td>Extra Small</td>
+              <td class="p-3">
+                <Hero
+                  title="Titolo della sezione"
+                  paragraph="Platea dictumst vestibulum rhoncus est pellentesque elit ullamcorper dignissim cras. Dictum sit amet justo donec enim diam vulputate ut. Eu nisl nunc mi ipsum faucibus."
+                  size="xsmall"
+                  imageUrl="https://animals.sandiegozoo.org/sites/default/files/2016-08/animals_hero_mountains.jpg"
                 >
                   <Breadcrumb slot="category" items={breadcrumbItems} /></Hero
                 >

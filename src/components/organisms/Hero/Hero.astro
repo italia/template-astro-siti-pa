@@ -1,21 +1,28 @@
 ---
+import "./style.scss";
 type Props = {
   title: string;
   paragraph: string;
-  size?: "small" | "default";
+  imageUrl: string;
+  size?: "xsmall" | "small" | "default";
   category?: string;
 };
-const { title, paragraph, size, category } = Astro.props;
+
+const { title, paragraph, size, category, imageUrl } = Astro.props;
+const sizeClass =
+  size === "xsmall"
+    ? "xsmall-size"
+    : size === "small"
+      ? "small-size"
+      : "default-size";
 ---
 
-<section
-  class=`it-hero-wrapper it-primary ${size === "small" ? "small-size":"default-size"}`
->
+<section class=`it-hero-wrapper it-primary ${sizeClass}`>
   <div class="img-responsive-wrapper">
     <div class="img-responsive">
       <div class="img-wrapper">
         <img
-          src="https://animals.sandiegozoo.org/sites/default/files/2016-08/animals_hero_mountains.jpg"
+          src={imageUrl}
           title="titolo immagine"
           alt="descrizione immagine"
         />
