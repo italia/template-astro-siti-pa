@@ -1,0 +1,38 @@
+---
+type Props = {
+  category: string;
+  title: string;
+  paragraph: string;
+  size?: "small" | "default";
+};
+const { category, title, paragraph, size } = Astro.props;
+---
+
+<section
+  class=`it-hero-wrapper it-primary ${size === "small" ? "small-size":"default-size"}`
+>
+  <div class="img-responsive-wrapper">
+    <div class="img-responsive">
+      <div class="img-wrapper">
+        <img
+          src="https://animals.sandiegozoo.org/sites/default/files/2016-08/animals_hero_mountains.jpg"
+          title="titolo immagine"
+          alt="descrizione immagine"
+        />
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <!-- TODO verifica perchè sembra spostato rispetto agli altri contenuti ps-5 -->
+        <div class="it-hero-text-wrapper">
+          <span class="it-category">{category}</span>
+          <h1>{title}</h1>
+          <p class="d-none d-lg-block font-sans-serif">{paragraph}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

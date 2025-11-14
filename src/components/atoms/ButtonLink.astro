@@ -11,4 +11,4 @@ const sizeClass = `${size === "mini" ? "btn-xs" : size === "small" ? "btn-sm" : 
 const className = `btn btn-${variant || "primary"} ${sizeClass} ${variant === "outline-white" && outlineClass}`;
 ---
 
-<button type="button" class={className}>{label}</button>
+<a class={className}>{label}</a>

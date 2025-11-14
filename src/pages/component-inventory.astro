@@ -3,11 +3,13 @@ import "../styles/global.scss";
 import bsi from "bootstrap-italia/dist/js/bootstrap-italia.bundle.min.js?url";
 import Button from "../components/atoms/Button.astro";
 import Chips from "../components/atoms/Chips.astro";
-import Accordion from "../components/atoms/Accordion.astro";
 import Header from "../components/organisms/Header.astro";
 import Footer from "../components/organisms/Footer.astro";
 import CardInline from "../components/molecules/CardInline.astro";
-import Tabs from "../components/atoms/Tabs.astro";
+import Tabs from "../components/molecules/Tabs.astro";
+import Hero from "../components/organisms/Hero.astro";
+import ButtonLink from "../components/atoms/ButtonLink.astro";
+import Accordion from "../components/molecules/Accordion.astro";
 
 if (import.meta.env.PROD) {
   return new Response(null, {
@@ -51,165 +53,251 @@ const tabsItems = [
 ];
 ---
 
-<div class="container-fluid p-5">
-  <h1 class="mb-4">Component Inventory</h1>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300;400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@400&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <main>
+      <div class="container-fluid p-5">
+        <h1 class="mb-4">Component Inventory</h1>
 
-  <h2 class="mb-4">Atoms</h2>
+        <h2 class="mb-4">Atoms</h2>
 
-  <table class="table table-bordered">
-    <thead>
-      <tr>
-        <th>Accordion</th>
-        <th>Header filled</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td class="p-3"> Sfondo Light </td>
-        <td class="p-3">
-          <Accordion items={accordionItems} />
-        </td>
-      </tr>
-    </tbody>
-  </table>
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>Buttons per azioni</th>
+              <th>Primary</th>
+              <th>Outline Primary</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="p-3">Light background</td>
+              <td class="p-3"> <Button label="Cliccami" /></td>
+              <td class="p-3">
+                <Button label="Cliccami" variant="outline-primary" /></td
+              >
+            </tr>
+            <tr>
+              <td class="p-3">Dark background</td>
+              <td class="bg-dark p-3"><Button label="Cliccami" /></td>
+              <td class="bg-dark p-3"
+                ><Button label="Cliccami" variant="outline-primary" /></td
+              >
+            </tr>
+            <tr>
+              <td class="p-3">Primary background</td>
+              <td class="bg-primary p-3"></td>
+              <td class="bg-primary p-3"
+                ><Button label="Cliccami" variant="outline-white" /></td
+              >
+            </tr>
+          </tbody>
+        </table>
 
-  <table class="table table-bordered">
-    <thead>
-      <tr>
-        <th>Buttons</th>
-        <th>Primary</th>
-        <th>Outline Primary</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td class="p-3">Sfondo Light</td>
-        <td class="p-3"> <Button label="Cliccami" /></td>
-        <td class="p-3">
-          <Button label="Cliccami" variant="outline-primary" /></td
-        >
-      </tr>
-      <tr>
-        <td class="p-3">Sfondo Dark</td>
-        <td class="bg-dark p-3"><Button label="Cliccami" /></td>
-        <td class="bg-dark p-3"
-          ><Button label="Cliccami" variant="outline-primary" /></td
-        >
-      </tr>
-      <tr>
-        <td class="p-3">Sfondo Primary</td>
-        <td class="bg-primary p-3"></td>
-        <td class="bg-primary p-3"
-          ><Button label="Cliccami" variant="outline-white" /></td
-        >
-      </tr>
-    </tbody>
-  </table>
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>Buttons per navigazione o ancore</th>
+              <th>Primary</th>
+              <th>Outline Primary</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="p-3">Light background</td>
+              <td class="p-3"> <ButtonLink label="Cliccami" /></td>
+              <td class="p-3">
+                <ButtonLink label="Cliccami" variant="outline-primary" /></td
+              >
+            </tr>
+            <tr>
+              <td class="p-3">Dark background</td>
+              <td class="bg-dark p-3"><ButtonLink label="Cliccami" /></td>
+              <td class="bg-dark p-3"
+                ><ButtonLink label="Cliccami" variant="outline-primary" /></td
+              >
+            </tr>
+            <tr>
+              <td class="p-3">Primary background</td>
+              <td class="bg-primary p-3"></td>
+              <td class="bg-primary p-3"
+                ><ButtonLink label="Cliccami" variant="outline-white" /></td
+              >
+            </tr>
+          </tbody>
+        </table>
 
-  <table class="table table-bordered">
-    <thead>
-      <tr>
-        <th>Chips</th>
-        <th>Primary</th>
-        <th>Standard</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td class="p-3">Sfondo Light</td>
-        <td class="p-3"> <Chips label="Informazione" variant="primary" /></td>
-        <td class="p-3"> <Chips label="Informazione" variant="standard" /></td>
-      </tr>
-    </tbody>
-    <tr>
-      <td class="p-3">Sfondo Dark</td>
-      <td class="bg-dark p-3"> <Chips label="Informazione" /></td>
-      <td class="bg-dark p-3">
-        <Chips label="Informazione" variant="standard" /></td
-      >
-    </tr>
-  </table>
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>Chips</th>
+              <th>Primary</th>
+              <th>Standard</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="p-3">Light background</td>
+              <td class="p-3">
+                <Chips label="Informazione" variant="primary" /></td
+              >
+              <td class="p-3">
+                <Chips label="Informazione" variant="standard" /></td
+              >
+            </tr>
+          </tbody>
+          <tr>
+            <td class="p-3">Dark background</td>
+            <td class="bg-dark p-3"> <Chips label="Informazione" /></td>
+            <td class="bg-dark p-3">
+              <Chips label="Informazione" variant="standard" /></td
+            >
+          </tr>
+        </table>
 
-  <table class="table table-bordered">
-    <thead>
-      <tr>
-        <th>Tabs</th>
-        <th>Primary</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td class="p-3">Sfondo Primary</td>
-        <td class="bg-primary p-3"><Tabs items={tabsItems} /></td>
-      </tr>
-    </tbody>
-  </table>
+        <h2 class="mb-4">Molecules</h2>
 
-  <h2 class="mb-4">Molecules</h2>
-  <table class="table table-bordered">
-    <thead>
-      <tr>
-        <th>Card Inline</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td> Con categoria </td>
-        <td class="bg-primary p-3">
-          <CardInline
-            title="Titolo contenuto editoriale"
-            description="Testo breve che riassume il contenuto della pagina di destinazione in massimo tre o quattro righe, senza troncamento."
-            category="Categoria"
-            imageUrl="https://placeholderimage.eu/api/city/800/600"
-          />
-        </td>
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>Accordion</th>
+              <th>Header filled</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="p-3"> Light background </td>
+              <td class="p-3">
+                <Accordion items={accordionItems} />
+              </td>
+            </tr>
+          </tbody>
+        </table>
 
-        <tr>
-          <td> Senza categoria </td>
-          <td class="bg-dark p-3">
-            <CardInline
-              title="Titolo contenuto editoriale"
-              description="Testo breve che riassume il contenuto della pagina di destinazione in massimo tre o quattro righe, senza troncamento."
-              imageUrl="https://placeholderimage.eu/api/city/800/600"
-            />
-          </td>
-        </tr>
-      </tr>
-    </tbody>
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>Card Inline</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td> With category </td>
+              <td class="bg-primary p-3">
+                <CardInline
+                  title="Titolo contenuto editoriale"
+                  description="Testo breve che riassume il contenuto della pagina di destinazione in massimo tre o quattro righe, senza troncamento."
+                  category="Categoria"
+                  imageUrl="https://placeholderimage.eu/api/city/800/600"
+                />
+              </td>
 
-    <h2 class="mb-4">Organisms</h2>
-    <table class="table table-bordered">
-      <thead>
-        <tr>
-          <th>Header</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td class="p-3">
-            <Header />
-          </td>
-        </tr>
-      </tbody>
-    </table>
+              <tr>
+                <td>Without category </td>
+                <td class="bg-dark p-3">
+                  <CardInline
+                    title="Titolo contenuto editoriale"
+                    description="Testo breve che riassume il contenuto della pagina di destinazione in massimo tre o quattro righe, senza troncamento."
+                    imageUrl="https://placeholderimage.eu/api/city/800/600"
+                  />
+                </td>
+              </tr>
+            </tr>
+          </tbody>
+        </table>
 
-    <!-- FOOTER da chiarire -->
-    <table class="table table-bordered">
-      <thead>
-        <tr>
-          <th>Footer</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td class="p-3">
-            <Footer />
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </table>
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>Tabs</th>
+              <th>Primary</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="p-3">Primary background</td>
+              <td class="bg-primary p-3"><Tabs items={tabsItems} /></td>
+            </tr>
+          </tbody>
+        </table>
 
-  <script src={bsi}></script>
-</div>
+        <h2 class="mb-4">Organisms</h2>
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>Header</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="p-3">
+                <Header />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>Hero</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Default</td>
+              <td class="p-3">
+                <Hero
+                  category="Titolo occhiello"
+                  title="Titolo della sezione"
+                  paragraph="Platea dictumst vestibulum rhoncus est pellentesque elit ullamcorper dignissim cras. Dictum sit amet justo donec enim diam vulputate ut. Eu nisl nunc mi ipsum faucibus."
+                />
+              </td>
+            </tr>
+
+            <tr>
+              <td>Small</td>
+              <td class="p-3">
+                <Hero
+                  category="Titolo occhiello"
+                  title="Titolo della sezione"
+                  paragraph="Platea dictumst vestibulum rhoncus est pellentesque elit ullamcorper dignissim cras. Dictum sit amet justo donec enim diam vulputate ut. Eu nisl nunc mi ipsum faucibus."
+                  size="small"
+                />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- FOOTER da chiarire -->
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>Footer</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="p-3">
+                <Footer />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </main>
+  </body>
+</html>
+<script src={bsi}></script>
