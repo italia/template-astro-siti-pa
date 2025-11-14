@@ -1,11 +1,11 @@
 ---
 type Props = {
-  category: string;
   title: string;
   paragraph: string;
   size?: "small" | "default";
+  category?: string;
 };
-const { category, title, paragraph, size } = Astro.props;
+const { title, paragraph, size, category } = Astro.props;
 ---
 
 <section
@@ -28,7 +28,8 @@ const { category, title, paragraph, size } = Astro.props;
       <div class="col-12">
         <!-- TODO verifica perchè sembra spostato rispetto agli altri contenuti ps-5 -->
         <div class="it-hero-text-wrapper">
-          <span class="it-category">{category}</span>
+          {category && <span class="it-category ">{category}</span>}
+          <slot name="category" />
           <h1>{title}</h1>
           <p class="d-none d-lg-block font-sans-serif">{paragraph}</p>
         </div>

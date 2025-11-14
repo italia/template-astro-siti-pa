@@ -5,11 +5,12 @@ import Button from "../components/atoms/Button.astro";
 import Chips from "../components/atoms/Chips.astro";
 import Header from "../components/organisms/Header.astro";
 import Footer from "../components/organisms/Footer.astro";
-import CardInline from "../components/molecules/CardInline.astro";
-import Tabs from "../components/molecules/Tabs.astro";
+import { CardInline } from "../components/molecules/CardInline";
 import Hero from "../components/organisms/Hero.astro";
 import ButtonLink from "../components/atoms/ButtonLink.astro";
-import Accordion from "../components/molecules/Accordion.astro";
+import { Breadcrumb } from "../components/molecules/Breadcrumb";
+import { Tabs } from "../components/molecules/Tabs";
+import { Accordion } from "../components/molecules/Accordion";
 
 if (import.meta.env.PROD) {
   return new Response(null, {
@@ -49,6 +50,27 @@ const tabsItems = [
     label: "Tab #3",
     active: false,
     disabled: true,
+  },
+];
+
+const breadcrumbItems = [
+  {
+    id: "1",
+    label: "Tab #1",
+    active: false,
+    linkTo: "#",
+  },
+  {
+    id: "2",
+    label: "Tab #2",
+    active: false,
+    linkTo: "#",
+  },
+  {
+    id: "3",
+    label: "Tab #3",
+    active: true,
+    linkTo: "#",
   },
 ];
 ---
@@ -188,6 +210,23 @@ const tabsItems = [
         <table class="table table-bordered">
           <thead>
             <tr>
+              <th>Breadcrumb</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="p-3"> Primary background </td>
+              <td class="bg-primary p-3">
+                <Breadcrumb items={breadcrumbItems} />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <table class="table table-bordered">
+          <thead>
+            <tr>
               <th>Card Inline</th>
               <th></th>
             </tr>
@@ -271,11 +310,12 @@ const tabsItems = [
               <td>Small</td>
               <td class="p-3">
                 <Hero
-                  category="Titolo occhiello"
                   title="Titolo della sezione"
                   paragraph="Platea dictumst vestibulum rhoncus est pellentesque elit ullamcorper dignissim cras. Dictum sit amet justo donec enim diam vulputate ut. Eu nisl nunc mi ipsum faucibus."
                   size="small"
-                />
+                >
+                  <Breadcrumb slot="category" items={breadcrumbItems} /></Hero
+                >
               </td>
             </tr>
           </tbody>

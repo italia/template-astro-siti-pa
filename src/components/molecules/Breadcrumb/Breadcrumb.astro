@@ -1,0 +1,15 @@
+---
+import BreadcrumbItem from "./BreadcrumbItem.astro";
+import type { BreadcrumbItemProps } from "./types";
+
+type Props = {
+  items: BreadcrumbItemProps[];
+};
+const { items } = Astro.props;
+---
+
+<nav class="breadcrumb-container" aria-label="Percorso di navigazione">
+  <ol class="breadcrumb dark bg-transparent mb-0">
+    {items.map((item) => <BreadcrumbItem {...item} />)}
+  </ol>
+</nav>

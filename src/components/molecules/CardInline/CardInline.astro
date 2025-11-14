@@ -1,12 +1,8 @@
 ---
-import Chips from "../atoms/Chips.astro";
+import Chips from "../../atoms/Chips.astro";
+import type { CardInlineProps } from "./types";
 
-type Props = {
-  title: string;
-  description: string;
-  category?: string;
-  imageUrl: string;
-};
+type Props = CardInlineProps;
 const { title, description, category, imageUrl } = Astro.props;
 ---
 

@@ -15,20 +15,10 @@ body {
   background-color: hsla(0, 0%, 100%, 0.25);
 }
 
-.default-size {
-  min-height: 440px;
+.it-hero-wrapper.default-size {
+  max-height: 440px;
 }
 
-.small-size {
-  min-height: 400px;
-}
-
-.nav-tabs {
-  .nav-item {
-    min-width: 283px;
-  }
-
-  .nav-link:hover {
-    text-decoration: underline !important;
-  }
+.it-hero-wrapper.small-size {
+  max-height: 400px;
 }
