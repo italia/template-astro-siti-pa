@@ -1,0 +1,42 @@
+---
+import Button from "../../atoms/Button.astro";
+
+type Props = {
+  title: string;
+  text: string;
+  imageUrl: string;
+  labelButton: string;
+};
+const { title, text, imageUrl, labelButton } = Astro.props;
+---
+
+<section aria-labelledby="HL1">
+  <div class="container-xxl">
+    <div class="row align-items-center">
+      <div class="col-6 g-0">
+        <div class="text-container px-3 py-5 px-lg-5 py-lg-6">
+          <h2 class="heading-2-lg">
+            {title}
+          </h2>
+          <p class="body-sans-lg mb-4">
+            {text}
+          </p>
+          <div class="mt-5">
+            <Button size="small" label={labelButton} />
+          </div>
+        </div>
+      </div>
+      <div class="col-6 g-0">
+        <div class="d-lg-flex px-3 py-5 px-lg-5 py-lg-6">
+          <div class="ratio ratio-4x3">
+            <img
+              src={imageUrl}
+              title="titolo immagine"
+              alt="descrizione immagine"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

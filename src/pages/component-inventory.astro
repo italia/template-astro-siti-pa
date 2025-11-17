@@ -11,6 +11,7 @@ import ButtonLink from "../components/atoms/ButtonLink.astro";
 import { Breadcrumb } from "../components/molecules/Breadcrumb";
 import { Tabs } from "../components/molecules/Tabs";
 import { Accordion } from "../components/molecules/Accordion";
+import TextAndImage from "../components/organisms/TextAndImage/TextAndImage.astro";
 
 if (import.meta.env.PROD) {
   return new Response(null, {
@@ -78,6 +79,10 @@ const breadcrumbItems = [
 <html>
   <head>
     <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
     <link
       href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300;400;600;700&display=swap"
       rel="stylesheet"
@@ -97,64 +102,94 @@ const breadcrumbItems = [
         <table class="table table-bordered">
           <thead>
             <tr>
-              <th>Buttons per azioni</th>
-              <th>Primary</th>
-              <th>Outline Primary</th>
+              <th
+                >Buttons <p>
+                  <em>Button</em> for actions.<br />
+                  <em>ButtonLink</em> for links.
+                </p></th
+              >
+              <th>Primary Large</th>
+              <th>Outline Primary Large</th>
+              <th>Primary Small</th>
+              <th>Outline Primary Small</th>
+              <th>Primary Mini</th>
+              <th>Outline Primary Mini</th>
             </tr>
           </thead>
           <tbody>
             <tr>
               <td class="p-3">Light background</td>
-              <td class="p-3"> <Button label="Cliccami" /></td>
-              <td class="p-3">
-                <Button label="Cliccami" variant="outline-primary" /></td
+              <td class="p-3"><Button label="Cliccami" /></td>
+              <td class="p-3"
+                ><Button label="Cliccami" variant="outline-primary" /></td
               >
+              <td class="p-3"> <Button size="small" label="Cliccami" /></td>
+              <td class="p-3">
+                <Button
+                  size="small"
+                  label="Cliccami"
+                  variant="outline-primary"
+                />
+              </td>
+              <td class="p-3"><Button size="mini" label="Cliccami" /></td>
+              <td class="p-3">
+                <Button
+                  size="mini"
+                  label="Cliccami"
+                  variant="outline-primary"
+                />
+              </td>
             </tr>
+
             <tr>
               <td class="p-3">Dark background</td>
               <td class="bg-dark p-3"><Button label="Cliccami" /></td>
               <td class="bg-dark p-3"
                 ><Button label="Cliccami" variant="outline-primary" /></td
               >
+              <td class="bg-dark p-3"
+                ><Button size="small" label="Cliccami" /></td
+              >
+              <td class="bg-dark p-3"
+                ><Button
+                  size="small"
+                  label="Cliccami"
+                  variant="outline-primary"
+                /></td
+              >
+              <td class="bg-dark p-3"
+                ><Button size="mini" label="Cliccami" /></td
+              >
+              <td class="bg-dark p-3"
+                ><Button
+                  size="mini"
+                  label="Cliccami"
+                  variant="outline-primary"
+                /></td
+              >
             </tr>
+
             <tr>
               <td class="p-3">Primary background</td>
               <td class="bg-primary p-3"></td>
               <td class="bg-primary p-3"
                 ><Button label="Cliccami" variant="outline-white" /></td
               >
-            </tr>
-          </tbody>
-        </table>
-
-        <table class="table table-bordered">
-          <thead>
-            <tr>
-              <th>Buttons per navigazione o ancore</th>
-              <th>Primary</th>
-              <th>Outline Primary</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="p-3">Light background</td>
-              <td class="p-3"> <ButtonLink label="Cliccami" /></td>
-              <td class="p-3">
-                <ButtonLink label="Cliccami" variant="outline-primary" /></td
-              >
-            </tr>
-            <tr>
-              <td class="p-3">Dark background</td>
-              <td class="bg-dark p-3"><ButtonLink label="Cliccami" /></td>
-              <td class="bg-dark p-3"
-                ><ButtonLink label="Cliccami" variant="outline-primary" /></td
-              >
-            </tr>
-            <tr>
-              <td class="p-3">Primary background</td>
               <td class="bg-primary p-3"></td>
               <td class="bg-primary p-3"
-                ><ButtonLink label="Cliccami" variant="outline-white" /></td
+                ><Button
+                  size="small"
+                  label="Cliccami"
+                  variant="outline-white"
+                /></td
+              >
+              <td class="bg-primary p-3"></td>
+              <td class="bg-primary p-3"
+                ><Button
+                  size="mini"
+                  label="Cliccami"
+                  variant="outline-white"
+                /></td
               >
             </tr>
           </tbody>
@@ -281,7 +316,7 @@ const breadcrumbItems = [
           </thead>
           <tbody>
             <tr>
-              <td class="p-3">
+              <td class="p-0">
                 <Header />
               </td>
             </tr>
@@ -297,7 +332,9 @@ const breadcrumbItems = [
           <tbody>
             <tr>
               <td>Default</td>
-              <td class="p-3">
+            </tr>
+            <tr>
+              <td class="p-0">
                 <Hero
                   category="Titolo occhiello"
                   title="Titolo della sezione"
@@ -306,10 +343,11 @@ const breadcrumbItems = [
                 />
               </td>
             </tr>
-
             <tr>
               <td>Small</td>
-              <td class="p-3">
+            </tr>
+            <tr>
+              <td class="p-0">
                 <Hero
                   title="Titolo della sezione"
                   paragraph="Platea dictumst vestibulum rhoncus est pellentesque elit ullamcorper dignissim cras. Dictum sit amet justo donec enim diam vulputate ut. Eu nisl nunc mi ipsum faucibus."
@@ -323,7 +361,9 @@ const breadcrumbItems = [
 
             <tr>
               <td>Extra Small</td>
-              <td class="p-3">
+            </tr>
+            <tr>
+              <td class="p-0">
                 <Hero
                   title="Titolo della sezione"
                   paragraph="Platea dictumst vestibulum rhoncus est pellentesque elit ullamcorper dignissim cras. Dictum sit amet justo donec enim diam vulputate ut. Eu nisl nunc mi ipsum faucibus."
@@ -332,6 +372,26 @@ const breadcrumbItems = [
                 >
                   <Breadcrumb slot="category" items={breadcrumbItems} /></Hero
                 >
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>Text And Image</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="p-0">
+                <TextAndImage
+                  title="Cos’è il cloud e perché è importante?"
+                  text="Il cloud è alla base della modernizzazione della Pubblica Amministrazione. Permette di erogare servizi digitali più sicuri, scalabili e sostenibili, migliorando la gestione dei dati e semplificando il lavoro di enti e fornitori. "
+                  imageUrl="https://placeholderimage.eu/api/city/800/600"
+                  labelButton="Azione primaria"
+                />
               </td>
             </tr>
           </tbody>
@@ -353,6 +413,20 @@ const breadcrumbItems = [
           </tbody>
         </table>
       </div>
+
+      <h2 class="m-4">Esempio</h2>
+      <Hero
+        category="Titolo occhiello"
+        title="Titolo della sezione"
+        paragraph="Platea dictumst vestibulum rhoncus est pellentesque elit ullamcorper dignissim cras. Dictum sit amet justo donec enim diam vulputate ut. Eu nisl nunc mi ipsum faucibus."
+        imageUrl="https://animals.sandiegozoo.org/sites/default/files/2016-08/animals_hero_mountains.jpg"
+      />
+      <TextAndImage
+        title="Titolo della sezione"
+        text="Platea dictumst vestibulum rhoncus est pellentesque elit ullamcorper dignissim cras. Dictum sit amet justo donec enim diam vulputate ut. Eu nisl nunc mi ipsum faucibus."
+        imageUrl="https://placeholderimage.eu/api/city/800/600"
+        labelButton="Azione primaria"
+      />
     </main>
   </body>
 </html>
