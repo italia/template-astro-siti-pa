@@ -7,11 +7,11 @@ import Header from "../components/organisms/Header.astro";
 import Footer from "../components/organisms/Footer.astro";
 import { CardInline } from "../components/molecules/CardInline";
 import { Hero } from "../components/organisms/Hero";
-import ButtonLink from "../components/atoms/ButtonLink.astro";
 import { Breadcrumb } from "../components/molecules/Breadcrumb";
 import { Tabs } from "../components/molecules/Tabs";
 import { Accordion } from "../components/molecules/Accordion";
-import TextAndImage from "../components/organisms/TextAndImage/TextAndImage.astro";
+import { TextAndImage } from "../components/organisms/TextAndImage";
+import { Sidebar } from "../components/organisms/Sidebar";
 
 if (import.meta.env.PROD) {
   return new Response(null, {
@@ -372,6 +372,21 @@ const breadcrumbItems = [
                 >
                   <Breadcrumb slot="category" items={breadcrumbItems} /></Hero
                 >
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>Sidebar</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="p-3">
+                <Sidebar header="Usare il cloud" />
               </td>
             </tr>
           </tbody>
