@@ -1,9 +1,10 @@
 ---
-type Props = {
-  header: string;
-};
+import SidebarItemFirstLevel from "./SidebarItemFirstLevel.astro";
+import type { SidebarProps } from "./types";
 
-const { header } = Astro.props;
+type Props = SidebarProps;
+
+const { header, openLabel, closeLabel, items } = Astro.props;
 ---
 
 <!-- Todo: sistemare la logica e le props  -->
@@ -26,12 +27,12 @@ const { header } = Astro.props;
         class="icon icon-sm icon-primary align-middle"
         aria-label="(Link esterno)"
         ><use href="/bsi-svg/sprites.svg#it-chevron-right"></use>
-      </svg>Menu design system
+      </svg>{openLabel}
     </button>
     <div class="navbar-collapsable" id="navbarNav" tabindex="-1">
       <div class="close-div visually-hidden">
         <button class="btn close-menu" type="button">
-          <span class="it-close"></span>Chiudi
+          <span class="it-close"></span>{closeLabel}
         </button>
       </div>
       <div class="inline-menu menu-wrapper" tabindex="-1">
@@ -41,97 +42,12 @@ const { header } = Astro.props;
               href="/bsi-svg/sprites.svg#it-chevron-left"
               xlink:href="/bsi-svg/sprites.svg#it-chevron-left"></use></svg
           >
-          <span>Chiudi</span>
+          <span>{closeLabel}</span>
         </button>
         <div class="link-list-wrapper">
-          <h3>header</h3>
+          <h3>{header}</h3>
           <ul class="link-list">
-            <li>
-              <a
-                class="list-item large medium right-icon"
-                href="#collapseOne"
-                role="button"
-                data-bs-toggle="collapse"
-                aria-expanded="false"
-                aria-controls="collapseOne"
-              >
-                <span class="list-item-title-icon-wrapper">
-                  <span>Link lista 1</span>
-                  <svg class="icon icon-xs icon-primary right"
-                    ><use href="/bsi-svg/sprites.svg#it-expand"></use></svg
-                  >
-                </span>
-              </a>
-              <ul class="link-sublist collapse" id="collapseOne">
-                <li>
-                  <a class="list-item active" href="#"
-                    ><span>Link lista 1.1</span></a
-                  >
-                </li>
-                <li>
-                  <a class="list-item" href="#"><span>Link lista 1.2</span></a>
-                </li>
-                <li>
-                  <a class="list-item" href="#"><span>Link lista 1.3</span></a>
-                </li>
-              </ul>
-            </li>
-            <li>
-              <a
-                class="list-item large medium right-icon"
-                href="#collapseTwo"
-                role="button"
-                data-bs-toggle="collapse"
-                aria-expanded="false"
-                aria-controls="collapseTwo"
-              >
-                <span class="list-item-title-icon-wrapper">
-                  <span>Link lista 2</span>
-                  <svg class="icon icon-xs icon-primary right"
-                    ><use href="/bsi-svg/sprites.svg#it-expand"></use></svg
-                  >
-                </span>
-              </a>
-              <ul class="link-sublist collapse" id="collapseTwo">
-                <li>
-                  <a class="list-item" href="#"><span>Link lista 2.1</span></a>
-                </li>
-                <li>
-                  <a class="list-item" href="#"><span>Link lista 2.2</span></a>
-                </li>
-                <li>
-                  <a class="list-item" href="#"><span>Link lista 2.3</span></a>
-                </li>
-              </ul>
-            </li>
-            <li>
-              <a
-                class="list-item large medium right-icon"
-                href="#collapseThree"
-                role="button"
-                data-bs-toggle="collapse"
-                aria-expanded="false"
-                aria-controls="collapseThree"
-              >
-                <span class="list-item-title-icon-wrapper">
-                  <span>Link lista 3</span>
-                  <svg class="icon icon-xs icon-primary right"
-                    ><use href="/bsi-svg/sprites.svg#it-expand"></use></svg
-                  >
-                </span>
-              </a>
-              <ul class="link-sublist collapse" id="collapseThree">
-                <li>
-                  <a class="list-item" href="#"><span>Link lista 3.1</span></a>
-                </li>
-                <li>
-                  <a class="list-item" href="#"><span>Link lista 3.2</span></a>
-                </li>
-                <li>
-                  <a class="list-item" href="#"><span>Link lista 3.3</span></a>
-                </li>
-              </ul>
-            </li>
+            {items.map((item) => <SidebarItemFirstLevel {...item} />)}
           </ul>
         </div>
       </div>

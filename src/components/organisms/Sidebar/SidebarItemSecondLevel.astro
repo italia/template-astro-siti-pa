@@ -1,0 +1,13 @@
+---
+import type { SidebarItemSecondLevelProps } from "./types";
+
+type Props = SidebarItemSecondLevelProps;
+
+const { id, label, linkTo, active } = Astro.props;
+---
+
+<li id={id}>
+  <a class=`list-item ${active && "active"}` href={linkTo}
+    ><span>{label}</span></a
+  >
+</li>
