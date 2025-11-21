@@ -5,9 +5,9 @@ type Props = {
 };
 const { label, variant = "standard" } = Astro.props;
 
-const style = variant === "primary" ? "chip-primary " : "";
+const className = variant === "primary" ? "chip-primary " : "";
 ---
 
-<div class={`${style} chip chip-simple`}>
+<div class={`${className} chip chip-simple`}>
   <span class="chip-label">{label}</span>
 </div>

@@ -4,11 +4,21 @@ type Props = {
   title: string;
   paragraph: string;
   imageUrl: string;
+  imageTitle?: string;
+  imageAlt?: string;
   size?: "xsmall" | "small" | "default";
   category?: string;
 };
 
-const { title, paragraph, size, category, imageUrl } = Astro.props;
+const {
+  title,
+  paragraph,
+  imageUrl,
+  imageTitle = "",
+  imageAlt = "",
+  size,
+  category,
+} = Astro.props;
 const sizeClass =
   size === "xsmall"
     ? "xsmall-size"
@@ -21,11 +31,7 @@ const sizeClass =
   <div class="img-responsive-wrapper">
     <div class="img-responsive">
       <div class="img-wrapper">
-        <img
-          src={imageUrl}
-          title="titolo immagine"
-          alt="descrizione immagine"
-        />
+        <img src={imageUrl} title={imageTitle} alt={imageAlt} />
       </div>
     </div>
   </div>
@@ -33,7 +39,6 @@ const sizeClass =
   <div class="container">
     <div class="row">
       <div class="col-12">
-        <!-- TODO verifica perchè sembra spostato rispetto agli altri contenuti ps-5 -->
         <div class="it-hero-text-wrapper">
           {category && <span class="it-category ">{category}</span>}
           <slot name="category" />

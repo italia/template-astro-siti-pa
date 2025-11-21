@@ -10,7 +10,7 @@ const { idAccordion, label, items } = Astro.props;
 <li>
   <a
     class="list-item large medium right-icon"
-    href="#collapseOne"
+    href={`#collapse_${idAccordion}`}
     role="button"
     data-bs-toggle="collapse"
     aria-expanded="false"
@@ -23,7 +23,7 @@ const { idAccordion, label, items } = Astro.props;
       >
     </span>
   </a>
-  <ul class="link-sublist collapse" id="collapseOne">
+  <ul class="link-sublist collapse" id={`collapse_${idAccordion}`}>
     {items.map((item) => <SidebarItemSecondLevel {...item} />)}
   </ul>
 </li>

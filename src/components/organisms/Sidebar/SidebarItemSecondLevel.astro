@@ -7,7 +7,7 @@ const { id, label, linkTo, active } = Astro.props;
 ---
 
 <li id={id}>
-  <a class=`list-item ${active && "active"}` href={linkTo}
-    ><span>{label}</span></a
-  >
+  <a class=`list-item ${active && "active"}` href={linkTo}>
+    <span>{label}</span>
+  </a>
 </li>

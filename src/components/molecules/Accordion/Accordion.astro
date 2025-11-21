@@ -2,11 +2,12 @@
 import AccordionItem from "./AccordionItem.astro";
 import type { AccordionItemProps } from "./types";
 type Props = {
+  id: string;
   items: AccordionItemProps[];
 };
-const { items } = Astro.props;
+const { id, items } = Astro.props;
 ---
 
-<div class="accordion accordion-background-active" id="accordion">
+<div class="accordion accordion-background-active" id={id}>
   {items.map((item) => <AccordionItem {...item} />)}
 </div>

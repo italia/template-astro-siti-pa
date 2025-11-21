@@ -1,9 +1,23 @@
 ---
 import Chips from "../../atoms/Chips.astro";
-import type { CardInlineProps } from "./types";
 
-type Props = CardInlineProps;
-const { title, description, category, imageUrl } = Astro.props;
+type Props = {
+  title: string;
+  description: string;
+  imageUrl: string;
+  imageAlt?: string;
+  linkTo: string;
+  category?: string;
+};
+
+const {
+  title,
+  description,
+  imageUrl,
+  imageAlt = "",
+  linkTo,
+  category,
+} = Astro.props;
 ---
 
 <article
@@ -11,7 +25,7 @@ const { title, description, category, imageUrl } = Astro.props;
 >
   <div class="it-card-inline-content">
     <h3 class="it-card-title">
-      <a href="#">{title}</a>
+      <a href={linkTo}>{title}</a>
     </h3>
     <div class="it-card-body">
       <p class="it-card-text">
@@ -31,10 +45,7 @@ const { title, description, category, imageUrl } = Astro.props;
   <div class="it-card-image-wrapper">
     <div class="ratio ratio-1x1">
       <figure class="figure img-full">
-        <img
-          src="https://placeholderimage.eu/api/city/800/600"
-          alt="Breve descrizione immagine se ha senso nel contesto, marcare altrimenti come decorativa lasciando l'alt applicato ma vuoto."
-        />
+        <img src={imageUrl} alt={imageAlt} />
       </figure>
     </div>
   </div>

@@ -266,7 +266,7 @@ const sidebarItems = [
             <tr>
               <td class="p-3"> Light background </td>
               <td class="p-3">
-                <Accordion items={accordionItems} />
+                <Accordion id="accordion" items={accordionItems} />
               </td>
             </tr>
           </tbody>
@@ -283,7 +283,10 @@ const sidebarItems = [
             <tr>
               <td class="p-3"> Primary background </td>
               <td class="bg-primary p-3">
-                <Breadcrumb items={breadcrumbItems} />
+                <Breadcrumb
+                  ariaLabel="Percorso di navigazione"
+                  items={breadcrumbItems}
+                />
               </td>
             </tr>
           </tbody>
@@ -301,10 +304,12 @@ const sidebarItems = [
               <td> With category </td>
               <td class="bg-primary p-3">
                 <CardInline
+                  linkTo="#"
                   title="Titolo contenuto editoriale"
                   description="Testo breve che riassume il contenuto della pagina di destinazione in massimo tre o quattro righe, senza troncamento."
                   category="Categoria"
                   imageUrl="https://placeholderimage.eu/api/city/800/600"
+                  imageAlt="Breve descrizione immagine se ha senso nel contesto, marcare altrimenti come decorativa lasciando l'alt applicato ma vuoto."
                 />
               </td>
 
@@ -312,6 +317,7 @@ const sidebarItems = [
                 <td>Without category </td>
                 <td class="bg-dark p-3">
                   <CardInline
+                    linkTo="#"
                     title="Titolo contenuto editoriale"
                     description="Testo breve che riassume il contenuto della pagina di destinazione in massimo tre o quattro righe, senza troncamento."
                     imageUrl="https://placeholderimage.eu/api/city/800/600"
@@ -384,7 +390,11 @@ const sidebarItems = [
                   size="small"
                   imageUrl="https://animals.sandiegozoo.org/sites/default/files/2016-08/animals_hero_mountains.jpg"
                 >
-                  <Breadcrumb slot="category" items={breadcrumbItems} /></Hero
+                  <Breadcrumb
+                    ariaLabel="Percorso di navigazione"
+                    slot="category"
+                    items={breadcrumbItems}
+                  /></Hero
                 >
               </td>
             </tr>
@@ -400,7 +410,11 @@ const sidebarItems = [
                   size="xsmall"
                   imageUrl="https://animals.sandiegozoo.org/sites/default/files/2016-08/animals_hero_mountains.jpg"
                 >
-                  <Breadcrumb slot="category" items={breadcrumbItems} /></Hero
+                  <Breadcrumb
+                    ariaLabel="Percorso di navigazione"
+                    slot="category"
+                    items={breadcrumbItems}
+                  /></Hero
                 >
               </td>
             </tr>
