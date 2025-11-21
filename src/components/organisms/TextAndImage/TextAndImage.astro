@@ -1,5 +1,5 @@
 ---
-import Button from "../../atoms/Button.astro";
+import TextContainer from "../../molecules/TextContainer/TextContainer.astro";
 
 type Props = {
   title: string;
@@ -14,17 +14,7 @@ const { title, text, imageUrl, labelButton } = Astro.props;
   <div class="container-xxl">
     <div class="row align-items-center">
       <div class="col-6 g-0">
-        <div class="text-container px-3 py-5 px-lg-5 py-lg-6">
-          <h2 class="heading-2-lg">
-            {title}
-          </h2>
-          <p class="body-sans-lg mb-4">
-            {text}
-          </p>
-          <div class="mt-5">
-            <Button size="small" label={labelButton} />
-          </div>
-        </div>
+        <TextContainer title={title} text={text} labelButton={labelButton} />
       </div>
       <div class="col-6 g-0">
         <div class="d-lg-flex px-3 py-5 px-lg-5 py-lg-6">
