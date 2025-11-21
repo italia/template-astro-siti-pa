@@ -1,0 +1,64 @@
+---
+import "./style.scss";
+
+type Props = {
+  icon: "bank" | "shield-check" | "layers";
+};
+const { icon } = Astro.props;
+---
+
+<div class="icon-container">
+  {
+    icon === "bank" && (
+      <svg
+        width="27"
+        height="27"
+        viewBox="0 0 27 27"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M4 21.3333V12H6.66667V21.3333H4ZM12 21.3333V12H14.6667V21.3333H12ZM0 26.6667V24H26.6667V26.6667H0ZM20 21.3333V12H22.6667V21.3333H20ZM0 9.33333V6.66667L13.3333 0L26.6667 6.66667V9.33333H0ZM5.93333 6.66667H20.7333L13.3333 3L5.93333 6.66667Z"
+          fill="#003366"
+        />
+      </svg>
+    )
+  }
+  {
+    icon === "shield-check" && (
+      <svg
+        width="32"
+        height="32"
+        viewBox="0 0 32 32"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M12.8 14.9168L15.2 17.3168L20 12.5168M6.40002 7.71684L13.8534 3.99015C15.2047 3.31448 16.7953 3.31448 18.1466 3.99015L25.6 7.71684C25.6 7.71684 25.6 14.7248 25.6 18.4208C25.6 22.1168 22.1835 24.6118 16 28.5168C9.81656 24.6118 6.40002 21.3168 6.40002 18.4208V7.71684Z"
+          stroke="#003366"
+          stroke-width="3"
+          stroke-linejoin="round"
+        />
+      </svg>
+    )
+  }
+  {
+    icon === "layers" && (
+      <svg
+        width="32"
+        height="32"
+        viewBox="0 0 32 32"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M28.8 15.967L16 22.528L3.20001 15.967M28.8 22.2392L16 28.8002L3.20001 22.2392M16 3.2002L28.8 9.76119L16 16.3222L3.20001 9.76119L16 3.2002Z"
+          stroke="#003366"
+          stroke-width="3"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
+    )
+  }
+</div>

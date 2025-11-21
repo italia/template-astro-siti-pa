@@ -12,6 +12,7 @@ import { Tabs } from "../components/molecules/Tabs";
 import { Accordion } from "../components/molecules/Accordion";
 import { TextAndImage } from "../components/organisms/TextAndImage";
 import { Sidebar } from "../components/organisms/Sidebar";
+import { IconContainer } from "../components/atoms/IconContainer";
 
 if (import.meta.env.PROD) {
   return new Response(null, {
@@ -243,14 +244,38 @@ const sidebarItems = [
                 <Chips label="Informazione" variant="standard" /></td
               >
             </tr>
+            <tr>
+              <td class="p-3">Dark background</td>
+              <td class="bg-dark p-3"> <Chips label="Informazione" /></td>
+              <td class="bg-dark p-3">
+                <Chips label="Informazione" variant="standard" /></td
+              >
+            </tr>
           </tbody>
-          <tr>
-            <td class="p-3">Dark background</td>
-            <td class="bg-dark p-3"> <Chips label="Informazione" /></td>
-            <td class="bg-dark p-3">
-              <Chips label="Informazione" variant="standard" /></td
-            >
-          </tr>
+        </table>
+
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>Icon Container</th>
+              <th>Standard</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="p-3">Light background</td>
+
+              <td class="p-3">
+                <IconContainer icon="bank" />
+              </td>
+            </tr>
+            <tr>
+              <td class="p-3">Dark background</td>
+              <td class="bg-dark p-3">
+                <IconContainer icon="shield-check" /></td
+              >
+            </tr>
+          </tbody>
         </table>
 
         <h2 class="mb-4">Molecules</h2>
@@ -431,6 +456,8 @@ const sidebarItems = [
             <tr>
               <td class="p-3">
                 <Sidebar
+                  id="sidebar"
+                  ariaLabel="Apri/chiudi sidebar"
                   header="Usare il cloud"
                   openLabel="Menu di navigazione"
                   closeLabel="Chiudi"
