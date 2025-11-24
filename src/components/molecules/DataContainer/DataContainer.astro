@@ -1,0 +1,17 @@
+---
+import { IconContainer } from "../../atoms/IconContainer";
+
+type Props = {
+  infoData: string;
+  title: string;
+};
+const { infoData, title } = Astro.props;
+---
+
+<div>
+  <p class="body-sans-lg fw-semibold text-white">{title}</p>
+  <div class="d-flex align-items-center gap-3">
+    <IconContainer icon="bank" />
+    <p class="text-white h1 align-middle m-0">{infoData}</p>
+  </div>
+</div>
