@@ -1,0 +1,32 @@
+---
+import "./style.scss";
+
+type Props = {
+  title: string;
+  paragraph: string;
+  linkTo: string;
+  imgUrl: string;
+  imgAlt?: string;
+};
+const { title, paragraph, linkTo, imgUrl, imgAlt = "" } = Astro.props;
+---
+
+<article
+  class="it-card it-card-profile it-card-height-full rounded shadow-sm border lightgrey-bg-a3"
+>
+  <div class="it-card-profile-header">
+    <div class="it-card-profile-image ratio ratio-1x1">
+      <figure class="figure img-full">
+        <img src={imgUrl} alt={imgAlt} />
+      </figure>
+    </div>
+    <div class="it-card-profile">
+      <h4 class="it-card-profile-name">
+        <a href={linkTo}>{title}</a>
+      </h4>
+      <p class="it-card-profile-type fw-semibold">
+        {paragraph}
+      </p>
+    </div>
+  </div>
+</article>

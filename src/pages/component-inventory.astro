@@ -15,6 +15,7 @@ import { Sidebar } from "../components/organisms/Sidebar";
 import { IconContainer } from "../components/atoms/IconContainer";
 import { DataContainer } from "../components/molecules/DataContainer";
 import { TextContainer } from "../components/molecules/TextContainer";
+import { UseCaseCard } from "../components/molecules/UseCaseCard";
 
 if (import.meta.env.PROD) {
   return new Response(null, {
@@ -416,6 +417,28 @@ const sidebarItems = [
                   paragraph="Platea dictumst vestibulum rhoncus est pellentesque elit ullamcorper dignissim cras. Dictum sit amet justo donec enim diam vulputate ut. Eu nisl nunc mi ipsum faucibus."
                   labelButton="Azione primaria"
                   variant="dark"
+                /></td
+              >
+            </tr>
+          </tbody>
+        </table>
+
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>Use Case Card</th>
+              <th>Primary</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="p-3">Light background</td>
+              <td class="p-3"
+                ><UseCaseCard
+                  title="Titolo use Case"
+                  imgUrl="https://placeholderimage.eu/api/monument/320/320"
+                  paragraph="Platea dictumst vestibulum rhoncus est pellentesque elit ullamcorper dignissim cras. Dictum sit amet justo donec enim diam vulputate ut. Eu nisl nunc mi ipsum faucibus."
+                  linkTo="#"
                 /></td
               >
             </tr>
