@@ -16,6 +16,8 @@ import { IconContainer } from "../components/atoms/IconContainer";
 import { DataContainer } from "../components/molecules/DataContainer";
 import { TextContainer } from "../components/molecules/TextContainer";
 import { UseCaseCard } from "../components/molecules/UseCaseCard";
+import { CardEditorialNews } from "../components/molecules/CardEditorialNews";
+import { CardPresentationBanner } from "../components/molecules/CardPresentationBanner";
 
 if (import.meta.env.PROD) {
   return new Response(null, {
@@ -323,6 +325,63 @@ const sidebarItems = [
         <table class="table table-bordered">
           <thead>
             <tr>
+              <th>Card Editorial News</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Standard</td>
+              <td class="bg-primary p-3">
+                <div class="row">
+                  <div class="col-12 col-md-6 col-lg-6 mb-3 mb-md-4">
+                    <CardEditorialNews
+                      linkTo="#"
+                      title="Titolo contenuto editoriale"
+                      description="Testo breve che riassume il contenuto della pagina di destinazione in massimo tre o quattro righe, senza troncamento."
+                      category="Articolo"
+                      imageUrl="https://placeholderimage.eu/api/city/800/600"
+                      imageAlt="Breve descrizione immagine se ha senso nel contesto, marcare altrimenti come decorativa lasciando l'alt applicato ma vuoto."
+                      dateTime="2022-04-05"
+                      formatDate="05/04/2022"
+                      action="innovazione.gov.it"
+                    />
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>Card Presentation Banner</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Standard</td>
+              <td class="bg-primary p-3">
+                <div class="row">
+                  <div class="col-12 col-md-6 col-lg-6 mb-3 mb-md-4">
+                    <CardPresentationBanner
+                      linkTo="#"
+                      title="Titolo contenuto editoriale"
+                      description="Testo breve che riassume il contenuto della pagina di destinazione in massimo tre o quattro righe, senza troncamento."
+                      icon="it-github"
+                    />
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <table class="table table-bordered">
+          <thead>
+            <tr>
               <th>Card Inline</th>
               <th></th>
             </tr>
@@ -331,25 +390,33 @@ const sidebarItems = [
             <tr>
               <td> With category </td>
               <td class="bg-primary p-3">
-                <CardInline
-                  linkTo="#"
-                  title="Titolo contenuto editoriale"
-                  description="Testo breve che riassume il contenuto della pagina di destinazione in massimo tre o quattro righe, senza troncamento."
-                  category="Categoria"
-                  imageUrl="https://placeholderimage.eu/api/city/800/600"
-                  imageAlt="Breve descrizione immagine se ha senso nel contesto, marcare altrimenti come decorativa lasciando l'alt applicato ma vuoto."
-                />
+                <div class="row">
+                  <div class="col-12 col-md-6 col-lg-6 mb-3 mb-md-4">
+                    <CardInline
+                      linkTo="#"
+                      title="Titolo contenuto editoriale"
+                      description="Testo breve che riassume il contenuto della pagina di destinazione in massimo tre o quattro righe, senza troncamento."
+                      category="Categoria"
+                      imageUrl="https://placeholderimage.eu/api/city/800/600"
+                      imageAlt="Breve descrizione immagine se ha senso nel contesto, marcare altrimenti come decorativa lasciando l'alt applicato ma vuoto."
+                    />
+                  </div>
+                </div>
               </td>
 
               <tr>
                 <td>Without category </td>
                 <td class="bg-dark p-3">
-                  <CardInline
-                    linkTo="#"
-                    title="Titolo contenuto editoriale"
-                    description="Testo breve che riassume il contenuto della pagina di destinazione in massimo tre o quattro righe, senza troncamento."
-                    imageUrl="https://placeholderimage.eu/api/city/800/600"
-                  />
+                  <div class="row">
+                    <div class="col-12 col-md-6 col-lg-6 mb-3 mb-md-4">
+                      <CardInline
+                        linkTo="#"
+                        title="Titolo contenuto editoriale"
+                        description="Testo breve che riassume il contenuto della pagina di destinazione in massimo tre o quattro righe, senza troncamento."
+                        imageUrl="https://placeholderimage.eu/api/city/800/600"
+                      />
+                    </div>
+                  </div>
                 </td>
               </tr>
             </tr>
@@ -368,7 +435,7 @@ const sidebarItems = [
               <td class="p-3">Dark background</td>
               <td class="bg-dark p-3"
                 ><DataContainer
-                  title="Numero di PA che hanno migrat al Cloud "
+                  title="Numero di PA che hanno migrato al Cloud "
                   infoData="70.000 +"
                 /></td
               >
@@ -433,13 +500,17 @@ const sidebarItems = [
           <tbody>
             <tr>
               <td class="p-3">Light background</td>
-              <td class="p-3"
-                ><UseCaseCard
-                  title="Titolo use Case"
-                  imgUrl="https://placeholderimage.eu/api/monument/320/320"
-                  paragraph="Platea dictumst vestibulum rhoncus est pellentesque elit ullamcorper dignissim cras. Dictum sit amet justo donec enim diam vulputate ut. Eu nisl nunc mi ipsum faucibus."
-                  linkTo="#"
-                /></td
+              <td class="p-3">
+                <div class="row">
+                  <div class="col-12 col-md-6 col-lg-6 mb-3 mb-md-4">
+                    <UseCaseCard
+                      title="Titolo use Case"
+                      imgUrl="https://placeholderimage.eu/api/monument/320/320"
+                      paragraph="Platea dictumst vestibulum rhoncus est pellentesque elit ullamcorper dignissim cras. Dictum sit amet justo donec enim diam vulputate ut. Eu nisl nunc mi ipsum faucibus."
+                      linkTo="#"
+                    />
+                  </div>
+                </div></td
               >
             </tr>
           </tbody>

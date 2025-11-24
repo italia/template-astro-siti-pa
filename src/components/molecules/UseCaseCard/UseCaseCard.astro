@@ -20,11 +20,11 @@ const { title, paragraph, linkTo, imgUrl, imgAlt = "" } = Astro.props;
         <img src={imgUrl} alt={imgAlt} />
       </figure>
     </div>
-    <div class="it-card-profile">
+    <div class="it-card-profile it-card-body">
       <h4 class="it-card-profile-name">
         <a href={linkTo}>{title}</a>
       </h4>
-      <p class="it-card-profile-type fw-semibold">
+      <p class="it-card-text fw-semibold">
         {paragraph}
       </p>
     </div>
