@@ -3,18 +3,22 @@ import TextContainer from "../../molecules/TextContainer/TextContainer.astro";
 
 type Props = {
   title: string;
-  text: string;
+  paragraph: string;
   imageUrl: string;
   labelButton: string;
 };
-const { title, text, imageUrl, labelButton } = Astro.props;
+const { title, paragraph, imageUrl, labelButton } = Astro.props;
 ---
 
 <section aria-labelledby="HL1">
   <div class="container-xxl">
     <div class="row align-items-center">
       <div class="col-6 g-0">
-        <TextContainer title={title} text={text} labelButton={labelButton} />
+        <TextContainer
+          title={title}
+          paragraph={paragraph}
+          labelButton={labelButton}
+        />
       </div>
       <div class="col-6 g-0">
         <div class="d-lg-flex px-3 py-5 px-lg-5 py-lg-6">

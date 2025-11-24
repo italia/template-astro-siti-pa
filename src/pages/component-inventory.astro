@@ -13,6 +13,8 @@ import { Accordion } from "../components/molecules/Accordion";
 import { TextAndImage } from "../components/organisms/TextAndImage";
 import { Sidebar } from "../components/organisms/Sidebar";
 import { IconContainer } from "../components/atoms/IconContainer";
+import { DataContainer } from "../components/molecules/DataContainer";
+import { TextContainer } from "../components/molecules/TextContainer";
 
 if (import.meta.env.PROD) {
   return new Response(null, {
@@ -272,8 +274,8 @@ const sidebarItems = [
             <tr>
               <td class="p-3">Dark background</td>
               <td class="bg-dark p-3">
-                <IconContainer icon="shield-check" /></td
-              >
+                <IconContainer icon="shield-check" />
+              </td>
             </tr>
           </tbody>
         </table>
@@ -356,6 +358,26 @@ const sidebarItems = [
         <table class="table table-bordered">
           <thead>
             <tr>
+              <th>Data container</th>
+              <th>Standard</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="p-3">Dark background</td>
+              <td class="bg-dark p-3"
+                ><DataContainer
+                  title="Numero di PA che hanno migrat al Cloud "
+                  infoData="70.000 +"
+                /></td
+              >
+            </tr>
+          </tbody>
+        </table>
+
+        <table class="table table-bordered">
+          <thead>
+            <tr>
               <th>Tabs</th>
               <th>Primary</th>
             </tr>
@@ -364,6 +386,38 @@ const sidebarItems = [
             <tr>
               <td class="p-3">Primary background</td>
               <td class="bg-primary p-3"><Tabs items={tabsItems} /></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>Text container</th>
+              <th>Standard</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="p-3">Light background</td>
+              <td class="p-3"
+                ><TextContainer
+                  title="Titolo della sezione"
+                  paragraph="Platea dictumst vestibulum rhoncus est pellentesque elit ullamcorper dignissim cras. Dictum sit amet justo donec enim diam vulputate ut. Eu nisl nunc mi ipsum faucibus."
+                  labelButton="Azione primaria"
+                /></td
+              >
+            </tr>
+            <tr>
+              <td class="p-3">Dark background</td>
+              <td class="bg-dark p-3"
+                ><TextContainer
+                  title="Titolo della sezione"
+                  paragraph="Platea dictumst vestibulum rhoncus est pellentesque elit ullamcorper dignissim cras. Dictum sit amet justo donec enim diam vulputate ut. Eu nisl nunc mi ipsum faucibus."
+                  labelButton="Azione primaria"
+                  variant="dark"
+                /></td
+              >
             </tr>
           </tbody>
         </table>
@@ -479,7 +533,7 @@ const sidebarItems = [
               <td class="p-0">
                 <TextAndImage
                   title="Cos’è il cloud e perché è importante?"
-                  text="Il cloud è alla base della modernizzazione della Pubblica Amministrazione. Permette di erogare servizi digitali più sicuri, scalabili e sostenibili, migliorando la gestione dei dati e semplificando il lavoro di enti e fornitori. "
+                  paragraph="Il cloud è alla base della modernizzazione della Pubblica Amministrazione. Permette di erogare servizi digitali più sicuri, scalabili e sostenibili, migliorando la gestione dei dati e semplificando il lavoro di enti e fornitori. "
                   imageUrl="https://placeholderimage.eu/api/city/800/600"
                   labelButton="Azione primaria"
                 />
@@ -514,7 +568,7 @@ const sidebarItems = [
       />
       <TextAndImage
         title="Titolo della sezione"
-        text="Platea dictumst vestibulum rhoncus est pellentesque elit ullamcorper dignissim cras. Dictum sit amet justo donec enim diam vulputate ut. Eu nisl nunc mi ipsum faucibus."
+        paragraph="Platea dictumst vestibulum rhoncus est pellentesque elit ullamcorper dignissim cras. Dictum sit amet justo donec enim diam vulputate ut. Eu nisl nunc mi ipsum faucibus."
         imageUrl="https://placeholderimage.eu/api/city/800/600"
         labelButton="Azione primaria"
       />

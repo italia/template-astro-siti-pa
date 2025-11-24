@@ -3,20 +3,20 @@ import Button from "../../atoms/Button.astro";
 
 type Props = {
   title: string;
-  text: string;
+  paragraph: string;
   variant?: "light" | "dark";
   labelButton?: string;
 };
-const { title, text, labelButton, variant = "light" } = Astro.props;
-/* Variant permette di modificare il colore del testo e del bottone */
+const { title, paragraph, labelButton, variant = "light" } = Astro.props;
+const colorClass = `${variant === "dark" ? "text-white" : ""}`;
 ---
 
-<div class="text-container px-3 py-5 px-lg-5 py-lg-6">
+<div class=`text-container px-3 py-5 px-lg-5 py-lg-6 ${colorClass}`>
   <h2 class="heading-2-lg">
     {title}
   </h2>
   <p class="body-sans-lg mb-4">
-    {text}
+    {paragraph}
   </p>
   <div class="mt-5">
     {labelButton && <Button size="large" label={labelButton} />}
