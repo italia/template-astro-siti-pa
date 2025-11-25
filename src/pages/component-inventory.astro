@@ -2,9 +2,10 @@
 import "../styles/global.scss";
 import bsi from "bootstrap-italia/dist/js/bootstrap-italia.bundle.min.js?url";
 import Button from "../components/atoms/Button.astro";
-import Chips from "../components/atoms/Chips.astro";
+
 import Header from "../components/organisms/Header.astro";
 import Footer from "../components/organisms/Footer.astro";
+import { Chip, ChipLink } from "../components/atoms/Chip";
 import { CardInline } from "../components/molecules/CardInline";
 import { Hero } from "../components/organisms/Hero";
 import { Breadcrumb } from "../components/molecules/Breadcrumb";
@@ -237,23 +238,64 @@ const sidebarItems = [
               <th>Chips</th>
               <th>Primary</th>
               <th>Standard</th>
+              <th>Outline white</th>
+              <th>Disabled</th>
             </tr>
           </thead>
           <tbody>
             <tr>
               <td class="p-3">Light background</td>
               <td class="p-3">
-                <Chips label="Informazione" variant="primary" /></td
+                <Chip
+                  visuallyHidden="Argomento"
+                  label="Informazione"
+                  variant="primary"
+                /></td
               >
               <td class="p-3">
-                <Chips label="Informazione" variant="standard" /></td
+                <Chip
+                  visuallyHidden="Argomento"
+                  label="Informazione"
+                  variant="standard"
+                /></td
+              >
+              <td class="p-3"> </td>
+              <td class="p-3">
+                <Chip
+                  disabled={true}
+                  visuallyHidden="Argomento"
+                  label="Informazione"
+                /></td
               >
             </tr>
             <tr>
               <td class="p-3">Dark background</td>
-              <td class="bg-dark p-3"> <Chips label="Informazione" /></td>
+              <td class="bg-dark p-3"> </td>
               <td class="bg-dark p-3">
-                <Chips label="Informazione" variant="standard" /></td
+                <ChipLink
+                  visuallyHidden="Argomento"
+                  label="Informazione"
+                  variant="standard"
+                  linkTo="#"
+                /></td
+              >
+              <td class="bg-dark p-3">
+                <ChipLink
+                  visuallyHidden="Argomento"
+                  visuallyHidden="Argomento"
+                  label="Informazione"
+                  variant="outline-white"
+                  linkTo="#"
+                /></td
+              >
+              <td class="bg-dark p-3">
+                <ChipLink
+                  disabled={true}
+                  visuallyHidden="Argomento"
+                  label="Informazione"
+                  variant="outline-white"
+                  linkTo="#"
+                /></td
               >
             </tr>
           </tbody>

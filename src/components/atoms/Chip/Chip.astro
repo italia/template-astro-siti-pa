@@ -1,0 +1,29 @@
+---
+import "./style.scss";
+type Props = {
+  label: string;
+  visuallyHidden: string;
+  disabled?: boolean;
+  variant?: "primary" | "standard" | "outline-white";
+};
+const {
+  label,
+  visuallyHidden,
+  variant = "standard",
+  disabled = false,
+} = Astro.props;
+
+const className =
+  variant === "outline-white"
+    ? "chip-outline-white"
+    : variant === "primary"
+      ? "chip-primary "
+      : "";
+const disabledClass = disabled ? "chip-disabled" : "";
+const ariaDisabled = disabled ? "true" : "false";
+---
+
+<button disabled class={`chip chip-simple ${className} ${disabledClass}`}>
+  <span class="visually-hidden">{visuallyHidden}</span>
+  <span class="chip-label">{label}</span>
+</button>

@@ -1,0 +1,31 @@
+.chip.chip-outline-white {
+  background-color: transparent;
+  border-color: white;
+  text-decoration: none;
+}
+
+.chip.chip-outline-white:hover {
+  border: 1px solid var(--color-text-inverse, #fff);
+  background: var(--theme-color-darker, #036);
+}
+
+.chip.chip-outline-white:active {
+  background: var(--color-text-inverse, #fff);
+}
+
+.chip.chip-outline-white .chip-label {
+  color: white;
+}
+
+.chip.chip-outline-white .chip-label:active {
+  color: var(--theme-color-darker, #036);
+}
+
+.chip.chip-outline-white.chip-disabled {
+  border: 1px solid var(--color-border-subtle, #c5c7c9);
+  background: var(--color-background-muted, #f5f5f5);
+}
+
+.chip.chip-outline-white.chip-disabled .chip-label {
+  color: var(--color-text-secondary, #2f475e);
+}
