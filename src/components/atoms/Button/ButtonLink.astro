@@ -1,0 +1,27 @@
+---
+type Props = {
+  label: string;
+  variant?: "light" | "dark" | "outline-light" | "outline-dark";
+  size?: "mini" | "small" | "large";
+};
+const { label, variant = "light", size = "large" } = Astro.props;
+
+const sizeMap = {
+  mini: "btn-xs",
+  small: "btn-sm",
+  large: "btn-lg",
+};
+const sizeClass = sizeMap[size];
+
+const variantMap = {
+  light: "btn-primary",
+  "outline-light": "btn-outline-primary",
+  dark: "btn-light text-primary",
+  "outline-dark": "border border-2 text-white border-white",
+};
+
+const btnVariant = variantMap[variant];
+const className = `btn ${btnVariant} ${sizeClass}`;
+---
+
+<a class={className}>{label}</a>
