@@ -1,13 +1,8 @@
 ---
 import "./style.scss";
+import type { useCaseCardProps } from "./types";
 
-type Props = {
-  title: string;
-  paragraph: string;
-  linkTo: string;
-  imgUrl: string;
-  imgAlt?: string;
-};
+type Props = useCaseCardProps;
 const { title, paragraph, linkTo, imgUrl, imgAlt = "" } = Astro.props;
 ---
 

@@ -1,39 +1,32 @@
 ---
+import { DataContainer } from "../../molecules/DataContainer";
+import type { DataContainerProps } from "../../molecules/DataContainer/types";
 import TextContainer from "../../molecules/TextContainer/TextContainer.astro";
+import "./style.scss";
 
 type Props = {
   title: string;
   paragraph: string;
   labelButton: string;
-  imgUrl: string;
-  imgTitle?: string;
-  imgAlt?: string;
+  dataStatistics: DataContainerProps[];
 };
-const {
-  title,
-  paragraph,
-  labelButton,
-  imgUrl,
-  imgTitle = "",
-  imgAlt = "",
-} = Astro.props;
+const { title, paragraph, labelButton, dataStatistics } = Astro.props;
 ---
 
 <section>
-  <div class="container">
+  <div class="container primary-bg-a10">
     <div class="row align-items-center justify-content-between py-80 py-lg-6">
       <div class="col-lg-6 col-12">
         <TextContainer
           title={title}
           paragraph={paragraph}
           labelButton={labelButton}
+          variant="dark"
         />
       </div>
       <div class="col-lg-5 col-12">
-        <div class="img-container">
-          <div class="ratio ratio-4x3">
-            <img src={imgUrl} title={imgTitle} alt={imgAlt} />
-          </div>
+        <div class="data-container py-5 py-lg-6">
+          {dataStatistics.map((data) => <DataContainer {...data} />)}
         </div>
       </div>
     </div>

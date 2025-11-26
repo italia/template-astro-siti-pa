@@ -19,6 +19,10 @@ import { TextContainer } from "../components/molecules/TextContainer";
 import { UseCaseCard } from "../components/molecules/UseCaseCard";
 import { CardEditorialNews } from "../components/molecules/CardEditorialNews";
 import { CardPresentationBanner } from "../components/molecules/CardPresentationBanner";
+import { TextAndStatistics } from "../components/organisms/TextAndStatistics";
+import type { DataContainerProps } from "../components/molecules/DataContainer/types";
+import { TextAndUseCase } from "../components/organisms/TextAndUseCase";
+import type { useCaseCardProps } from "../components/molecules/UseCaseCard/types";
 
 if (import.meta.env.PROD) {
   return new Response(null, {
@@ -109,6 +113,41 @@ const sidebarItems = [
       { id: "2", label: "lista 3.2", linkTo: "#", active: false },
       { id: "3", label: "lista 3.3", linkTo: "#", active: false },
     ],
+  },
+];
+
+const dataStatisticsItems: DataContainerProps[] = [
+  {
+    infoData: "oltre 70.000",
+    title: "Numero di PA che hanno migrato al Cloud",
+    icon: "bank",
+  },
+  {
+    infoData: "+ 50%",
+    title: "Sicurezza nelle infrastrutture",
+    icon: "shield-check",
+  },
+  {
+    infoData: "oltre 200",
+    title: "Servizi nel catalogo Cloud",
+    icon: "layers",
+  },
+];
+
+const useCaseItems: useCaseCardProps[] = [
+  {
+    title: "Prepararsi alla migrazione",
+    paragraph:
+      "I primi passi per orientarsi, pianificare la migrazione e scegliere il modello cloud in modo consapevole.",
+    imgUrl: "https://placeholderimage.eu/api/city/800/600",
+    linkTo: "#",
+  },
+  {
+    title: "Prepararsi alla migrazione",
+    paragraph:
+      "I primi passi per orientarsi, pianificare la migrazione e scegliere il modello cloud in modo consapevole.",
+    imgUrl: "https://placeholderimage.eu/api/city/800/600",
+    linkTo: "#",
   },
 ];
 ---
@@ -479,6 +518,7 @@ const sidebarItems = [
                 ><DataContainer
                   title="Numero di PA che hanno migrato al Cloud "
                   infoData="70.000 +"
+                  icon="bank"
                 /></td
               >
             </tr>
@@ -670,8 +710,48 @@ const sidebarItems = [
                 <TextAndImage
                   title="Cos’è il cloud e perché è importante?"
                   paragraph="Il cloud è alla base della modernizzazione della Pubblica Amministrazione. Permette di erogare servizi digitali più sicuri, scalabili e sostenibili, migliorando la gestione dei dati e semplificando il lavoro di enti e fornitori. "
-                  imageUrl="https://placeholderimage.eu/api/city/800/600"
+                  imgUrl="https://placeholderimage.eu/api/city/800/600"
                   labelButton="Azione primaria"
+                />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>Text And Statistics</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="p-0">
+                <TextAndStatistics
+                  title="Cos’è il cloud e perché è importante?"
+                  paragraph="Il cloud è alla base della modernizzazione della Pubblica Amministrazione. Permette di erogare servizi digitali più sicuri, scalabili e sostenibili, migliorando la gestione dei dati e semplificando il lavoro di enti e fornitori. "
+                  labelButton="Azione primaria"
+                  dataStatistics={dataStatisticsItems}
+                />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>Text And UseCase</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="p-0">
+                <TextAndUseCase
+                  title="Cos’è il cloud e perché è importante?"
+                  paragraph="Il cloud è alla base della modernizzazione della Pubblica Amministrazione. Permette di erogare servizi digitali più sicuri, scalabili e sostenibili, migliorando la gestione dei dati e semplificando il lavoro di enti e fornitori. "
+                  labelButton="Azione primaria"
+                  useCases={useCaseItems}
                 />
               </td>
             </tr>
@@ -705,7 +785,7 @@ const sidebarItems = [
       <TextAndImage
         title="Titolo della sezione"
         paragraph="Platea dictumst vestibulum rhoncus est pellentesque elit ullamcorper dignissim cras. Dictum sit amet justo donec enim diam vulputate ut. Eu nisl nunc mi ipsum faucibus."
-        imageUrl="https://placeholderimage.eu/api/city/800/600"
+        imgUrl="https://placeholderimage.eu/api/city/800/600"
         labelButton="Azione primaria"
       />
     </main>
