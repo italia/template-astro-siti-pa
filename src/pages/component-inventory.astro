@@ -24,6 +24,8 @@ import { TextAndUseCase } from "../components/organisms/TextAndUseCase";
 import type { useCaseCardProps } from "../components/molecules/UseCaseCard/types";
 import { UpdateTabSection } from "../components/organisms/UpdateTabSection";
 import type { CardEditorialNewsProps } from "../components/molecules/CardEditorialNews/types";
+import { SupportChannelsSection } from "../components/organisms/SupportChannelsSection";
+import type { CardPresentationBannerProps } from "../components/molecules/CardPresentationBanner/types";
 
 if (import.meta.env.PROD) {
   return new Response(null, {
@@ -152,6 +154,30 @@ const useCaseItems: useCaseCardProps[] = [
   },
 ];
 
+const channelItems: CardPresentationBannerProps[] = [
+  {
+    icon: "it-designers-italia",
+    title: "Forum Italia",
+    description:
+      "Entra in forum.italia.it e condividi le tue opinioni nella sezione Cloud e data center",
+    linkTo: "#",
+  },
+  {
+    icon: "it-slack",
+    title: "Slack",
+    description:
+      "Unisciti alla community di Developers Italia su Slack e raggiungi il canale #cloud",
+    linkTo: "#",
+  },
+  {
+    icon: "it-github",
+    title: "Github",
+    description:
+      "Proponi issue, modifiche e nuovi contenuti nei repository pubblici per lo sviluppo del Cloud della PA",
+    linkTo: "#",
+  },
+];
+
 const newsItems: CardEditorialNewsProps[] = [
   {
     linkTo: "#",
@@ -183,7 +209,7 @@ const newsItems: CardEditorialNewsProps[] = [
     linkTo: "#",
     title: "La gestione delle identità digitali e degli accessi al cloud",
     description:
-      "Testo breve che riassume il contenuto della pagina di destinazione in massimo tre o quattro righe, senza troncamento.",
+      "Testo breve che riassume il contenuto della pagina di destinazione in massimo tre o quattro righe, senza troncamento.Testo breve che riassume il contenuto della pagina di destinazione in massimo tre o quattro righe, senza troncamento.Testo breve che riassume il contenuto della pagina di destinazione in massimo tre o quattro righe, senza troncamento.",
     category: "Articolo",
     imageUrl: "https://placeholderimage.eu/api/city/800/600",
     imageAlt:
@@ -751,6 +777,25 @@ const newsItems: CardEditorialNewsProps[] = [
         <table class="table table-bordered">
           <thead>
             <tr>
+              <th>Support Channels section</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="p-0">
+                <SupportChannelsSection
+                  title="Cos’è il cloud e perché è importante?"
+                  paragraph="Il cloud è alla base della modernizzazione della Pubblica Amministrazione. Permette di erogare servizi digitali più sicuri, scalabili e sostenibili, migliorando la gestione dei dati e semplificando il lavoro di enti e fornitori. "
+                  channels={channelItems}
+                />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <table class="table table-bordered">
+          <thead>
+            <tr>
               <th>Text And Image</th>
             </tr>
           </thead>
@@ -762,6 +807,16 @@ const newsItems: CardEditorialNewsProps[] = [
                   paragraph="Il cloud è alla base della modernizzazione della Pubblica Amministrazione. Permette di erogare servizi digitali più sicuri, scalabili e sostenibili, migliorando la gestione dei dati e semplificando il lavoro di enti e fornitori. "
                   imgUrl="https://placeholderimage.eu/api/city/800/600"
                   labelButton="Azione primaria"
+                />
+              </td>
+            </tr>
+            <tr>
+              <td class="p-0">
+                <TextAndImage
+                  variant="big"
+                  title="Cos’è il cloud e perché è importante?"
+                  paragraph="Il cloud è alla base della modernizzazione della Pubblica Amministrazione. Permette di erogare servizi digitali più sicuri, scalabili e sostenibili, migliorando la gestione dei dati e semplificando il lavoro di enti e fornitori. "
+                  imgUrl="https://placeholderimage.eu/api/city/800/600"
                 />
               </td>
             </tr>
@@ -870,6 +925,17 @@ const newsItems: CardEditorialNewsProps[] = [
         paragraph="Il cloud è alla base della modernizzazione della Pubblica Amministrazione. Permette di erogare servizi digitali più sicuri, scalabili e sostenibili, migliorando la gestione dei dati e semplificando il lavoro di enti e fornitori. "
         labelButton="Azione primaria"
         dataStatistics={dataStatisticsItems}
+      />
+      <SupportChannelsSection
+        title="Cos’è il cloud e perché è importante?"
+        paragraph="Il cloud è alla base della modernizzazione della Pubblica Amministrazione. Permette di erogare servizi digitali più sicuri, scalabili e sostenibili, migliorando la gestione dei dati e semplificando il lavoro di enti e fornitori. "
+        channels={channelItems}
+      />
+      <TextAndImage
+        variant="big"
+        title="Cos’è il cloud e perché è importante?"
+        paragraph="Il cloud è alla base della modernizzazione della Pubblica Amministrazione. Permette di erogare servizi digitali più sicuri, scalabili e sostenibili, migliorando la gestione dei dati e semplificando il lavoro di enti e fornitori. "
+        imgUrl="https://placeholderimage.eu/api/city/800/600"
       />
     </main>
   </body>

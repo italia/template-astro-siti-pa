@@ -4,10 +4,11 @@ import TextContainer from "../../molecules/TextContainer/TextContainer.astro";
 type Props = {
   title: string;
   paragraph: string;
-  labelButton: string;
+  labelButton?: string;
   imgUrl: string;
   imgTitle?: string;
   imgAlt?: string;
+  variant?: "default" | "big";
 };
 const {
   title,
@@ -16,20 +17,30 @@ const {
   imgUrl,
   imgTitle = "",
   imgAlt = "",
+  variant = "default",
 } = Astro.props;
+
+const backgroundColorClass = variant === "big" ? "bg-primary" : "";
+const textContainerVariant = variant === "big" ? "primary" : undefined;
+const firstElementClass =
+  variant === "big" ? "col-lg-4  col-12" : "col-lg-6 col-12";
+const secondElementClass =
+  variant === "big" ? "col-lg-8 col-12" : "col-lg-5 col-12";
+const alignItems = variant === "big" ? "align-items-top" : "align-items-center";
 ---
 
-<section>
+<section class={backgroundColorClass}>
   <div class="container">
-    <div class="row align-items-center justify-content-between py-80 py-lg-6">
-      <div class="col-lg-6 col-12">
+    <div class=`row ${alignItems} justify-content-between py-80 py-lg-6`>
+      <div class={firstElementClass}>
         <TextContainer
           title={title}
           paragraph={paragraph}
           labelButton={labelButton}
+          variant={textContainerVariant}
         />
       </div>
-      <div class="col-lg-5 col-12">
+      <div class={secondElementClass}>
         <div class="img-container">
           <div class="ratio ratio-4x3">
             <img src={imgUrl} title={imgTitle} alt={imgAlt} />
