@@ -1,10 +1,9 @@
 ---
 import "../styles/global.scss";
 import bsi from "bootstrap-italia/dist/js/bootstrap-italia.bundle.min.js?url";
-import Button from "../components/atoms/Button.astro";
-
 import Header from "../components/organisms/Header.astro";
 import Footer from "../components/organisms/Footer.astro";
+import { Button } from "../components/atoms/Button";
 import { Chip, ChipLink } from "../components/atoms/Chip";
 import { CardInline } from "../components/molecules/CardInline";
 import { Hero } from "../components/organisms/Hero";
@@ -23,6 +22,8 @@ import { TextAndStatistics } from "../components/organisms/TextAndStatistics";
 import type { DataContainerProps } from "../components/molecules/DataContainer/types";
 import { TextAndUseCase } from "../components/organisms/TextAndUseCase";
 import type { useCaseCardProps } from "../components/molecules/UseCaseCard/types";
+import { UpdateTabSection } from "../components/organisms/UpdateTabSection";
+import type { CardEditorialNewsProps } from "../components/molecules/CardEditorialNews/types";
 
 if (import.meta.env.PROD) {
   return new Response(null, {
@@ -150,6 +151,61 @@ const useCaseItems: useCaseCardProps[] = [
     linkTo: "#",
   },
 ];
+
+const newsItems: CardEditorialNewsProps[] = [
+  {
+    linkTo: "#",
+    title: "Nasce l’Innovation Hub di Polo Strategico Nazionale",
+    description:
+      "Al via un ecosistema collaborativo per accelerare la trasformazione digitale della Pubblica Amministrazione",
+    category: "Articolo",
+    imageUrl: "https://placeholderimage.eu/api/city/800/600",
+    imageAlt:
+      "Breve descrizione immagine se ha senso nel contesto, marcare altrimenti come decorativa lasciando l'alt applicato ma vuoto.",
+    dateTime: "2022-04-05",
+    formatDate: "05/04/2022",
+    action: "innovazione.gov.it",
+  },
+  {
+    linkTo: "#",
+    title: "Aumentano i servizi disponibili nel cloud sicuro del PSN",
+    description:
+      "PSN si aggiorna e si arricchisce di servizi che consentono alle Pubbliche Amministrazioni di adottare soluzioni tecnologiche innovative ",
+    category: "Articolo",
+    imageUrl: "https://placeholderimage.eu/api/city/800/600",
+    imageAlt:
+      "Breve descrizione immagine se ha senso nel contesto, marcare altrimenti come decorativa lasciando l'alt applicato ma vuoto.",
+    dateTime: "2022-04-05",
+    formatDate: "05/04/2022",
+    action: "innovazione.gov.it",
+  },
+  {
+    linkTo: "#",
+    title: "La gestione delle identità digitali e degli accessi al cloud",
+    description:
+      "Testo breve che riassume il contenuto della pagina di destinazione in massimo tre o quattro righe, senza troncamento.",
+    category: "Articolo",
+    imageUrl: "https://placeholderimage.eu/api/city/800/600",
+    imageAlt:
+      "Breve descrizione immagine se ha senso nel contesto, marcare altrimenti come decorativa lasciando l'alt applicato ma vuoto.",
+    dateTime: "2022-04-05",
+    formatDate: "05/04/2022",
+    action: "innovazione.gov.it",
+  },
+  {
+    linkTo: "#",
+    title: "Titolo contenuto editoriale",
+    description:
+      "Testo breve che riassume il contenuto della pagina di destinazione in massimo tre o quattro righe, senza troncamento.",
+    category: "Articolo",
+    imageUrl: "https://placeholderimage.eu/api/city/800/600",
+    imageAlt:
+      "Breve descrizione immagine se ha senso nel contesto, marcare altrimenti come decorativa lasciando l'alt applicato ma vuoto.",
+    dateTime: "2022-04-05",
+    formatDate: "05/04/2022",
+    action: "innovazione.gov.it",
+  },
+];
 ---
 
 <html>
@@ -197,50 +253,44 @@ const useCaseItems: useCaseCardProps[] = [
               <td class="p-3">Light background</td>
               <td class="p-3"><Button label="Cliccami" /></td>
               <td class="p-3"
-                ><Button label="Cliccami" variant="outline-primary" /></td
+                ><Button label="Cliccami" variant="outline-light" /></td
               >
               <td class="p-3"> <Button size="small" label="Cliccami" /></td>
               <td class="p-3">
-                <Button
-                  size="small"
-                  label="Cliccami"
-                  variant="outline-primary"
-                />
+                <Button size="small" label="Cliccami" variant="outline-light" />
               </td>
               <td class="p-3"><Button size="mini" label="Cliccami" /></td>
               <td class="p-3">
-                <Button
-                  size="mini"
-                  label="Cliccami"
-                  variant="outline-primary"
-                />
+                <Button size="mini" label="Cliccami" variant="outline-light" />
               </td>
             </tr>
 
             <tr>
               <td class="p-3">Dark background</td>
-              <td class="bg-dark p-3"><Button label="Cliccami" /></td>
-              <td class="bg-dark p-3"
-                ><Button label="Cliccami" variant="outline-primary" /></td
+              <td class="primary-bg-a10 p-3"
+                ><Button label="Cliccami" variant="dark" /></td
               >
-              <td class="bg-dark p-3"
-                ><Button size="small" label="Cliccami" /></td
+              <td class="primary-bg-a10 p-3"
+                ><Button label="Cliccami" variant="outline-dark" /></td
               >
-              <td class="bg-dark p-3"
+              <td class="primary-bg-a10 p-3"
+                ><Button size="small" label="Cliccami" variant="dark" /></td
+              >
+              <td class="primary-bg-a10 p-3"
                 ><Button
                   size="small"
                   label="Cliccami"
-                  variant="outline-primary"
+                  variant="outline-dark"
                 /></td
               >
-              <td class="bg-dark p-3"
-                ><Button size="mini" label="Cliccami" /></td
+              <td class="primary-bg-a10 p-3"
+                ><Button size="mini" label="Cliccami" variant="dark" /></td
               >
-              <td class="bg-dark p-3"
+              <td class="primary-bg-a10 p-3"
                 ><Button
                   size="mini"
                   label="Cliccami"
-                  variant="outline-primary"
+                  variant="outline-dark"
                 /></td
               >
             </tr>
@@ -249,14 +299,14 @@ const useCaseItems: useCaseCardProps[] = [
               <td class="p-3">Primary background</td>
               <td class="bg-primary p-3"></td>
               <td class="bg-primary p-3"
-                ><Button label="Cliccami" variant="outline-white" /></td
+                ><Button label="Cliccami" variant="outline-dark" /></td
               >
               <td class="bg-primary p-3"></td>
               <td class="bg-primary p-3"
                 ><Button
                   size="small"
                   label="Cliccami"
-                  variant="outline-white"
+                  variant="outline-dark"
                 /></td
               >
               <td class="bg-primary p-3"></td>
@@ -264,7 +314,7 @@ const useCaseItems: useCaseCardProps[] = [
                 ><Button
                   size="mini"
                   label="Cliccami"
-                  variant="outline-white"
+                  variant="outline-dark"
                 /></td
               >
             </tr>
@@ -751,7 +801,28 @@ const useCaseItems: useCaseCardProps[] = [
                   title="Cos’è il cloud e perché è importante?"
                   paragraph="Il cloud è alla base della modernizzazione della Pubblica Amministrazione. Permette di erogare servizi digitali più sicuri, scalabili e sostenibili, migliorando la gestione dei dati e semplificando il lavoro di enti e fornitori. "
                   labelButton="Azione primaria"
+                  labelUseCases="in evidenza"
                   useCases={useCaseItems}
+                />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>Update Tab section</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="p-0">
+                <UpdateTabSection
+                  title="Cos’è il cloud e perché è importante?"
+                  paragraph="Il cloud è alla base della modernizzazione della Pubblica Amministrazione. Permette di erogare servizi digitali più sicuri, scalabili e sostenibili, migliorando la gestione dei dati e semplificando il lavoro di enti e fornitori. "
+                  tabs={tabsItems}
+                  news={newsItems}
                 />
               </td>
             </tr>
@@ -787,6 +858,18 @@ const useCaseItems: useCaseCardProps[] = [
         paragraph="Platea dictumst vestibulum rhoncus est pellentesque elit ullamcorper dignissim cras. Dictum sit amet justo donec enim diam vulputate ut. Eu nisl nunc mi ipsum faucibus."
         imgUrl="https://placeholderimage.eu/api/city/800/600"
         labelButton="Azione primaria"
+      />
+      <UpdateTabSection
+        title="Cos’è il cloud e perché è importante?"
+        paragraph="Il cloud è alla base della modernizzazione della Pubblica Amministrazione. Permette di erogare servizi digitali più sicuri, scalabili e sostenibili, migliorando la gestione dei dati e semplificando il lavoro di enti e fornitori. "
+        tabs={tabsItems}
+        news={newsItems}
+      />
+      <TextAndStatistics
+        title="Cos’è il cloud e perché è importante?"
+        paragraph="Il cloud è alla base della modernizzazione della Pubblica Amministrazione. Permette di erogare servizi digitali più sicuri, scalabili e sostenibili, migliorando la gestione dei dati e semplificando il lavoro di enti e fornitori. "
+        labelButton="Azione primaria"
+        dataStatistics={dataStatisticsItems}
       />
     </main>
   </body>

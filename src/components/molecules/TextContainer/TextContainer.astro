@@ -1,14 +1,21 @@
 ---
-import Button from "../../atoms/Button.astro";
+import { Button } from "../../atoms/Button";
 
 type Props = {
   title: string;
   paragraph: string;
-  variant?: "light" | "dark";
+  variant?: "light" | "dark" | "primary";
   labelButton?: string;
 };
 const { title, paragraph, labelButton, variant = "light" } = Astro.props;
-const colorClass = `${variant === "dark" ? "text-white" : ""}`;
+const colorClass =
+  variant === "dark" || variant === "primary" ? "text-white" : "";
+const variantButton =
+  variant === "primary"
+    ? "outline-light"
+    : variant === "dark"
+      ? "dark"
+      : undefined;
 ---
 
 <div class=`text-container mb-4 mb-lg-0 ${colorClass}`>
@@ -19,6 +26,10 @@ const colorClass = `${variant === "dark" ? "text-white" : ""}`;
     {paragraph}
   </p>
   <div class="mt-5">
-    {labelButton && <Button size="large" label={labelButton} />}
+    {
+      labelButton && (
+        <Button size="large" label={labelButton} variant={variantButton} />
+      )
+    }
   </div>
 </div>

@@ -13,9 +13,9 @@ type Props = {
 const { title, paragraph, labelButton, dataStatistics } = Astro.props;
 ---
 
-<section>
-  <div class="container primary-bg-a10">
-    <div class="row align-items-center justify-content-between py-80 py-lg-6">
+<section class="primary-bg-a10">
+  <div class="container">
+    <div class="row align-items-top justify-content-between py-80 py-lg-6">
       <div class="col-lg-6 col-12">
         <TextContainer
           title={title}
@@ -25,7 +25,7 @@ const { title, paragraph, labelButton, dataStatistics } = Astro.props;
         />
       </div>
       <div class="col-lg-5 col-12">
-        <div class="data-container py-5 py-lg-6">
+        <div class="data-container">
           {dataStatistics.map((data) => <DataContainer {...data} />)}
         </div>
       </div>

@@ -10,17 +10,14 @@ const { title, description, icon, linkTo } = Astro.props;
 ---
 
 <article class="it-card it-card-banner rounded shadow-sm border">
-  <!--card first child is the title (link)-->
   <h3 class="it-card-title">
     <a href={linkTo}>{title}</a>
   </h3>
-  <!--card second child is the icon (optional)-->
   <div class="it-card-banner-icon-wrapper">
     <svg class="icon icon-primary icon-xl" aria-hidden="true"
       ><use href=`bsi-svg/sprites.svg#${icon}`></use></svg
     >
   </div>
-  <!--card body content-->
   <div class="it-card-body">
     <p class="it-card-text">{description}</p>
   </div>
