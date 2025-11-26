@@ -1,0 +1,20 @@
+---
+import { IconContainer } from "../../atoms/IconContainer";
+import type { CardEditorialWithIconProps } from "./types";
+
+type Props = CardEditorialWithIconProps;
+
+const { title, description, icon } = Astro.props;
+---
+
+<article class="it-card it-card-height-full rounded border lightgrey-bg-a3">
+  <div class="it-card-title it-card-title-icon">
+    <div class="it-card-title-icon-wrapper">
+      <IconContainer icon={icon} />
+    </div>
+  </div>
+  <div class="it-card-body">
+    <p class="it-card-subtitle fs-6">{title}</p>
+    <p class="it-card-text">{description}</p>
+  </div>
+</article>

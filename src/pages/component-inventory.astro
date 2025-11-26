@@ -26,6 +26,8 @@ import { UpdateTabSection } from "../components/organisms/UpdateTabSection";
 import type { CardEditorialNewsProps } from "../components/molecules/CardEditorialNews/types";
 import { SupportChannelsSection } from "../components/organisms/SupportChannelsSection";
 import type { CardPresentationBannerProps } from "../components/molecules/CardPresentationBanner/types";
+import { CardEditorialWithIcon } from "../components/molecules/CardEditorialWithIcon";
+import type { CardEditorialWithIconProps } from "../components/molecules/CardEditorialWithIcon/types";
 
 if (import.meta.env.PROD) {
   return new Response(null, {
@@ -230,6 +232,27 @@ const newsItems: CardEditorialNewsProps[] = [
     dateTime: "2022-04-05",
     formatDate: "05/04/2022",
     action: "innovazione.gov.it",
+  },
+];
+
+const cardItems: CardEditorialWithIconProps[] = [
+  {
+    title: "Titolo contenuto editoriale",
+    description:
+      "Testo breve che riassume il contenuto della pagina di destinazione in massimo tre o quattro righe, senza troncamento.",
+    icon: "bank",
+  },
+  {
+    title: "Titolo contenuto editoriale",
+    description:
+      "Testo breve che riassume il contenuto della pagina di destinazione in massimo tre o quattro righe, senza troncamento.",
+    icon: "bank",
+  },
+  {
+    title: "Titolo contenuto editoriale",
+    description:
+      "Testo breve che riassume il contenuto della pagina di destinazione in massimo tre o quattro righe, senza troncamento.",
+    icon: "bank",
   },
 ];
 ---
@@ -502,6 +525,20 @@ const newsItems: CardEditorialNewsProps[] = [
                       dateTime="2022-04-05"
                       formatDate="05/04/2022"
                       action="innovazione.gov.it"
+                    />
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>With Icon</td>
+              <td class="bg-primary p-3">
+                <div class="row">
+                  <div class="col-12 col-md-6 col-lg-6 mb-3 mb-md-4">
+                    <CardEditorialWithIcon
+                      title="Titolo contenuto editoriale"
+                      description="Testo breve che riassume il contenuto della pagina di destinazione in massimo tre o quattro righe, senza troncamento."
+                      icon="bank"
                     />
                   </div>
                 </div>
@@ -797,10 +834,12 @@ const newsItems: CardEditorialNewsProps[] = [
           <thead>
             <tr>
               <th>Text And Image</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
             <tr>
+              <td>Default</td>
               <td class="p-0">
                 <TextAndImage
                   title="Cos’è il cloud e perché è importante?"
@@ -811,12 +850,26 @@ const newsItems: CardEditorialNewsProps[] = [
               </td>
             </tr>
             <tr>
+              <td>Big</td>
               <td class="p-0">
                 <TextAndImage
                   variant="big"
                   title="Cos’è il cloud e perché è importante?"
                   paragraph="Il cloud è alla base della modernizzazione della Pubblica Amministrazione. Permette di erogare servizi digitali più sicuri, scalabili e sostenibili, migliorando la gestione dei dati e semplificando il lavoro di enti e fornitori. "
                   imgUrl="https://placeholderimage.eu/api/city/800/600"
+                />
+              </td>
+            </tr>
+            <tr>
+              <td>With box</td>
+              <td class="p-0">
+                <TextAndImage
+                  variant="dark"
+                  title="Cos’è il cloud e perché è importante?"
+                  paragraph="Il cloud è alla base della modernizzazione della Pubblica Amministrazione. Permette di erogare servizi digitali più sicuri, scalabili e sostenibili, migliorando la gestione dei dati e semplificando il lavoro di enti e fornitori. "
+                  imgUrl="https://placeholderimage.eu/api/city/800/600"
+                  cards={cardItems}
+                  labelCards="In evidenza"
                 />
               </td>
             </tr>

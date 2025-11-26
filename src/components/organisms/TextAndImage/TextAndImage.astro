@@ -1,4 +1,6 @@
 ---
+import { CardEditorialWithIcon } from "../../molecules/CardEditorialWithIcon";
+import type { CardEditorialWithIconProps } from "../../molecules/CardEditorialWithIcon/types";
 import TextContainer from "../../molecules/TextContainer/TextContainer.astro";
 
 type Props = {
@@ -8,7 +10,9 @@ type Props = {
   imgUrl: string;
   imgTitle?: string;
   imgAlt?: string;
-  variant?: "default" | "big";
+  variant?: "default" | "big" | "dark";
+  labelCards?: string;
+  cards?: CardEditorialWithIconProps[];
 };
 const {
   title,
@@ -18,10 +22,28 @@ const {
   imgTitle = "",
   imgAlt = "",
   variant = "default",
+  cards,
+  labelCards,
 } = Astro.props;
 
-const backgroundColorClass = variant === "big" ? "bg-primary" : "";
-const textContainerVariant = variant === "big" ? "primary" : undefined;
+const backgroundColor = {
+  default: "",
+  big: "bg-primary",
+  dark: "primary-bg-a10",
+};
+const backgroundColorClass = backgroundColor[variant];
+
+const variantMap = {
+  light: "btn-primary",
+  "outline-light": "btn-outline-primary",
+  dark: "btn-light text-primary",
+  "outline-dark": "border border-2 text-white border-white",
+};
+
+const textContainerVariant =
+  variant === "big" || variant === "dark" ? "primary" : undefined;
+const textLabelColorClass =
+  variant === "big" || variant === "dark" ? "text-white" : undefined;
 const firstElementClass =
   variant === "big" ? "col-lg-4  col-12" : "col-lg-6 col-12";
 const secondElementClass =
@@ -30,8 +52,8 @@ const alignItems = variant === "big" ? "align-items-top" : "align-items-center";
 ---
 
 <section class={backgroundColorClass}>
-  <div class="container">
-    <div class=`row ${alignItems} justify-content-between py-80 py-lg-6`>
+  <div class="container py-80 py-lg-6">
+    <div class=`row ${alignItems} justify-content-between `>
       <div class={firstElementClass}>
         <TextContainer
           title={title}
@@ -47,6 +69,19 @@ const alignItems = variant === "big" ? "align-items-top" : "align-items-center";
           </div>
         </div>
       </div>
+    </div>
+    <div class=`row align-item-center justify-content-between pt-5`>
+      <p class=`fw-semibold fs-6 text-uppercase ${textLabelColorClass}`>
+        {labelCards}
+      </p>
+      {
+        cards &&
+          cards.map((card) => (
+            <div class="col-12 col-md-6 mb-3 mb-md-4 col-lg-4">
+              <CardEditorialWithIcon {...card} />
+            </div>
+          ))
+      }
     </div>
   </div>
 </section>
