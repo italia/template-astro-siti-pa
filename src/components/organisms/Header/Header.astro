@@ -1,13 +1,20 @@
-<header class="it-header-wrapper it-shadow">
+---
+type Props = {
+  slimContent: string;
+  brandTitle: string;
+  brandTagLine: string;
+};
+
+const { slimContent, brandTitle, brandTagLine } = Astro.props;
+---
+
+<header class="it-header-wrapper shadow-sm">
   <div class="it-header-slim-wrapper theme-light">
-    <div class="container-xxl">
+    <div class="container">
       <div class="row">
         <div class="col-12">
           <div class="it-header-slim-wrapper-content">
-            <a class="d-none d-lg-block navbar-brand" href="#"
-              >Dipartimento per la trasformazione digitale+Agenzia per l'Italia
-              digitale</a
-            >
+            <a class="d-none d-lg-block navbar-brand" href="#">{slimContent}</a>
             <div class="nav-mobile">
               <nav aria-label="Navigazione secondaria">
                 <a
@@ -18,10 +25,7 @@
                   aria-expanded="false"
                   aria-controls="menuC2"
                 >
-                  <span
-                    >Dipartimento per la trasformazione digitale+Agenzia per
-                    l'Italia digitale</span
-                  >
+                  <span>{slimContent}</span>
                   <svg class="icon" aria-hidden="true"
                     ><use href="/bsi-svg/sprites.svg#it-expand"></use></svg
                   >
@@ -78,7 +82,7 @@
   </div>
   <div class="it-nav-wrapper">
     <div class="it-header-center-wrapper theme-light">
-      <div class="container-xxl">
+      <div class="container">
         <div class="row">
           <div class="col-12">
             <div class="it-header-center-content-wrapper">
@@ -88,9 +92,9 @@
                     ><use href="/bsi-svg/sprites.svg#it-pa"></use></svg
                   >
                   <div class="it-brand-text">
-                    <div class="it-brand-title">Cloud Italia</div>
+                    <div class="it-brand-title">{brandTitle}</div>
                     <div class="it-brand-tagline d-none d-md-block">
-                      Il cloud della Pubblica amministrazione
+                      {brandTagLine}
                     </div>
                   </div>
                 </a>
@@ -129,10 +133,9 @@
       </div>
     </div>
     <div class="it-header-navbar-wrapper theme-light-desk">
-      <div class="container-xxl">
+      <div class="container">
         <div class="row">
           <div class="col-12">
-            <!--start nav-->
             <nav
               class="navbar navbar-expand-lg has-megamenu"
               aria-label="Navigazione principale"

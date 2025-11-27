@@ -1,0 +1,145 @@
+---
+import { ChipLink } from "../../atoms/Chip";
+
+type Props = {
+  brandTitle: string;
+  brandTagLine: string;
+  brandDescription: string;
+  titleSection: string;
+};
+
+const { brandTitle, brandTagLine, brandDescription, titleSection } =
+  Astro.props;
+---
+
+<footer class="it-footer">
+  <div class="footer-brand it-footer-small-prints pt-5 pb-4 text-white">
+    <div class="container">
+      <div class="row">
+        <div class="col px-4 text-center text-md-start">
+          <div class="small mb-4">
+            <p><strong>{brandTitle}</strong>&nbsp;{brandDescription}</p>
+          </div>
+        </div>
+      </div><div class="row">
+        <div class="col px-4">
+          <ul
+            class="logos list-unstyled d-flex flex-column flex-md-row flex-wrap align-items-center mb-0"
+          >
+            <li class="mb-5 me-md-5">
+              <a
+                href="https://innovazione.gov.it/"
+                target="_blank"
+                rel="noreferrer"
+                class="d-block"
+              >
+                <svg class="icon icon-white me-3" aria-hidden="true"
+                  ><use href="/bsi-svg/sprites.svg#it-team-digitale"></use></svg
+                >
+                {brandTagLine}
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="it-footer-main py-5">
+    <div class="container">
+      <section>
+        <div class="row clearfix pb-4">
+          <div class="col-12"><h4>{titleSection}</h4></div>
+        </div>
+      </section>
+      <section>
+        <div class="row">
+          <ul
+            class="it-footer-small-prints-list list-inline mb-0 d-flex flex-column flex-md-row"
+          >
+            <li class="list-inline-item">
+              <ChipLink
+                label="Sviluppo interfaccia"
+                visuallyHidden="Argomento"
+                linkTo="#"
+                variant="outline-white"
+                size="large"
+              />
+            </li>
+            <li class="list-inline-item">
+              <ChipLink
+                label="Sviluppo interfaccia"
+                visuallyHidden="Argomento"
+                linkTo="#"
+                variant="outline-white"
+                size="large"
+              />
+            </li>
+          </ul>
+        </div>
+      </section>
+      <section class="mt-5 pt-5 border-white border-top">
+        <div class="row">
+          <div class="col-lg-12 col-md-4 pb-2">
+            <h4>Community</h4>
+            <ul
+              class="it-footer-small-prints-list list-inline mb-0 d-flex flex-column flex-md-row"
+            >
+              <li class="list-inline-item">
+                <a
+                  href="https://forum.italia.it"
+                  class="list-item left-icon"
+                  aria-label="Vai a Forum Italia (si apre in una nuova finestra) Forum Italia"
+                  target="_blank"
+                  rel="noreferrer"
+                  ><svg
+                    role="img"
+                    class="icon icon-sm align-middle icon-white me-2 mb-1"
+                    aria-hidden="true"
+                    ><use href="/bsi-svg/sprites.svg#it-designers-italia"
+                    ></use></svg
+                  ><span>Forum Italia</span></a
+                >
+              </li>
+              <li class="list-inline-item">
+                <a
+                  href="https://forum.italia.it"
+                  class="list-item left-icon"
+                  aria-label="Vai a Forum Italia (si apre in una nuova finestra) Forum Italia"
+                  target="_blank"
+                  rel="noreferrer"
+                  ><svg
+                    role="img"
+                    class="icon icon-sm align-middle icon-white me-2 mb-1"
+                    aria-hidden="true"
+                    ><use href="/bsi-svg/sprites.svg#it-designers-italia"
+                    ></use></svg
+                  ><span>Forum Italia</span></a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+  <div class="it-footer-small-prints clearfix">
+    <div class="container">
+      <ul
+        class="it-footer-small-prints-list list-inline mb-0 d-flex flex-column flex-md-row"
+      >
+        <li class="list-inline-item"><a href="#">Media policy</a></li>
+        <li class="list-inline-item"><a href="#">Note legali</a></li>
+        <li class="list-inline-item"><a href="#">Privacy policy</a></li>
+        <li class="list-inline-item"><a href="#">Mappa del sito</a></li>
+        <li class="list-inline-item">
+          <a href="https://form.agid.gov.it/view/xyz"
+            >Dichiarazione di accessibilità <span class="visually-hidden"
+              >(link esterno su sito AgID)</span
+            ></a
+          >
+        </li>
+      </ul>
+    </div>
+  </div>
+</footer>

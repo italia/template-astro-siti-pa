@@ -1,8 +1,8 @@
 ---
 import "../styles/global.scss";
 import bsi from "bootstrap-italia/dist/js/bootstrap-italia.bundle.min.js?url";
-import Header from "../components/organisms/Header.astro";
-import Footer from "../components/organisms/Footer.astro";
+import { Header } from "../components/organisms/Header";
+import { Footer } from "../components/organisms/Footer";
 import { Button } from "../components/atoms/Button";
 import { Chip, ChipLink } from "../components/atoms/Chip";
 import { CardInline } from "../components/molecules/CardInline";
@@ -745,282 +745,295 @@ const cardItems: CardEditorialWithIconProps[] = [
               </td>
             </tr>
           </tbody>
+        </table>
 
-          <table class="table table-bordered">
-            <thead>
-              <tr>
-                <th>Header</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td class="p-0">
-                  <Header />
-                </td>
-              </tr>
-            </tbody>
-          </table>
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>Footer</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="p-3">
+                <Footer
+                  brandTitle="Nome dipartimento"
+                  brandDescription="è un progetto di"
+                  brandTagLine="Dipartimento per la trasformazione digitale"
+                  titleSection="Parliamo di"
+                />
+              </td>
+            </tr>
+          </tbody>
+        </table>
 
-          <table class="table table-bordered">
-            <thead>
-              <tr>
-                <th>Hero</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Default</td>
-              </tr>
-              <tr>
-                <td class="p-0">
-                  <Hero
-                    category="Titolo occhiello"
-                    title="Titolo della sezione"
-                    paragraph="Platea dictumst vestibulum rhoncus est pellentesque elit ullamcorper dignissim cras. Dictum sit amet justo donec enim diam vulputate ut. Eu nisl nunc mi ipsum faucibus."
-                    imageUrl="https://animals.sandiegozoo.org/sites/default/files/2016-08/animals_hero_mountains.jpg"
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>Header</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="p-0">
+                <Header
+                  slimContent="Nome dipartimento"
+                  brandTitle="Cloud Italia"
+                  brandTagLine="Il cloud della Pubblica Amministrazione"
+                />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>Hero</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Default</td>
+            </tr>
+            <tr>
+              <td class="p-0">
+                <Hero
+                  category="Titolo occhiello"
+                  title="Titolo della sezione"
+                  paragraph="Platea dictumst vestibulum rhoncus est pellentesque elit ullamcorper dignissim cras. Dictum sit amet justo donec enim diam vulputate ut. Eu nisl nunc mi ipsum faucibus."
+                  imageUrl="https://animals.sandiegozoo.org/sites/default/files/2016-08/animals_hero_mountains.jpg"
+                />
+              </td>
+            </tr>
+            <tr>
+              <td>Small</td>
+            </tr>
+            <tr>
+              <td class="p-0">
+                <Hero
+                  title="Titolo della sezione"
+                  paragraph="Platea dictumst vestibulum rhoncus est pellentesque elit ullamcorper dignissim cras. Dictum sit amet justo donec enim diam vulputate ut. Eu nisl nunc mi ipsum faucibus."
+                  size="small"
+                  imageUrl="https://animals.sandiegozoo.org/sites/default/files/2016-08/animals_hero_mountains.jpg"
+                >
+                  <Breadcrumb
+                    ariaLabel="Percorso di navigazione"
+                    slot="category"
+                    items={breadcrumbItems}
                   />
-                </td>
-              </tr>
-              <tr>
-                <td>Small</td>
-              </tr>
-              <tr>
-                <td class="p-0">
-                  <Hero
-                    title="Titolo della sezione"
-                    paragraph="Platea dictumst vestibulum rhoncus est pellentesque elit ullamcorper dignissim cras. Dictum sit amet justo donec enim diam vulputate ut. Eu nisl nunc mi ipsum faucibus."
-                    size="small"
-                    imageUrl="https://animals.sandiegozoo.org/sites/default/files/2016-08/animals_hero_mountains.jpg"
-                  >
-                    <Breadcrumb
-                      ariaLabel="Percorso di navigazione"
-                      slot="category"
-                      items={breadcrumbItems}
-                    />
-                  </Hero>
-                </td>
-              </tr>
+                </Hero>
+              </td>
+            </tr>
 
-              <tr>
-                <td>Extra Small</td>
-              </tr>
-              <tr>
-                <td class="p-0">
-                  <Hero
-                    title="Titolo della sezione"
-                    paragraph="Platea dictumst vestibulum rhoncus est pellentesque elit ullamcorper dignissim cras. Dictum sit amet justo donec enim diam vulputate ut. Eu nisl nunc mi ipsum faucibus."
-                    size="xsmall"
-                    imageUrl="https://animals.sandiegozoo.org/sites/default/files/2016-08/animals_hero_mountains.jpg"
-                  >
-                    <Breadcrumb
-                      ariaLabel="Percorso di navigazione"
-                      slot="category"
-                      items={breadcrumbItems}
-                    /></Hero
-                  >
-                </td>
-              </tr>
-            </tbody>
-          </table>
+            <tr>
+              <td>Extra Small</td>
+            </tr>
+            <tr>
+              <td class="p-0">
+                <Hero
+                  title="Titolo della sezione"
+                  paragraph="Platea dictumst vestibulum rhoncus est pellentesque elit ullamcorper dignissim cras. Dictum sit amet justo donec enim diam vulputate ut. Eu nisl nunc mi ipsum faucibus."
+                  size="xsmall"
+                  imageUrl="https://animals.sandiegozoo.org/sites/default/files/2016-08/animals_hero_mountains.jpg"
+                >
+                  <Breadcrumb
+                    ariaLabel="Percorso di navigazione"
+                    slot="category"
+                    items={breadcrumbItems}
+                  /></Hero
+                >
+              </td>
+            </tr>
+          </tbody>
+        </table>
 
-          <table class="table table-bordered">
-            <thead>
-              <tr>
-                <th>Sidebar</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td class="p-3">
-                  <Sidebar
-                    id="sidebar"
-                    ariaLabel="Apri/chiudi sidebar"
-                    header="Usare il cloud"
-                    openLabel="Menu di navigazione"
-                    closeLabel="Chiudi"
-                    items={sidebarItems}
-                  />
-                </td>
-              </tr>
-            </tbody>
-          </table>
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>Sidebar</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="p-3">
+                <Sidebar
+                  id="sidebar"
+                  ariaLabel="Apri/chiudi sidebar"
+                  header="Usare il cloud"
+                  openLabel="Menu di navigazione"
+                  closeLabel="Chiudi"
+                  items={sidebarItems}
+                />
+              </td>
+            </tr>
+          </tbody>
+        </table>
 
-          <table class="table table-bordered">
-            <thead>
-              <tr>
-                <th>Support Channels section</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td class="p-0">
-                  <SupportChannelsSection
-                    title="Cos’è il cloud e perché è importante?"
-                    paragraph="Il cloud è alla base della modernizzazione della Pubblica Amministrazione. Permette di erogare servizi digitali più sicuri, scalabili e sostenibili, migliorando la gestione dei dati e semplificando il lavoro di enti e fornitori. "
-                    channels={channelItems}
-                  />
-                </td>
-              </tr>
-            </tbody>
-          </table>
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>Support Channels section</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="p-0">
+                <SupportChannelsSection
+                  title="Cos’è il cloud e perché è importante?"
+                  paragraph="Il cloud è alla base della modernizzazione della Pubblica Amministrazione. Permette di erogare servizi digitali più sicuri, scalabili e sostenibili, migliorando la gestione dei dati e semplificando il lavoro di enti e fornitori. "
+                  channels={channelItems}
+                />
+              </td>
+            </tr>
+          </tbody>
+        </table>
 
-          <table class="table table-bordered">
-            <thead>
-              <tr>
-                <th>Text And Accordions</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td class="p-0">
-                  <TextAndAccordions
-                    title="Cos’è il cloud e perché è importante?"
-                    paragraph="Il cloud è alla base della modernizzazione della Pubblica Amministrazione. Permette di erogare servizi digitali più sicuri, scalabili e sostenibili, migliorando la gestione dei dati e semplificando il lavoro di enti e fornitori. "
-                    labelAccordion="In evidenza"
-                    accordion={{ id: "FAQ", items: accordionItems }}
-                  />
-                </td>
-              </tr>
-            </tbody>
-          </table>
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>Text And Accordions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="p-0">
+                <TextAndAccordions
+                  title="Cos’è il cloud e perché è importante?"
+                  paragraph="Il cloud è alla base della modernizzazione della Pubblica Amministrazione. Permette di erogare servizi digitali più sicuri, scalabili e sostenibili, migliorando la gestione dei dati e semplificando il lavoro di enti e fornitori. "
+                  labelAccordion="In evidenza"
+                  accordion={{ id: "FAQ", items: accordionItems }}
+                />
+              </td>
+            </tr>
+          </tbody>
+        </table>
 
-          <table class="table table-bordered">
-            <thead>
-              <tr>
-                <th>Text And Image</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Default</td>
-                <td class="p-0">
-                  <TextAndImage
-                    title="Cos’è il cloud e perché è importante?"
-                    paragraph="Il cloud è alla base della modernizzazione della Pubblica Amministrazione. Permette di erogare servizi digitali più sicuri, scalabili e sostenibili, migliorando la gestione dei dati e semplificando il lavoro di enti e fornitori. "
-                    imgUrl="https://placeholderimage.eu/api/city/800/600"
-                    labelButton="Azione primaria"
-                  />
-                </td>
-              </tr>
-              <tr>
-                <td>Big</td>
-                <td class="p-0">
-                  <TextAndImage
-                    variant="big"
-                    title="Cos’è il cloud e perché è importante?"
-                    paragraph="Il cloud è alla base della modernizzazione della Pubblica Amministrazione. Permette di erogare servizi digitali più sicuri, scalabili e sostenibili, migliorando la gestione dei dati e semplificando il lavoro di enti e fornitori. "
-                    imgUrl="https://placeholderimage.eu/api/city/800/600"
-                  />
-                </td>
-              </tr>
-              <tr>
-                <td>With box</td>
-                <td class="p-0">
-                  <TextAndImage
-                    variant="withBox"
-                    title="Cos’è il cloud e perché è importante?"
-                    paragraph="Il cloud è alla base della modernizzazione della Pubblica Amministrazione. Permette di erogare servizi digitali più sicuri, scalabili e sostenibili, migliorando la gestione dei dati e semplificando il lavoro di enti e fornitori. "
-                    imgUrl="https://placeholderimage.eu/api/city/800/600"
-                    cards={cardItems}
-                    labelCards="In evidenza"
-                  />
-                </td>
-              </tr>
-            </tbody>
-          </table>
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>Text And Image</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Default</td>
+              <td class="p-0">
+                <TextAndImage
+                  title="Cos’è il cloud e perché è importante?"
+                  paragraph="Il cloud è alla base della modernizzazione della Pubblica Amministrazione. Permette di erogare servizi digitali più sicuri, scalabili e sostenibili, migliorando la gestione dei dati e semplificando il lavoro di enti e fornitori. "
+                  imgUrl="https://placeholderimage.eu/api/city/800/600"
+                  labelButton="Azione primaria"
+                />
+              </td>
+            </tr>
+            <tr>
+              <td>Big</td>
+              <td class="p-0">
+                <TextAndImage
+                  variant="big"
+                  title="Cos’è il cloud e perché è importante?"
+                  paragraph="Il cloud è alla base della modernizzazione della Pubblica Amministrazione. Permette di erogare servizi digitali più sicuri, scalabili e sostenibili, migliorando la gestione dei dati e semplificando il lavoro di enti e fornitori. "
+                  imgUrl="https://placeholderimage.eu/api/city/800/600"
+                />
+              </td>
+            </tr>
+            <tr>
+              <td>With box</td>
+              <td class="p-0">
+                <TextAndImage
+                  variant="withBox"
+                  title="Cos’è il cloud e perché è importante?"
+                  paragraph="Il cloud è alla base della modernizzazione della Pubblica Amministrazione. Permette di erogare servizi digitali più sicuri, scalabili e sostenibili, migliorando la gestione dei dati e semplificando il lavoro di enti e fornitori. "
+                  imgUrl="https://placeholderimage.eu/api/city/800/600"
+                  cards={cardItems}
+                  labelCards="In evidenza"
+                />
+              </td>
+            </tr>
+          </tbody>
+        </table>
 
-          <table class="table table-bordered">
-            <thead>
-              <tr>
-                <th>Text And Statistics</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td class="p-0">
-                  <TextAndStatistics
-                    title="Cos’è il cloud e perché è importante?"
-                    paragraph="Il cloud è alla base della modernizzazione della Pubblica Amministrazione. Permette di erogare servizi digitali più sicuri, scalabili e sostenibili, migliorando la gestione dei dati e semplificando il lavoro di enti e fornitori. "
-                    labelButton="Azione primaria"
-                    dataStatistics={dataStatisticsItems}
-                  />
-                </td>
-              </tr>
-            </tbody>
-          </table>
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>Text And Statistics</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="p-0">
+                <TextAndStatistics
+                  title="Cos’è il cloud e perché è importante?"
+                  paragraph="Il cloud è alla base della modernizzazione della Pubblica Amministrazione. Permette di erogare servizi digitali più sicuri, scalabili e sostenibili, migliorando la gestione dei dati e semplificando il lavoro di enti e fornitori. "
+                  labelButton="Azione primaria"
+                  dataStatistics={dataStatisticsItems}
+                />
+              </td>
+            </tr>
+          </tbody>
+        </table>
 
-          <table class="table table-bordered">
-            <thead>
-              <tr>
-                <th>Text And UseCase</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td class="p-0">
-                  <TextAndUseCase
-                    title="Cos’è il cloud e perché è importante?"
-                    paragraph="Il cloud è alla base della modernizzazione della Pubblica Amministrazione. Permette di erogare servizi digitali più sicuri, scalabili e sostenibili, migliorando la gestione dei dati e semplificando il lavoro di enti e fornitori. "
-                    labelButton="Azione primaria"
-                    labelUseCases="in evidenza"
-                    useCases={useCaseItems}
-                  />
-                </td>
-              </tr>
-            </tbody>
-          </table>
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>Text And UseCase</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="p-0">
+                <TextAndUseCase
+                  title="Cos’è il cloud e perché è importante?"
+                  paragraph="Il cloud è alla base della modernizzazione della Pubblica Amministrazione. Permette di erogare servizi digitali più sicuri, scalabili e sostenibili, migliorando la gestione dei dati e semplificando il lavoro di enti e fornitori. "
+                  labelButton="Azione primaria"
+                  labelUseCases="in evidenza"
+                  useCases={useCaseItems}
+                />
+              </td>
+            </tr>
+          </tbody>
+        </table>
 
-          <table class="table table-bordered">
-            <thead>
-              <tr>
-                <th>Update Tab section</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td class="p-0">
-                  <UpdateTabSection
-                    title="Cos’è il cloud e perché è importante?"
-                    paragraph="Il cloud è alla base della modernizzazione della Pubblica Amministrazione. Permette di erogare servizi digitali più sicuri, scalabili e sostenibili, migliorando la gestione dei dati e semplificando il lavoro di enti e fornitori. "
-                    tabs={tabsItems}
-                    news={newsItems}
-                  />
-                </td>
-              </tr>
-            </tbody>
-          </table>
-
-          <!-- FOOTER da chiarire -->
-          <table class="table table-bordered">
-            <thead>
-              <tr>
-                <th>Footer</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td class="p-3">
-                  <Footer />
-                </td>
-              </tr>
-            </tbody>
-          </table>
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>Update Tab section</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="p-0">
+                <UpdateTabSection
+                  title="Cos’è il cloud e perché è importante?"
+                  paragraph="Il cloud è alla base della modernizzazione della Pubblica Amministrazione. Permette di erogare servizi digitali più sicuri, scalabili e sostenibili, migliorando la gestione dei dati e semplificando il lavoro di enti e fornitori. "
+                  tabs={tabsItems}
+                  news={newsItems}
+                />
+              </td>
+            </tr>
+          </tbody>
         </table>
       </div>
 
       <h2 class="m-4">Esempio</h2>
-      <Hero
-        category="Titolo occhiello"
-        title="Titolo della sezione"
-        paragraph="Platea dictumst vestibulum rhoncus est pellentesque elit ullamcorper dignissim cras. Dictum sit amet justo donec enim diam vulputate ut. Eu nisl nunc mi ipsum faucibus."
-        imageUrl="https://animals.sandiegozoo.org/sites/default/files/2016-08/animals_hero_mountains.jpg"
+      <Header
+        slimContent="Dipartimento per la trasformazione digitale"
+        brandTitle="Cloud Italia"
+        brandTagLine="Il cloud della Pubblica Amministrazione"
       />
       <TextAndImage
         title="Titolo della sezione"
         paragraph="Platea dictumst vestibulum rhoncus est pellentesque elit ullamcorper dignissim cras. Dictum sit amet justo donec enim diam vulputate ut. Eu nisl nunc mi ipsum faucibus."
         imgUrl="https://placeholderimage.eu/api/city/800/600"
         labelButton="Azione primaria"
+      />
+      <Hero
+        category="Titolo occhiello"
+        title="Titolo della sezione"
+        paragraph="Platea dictumst vestibulum rhoncus est pellentesque elit ullamcorper dignissim cras. Dictum sit amet justo donec enim diam vulputate ut. Eu nisl nunc mi ipsum faucibus."
+        imageUrl="https://animals.sandiegozoo.org/sites/default/files/2016-08/animals_hero_mountains.jpg"
       />
       <UpdateTabSection
         title="Cos’è il cloud e perché è importante?"
@@ -1044,6 +1057,12 @@ const cardItems: CardEditorialWithIconProps[] = [
         title="Cos’è il cloud e perché è importante?"
         paragraph="Il cloud è alla base della modernizzazione della Pubblica Amministrazione. Permette di erogare servizi digitali più sicuri, scalabili e sostenibili, migliorando la gestione dei dati e semplificando il lavoro di enti e fornitori. "
         imgUrl="https://placeholderimage.eu/api/city/800/600"
+      />
+      <Footer
+        brandTitle="Nome dipartimento"
+        brandDescription="è un progetto di"
+        brandTagLine="Dipartimento per la trasformazione digitale"
+        titleSection="Parliamo di"
       />
     </main>
   </body>
