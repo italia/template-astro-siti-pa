@@ -6,6 +6,7 @@ type Props = {
   linkTo: string;
   disabled?: boolean;
   variant?: "primary" | "standard" | "outline-white";
+  size?: "default" | "large";
 };
 const {
   label,
@@ -13,24 +14,31 @@ const {
   linkTo,
   variant = "standard",
   disabled = false,
+  size = "default",
 } = Astro.props;
 
-const className =
-  variant === "outline-white"
-    ? "chip-outline-white"
-    : variant === "primary"
-      ? "chip-primary "
-      : "";
+const sizeMap = {
+  default: "",
+  large: "chip-lg",
+};
+const sizeClass = sizeMap[size];
+
+const variantMap = {
+  standard: "",
+  "outline-white": "chip-outline-white",
+  primary: "chip-primary",
+};
+
+const chipVariant = variantMap[variant];
+
 const disabledClass = disabled ? "chip-disabled" : "";
 const finalHref = disabled ? undefined : linkTo;
 const ariaDisabled = disabled ? "true" : "false";
+
+const className = `chip chip-simple ${chipVariant} ${disabledClass} ${sizeClass}`;
 ---
 
-<a
-  class=`chip chip-simple ${className} ${disabledClass}`
-  href={finalHref}
-  aria-disabled={ariaDisabled}
->
+<a class={className} href={finalHref} aria-disabled={ariaDisabled}>
   <span class="visually-hidden">{visuallyHidden}</span>
   <span class="chip-label">{label}</span>
 </a>

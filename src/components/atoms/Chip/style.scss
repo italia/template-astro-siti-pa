@@ -2,7 +2,11 @@
 
 .chip.chip-outline-white {
   background-color: transparent;
-  border-color: white;
+  border-color: $white;
+  text-decoration: none;
+}
+
+.chip.chip-simple {
   text-decoration: none;
 }
 
@@ -16,7 +20,7 @@
 }
 
 .chip.chip-outline-white .chip-label {
-  color: white;
+  color: $white;
 }
 
 .chip.chip-outline-white .chip-label:active {
