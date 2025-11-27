@@ -10,7 +10,7 @@ type Props = {
   imgUrl: string;
   imgTitle?: string;
   imgAlt?: string;
-  variant?: "default" | "big" | "dark";
+  variant?: "default" | "big" | "withBox";
   labelCards?: string;
   cards?: CardEditorialWithIconProps[];
 };
@@ -29,7 +29,7 @@ const {
 const backgroundColor = {
   default: "",
   big: "bg-primary",
-  dark: "primary-bg-a10",
+  withBox: "primary-bg-a10",
 };
 const backgroundColorClass = backgroundColor[variant];
 
@@ -41,9 +41,9 @@ const variantMap = {
 };
 
 const textContainerVariant =
-  variant === "big" || variant === "dark" ? "primary" : undefined;
+  variant === "big" || variant === "withBox" ? "primary" : undefined;
 const textLabelColorClass =
-  variant === "big" || variant === "dark" ? "text-white" : undefined;
+  variant === "big" || variant === "withBox" ? "text-white" : undefined;
 const firstElementClass =
   variant === "big" ? "col-lg-4  col-12" : "col-lg-6 col-12";
 const secondElementClass =
