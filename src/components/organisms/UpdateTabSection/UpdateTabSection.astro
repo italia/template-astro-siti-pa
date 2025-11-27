@@ -15,16 +15,16 @@ const { title, paragraph, tabs, news } = Astro.props;
 ---
 
 <section class="bg-primary">
-  <div class="container py-80 py-lg-6">
+  <div class="container py-80">
     <div class="row align-items-top justify-content-between">
       <div class="col-lg-5 col-12">
         <TextContainer title={title} paragraph={paragraph} variant="primary" />
       </div>
     </div>
-    <div class="pt-5 py-lg-6">
+    <div class="pt-5">
       <Tabs items={tabs} />
     </div>
-    <div class="row py-5 py-lg-6">
+    <div class="row py-5">
       {
         news.map((item) => (
           <div class="col-12 col-md-6 mb-3 mb-md-4 col-lg-4">

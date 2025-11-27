@@ -14,13 +14,13 @@ const { title, paragraph, channels } = Astro.props;
 ---
 
 <section>
-  <div class="container py-80 py-lg-6">
+  <div class="container py-80">
     <div class="row align-items-top justify-content-between">
       <div class="col-lg-5 col-12">
         <TextContainer title={title} paragraph={paragraph} />
       </div>
     </div>
-    <div class="row py-4 py-lg-6">
+    <div class="row py-5">
       {
         channels.map((item) => (
           <div class="col-12 col-md-6 mb-3 mb-md-4 col-lg-4">
