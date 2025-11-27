@@ -2,6 +2,7 @@
 import { CardPresentationBanner } from "../../molecules/CardPresentationBanner";
 import type { CardPresentationBannerProps } from "../../molecules/CardPresentationBanner/types";
 import TextContainer from "../../molecules/TextContainer/TextContainer.astro";
+import { SectionContainer } from "../SectionContainer";
 
 type Props = {
   title: string;
@@ -11,21 +12,19 @@ type Props = {
 const { title, paragraph, channels } = Astro.props;
 ---
 
-<section>
-  <div class="container py-80">
-    <div class="row align-items-top justify-content-between">
-      <div class="col-lg-5 col-12">
-        <TextContainer title={title} paragraph={paragraph} />
-      </div>
-    </div>
-    <div class="row py-5">
-      {
-        channels.map((item) => (
-          <div class="col-12 col-md-6 mb-3 mb-md-4 col-lg-4">
-            <CardPresentationBanner {...item} />
-          </div>
-        ))
-      }
+<SectionContainer>
+  <div class="row align-items-top justify-content-between">
+    <div class="col-lg-5 col-12">
+      <TextContainer title={title} paragraph={paragraph} />
     </div>
   </div>
-</section>
+  <div class="row pt-5">
+    {
+      channels.map((item) => (
+        <div class="col-12 col-md-6 mb-3 mb-md-4 col-lg-4">
+          <CardPresentationBanner {...item} />
+        </div>
+      ))
+    }
+  </div>
+</SectionContainer>

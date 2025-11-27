@@ -1,0 +1,13 @@
+---
+type Props = {
+  className?: string;
+};
+
+const { className } = Astro.props;
+---
+
+<section class={className}>
+  <div class="container py-80">
+    <slot />
+  </div>
+</section>

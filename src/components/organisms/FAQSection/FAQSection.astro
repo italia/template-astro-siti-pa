@@ -1,6 +1,7 @@
 ---
 import { Accordion } from "../../molecules/Accordion";
 import type { AccordionProps } from "../../molecules/Accordion/types";
+import { SectionContainer } from "../SectionContainer";
 
 type Props = {
   title: string;
@@ -9,15 +10,13 @@ type Props = {
 const { title, accordion } = Astro.props;
 ---
 
-<section>
-  <div class="container py-80">
-    <div class="row align-items-top">
-      <div class="col-12">
-        <h2 class="heading-2-lg pb-5">
-          {title}
-        </h2>
-        <Accordion {...accordion} />
-      </div>
+<SectionContainer>
+  <div class="row align-items-top">
+    <div class="col-12">
+      <h2 class="heading-2-lg pb-5">
+        {title}
+      </h2>
+      <Accordion {...accordion} />
     </div>
   </div>
-</section>
+</SectionContainer>

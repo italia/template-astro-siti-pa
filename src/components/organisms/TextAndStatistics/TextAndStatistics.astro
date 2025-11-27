@@ -2,6 +2,7 @@
 import { DataContainer } from "../../molecules/DataContainer";
 import type { DataContainerProps } from "../../molecules/DataContainer/types";
 import TextContainer from "../../molecules/TextContainer/TextContainer.astro";
+import { SectionContainer } from "../SectionContainer";
 import "./style.scss";
 
 type Props = {
@@ -13,22 +14,20 @@ type Props = {
 const { title, paragraph, labelButton, dataStatistics } = Astro.props;
 ---
 
-<section class="primary-bg-a10">
-  <div class="container">
-    <div class="row align-items-top justify-content-between py-80">
-      <div class="col-lg-6 col-12">
-        <TextContainer
-          title={title}
-          paragraph={paragraph}
-          labelButton={labelButton}
-          variant="dark"
-        />
-      </div>
-      <div class="col-lg-5 col-12">
-        <div class="data-container">
-          {dataStatistics.map((data) => <DataContainer {...data} />)}
-        </div>
+<SectionContainer className="primary-bg-a10">
+  <div class="row align-items-top justify-content-between">
+    <div class="col-lg-6 col-12">
+      <TextContainer
+        title={title}
+        paragraph={paragraph}
+        labelButton={labelButton}
+        variant="dark"
+      />
+    </div>
+    <div class="col-lg-5 col-12">
+      <div class="data-container">
+        {dataStatistics.map((data) => <DataContainer {...data} />)}
       </div>
     </div>
   </div>
-</section>
+</SectionContainer>

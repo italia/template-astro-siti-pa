@@ -2,6 +2,7 @@
 import { CardEditorialWithIcon } from "../../molecules/CardEditorialWithIcon";
 import type { CardEditorialWithIconProps } from "../../molecules/CardEditorialWithIcon/types";
 import TextContainer from "../../molecules/TextContainer/TextContainer.astro";
+import { SectionContainer } from "../SectionContainer";
 
 type Props = {
   title: string;
@@ -51,38 +52,36 @@ const secondElementClass =
 const alignItems = variant === "big" ? "align-items-top" : "align-items-center";
 ---
 
-<section class={backgroundColorClass}>
-  <div class="container py-80">
-    <div class=`row ${alignItems} justify-content-between `>
-      <div class={firstElementClass}>
-        <TextContainer
-          title={title}
-          paragraph={paragraph}
-          labelButton={labelButton}
-          variant={textContainerVariant}
-        />
-      </div>
-      <div class={secondElementClass}>
-        <div class="img-container">
-          <div class="ratio ratio-4x3">
-            <img src={imgUrl} title={imgTitle} alt={imgAlt} />
-          </div>
+<SectionContainer className={backgroundColorClass}>
+  <div class=`row ${alignItems} justify-content-between `>
+    <div class={firstElementClass}>
+      <TextContainer
+        title={title}
+        paragraph={paragraph}
+        labelButton={labelButton}
+        variant={textContainerVariant}
+      />
+    </div>
+    <div class={secondElementClass}>
+      <div class="img-container">
+        <div class="ratio ratio-4x3">
+          <img src={imgUrl} title={imgTitle} alt={imgAlt} />
         </div>
       </div>
     </div>
-    {
-      cards && (
-        <div class="row align-item-center justify-content-between pt-5">
-          <p class={`fw-semibold fs-6 text-uppercase ${textLabelColorClass}`}>
-            {labelCards}
-          </p>
-          {cards.map((card) => (
-            <div class="col-12 col-md-6 mb-3 mb-md-4 col-lg-4">
-              <CardEditorialWithIcon {...card} />
-            </div>
-          ))}
-        </div>
-      )
-    }
   </div>
-</section>
+  {
+    cards && (
+      <div class="row align-item-center justify-content-between pt-5">
+        <p class={`fw-semibold fs-6 text-uppercase ${textLabelColorClass}`}>
+          {labelCards}
+        </p>
+        {cards.map((card) => (
+          <div class="col-12 col-md-6 mb-3 mb-md-4 col-lg-4">
+            <CardEditorialWithIcon {...card} />
+          </div>
+        ))}
+      </div>
+    )
+  }
+</SectionContainer>
