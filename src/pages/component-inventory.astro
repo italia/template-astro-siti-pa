@@ -476,9 +476,19 @@ const cardItems: CardEditorialWithIconProps[] = [
           </thead>
           <tbody>
             <tr>
-              <td class="p-3"> Light background </td>
+              <td class="p-3"> Deafult </td>
               <td class="p-3">
                 <Accordion id="accordion" items={accordionItems} />
+              </td>
+            </tr>
+            <tr>
+              <td class="p-3"> Background active </td>
+              <td class="p-3">
+                <Accordion
+                  id="accordion"
+                  items={accordionItems}
+                  variant="background-active"
+                />
               </td>
             </tr>
           </tbody>
@@ -997,44 +1007,43 @@ const cardItems: CardEditorialWithIconProps[] = [
             </tbody>
           </table>
         </table>
-
-        <h2 class="m-4">Esempio</h2>
-        <Hero
-          category="Titolo occhiello"
-          title="Titolo della sezione"
-          paragraph="Platea dictumst vestibulum rhoncus est pellentesque elit ullamcorper dignissim cras. Dictum sit amet justo donec enim diam vulputate ut. Eu nisl nunc mi ipsum faucibus."
-          imageUrl="https://animals.sandiegozoo.org/sites/default/files/2016-08/animals_hero_mountains.jpg"
-        />
-        <TextAndImage
-          title="Titolo della sezione"
-          paragraph="Platea dictumst vestibulum rhoncus est pellentesque elit ullamcorper dignissim cras. Dictum sit amet justo donec enim diam vulputate ut. Eu nisl nunc mi ipsum faucibus."
-          imgUrl="https://placeholderimage.eu/api/city/800/600"
-          labelButton="Azione primaria"
-        />
-        <UpdateTabSection
-          title="Cos’è il cloud e perché è importante?"
-          paragraph="Il cloud è alla base della modernizzazione della Pubblica Amministrazione. Permette di erogare servizi digitali più sicuri, scalabili e sostenibili, migliorando la gestione dei dati e semplificando il lavoro di enti e fornitori. "
-          tabs={tabsItems}
-          news={newsItems}
-        />
-        <TextAndStatistics
-          title="Cos’è il cloud e perché è importante?"
-          paragraph="Il cloud è alla base della modernizzazione della Pubblica Amministrazione. Permette di erogare servizi digitali più sicuri, scalabili e sostenibili, migliorando la gestione dei dati e semplificando il lavoro di enti e fornitori. "
-          labelButton="Azione primaria"
-          dataStatistics={dataStatisticsItems}
-        />
-        <SupportChannelsSection
-          title="Cos’è il cloud e perché è importante?"
-          paragraph="Il cloud è alla base della modernizzazione della Pubblica Amministrazione. Permette di erogare servizi digitali più sicuri, scalabili e sostenibili, migliorando la gestione dei dati e semplificando il lavoro di enti e fornitori. "
-          channels={channelItems}
-        />
-        <TextAndImage
-          variant="big"
-          title="Cos’è il cloud e perché è importante?"
-          paragraph="Il cloud è alla base della modernizzazione della Pubblica Amministrazione. Permette di erogare servizi digitali più sicuri, scalabili e sostenibili, migliorando la gestione dei dati e semplificando il lavoro di enti e fornitori. "
-          imgUrl="https://placeholderimage.eu/api/city/800/600"
-        />
       </div>
+      <h2 class="m-4">Esempio</h2>
+      <Hero
+        category="Titolo occhiello"
+        title="Titolo della sezione"
+        paragraph="Platea dictumst vestibulum rhoncus est pellentesque elit ullamcorper dignissim cras. Dictum sit amet justo donec enim diam vulputate ut. Eu nisl nunc mi ipsum faucibus."
+        imageUrl="https://animals.sandiegozoo.org/sites/default/files/2016-08/animals_hero_mountains.jpg"
+      />
+      <TextAndImage
+        title="Titolo della sezione"
+        paragraph="Platea dictumst vestibulum rhoncus est pellentesque elit ullamcorper dignissim cras. Dictum sit amet justo donec enim diam vulputate ut. Eu nisl nunc mi ipsum faucibus."
+        imgUrl="https://placeholderimage.eu/api/city/800/600"
+        labelButton="Azione primaria"
+      />
+      <UpdateTabSection
+        title="Cos’è il cloud e perché è importante?"
+        paragraph="Il cloud è alla base della modernizzazione della Pubblica Amministrazione. Permette di erogare servizi digitali più sicuri, scalabili e sostenibili, migliorando la gestione dei dati e semplificando il lavoro di enti e fornitori. "
+        tabs={tabsItems}
+        news={newsItems}
+      />
+      <TextAndStatistics
+        title="Cos’è il cloud e perché è importante?"
+        paragraph="Il cloud è alla base della modernizzazione della Pubblica Amministrazione. Permette di erogare servizi digitali più sicuri, scalabili e sostenibili, migliorando la gestione dei dati e semplificando il lavoro di enti e fornitori. "
+        labelButton="Azione primaria"
+        dataStatistics={dataStatisticsItems}
+      />
+      <SupportChannelsSection
+        title="Cos’è il cloud e perché è importante?"
+        paragraph="Il cloud è alla base della modernizzazione della Pubblica Amministrazione. Permette di erogare servizi digitali più sicuri, scalabili e sostenibili, migliorando la gestione dei dati e semplificando il lavoro di enti e fornitori. "
+        channels={channelItems}
+      />
+      <TextAndImage
+        variant="big"
+        title="Cos’è il cloud e perché è importante?"
+        paragraph="Il cloud è alla base della modernizzazione della Pubblica Amministrazione. Permette di erogare servizi digitali più sicuri, scalabili e sostenibili, migliorando la gestione dei dati e semplificando il lavoro di enti e fornitori. "
+        imgUrl="https://placeholderimage.eu/api/city/800/600"
+      />
     </main>
   </body>
   <script src={bsi}></script>
