@@ -1,0 +1,25 @@
+---
+import { Link } from "../../atoms/Link";
+import type { FooterSmallPrintsProps } from "./types";
+
+type Props = FooterSmallPrintsProps;
+
+const { labelVisualHidden, links } = Astro.props;
+---
+
+<div class="it-footer-small-prints clearfix">
+  <div class="container">
+    <h3 class="visually-hidden">{labelVisualHidden}</h3>
+    <ul
+      class="it-footer-small-prints-list list-inline mb-0 d-flex flex-column flex-md-row px-0"
+    >
+      {
+        links.map((link) => (
+          <li class="list-inline-item">
+            <Link {...link} />
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</div>

@@ -1,0 +1,57 @@
+---
+import { ChipLink } from "../../atoms/Chip";
+import type { ChipLinkProps } from "../../atoms/Chip/types";
+import FooterUtility from "./FooterUtility.astro";
+import type {
+  FooterLogoProps,
+  FooterTopicsProps,
+  FooterUtilityProps,
+} from "./types";
+
+type Props = {
+  topics: FooterTopicsProps;
+  utilities: FooterUtilityProps[];
+};
+const { topics, utilities } = Astro.props;
+---
+
+<div class="it-footer-main">
+  <div class="container">
+    <section class="px-0">
+      <div class="row">
+        <div class="col-12 py-4">
+          <h4 class="pb-4">{topics.title}</h4>
+          <ul
+            class="it-footer-small-prints-list list-inline mb-0 d-flex flex-column flex-md-row"
+          >
+            {
+              topics.items.map((topic) => (
+                <li class="list-inline-item">
+                  <ChipLink {...topic} variant="outline-white" size="large" />
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+      </div>
+    </section>
+    <section class="py-4 border-white border-top px-0">
+      <div class="row">
+        {
+          utilities.map((utility) => (
+            <div class="col-12 ">
+              <h4 class="pb-4">{utility.title}</h4>
+              <ul class="list-inline mb-0 d-flex flex-column flex-md-row">
+                {utility.items.map((item) => (
+                  <li class="list-inline-item me-4 mb-2">
+                    <FooterUtility {...item} />
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))
+        }
+      </div>
+    </section>
+  </div>
+</div>

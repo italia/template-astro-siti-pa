@@ -1,13 +1,8 @@
 ---
 import "./style.scss";
-type Props = {
-  label: string;
-  visuallyHidden: string;
-  linkTo: string;
-  disabled?: boolean;
-  variant?: "primary" | "standard" | "outline-white";
-  size?: "default" | "large";
-};
+import type { ChipLinkProps } from "./types";
+type Props = ChipLinkProps;
+
 const {
   label,
   visuallyHidden,

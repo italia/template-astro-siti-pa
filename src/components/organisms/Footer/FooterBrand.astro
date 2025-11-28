@@ -1,0 +1,34 @@
+---
+import FooterLogo from "./FooterLogo.astro";
+import type { FooterBrandProps } from "./types";
+
+type Props = FooterBrandProps;
+
+const { title, description, logos } = Astro.props;
+---
+
+<div class="footer-brand it-footer-small-prints pt-5 pb-4 text-white">
+  <div class="container">
+    <div class="row">
+      <div class="col-12 text-center text-md-start">
+        <div class="small mb-4">
+          <p><strong>{title}</strong>&nbsp;{description}</p>
+        </div>
+      </div>
+    </div><div class="row">
+      <div class="col-12">
+        <ul
+          class="logos list-unstyled d-flex flex-column flex-md-row flex-wrap align-items-center mb-0"
+        >
+          {
+            logos.map((logo) => (
+              <li class="mb-4 me-md-5">
+                <FooterLogo {...logo} />
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
