@@ -3,13 +3,13 @@ import { IconContainer } from "../../atoms/IconContainer";
 import type { DataContainerProps } from "./types";
 
 type Props = DataContainerProps;
-const { infoData, title, icon } = Astro.props;
+const { info, title, contentIcon } = Astro.props;
 ---
 
 <div>
   <p class="body-sans-lg fw-semibold text-white">{title}</p>
   <div class="d-flex align-items-center gap-3">
-    <IconContainer icon={icon} />
-    <p class="text-white h1 align-middle m-0">{infoData}</p>
+    <IconContainer content={contentIcon} />
+    <p class="text-white h1 align-middle m-0">{info}</p>
   </div>
 </div>

@@ -1,5 +1,5 @@
 export type DataContainerProps = {
-  infoData: string;
+  info: string;
   title: string;
-  icon: "bank" | "shield-check" | "layers";
+  contentIcon: string;
 };

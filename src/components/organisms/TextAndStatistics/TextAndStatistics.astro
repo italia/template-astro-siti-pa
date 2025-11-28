@@ -1,16 +1,12 @@
 ---
 import { DataContainer } from "../../molecules/DataContainer";
-import type { DataContainerProps } from "../../molecules/DataContainer/types";
 import TextContainer from "../../molecules/TextContainer/TextContainer.astro";
 import { SectionContainer } from "../SectionContainer";
 import "./style.scss";
+import type { TextAndStatisticsProps } from "./types";
 
-type Props = {
-  title: string;
-  paragraph: string;
-  labelButton: string;
-  dataStatistics: DataContainerProps[];
-};
+type Props = TextAndStatisticsProps;
+
 const { title, paragraph, labelButton, dataStatistics } = Astro.props;
 ---
 

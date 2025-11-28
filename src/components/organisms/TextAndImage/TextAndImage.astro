@@ -1,20 +1,11 @@
 ---
 import { CardEditorialWithIcon } from "../../molecules/CardEditorialWithIcon";
-import type { CardEditorialWithIconProps } from "../../molecules/CardEditorialWithIcon/types";
 import TextContainer from "../../molecules/TextContainer/TextContainer.astro";
 import { SectionContainer } from "../SectionContainer";
+import type { TextAndImageProps } from "./types";
 
-type Props = {
-  title: string;
-  paragraph: string;
-  labelButton?: string;
-  imgUrl: string;
-  imgTitle?: string;
-  imgAlt?: string;
-  variant?: "default" | "big" | "withBox";
-  labelCards?: string;
-  cards?: CardEditorialWithIconProps[];
-};
+type Props = TextAndImageProps;
+
 const {
   title,
   paragraph,
@@ -33,13 +24,6 @@ const backgroundColor = {
   withBox: "primary-bg-a10",
 };
 const backgroundColorClass = backgroundColor[variant];
-
-const variantMap = {
-  light: "btn-primary",
-  "outline-light": "btn-outline-primary",
-  dark: "btn-light text-primary",
-  "outline-dark": "border border-2 text-white border-white",
-};
 
 const textContainerVariant =
   variant === "big" || variant === "withBox" ? "primary" : undefined;
