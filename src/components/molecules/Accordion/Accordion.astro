@@ -1,13 +1,13 @@
 ---
 import AccordionItem from "./AccordionItem.astro";
 import type { AccordionProps } from "./types";
-type Props = AccordionProps;
-const { id, items, variant = "default" } = Astro.props;
+type Props = AccordionProps & { fullWidth?: boolean };
+const { id, items, variant = "default", fullWidth = true } = Astro.props;
 
 const className =
   variant === "background-active" ? "accordion-background-active" : "";
 ---
 
 <div class=`accordion ${className}` id={id}>
-  {items.map((item) => <AccordionItem {...item} />)}
+  {items.map((item) => <AccordionItem {...item} fullWidth={fullWidth} />)}
 </div>

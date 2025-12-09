@@ -1,11 +1,13 @@
+import type { ImageProps } from "../../atoms/Image/types";
+
 export type CardEditorialNewsProps = {
   title: string;
   description: string;
-  imageUrl: string;
-  imageAlt?: string;
+  image: ImageProps;
   linkTo: string;
-  category: string;
-  dateTime: string;
-  formatDate: string;
-  action: string;
+  category?: string | null;
+  dateTime?: string | null;
+  formatDate?: string | null;
+  action?: string | null;
+  fullHeight?: boolean;
 };

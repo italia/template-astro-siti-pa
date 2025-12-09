@@ -1,7 +1,7 @@
 export type AccordionProps = {
   id: string;
   items: AccordionItemProps[];
-  variant?: "default" | "background-active";
+  variant?: VariantAccordionProps;
 };
 
 export type AccordionItemProps = {
@@ -9,3 +9,5 @@ export type AccordionItemProps = {
   body: string;
   id: string;
 };
+
+export type VariantAccordionProps = "default" | "background-active";

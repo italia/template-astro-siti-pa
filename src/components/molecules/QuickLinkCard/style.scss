@@ -1,0 +1,6 @@
+@use "bootstrap-italia/src/scss/bootstrap-italia" as *;
+
+.text-underline {
+  text-decoration: underline !important;
+  color: $white;
+}

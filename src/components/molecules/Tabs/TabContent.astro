@@ -1,0 +1,17 @@
+---
+import "./style.scss";
+import type { TabItemProps } from "./types";
+type Props = {
+  tab: TabItemProps;
+};
+
+const { tab } = Astro.props;
+---
+
+<div
+  class:list={["tab-pane", "fade", { "show active": tab.active }]}
+  id={`${tab.id}`}
+  role="tabpanel"
+>
+  <slot />
+</div>

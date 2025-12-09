@@ -1,4 +1,5 @@
 ---
+import { Image } from "../../atoms/Image";
 import type { CardEditorialNewsProps } from "./types";
 
 type Props = CardEditorialNewsProps;
@@ -6,18 +7,18 @@ type Props = CardEditorialNewsProps;
 const {
   title,
   description,
-  imageUrl,
-  imageAlt = "",
+  image,
   linkTo,
   category,
   dateTime,
   formatDate,
   action,
+  fullHeight = true,
 } = Astro.props;
 ---
 
 <article
-  class="it-card it-card-image it-card-height-full rounded shadow-sm border"
+  class=`it-card it-card-image ${fullHeight && "it-card-height-full"} rounded shadow-sm border`
 >
   <h3 class="it-card-title">
     <a href={linkTo}>{title}</a>
@@ -25,22 +26,35 @@ const {
   <div class="it-card-image-wrapper">
     <div class="ratio ratio-16x9">
       <figure class="figure img-full">
-        <img src={imageUrl} alt={imageAlt} />
+        <Image {...image} />
       </figure>
     </div>
   </div>
   <div class="it-card-body">
     <p class="it-card-text">{description}</p>
   </div>
-  <footer class="it-card-related it-card-footer">
-    <div class="it-card-taxonomy">
-      <a href="#" class="it-card-category it-card-link"
-        ><span class="visually-hidden">Categoria correlata: </span>{category}</a
-      >
-    </div>
-    <time class="it-card-date" datetime={dateTime}>{formatDate}</time>
-  </footer>
-  <div class="it-card-footer" aria-label="Link correlati:">
-    <a href="#" class="it-card-link">{action}</a>
-  </div>
+  {
+    category && (
+      <footer class="it-card-related it-card-footer">
+        <div class="it-card-taxonomy">
+          <a href="#" class="it-card-category it-card-link">
+            <span class="visually-hidden">Categoria correlata: </span>
+            {category}
+          </a>
+        </div>
+        <time class="it-card-date" datetime={dateTime}>
+          {formatDate}
+        </time>
+      </footer>
+    )
+  }
+  {
+    action && (
+      <div class="it-card-footer" aria-label="Link correlati:">
+        <a href="#" class="it-card-link">
+          {action}
+        </a>
+      </div>
+    )
+  }
 </article>

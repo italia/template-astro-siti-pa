@@ -1,0 +1,18 @@
+---
+import { Link } from "../../atoms/Link";
+import type { LinkProps } from "../../atoms/Link/types";
+
+type Props = {
+  links: LinkProps[];
+};
+
+const { links } = Astro.props;
+---
+
+{
+  links.map((link) => (
+    <div class="mt-4">
+      <Link {...link} />
+    </div>
+  ))
+}

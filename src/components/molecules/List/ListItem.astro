@@ -1,0 +1,31 @@
+---
+import { IconContainer } from "../../atoms/IconContainer";
+import type { ListItemProps, VariantListProps } from "./types";
+
+type Props = ListItemProps & {
+  index: string;
+  variant: VariantListProps;
+};
+const { title, paragraph, index, variant } = Astro.props;
+
+const titleClass = variant === "small" ? "h5 m-0" : "h3";
+const textClass = variant === "small" ? "text-primary" : "";
+---
+
+<style>
+  @import "./style.scss";
+</style>
+
+<li class="mb-4">
+  <div class="item-row">
+    <div class="it-rounded-icon">
+      <IconContainer content={index.toString()} />
+    </div>
+    <div class="item-text">
+      <div>
+        <h4 class=`${titleClass} text-dark`>{title}</h4>
+        <p class=`${textClass} m-0`>{paragraph}</p>
+      </div>
+    </div>
+  </div>
+</li>

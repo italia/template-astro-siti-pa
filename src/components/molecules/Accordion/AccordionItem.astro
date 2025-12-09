@@ -1,7 +1,7 @@
 ---
 import type { AccordionItemProps } from "./types";
-type Props = AccordionItemProps;
-const { header, body, id } = Astro.props;
+type Props = AccordionItemProps & { fullWidth?: boolean };
+const { header, body, id, fullWidth = true } = Astro.props;
 ---
 
 <div class="accordion-item">
@@ -24,7 +24,15 @@ const { header, body, id } = Astro.props;
     aria-labelledby={`heading-${id}`}
   >
     <div class="accordion-body">
-      {body}
+      {
+        fullWidth ? (
+          body
+        ) : (
+          <div class="row">
+            <div class="col-7">{body}</div>
+          </div>
+        )
+      }
     </div>
   </div>
 </div>

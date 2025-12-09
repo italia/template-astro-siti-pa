@@ -9,7 +9,7 @@ type Props = {
 const { ariaLabel, items } = Astro.props;
 ---
 
-<nav class="breadcrumb-container" aria-label={ariaLabel}>
+<nav class="breadcrumb-container mb-4" aria-label={ariaLabel}>
   <ol class="breadcrumb dark bg-transparent mb-0">
     {items.map((item) => <BreadcrumbItem {...item} />)}
   </ol>

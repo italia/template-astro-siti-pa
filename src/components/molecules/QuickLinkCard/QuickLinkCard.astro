@@ -1,0 +1,20 @@
+---
+import QuickLinkItem from "./QuickLinkItem.astro";
+import type { LinkProps } from "../../atoms/Link/types";
+
+type Props = {
+  title: string;
+  links: LinkProps[];
+};
+
+const { title, links } = Astro.props;
+---
+
+<div class="primary-bg-a8 rounded-2 py-4 px-5 text-white">
+  <h3>{title}</h3>
+  <div class="link-list-wrapper">
+    <ul class="link-list">
+      {links.map((link) => <QuickLinkItem {...link} />)}
+    </ul>
+  </div>
+</div>

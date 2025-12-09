@@ -1,30 +1,67 @@
 ---
-import type { useCaseCardProps } from "./types";
+import type { UseCaseCardProps } from "./types";
+import { Image } from "../../atoms/Image";
+import { Chip } from "../../atoms/Chip";
+import { Topics } from "../Topics";
 
-type Props = useCaseCardProps;
-const { title, paragraph, linkTo, imgUrl, imgAlt = "" } = Astro.props;
+type Props = UseCaseCardProps;
+const {
+  title,
+  paragraph,
+  linkTo,
+  image,
+  listTopics,
+  descriptionTitle,
+  description,
+  variant = "default",
+} = Astro.props;
 ---
 
 <style>
   @import "./style.scss";
 </style>
-
 <article
-  class="it-card it-card-profile it-card-height-full rounded shadow-sm border lightgrey-bg-a3"
+  class=`it-card it-card-profile ${variant==="big" && "it-card-big"} rounded shadow-sm border lightgrey-bg-a3`
 >
   <div class="it-card-profile-header">
     <div class="it-card-profile-image ratio ratio-1x1">
       <figure class="figure img-full">
-        <img src={imgUrl} alt={imgAlt} />
+        <Image {...image} />
       </figure>
     </div>
+
     <div class="it-card-profile it-card-body">
-      <h4 class="it-card-profile-name">
-        <a href={linkTo}>{title}</a>
-      </h4>
-      <p class="it-card-text fw-semibold">
-        {paragraph}
-      </p>
+      <div>
+        <h4 class="it-card-profile-name">
+          <a href={linkTo}>{title}</a>
+        </h4>
+        <p class="it-card-text">
+          {paragraph}
+        </p>
+      </div>
+
+      {
+        listTopics && (
+          <footer>
+            <Topics {...listTopics} variant="column" />
+          </footer>
+        )
+      }
     </div>
+
+    {
+      (descriptionTitle || description) && (
+        <div class="it-card-profile it-card-body">
+          <div>
+            {descriptionTitle && (
+              <h4 class="fw-semibold fs-6 text-uppercase mb-0">
+                {descriptionTitle}
+              </h4>
+            )}
+            <div class="it-card-text" set:html={description} />
+          </div>
+        </div>
+      )
+    }
   </div>
 </article>

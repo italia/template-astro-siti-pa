@@ -1,0 +1,52 @@
+---
+import { Image } from "../../atoms/Image";
+import type { ImageProps } from "../../atoms/Image/types";
+
+type Props = {
+  title: string;
+  description: string;
+  image: ImageProps;
+  linkTo: string;
+  category?: string;
+  dateTime?: string | null;
+  formatDate?: string | null;
+};
+
+const { title, description, image, linkTo, category, dateTime, formatDate } =
+  Astro.props;
+---
+
+<article class="it-card it-card-inline it-card-image rounded overflow-hidden">
+  <div class="it-card-inline-content">
+    <h3 class="it-card-title">
+      <a href={linkTo}>{title}</a>
+    </h3>
+    <div class="it-card-body">
+      <p class="it-card-text">
+        {description}
+      </p>
+    </div>
+    {
+      category && (
+        <footer class="it-card-related it-card-footer">
+          <div class="it-card-taxonomy">
+            <a href="#" class="it-card-category it-card-link">
+              <span class="visually-hidden">Categoria correlata: </span>
+              {category}
+            </a>
+          </div>
+          <time class="it-card-date" datetime={dateTime}>
+            {formatDate}
+          </time>
+        </footer>
+      )
+    }
+  </div>
+  <div class="it-card-image-wrapper">
+    <div class="ratio ratio-1x1">
+      <figure class="figure img-full">
+        <Image {...image} />
+      </figure>
+    </div>
+  </div>
+</article>

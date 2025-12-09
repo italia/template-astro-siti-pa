@@ -1,0 +1,33 @@
+---
+import { Chip } from "../../atoms/Chip";
+import type { TopicsProps } from "./types";
+
+type Props = TopicsProps;
+const { title, topics, variant = "row" } = Astro.props;
+---
+
+<div
+  class=`it-list-wrapper d-flex ${variant === "column" ? "flex-column" : "align-items-center "} `
+>
+  {
+    title && (
+      <span
+        class={`text-uppercase text-dark fw-semibold mt-1 me-3 ${variant === "column" ? "fs-6" : ""}`}
+      >
+        {title}
+      </span>
+    )
+  }
+  <ul
+    class=`it-list d-flex mb-0 ${variant === "column" ? "flex-column" : ""}`
+    aria-label="Argomenti correlati:"
+  >
+    {
+      topics.map((topic) => (
+        <li class="list-item border-bottom-0 me-3 mt-1">
+          <Chip visuallyHidden="" disabled label={topic} size="large" />
+        </li>
+      ))
+    }
+  </ul>
+</div>

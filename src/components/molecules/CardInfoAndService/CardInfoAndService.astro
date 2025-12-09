@@ -1,0 +1,24 @@
+---
+import type { CardInfoAndServiceProps } from "./types";
+type Props = CardInfoAndServiceProps;
+const { title, description, icon, titleIcon, linkTo } = Astro.props;
+---
+
+<article class="it-card rounded shadow-sm border">
+  <h3 class="it-card-title it-card-title-icon">
+    <a href={linkTo} target="_blank"
+      >{title}
+      <div class="it-card-title-icon-wrapper">
+        <svg class="icon icon-primary" role="img">
+          {titleIcon && <title>{titleIcon}</title>}
+          <use href=`/bsi-svg/sprites.svg#${icon}`></use></svg
+        >
+      </div>
+    </a>
+  </h3>
+  <div class="it-card-body">
+    <p class="it-card-text">
+      {description}
+    </p>
+  </div>
+</article>

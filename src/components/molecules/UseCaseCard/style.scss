@@ -2,3 +2,22 @@
   max-height: 180px !important;
   max-width: 180px !important;
 }
+
+.it-card-big {
+  height: 320px !important;
+
+  .it-card-profile-header {
+    align-items: stretch !important;
+  }
+
+  .it-card-profile-image {
+    max-height: 276px !important;
+    max-width: 276px !important;
+  }
+
+  .it-card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+}

@@ -1,0 +1,19 @@
+---
+import type { CalloutProps } from "./types";
+
+type Props = CalloutProps;
+const { visuallyHidden, title, paragraph } = Astro.props;
+---
+
+<div class="callout note">
+  <div class="callout-inner">
+    <div class="callout-title">
+      <svg class="icon"
+        ><use href="/bsi-svg/sprites.svg#it-info-circle"></use></svg
+      >
+      {visuallyHidden && <span class="visually-hidden">{visuallyHidden}</span>}
+      <span class="text">{title}</span>
+    </div>
+    <p>{paragraph}</p>
+  </div>
+</div>
