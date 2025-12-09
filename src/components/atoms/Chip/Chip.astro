@@ -1,5 +1,4 @@
 ---
-import "./style.scss";
 type Props = {
   label: string;
   visuallyHidden: string;
@@ -32,6 +31,10 @@ const chipVariant = variantMap[variant];
 const disabledClass = disabled ? "chip-disabled" : "";
 const className = `chip chip-simple ${chipVariant} ${disabledClass} ${sizeClass}`;
 ---
+
+<style>
+  @import "./style.scss";
+</style>
 
 <button disabled class={className}>
   <span class="visually-hidden">{visuallyHidden}</span>

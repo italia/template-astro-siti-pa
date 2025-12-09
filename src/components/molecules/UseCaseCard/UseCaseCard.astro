@@ -1,10 +1,13 @@
 ---
-import "./style.scss";
 import type { useCaseCardProps } from "./types";
 
 type Props = useCaseCardProps;
 const { title, paragraph, linkTo, imgUrl, imgAlt = "" } = Astro.props;
 ---
+
+<style>
+  @import "./style.scss";
+</style>
 
 <article
   class="it-card it-card-profile it-card-height-full rounded shadow-sm border lightgrey-bg-a3"

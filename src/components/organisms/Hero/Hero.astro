@@ -1,5 +1,4 @@
 ---
-import "./style.scss";
 import type { HeroProps } from "./types";
 type Props = HeroProps;
 
@@ -19,6 +18,10 @@ const sizeClass =
       ? "small-size"
       : "default-size";
 ---
+
+<style>
+  @import "./style.scss";
+</style>
 
 <section class=`it-hero-wrapper it-primary ${sizeClass}`>
   <div class="img-responsive-wrapper">

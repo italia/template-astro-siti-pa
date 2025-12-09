@@ -1,5 +1,4 @@
 ---
-import "./style.scss";
 import type { ChipLinkProps } from "./types";
 type Props = ChipLinkProps;
 
@@ -32,6 +31,10 @@ const ariaDisabled = disabled ? "true" : "false";
 
 const className = `chip chip-simple ${chipVariant} ${disabledClass} ${sizeClass}`;
 ---
+
+<style>
+  @import "./style.scss";
+</style>
 
 <a class={className} href={finalHref} aria-disabled={ariaDisabled}>
   <span class="visually-hidden">{visuallyHidden}</span>

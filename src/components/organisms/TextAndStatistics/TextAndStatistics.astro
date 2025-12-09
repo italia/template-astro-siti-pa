@@ -2,13 +2,16 @@
 import { DataContainer } from "../../molecules/DataContainer";
 import TextContainer from "../../molecules/TextContainer/TextContainer.astro";
 import { SectionContainer } from "../SectionContainer";
-import "./style.scss";
 import type { TextAndStatisticsProps } from "./types";
 
 type Props = TextAndStatisticsProps;
 
 const { title, paragraph, labelButton, dataStatistics } = Astro.props;
 ---
+
+<style>
+  @import "./style.scss";
+</style>
 
 <SectionContainer className="primary-bg-a10">
   <div class="row align-items-top justify-content-between">

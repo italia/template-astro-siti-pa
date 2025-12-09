@@ -3,7 +3,6 @@ import TextContainer from "../../molecules/TextContainer/TextContainer.astro";
 import { UseCaseCard } from "../../molecules/UseCaseCard";
 import type { useCaseCardProps } from "../../molecules/UseCaseCard/types";
 import { SectionContainer } from "../SectionContainer";
-import "./style.scss";
 
 type Props = {
   title: string;
@@ -14,6 +13,10 @@ type Props = {
 };
 const { title, paragraph, labelButton, labelUseCases, useCases } = Astro.props;
 ---
+
+<style>
+  @import "./style.scss";
+</style>
 
 <SectionContainer>
   <div class="row align-items-top justify-content-between">

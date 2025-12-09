@@ -1,12 +1,15 @@
 ---
 import TabsItem from "./TabsItem.astro";
-import "./style.scss";
 import type { TabItemProps } from "./types";
 type Props = {
   items: TabItemProps[];
 };
 const { items } = Astro.props;
 ---
+
+<style>
+  @import "./style.scss";
+</style>
 
 <ul class="nav nav-tabs bg-primary border-bottom-0">
   {items.map((item) => <TabsItem {...item} />)}
