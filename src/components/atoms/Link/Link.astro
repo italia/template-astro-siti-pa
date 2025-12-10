@@ -3,7 +3,21 @@ import type { LinkProps } from "./types";
 
 type Props = LinkProps;
 
-const { label, linkTo } = Astro.props;
+const { label, titleIcon, icon, linkTo, disabled } = Astro.props;
+const finalHref = disabled ? undefined : linkTo;
+const ariaDisabled = disabled ? "true" : "false";
 ---
 
-<a href={linkTo}>{label}</a>
+<a href={finalHref} aria-disabled={ariaDisabled}>
+  <span class="list-item-title-icon-wrapper">
+    <span class="fw-semibold">{label}</span>
+    {
+      icon && (
+        <svg class="icon icon-sm icon-primary">
+          {titleIcon && <title>{titleIcon}</title>}
+          <use href={`/bsi-svg/sprites.svg#${icon}`} />
+        </svg>
+      )
+    }
+  </span>
+</a>

@@ -1,4 +1,8 @@
 export type LinkProps = {
-  linkTo: string;
   label: string;
+  linkTo: string;
+  icon?: string;
+  titleIcon?: string;
+  active?: boolean;
+  disabled?: boolean;
 };

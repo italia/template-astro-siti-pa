@@ -3,6 +3,18 @@ export type ChipLinkProps = {
   visuallyHidden: string;
   linkTo: string;
   disabled?: boolean;
-  variant?: "primary" | "standard" | "outline-white";
-  size?: "default" | "large";
+  variant?: VariantChipProps;
+  size?: SizeChipProps;
 };
+
+export type ChipProps = {
+  label: string;
+  visuallyHidden: string;
+  disabled?: boolean;
+  variant?: VariantChipProps;
+  size?: SizeChipProps;
+};
+
+export type VariantChipProps = "primary" | "standard" | "outline-white";
+
+export type SizeChipProps = "default" | "large";
