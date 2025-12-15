@@ -6,6 +6,9 @@
     "strict": true,
     "plugins": [
       {
+        "name": "@astrojs/ts-plugin"
+      },
+      {
         "name": "gql.tada/ts-plugin",
         "schema": "./src/graphql/schema.graphql",
         "tadaOutputLocation": "./src/graphql/graphql-env.d.ts"
