@@ -3,33 +3,26 @@ import "../styles/global.scss";
 import bsi from "bootstrap-italia/dist/js/bootstrap-italia.bundle.min.js?url";
 import { Header } from "../components/organisms/Header";
 import { Footer } from "../components/organisms/Footer";
-import { Button } from "../components/atoms/Button";
-import { Chip, ChipLink } from "../components/atoms/Chip";
-import { CardInline } from "../components/molecules/CardInline";
 import { Hero } from "../components/organisms/Hero";
-import { Breadcrumb } from "../components/molecules/Breadcrumb";
-import { Tabs } from "../components/molecules/Tabs";
-import { Accordion } from "../components/molecules/Accordion";
+import { TabContent, Tabs } from "../components/molecules/Tabs";
 import { TextAndImage } from "../components/organisms/TextAndImage";
-import { Sidebar } from "../components/organisms/Sidebar";
-import { IconContainer } from "../components/atoms/IconContainer";
-import { DataContainer } from "../components/molecules/DataContainer";
-import { TextContainer } from "../components/molecules/TextContainer";
-import { UseCaseCard } from "../components/molecules/UseCaseCard";
-import { CardEditorialNews } from "../components/molecules/CardEditorialNews";
-import { CardPresentationBanner } from "../components/molecules/CardPresentationBanner";
 import { TextAndStatistics } from "../components/organisms/TextAndStatistics";
-import type { DataContainerProps } from "../components/molecules/DataContainer/types";
-import { TextAndUseCase } from "../components/organisms/TextAndUseCase";
-import type { useCaseCardProps } from "../components/molecules/UseCaseCard/types";
 import { UpdateTabSection } from "../components/organisms/UpdateTabSection";
-import type { CardEditorialNewsProps } from "../components/molecules/CardEditorialNews/types";
 import { SupportChannelsSection } from "../components/organisms/SupportChannelsSection";
-import type { CardPresentationBannerProps } from "../components/molecules/CardPresentationBanner/types";
-import { CardEditorialWithIcon } from "../components/molecules/CardEditorialWithIcon";
-import type { CardEditorialWithIconProps } from "../components/molecules/CardEditorialWithIcon/types";
-import { FAQSection } from "../components/organisms/FAQSection";
-import { TextAndAccordions } from "../components/organisms/TextAndAccordions";
+import { DataSection } from "../components/organisms/DataSection";
+
+import {
+  image,
+  listItems,
+  tabsItems,
+  channelItems,
+  dataStatisticsItems,
+  newsItems,
+} from "../utils/mock";
+import type { TabItemProps } from "../components/molecules/Tabs/types";
+import AtomsComponentInventory from "../components/AtomsComponentInventory.astro";
+import MoleculesComponentInventory from "../components/MoleculesComponentInventory.astro";
+import OrganismsComponentInventory from "../components/OrganismsComponentInventory.astro";
 
 if (import.meta.env.PROD) {
   return new Response(null, {
@@ -38,224 +31,11 @@ if (import.meta.env.PROD) {
   });
 }
 
-const accordionItems = [
-  {
-    id: "1",
-    header: "Elemento Accordion #1",
-    body: "Vestibulum hendrerit ultrices nibh, sed pharetra lacus ultrices eget. Morbi et ipsum et sapien dapibus facilisis. Integer eget semper nibh. Proin enim nulla, egestas ac rutrum eget, ullamcorper nec turpis.",
-  },
-  {
-    id: "2",
-    header: "Elemento Accordion #2",
-    body: "Vestibulum hendrerit ultrices nibh, sed pharetra lacus ultrices eget. Morbi et ipsum et sapien dapibus facilisis. Integer eget semper nibh. Proin enim nulla, egestas ac rutrum eget, ullamcorper nec turpis.",
-  },
-];
-
-const tabsItems = [
-  {
-    id: "1",
-    label: "Tab #1",
-    active: true,
-    disabled: false,
-  },
-  {
-    id: "2",
-    label: "Tab #2",
-    active: false,
-    disabled: false,
-  },
-  {
-    id: "3",
-    label: "Tab #3",
-    active: false,
-    disabled: true,
-  },
-];
-
-const breadcrumbItems = [
-  {
-    id: "1",
-    label: "Tab #1",
-    active: false,
-    linkTo: "#",
-  },
-  {
-    id: "2",
-    label: "Tab #2",
-    active: false,
-    linkTo: "#",
-  },
-  {
-    id: "3",
-    label: "Tab #3",
-    active: true,
-    linkTo: "#",
-  },
-];
-
-const sidebarItems = [
-  {
-    idAccordion: "1",
-    label: "Link List 1",
-    items: [
-      { id: "1", label: "lista 1.1", linkTo: "#", active: true },
-      { id: "2", label: "lista 1.2", linkTo: "#", active: false },
-      { id: "3", label: "lista 1.3", linkTo: "#", active: false },
-    ],
-  },
-  {
-    idAccordion: "2",
-    label: "Link List 2",
-    items: [
-      { id: "1", label: "lista 2.1", linkTo: "#", active: false },
-      { id: "2", label: "lista 2.2", linkTo: "#", active: false },
-      { id: "3", label: "lista 2.3", linkTo: "#", active: false },
-    ],
-  },
-  {
-    idAccordion: "3",
-    label: "Link List 3",
-    items: [
-      { id: "1", label: "lista 3.1", linkTo: "#", active: false },
-      { id: "2", label: "lista 3.2", linkTo: "#", active: false },
-      { id: "3", label: "lista 3.3", linkTo: "#", active: false },
-    ],
-  },
-];
-
-const dataStatisticsItems: DataContainerProps[] = [
-  {
-    info: "oltre 70.000",
-    title: "Numero di PA che hanno migrato al Cloud",
-    contentIcon: "bank",
-  },
-  {
-    info: "+ 50%",
-    title: "Sicurezza nelle infrastrutture",
-    contentIcon: "shield-check",
-  },
-  {
-    info: "oltre 200",
-    title: "Servizi nel catalogo Cloud",
-    contentIcon: "layers",
-  },
-];
-
-const useCaseItems: useCaseCardProps[] = [
-  {
-    title: "Prepararsi alla migrazione",
-    paragraph:
-      "I primi passi per orientarsi, pianificare la migrazione e scegliere il modello cloud in modo consapevole.",
-    imgUrl: "https://placeholderimage.eu/api/city/800/600",
-    linkTo: "#",
-  },
-  {
-    title: "Prepararsi alla migrazione",
-    paragraph:
-      "I primi passi per orientarsi, pianificare la migrazione e scegliere il modello cloud in modo consapevole.",
-    imgUrl: "https://placeholderimage.eu/api/city/800/600",
-    linkTo: "#",
-  },
-];
-
-const channelItems: CardPresentationBannerProps[] = [
-  {
-    icon: "it-designers-italia",
-    title: "Forum Italia",
-    description:
-      "Entra in forum.italia.it e condividi le tue opinioni nella sezione Cloud e data center",
-    linkTo: "#",
-  },
-  {
-    icon: "it-slack",
-    title: "Slack",
-    description:
-      "Unisciti alla community di Developers Italia su Slack e raggiungi il canale #cloud",
-    linkTo: "#",
-  },
-  {
-    icon: "it-github",
-    title: "Github",
-    description:
-      "Proponi issue, modifiche e nuovi contenuti nei repository pubblici per lo sviluppo del Cloud della PA",
-    linkTo: "#",
-  },
-];
-
-const newsItems: CardEditorialNewsProps[] = [
-  {
-    linkTo: "#",
-    title: "Nasce l’Innovation Hub di Polo Strategico Nazionale",
-    description:
-      "Al via un ecosistema collaborativo per accelerare la trasformazione digitale della Pubblica Amministrazione",
-    category: "Articolo",
-    imageUrl: "https://placeholderimage.eu/api/city/800/600",
-    imageAlt:
-      "Breve descrizione immagine se ha senso nel contesto, marcare altrimenti come decorativa lasciando l'alt applicato ma vuoto.",
-    dateTime: "2022-04-05",
-    formatDate: "05/04/2022",
-    action: "innovazione.gov.it",
-  },
-  {
-    linkTo: "#",
-    title: "Aumentano i servizi disponibili nel cloud sicuro del PSN",
-    description:
-      "PSN si aggiorna e si arricchisce di servizi che consentono alle Pubbliche Amministrazioni di adottare soluzioni tecnologiche innovative ",
-    category: "Articolo",
-    imageUrl: "https://placeholderimage.eu/api/city/800/600",
-    imageAlt:
-      "Breve descrizione immagine se ha senso nel contesto, marcare altrimenti come decorativa lasciando l'alt applicato ma vuoto.",
-    dateTime: "2022-04-05",
-    formatDate: "05/04/2022",
-    action: "innovazione.gov.it",
-  },
-  {
-    linkTo: "#",
-    title: "La gestione delle identità digitali e degli accessi al cloud",
-    description:
-      "Testo breve che riassume il contenuto della pagina di destinazione in massimo tre o quattro righe, senza troncamento.Testo breve che riassume il contenuto della pagina di destinazione in massimo tre o quattro righe, senza troncamento.Testo breve che riassume il contenuto della pagina di destinazione in massimo tre o quattro righe, senza troncamento.",
-    category: "Articolo",
-    imageUrl: "https://placeholderimage.eu/api/city/800/600",
-    imageAlt:
-      "Breve descrizione immagine se ha senso nel contesto, marcare altrimenti come decorativa lasciando l'alt applicato ma vuoto.",
-    dateTime: "2022-04-05",
-    formatDate: "05/04/2022",
-    action: "innovazione.gov.it",
-  },
-  {
-    linkTo: "#",
-    title: "Titolo contenuto editoriale",
-    description:
-      "Testo breve che riassume il contenuto della pagina di destinazione in massimo tre o quattro righe, senza troncamento.",
-    category: "Articolo",
-    imageUrl: "https://placeholderimage.eu/api/city/800/600",
-    imageAlt:
-      "Breve descrizione immagine se ha senso nel contesto, marcare altrimenti come decorativa lasciando l'alt applicato ma vuoto.",
-    dateTime: "2022-04-05",
-    formatDate: "05/04/2022",
-    action: "innovazione.gov.it",
-  },
-];
-
-const cardItems: CardEditorialWithIconProps[] = [
-  {
-    title: "Titolo contenuto editoriale",
-    description:
-      "Testo breve che riassume il contenuto della pagina di destinazione in massimo tre o quattro righe, senza troncamento.",
-    icon: "bank",
-  },
-  {
-    title: "Titolo contenuto editoriale",
-    description:
-      "Testo breve che riassume il contenuto della pagina di destinazione in massimo tre o quattro righe, senza troncamento.",
-    icon: "bank",
-  },
-  {
-    title: "Titolo contenuto editoriale",
-    description:
-      "Testo breve che riassume il contenuto della pagina di destinazione in massimo tre o quattro righe, senza troncamento.",
-    icon: "bank",
-  },
+const tabsComponentInventory: TabItemProps[] = [
+  { id: "content-atoms", label: "Atoms", active: true },
+  { id: "content-molecules", label: "Molecules", active: false },
+  { id: "content-organisms", label: "Organisms", active: false },
+  { id: "content-example", label: "Example", active: false },
 ];
 ---
 
@@ -277,924 +57,174 @@ const cardItems: CardEditorialWithIconProps[] = [
   </head>
   <body>
     <main>
-      <div class="container-fluid p-5">
+      <div class="container-fluid">
         <h1 class="mb-4">Component Inventory</h1>
 
-        <h2 class="mb-4">Atoms</h2>
+        <Tabs id="mytabs" items={tabsComponentInventory}>
+          <TabContent tab={tabsComponentInventory[0]}>
+            <AtomsComponentInventory />
+          </TabContent>
 
-        <table class="table table-bordered">
-          <thead>
-            <tr>
-              <th
-                >Buttons <p>
-                  <em>Button</em> for actions.<br />
-                  <em>ButtonLink</em> for links.
-                </p></th
-              >
-              <th>Primary Large</th>
-              <th>Outline Primary Large</th>
-              <th>Primary Small</th>
-              <th>Outline Primary Small</th>
-              <th>Primary Mini</th>
-              <th>Outline Primary Mini</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="p-3">Light background</td>
-              <td class="p-3"><Button label="Cliccami" /></td>
-              <td class="p-3"
-                ><Button label="Cliccami" variant="outline-light" /></td
-              >
-              <td class="p-3"> <Button size="small" label="Cliccami" /></td>
-              <td class="p-3">
-                <Button size="small" label="Cliccami" variant="outline-light" />
-              </td>
-              <td class="p-3"><Button size="mini" label="Cliccami" /></td>
-              <td class="p-3">
-                <Button size="mini" label="Cliccami" variant="outline-light" />
-              </td>
-            </tr>
+          <TabContent tab={tabsComponentInventory[1]}>
+            <MoleculesComponentInventory />
+          </TabContent>
 
-            <tr>
-              <td class="p-3">Dark background</td>
-              <td class="primary-bg-a10 p-3"
-                ><Button label="Cliccami" variant="dark" /></td
-              >
-              <td class="primary-bg-a10 p-3"
-                ><Button label="Cliccami" variant="outline-dark" /></td
-              >
-              <td class="primary-bg-a10 p-3"
-                ><Button size="small" label="Cliccami" variant="dark" /></td
-              >
-              <td class="primary-bg-a10 p-3"
-                ><Button
-                  size="small"
-                  label="Cliccami"
-                  variant="outline-dark"
-                /></td
-              >
-              <td class="primary-bg-a10 p-3"
-                ><Button size="mini" label="Cliccami" variant="dark" /></td
-              >
-              <td class="primary-bg-a10 p-3"
-                ><Button
-                  size="mini"
-                  label="Cliccami"
-                  variant="outline-dark"
-                /></td
-              >
-            </tr>
+          <TabContent tab={tabsComponentInventory[2]}>
+            <OrganismsComponentInventory />
+          </TabContent>
 
-            <tr>
-              <td class="p-3">Primary background</td>
-              <td class="bg-primary p-3"></td>
-              <td class="bg-primary p-3"
-                ><Button label="Cliccami" variant="outline-dark" /></td
-              >
-              <td class="bg-primary p-3"></td>
-              <td class="bg-primary p-3"
-                ><Button
-                  size="small"
-                  label="Cliccami"
-                  variant="outline-dark"
-                /></td
-              >
-              <td class="bg-primary p-3"></td>
-              <td class="bg-primary p-3"
-                ><Button
-                  size="mini"
-                  label="Cliccami"
-                  variant="outline-dark"
-                /></td
-              >
-            </tr>
-          </tbody>
-        </table>
+          <TabContent tab={tabsComponentInventory[3]}>
+            <h2 class="m-4">Esempio</h2>
 
-        <table class="table table-bordered">
-          <thead>
-            <tr>
-              <th>Chips</th>
-              <th>Primary</th>
-              <th>Standard</th>
-              <th>Outline white</th>
-              <th>Disabled</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="p-3">Light background</td>
-              <td class="p-3">
-                <Chip
-                  visuallyHidden="Argomento"
-                  label="Informazione"
-                  variant="primary"
-                /></td
-              >
-              <td class="p-3">
-                <Chip
-                  visuallyHidden="Argomento"
-                  label="Informazione"
-                  variant="standard"
-                /></td
-              >
-              <td class="p-3"> </td>
-              <td class="p-3">
-                <Chip
-                  disabled={true}
-                  visuallyHidden="Argomento"
-                  label="Informazione"
-                /></td
-              >
-            </tr>
-            <tr>
-              <td class="p-3">Dark background</td>
-              <td class="bg-dark p-3"> </td>
-              <td class="bg-dark p-3">
-                <ChipLink
-                  visuallyHidden="Argomento"
-                  label="Informazione"
-                  variant="standard"
-                  linkTo="#"
-                /></td
-              >
-              <td class="bg-dark p-3">
-                <ChipLink
-                  visuallyHidden="Argomento"
-                  visuallyHidden="Argomento"
-                  label="Informazione"
-                  variant="outline-white"
-                  linkTo="#"
-                /></td
-              >
-              <td class="bg-dark p-3">
-                <ChipLink
-                  disabled={true}
-                  visuallyHidden="Argomento"
-                  label="Informazione"
-                  variant="outline-white"
-                  linkTo="#"
-                /></td
-              >
-            </tr>
-          </tbody>
-        </table>
-
-        <table class="table table-bordered">
-          <thead>
-            <tr>
-              <th>Icon Container</th>
-              <th>Standard</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="p-3">Light background</td>
-
-              <td class="p-3">
-                <IconContainer content="1" />
-              </td>
-            </tr>
-            <tr>
-              <td class="p-3">Dark background</td>
-              <td class="bg-dark p-3">
-                <IconContainer
-                  content=`<svg
-        width="27"
-        height="27"
-        viewBox="0 0 27 27"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M4 21.3333V12H6.66667V21.3333H4ZM12 21.3333V12H14.6667V21.3333H12ZM0 26.6667V24H26.6667V26.6667H0ZM20 21.3333V12H22.6667V21.3333H20ZM0 9.33333V6.66667L13.3333 0L26.6667 6.66667V9.33333H0ZM5.93333 6.66667H20.7333L13.3333 3L5.93333 6.66667Z"
-          fill="#003366"
-        />
-      </svg>`
-                />
-              </td>
-            </tr>
-          </tbody>
-        </table>
-
-        <h2 class="mb-4">Molecules</h2>
-
-        <table class="table table-bordered">
-          <thead>
-            <tr>
-              <th>Accordion</th>
-              <th>Header filled</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="p-3"> Deafult </td>
-              <td class="p-3">
-                <Accordion id="accordion" items={accordionItems} />
-              </td>
-            </tr>
-            <tr>
-              <td class="p-3"> Background active </td>
-              <td class="p-3">
-                <Accordion
-                  id="accordion"
-                  items={accordionItems}
-                  variant="background-active"
-                />
-              </td>
-            </tr>
-          </tbody>
-        </table>
-
-        <table class="table table-bordered">
-          <thead>
-            <tr>
-              <th>Breadcrumb</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="p-3"> Primary background </td>
-              <td class="bg-primary p-3">
-                <Breadcrumb
-                  ariaLabel="Percorso di navigazione"
-                  items={breadcrumbItems}
-                />
-              </td>
-            </tr>
-          </tbody>
-        </table>
-
-        <table class="table table-bordered">
-          <thead>
-            <tr>
-              <th>Card Editorial News</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Standard</td>
-              <td class="bg-primary p-3">
-                <div class="row">
-                  <div class="col-12 col-md-6 col-lg-6 mb-3 mb-md-4">
-                    <CardEditorialNews
-                      linkTo="#"
-                      title="Titolo contenuto editoriale"
-                      description="Testo breve che riassume il contenuto della pagina di destinazione in massimo tre o quattro righe, senza troncamento."
-                      category="Articolo"
-                      imageUrl="https://placeholderimage.eu/api/city/800/600"
-                      imageAlt="Breve descrizione immagine se ha senso nel contesto, marcare altrimenti come decorativa lasciando l'alt applicato ma vuoto."
-                      dateTime="2022-04-05"
-                      formatDate="05/04/2022"
-                      action="innovazione.gov.it"
-                    />
-                  </div>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>With Icon</td>
-              <td class="bg-primary p-3">
-                <div class="row">
-                  <div class="col-12 col-md-6 col-lg-6 mb-3 mb-md-4">
-                    <CardEditorialWithIcon
-                      title="Titolo contenuto editoriale"
-                      description="Testo breve che riassume il contenuto della pagina di destinazione in massimo tre o quattro righe, senza troncamento."
-                      icon="bank"
-                    />
-                  </div>
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-
-        <table class="table table-bordered">
-          <thead>
-            <tr>
-              <th>Card Presentation Banner</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Standard</td>
-              <td class="bg-primary p-3">
-                <div class="row">
-                  <div class="col-12 col-md-6 col-lg-6 mb-3 mb-md-4">
-                    <CardPresentationBanner
-                      linkTo="#"
-                      title="Titolo contenuto editoriale"
-                      description="Testo breve che riassume il contenuto della pagina di destinazione in massimo tre o quattro righe, senza troncamento."
-                      icon="it-github"
-                    />
-                  </div>
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-
-        <table class="table table-bordered">
-          <thead>
-            <tr>
-              <th>Card Inline</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td> With category </td>
-              <td class="bg-primary p-3">
-                <div class="row">
-                  <div class="col-12 col-md-6 col-lg-6 mb-3 mb-md-4">
-                    <CardInline
-                      linkTo="#"
-                      title="Titolo contenuto editoriale"
-                      description="Testo breve che riassume il contenuto della pagina di destinazione in massimo tre o quattro righe, senza troncamento."
-                      category="Categoria"
-                      imageUrl="https://placeholderimage.eu/api/city/800/600"
-                      imageAlt="Breve descrizione immagine se ha senso nel contesto, marcare altrimenti come decorativa lasciando l'alt applicato ma vuoto."
-                    />
-                  </div>
-                </div>
-              </td>
-
-              <tr>
-                <td>Without category </td>
-                <td class="bg-dark p-3">
-                  <div class="row">
-                    <div class="col-12 col-md-6 col-lg-6 mb-3 mb-md-4">
-                      <CardInline
-                        linkTo="#"
-                        title="Titolo contenuto editoriale"
-                        description="Testo breve che riassume il contenuto della pagina di destinazione in massimo tre o quattro righe, senza troncamento."
-                        imageUrl="https://placeholderimage.eu/api/city/800/600"
-                      />
-                    </div>
-                  </div>
-                </td>
-              </tr>
-            </tr>
-          </tbody>
-        </table>
-
-        <table class="table table-bordered">
-          <thead>
-            <tr>
-              <th>Data container</th>
-              <th>Standard</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="p-3">Dark background</td>
-              <td class="bg-dark p-3"
-                ><DataContainer
-                  title="Numero di PA che hanno migrato al Cloud "
-                  info="70.000 +"
-                  contentIcon="bank"
-                /></td
-              >
-            </tr>
-          </tbody>
-        </table>
-
-        <table class="table table-bordered">
-          <thead>
-            <tr>
-              <th>Tabs</th>
-              <th>Primary</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="p-3">Primary background</td>
-              <td class="bg-primary p-3"><Tabs items={tabsItems} /></td>
-            </tr>
-          </tbody>
-        </table>
-
-        <table class="table table-bordered">
-          <thead>
-            <tr>
-              <th>Text container</th>
-              <th>Standard</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="p-3">Light background</td>
-              <td class="p-3"
-                ><TextContainer
-                  title="Titolo della sezione"
-                  paragraph="Platea dictumst vestibulum rhoncus est pellentesque elit ullamcorper dignissim cras. Dictum sit amet justo donec enim diam vulputate ut. Eu nisl nunc mi ipsum faucibus."
-                  labelButton="Azione primaria"
-                /></td
-              >
-            </tr>
-            <tr>
-              <td class="p-3">Dark background</td>
-              <td class="bg-dark p-3"
-                ><TextContainer
-                  title="Titolo della sezione"
-                  paragraph="Platea dictumst vestibulum rhoncus est pellentesque elit ullamcorper dignissim cras. Dictum sit amet justo donec enim diam vulputate ut. Eu nisl nunc mi ipsum faucibus."
-                  labelButton="Azione primaria"
-                  variant="dark"
-                /></td
-              >
-            </tr>
-          </tbody>
-        </table>
-
-        <table class="table table-bordered">
-          <thead>
-            <tr>
-              <th>Use Case Card</th>
-              <th>Primary</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="p-3">Light background</td>
-              <td class="p-3">
-                <div class="row">
-                  <div class="col-12 col-md-6 col-lg-6 mb-3 mb-md-4">
-                    <UseCaseCard
-                      title="Titolo use Case"
-                      imgUrl="https://placeholderimage.eu/api/monument/320/320"
-                      paragraph="Platea dictumst vestibulum rhoncus est pellentesque elit ullamcorper dignissim cras. Dictum sit amet justo donec enim diam vulputate ut. Eu nisl nunc mi ipsum faucibus."
-                      linkTo="#"
-                    />
-                  </div>
-                </div></td
-              >
-            </tr>
-          </tbody>
-        </table>
-
-        <h2 class="mb-4">Organisms</h2>
-
-        <table class="table table-bordered">
-          <thead>
-            <tr>
-              <th>FAQ section</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="p-0">
-                <FAQSection
-                  title="Domande frequenti"
-                  accordion={{
-                    id: "FAQ",
-                    items: accordionItems,
-                    variant: "background-active",
-                  }}
-                />
-              </td>
-            </tr>
-          </tbody>
-        </table>
-
-        <table class="table table-bordered">
-          <thead>
-            <tr>
-              <th>Footer</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="p-3">
-                <Footer
-                  brand={{
-                    title: "Nome dipartimento",
-                    description: "è un progetto di",
-                    logos: [
-                      {
-                        icon: "it-team-digitale",
-                        label: "Dipertimento di trasformazione digitale",
-                        linkTo: "#",
-                      },
-                      {
-                        icon: "it-team-digitale",
-                        label: "Dipertimento di trasformazione digitale",
-                        linkTo: "#",
-                      },
-                    ],
-                  }}
-                  topics={{
-                    title: "Parliamo di",
-                    items: [
-                      {
-                        label: "Sviluppo interfaccia",
-                        visuallyHidden: "link",
-                        linkTo: "#",
-                      },
-                      {
-                        label: "Sviluppo interfaccia",
-                        visuallyHidden: "link",
-                        linkTo: "#",
-                      },
-                    ],
-                  }}
-                  utilities={[
+            <Hero
+              category="Titolo occhiello"
+              title="Titolo della sezione"
+              paragraph="Platea dictumst vestibulum rhoncus est pellentesque elit ullamcorper dignissim cras. Dictum sit amet justo donec enim diam vulputate ut. Eu nisl nunc mi ipsum faucibus."
+              image={image}
+            />
+            <TextAndImage
+              title="Titolo della sezione"
+              paragraph="Platea dictumst vestibulum rhoncus est pellentesque elit ullamcorper dignissim cras. Dictum sit amet justo donec enim diam vulputate ut. Eu nisl nunc mi ipsum faucibus."
+              image={image}
+              labelButton="Azione primaria"
+            />
+            <UpdateTabSection
+              title="Cos’è il cloud e perché è importante?"
+              paragraph="Il cloud è alla base della modernizzazione della Pubblica Amministrazione. Permette di erogare servizi digitali più sicuri, scalabili e sostenibili, migliorando la gestione dei dati e semplificando il lavoro di enti e fornitori. "
+              tabs={tabsItems}
+              news={newsItems}
+            />
+            <TextAndStatistics
+              title="Cos’è il cloud e perché è importante?"
+              paragraph="Il cloud è alla base della modernizzazione della Pubblica Amministrazione. Permette di erogare servizi digitali più sicuri, scalabili e sostenibili, migliorando la gestione dei dati e semplificando il lavoro di enti e fornitori. "
+              labelButton="Azione primaria"
+              dataStatistics={dataStatisticsItems}
+            />
+            <SupportChannelsSection
+              title="Cos’è il cloud e perché è importante?"
+              paragraph="Il cloud è alla base della modernizzazione della Pubblica Amministrazione. Permette di erogare servizi digitali più sicuri, scalabili e sostenibili, migliorando la gestione dei dati e semplificando il lavoro di enti e fornitori. "
+              channels={channelItems}
+            />
+            <TextAndImage
+              variant="big"
+              title="Cos’è il cloud e perché è importante?"
+              paragraph="Il cloud è alla base della modernizzazione della Pubblica Amministrazione. Permette di erogare servizi digitali più sicuri, scalabili e sostenibili, migliorando la gestione dei dati e semplificando il lavoro di enti e fornitori. "
+              image={image}
+            />
+            <DataSection
+              highlights={{
+                title: "Risultati raggiunti ",
+                paragraph:
+                  "L’adozione del Cloud nella Pubblica Amministrazione è in costante crescita. Attraverso i progetti finanziati dal PNRR e le iniziative locali, ogni regione sta contribuendo alla modernizzazione dei servizi pubblici digitali.",
+                image: image,
+                cards: [
+                  {
+                    title:
+                      "PA e enti pubblici che hanno già avviato la migrazione al cloud",
+                    description: "70.000 +",
+                  },
+                  {
+                    title:
+                      "PA e enti pubblici che hanno già avviato la migrazione al cloud",
+                    description: "70.000 +",
+                  },
+                  {
+                    title:
+                      "PA e enti pubblici che hanno già avviato la migrazione al cloud",
+                    description: "70.000 +",
+                  },
+                ],
+              }}
+              panel={{
+                title: "Distribuzione dei progetti sul territorio",
+                paragraph: "Il numero di progetti Cloud divisi per regione.",
+              }}
+              result={{
+                items: listItems,
+                title: "L’esperienza delle regioni ",
+                label: "in evidenza",
+                paragraph:
+                  "Alcune regioni hanno sviluppato progetti cloud nella PA che offrono modelli operativi replicabili. Queste esperienze sono a disposizione di tutte le amministrazioni e contribuiscono a una diffusione più uniforme della Strategia Cloud Italia sul territorio.",
+                news: [
+                  {
+                    linkTo: "#",
+                    title:
+                      "Nasce l’Innovation Hub di Polo Strategico Nazionale",
+                    description:
+                      "Al via un ecosistema collaborativo per accelerare la trasformazione digitale della Pubblica Amministrazione",
+                    image: image,
+                  },
+                ],
+              }}
+            />
+            <Footer
+              brand={{
+                title: "Nome dipartimento",
+                description: "è un progetto di",
+                logos: [
+                  {
+                    icon: "it-team-digitale",
+                    label: "Dipertimento di trasformazione digitale",
+                    linkTo: "#",
+                  },
+                  {
+                    icon: "it-team-digitale",
+                    label: "Dipertimento di trasformazione digitale",
+                    linkTo: "#",
+                  },
+                ],
+              }}
+              topics={{
+                title: "Parliamo di",
+                items: [
+                  {
+                    label: "Sviluppo interfaccia",
+                    visuallyHidden: "link",
+                    linkTo: "#",
+                  },
+                  {
+                    label: "Sviluppo interfaccia",
+                    visuallyHidden: "link",
+                    linkTo: "#",
+                  },
+                ],
+              }}
+              utilities={[
+                {
+                  title: "Community",
+                  items: [
                     {
-                      title: "Community",
-                      items: [
-                        {
-                          label: "Forum italia",
-                          ariaLabel: "link",
-                          icon: "it-designers-italia",
-                          linkTo: "#",
-                        },
-                        {
-                          label: "Slack",
-                          ariaLabel: "link",
-                          icon: "it-slack",
-                          linkTo: "#",
-                        },
-                        {
-                          label: "Github",
-                          ariaLabel: "link",
-                          icon: "it-github",
-                          linkTo: "#",
-                        },
-                      ],
+                      label: "Forum italia",
+                      ariaLabel: "link",
+                      icon: "it-designers-italia",
+                      linkTo: "#",
                     },
-                  ]}
-                  smallPrints={{
-                    labelVisualHidden: "Sezione link utili",
-                    links: [
-                      { label: "Media Policy", linkTo: "#" },
-                      { label: "Note legali", linkTo: "#" },
-                    ],
-                  }}
-                />
-              </td>
-            </tr>
-          </tbody>
-        </table>
-
-        <table class="table table-bordered">
-          <thead>
-            <tr>
-              <th>Header</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="p-0">
-                <Header
-                  slimContent="Nome dipartimento"
-                  brandTitle="Cloud Italia"
-                  brandTagLine="Il cloud della Pubblica Amministrazione"
-                />
-              </td>
-            </tr>
-          </tbody>
-        </table>
-
-        <table class="table table-bordered">
-          <thead>
-            <tr>
-              <th>Hero</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Default</td>
-            </tr>
-            <tr>
-              <td class="p-0">
-                <Hero
-                  category="Titolo occhiello"
-                  title="Titolo della sezione"
-                  paragraph="Platea dictumst vestibulum rhoncus est pellentesque elit ullamcorper dignissim cras. Dictum sit amet justo donec enim diam vulputate ut. Eu nisl nunc mi ipsum faucibus."
-                  imageUrl="https://animals.sandiegozoo.org/sites/default/files/2016-08/animals_hero_mountains.jpg"
-                />
-              </td>
-            </tr>
-            <tr>
-              <td>Small</td>
-            </tr>
-            <tr>
-              <td class="p-0">
-                <Hero
-                  title="Titolo della sezione"
-                  paragraph="Platea dictumst vestibulum rhoncus est pellentesque elit ullamcorper dignissim cras. Dictum sit amet justo donec enim diam vulputate ut. Eu nisl nunc mi ipsum faucibus."
-                  size="small"
-                  imageUrl="https://animals.sandiegozoo.org/sites/default/files/2016-08/animals_hero_mountains.jpg"
-                >
-                  <Breadcrumb
-                    ariaLabel="Percorso di navigazione"
-                    slot="category"
-                    items={breadcrumbItems}
-                  />
-                </Hero>
-              </td>
-            </tr>
-
-            <tr>
-              <td>Extra Small</td>
-            </tr>
-            <tr>
-              <td class="p-0">
-                <Hero
-                  title="Titolo della sezione"
-                  paragraph="Platea dictumst vestibulum rhoncus est pellentesque elit ullamcorper dignissim cras. Dictum sit amet justo donec enim diam vulputate ut. Eu nisl nunc mi ipsum faucibus."
-                  size="xsmall"
-                  imageUrl="https://animals.sandiegozoo.org/sites/default/files/2016-08/animals_hero_mountains.jpg"
-                >
-                  <Breadcrumb
-                    ariaLabel="Percorso di navigazione"
-                    slot="category"
-                    items={breadcrumbItems}
-                  /></Hero
-                >
-              </td>
-            </tr>
-          </tbody>
-        </table>
-
-        <table class="table table-bordered">
-          <thead>
-            <tr>
-              <th>Sidebar</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="p-3">
-                <Sidebar
-                  id="sidebar"
-                  ariaLabel="Apri/chiudi sidebar"
-                  header="Usare il cloud"
-                  openLabel="Menu di navigazione"
-                  closeLabel="Chiudi"
-                  items={sidebarItems}
-                />
-              </td>
-            </tr>
-          </tbody>
-        </table>
-
-        <table class="table table-bordered">
-          <thead>
-            <tr>
-              <th>Support Channels section</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="p-0">
-                <SupportChannelsSection
-                  title="Cos’è il cloud e perché è importante?"
-                  paragraph="Il cloud è alla base della modernizzazione della Pubblica Amministrazione. Permette di erogare servizi digitali più sicuri, scalabili e sostenibili, migliorando la gestione dei dati e semplificando il lavoro di enti e fornitori. "
-                  channels={channelItems}
-                />
-              </td>
-            </tr>
-          </tbody>
-        </table>
-
-        <table class="table table-bordered">
-          <thead>
-            <tr>
-              <th>Text And Accordions</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="p-0">
-                <TextAndAccordions
-                  title="Cos’è il cloud e perché è importante?"
-                  paragraph="Il cloud è alla base della modernizzazione della Pubblica Amministrazione. Permette di erogare servizi digitali più sicuri, scalabili e sostenibili, migliorando la gestione dei dati e semplificando il lavoro di enti e fornitori. "
-                  labelAccordion="In evidenza"
-                  accordion={{ id: "FAQ", items: accordionItems }}
-                />
-              </td>
-            </tr>
-          </tbody>
-        </table>
-
-        <table class="table table-bordered">
-          <thead>
-            <tr>
-              <th>Text And Image</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Default</td>
-              <td class="p-0">
-                <TextAndImage
-                  title="Cos’è il cloud e perché è importante?"
-                  paragraph="Il cloud è alla base della modernizzazione della Pubblica Amministrazione. Permette di erogare servizi digitali più sicuri, scalabili e sostenibili, migliorando la gestione dei dati e semplificando il lavoro di enti e fornitori. "
-                  imgUrl="https://placeholderimage.eu/api/city/800/600"
-                  labelButton="Azione primaria"
-                />
-              </td>
-            </tr>
-            <tr>
-              <td>Big</td>
-              <td class="p-0">
-                <TextAndImage
-                  variant="big"
-                  title="Cos’è il cloud e perché è importante?"
-                  paragraph="Il cloud è alla base della modernizzazione della Pubblica Amministrazione. Permette di erogare servizi digitali più sicuri, scalabili e sostenibili, migliorando la gestione dei dati e semplificando il lavoro di enti e fornitori. "
-                  imgUrl="https://placeholderimage.eu/api/city/800/600"
-                />
-              </td>
-            </tr>
-            <tr>
-              <td>With box</td>
-              <td class="p-0">
-                <TextAndImage
-                  variant="withBox"
-                  title="Cos’è il cloud e perché è importante?"
-                  paragraph="Il cloud è alla base della modernizzazione della Pubblica Amministrazione. Permette di erogare servizi digitali più sicuri, scalabili e sostenibili, migliorando la gestione dei dati e semplificando il lavoro di enti e fornitori. "
-                  imgUrl="https://placeholderimage.eu/api/city/800/600"
-                  cards={cardItems}
-                  labelCards="In evidenza"
-                />
-              </td>
-            </tr>
-          </tbody>
-        </table>
-
-        <table class="table table-bordered">
-          <thead>
-            <tr>
-              <th>Text And Statistics</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="p-0">
-                <TextAndStatistics
-                  title="Cos’è il cloud e perché è importante?"
-                  paragraph="Il cloud è alla base della modernizzazione della Pubblica Amministrazione. Permette di erogare servizi digitali più sicuri, scalabili e sostenibili, migliorando la gestione dei dati e semplificando il lavoro di enti e fornitori. "
-                  labelButton="Azione primaria"
-                  dataStatistics={dataStatisticsItems}
-                />
-              </td>
-            </tr>
-          </tbody>
-        </table>
-
-        <table class="table table-bordered">
-          <thead>
-            <tr>
-              <th>Text And UseCase</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="p-0">
-                <TextAndUseCase
-                  title="Cos’è il cloud e perché è importante?"
-                  paragraph="Il cloud è alla base della modernizzazione della Pubblica Amministrazione. Permette di erogare servizi digitali più sicuri, scalabili e sostenibili, migliorando la gestione dei dati e semplificando il lavoro di enti e fornitori. "
-                  labelButton="Azione primaria"
-                  labelUseCases="in evidenza"
-                  useCases={useCaseItems}
-                />
-              </td>
-            </tr>
-          </tbody>
-        </table>
-
-        <table class="table table-bordered">
-          <thead>
-            <tr>
-              <th>Update Tab section</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="p-0">
-                <UpdateTabSection
-                  title="Cos’è il cloud e perché è importante?"
-                  paragraph="Il cloud è alla base della modernizzazione della Pubblica Amministrazione. Permette di erogare servizi digitali più sicuri, scalabili e sostenibili, migliorando la gestione dei dati e semplificando il lavoro di enti e fornitori. "
-                  tabs={tabsItems}
-                  news={newsItems}
-                />
-              </td>
-            </tr>
-          </tbody>
-        </table>
+                    {
+                      label: "Slack",
+                      ariaLabel: "link",
+                      icon: "it-slack",
+                      linkTo: "#",
+                    },
+                    {
+                      label: "Github",
+                      ariaLabel: "link",
+                      icon: "it-github",
+                      linkTo: "#",
+                    },
+                  ],
+                },
+              ]}
+              smallPrints={{
+                labelVisualHidden: "Sezione link utili",
+                links: [
+                  { label: "Media Policy", linkTo: "#" },
+                  { label: "Note legali", linkTo: "#" },
+                ],
+              }}
+            />
+          </TabContent>
+        </Tabs>
       </div>
-
-      <h2 class="m-4">Esempio</h2>
-      <Header
-        slimContent="Dipartimento per la trasformazione digitale"
-        brandTitle="Cloud Italia"
-        brandTagLine="Il cloud della Pubblica Amministrazione"
-      />
-      <TextAndImage
-        title="Titolo della sezione"
-        paragraph="Platea dictumst vestibulum rhoncus est pellentesque elit ullamcorper dignissim cras. Dictum sit amet justo donec enim diam vulputate ut. Eu nisl nunc mi ipsum faucibus."
-        imgUrl="https://placeholderimage.eu/api/city/800/600"
-        labelButton="Azione primaria"
-      />
-      <Hero
-        category="Titolo occhiello"
-        title="Titolo della sezione"
-        paragraph="Platea dictumst vestibulum rhoncus est pellentesque elit ullamcorper dignissim cras. Dictum sit amet justo donec enim diam vulputate ut. Eu nisl nunc mi ipsum faucibus."
-        imageUrl="https://animals.sandiegozoo.org/sites/default/files/2016-08/animals_hero_mountains.jpg"
-      />
-      <UpdateTabSection
-        title="Cos’è il cloud e perché è importante?"
-        paragraph="Il cloud è alla base della modernizzazione della Pubblica Amministrazione. Permette di erogare servizi digitali più sicuri, scalabili e sostenibili, migliorando la gestione dei dati e semplificando il lavoro di enti e fornitori. "
-        tabs={tabsItems}
-        news={newsItems}
-      />
-      <TextAndStatistics
-        title="Cos’è il cloud e perché è importante?"
-        paragraph="Il cloud è alla base della modernizzazione della Pubblica Amministrazione. Permette di erogare servizi digitali più sicuri, scalabili e sostenibili, migliorando la gestione dei dati e semplificando il lavoro di enti e fornitori. "
-        labelButton="Azione primaria"
-        dataStatistics={dataStatisticsItems}
-      />
-      <SupportChannelsSection
-        title="Cos’è il cloud e perché è importante?"
-        paragraph="Il cloud è alla base della modernizzazione della Pubblica Amministrazione. Permette di erogare servizi digitali più sicuri, scalabili e sostenibili, migliorando la gestione dei dati e semplificando il lavoro di enti e fornitori. "
-        channels={channelItems}
-      />
-      <TextAndImage
-        variant="big"
-        title="Cos’è il cloud e perché è importante?"
-        paragraph="Il cloud è alla base della modernizzazione della Pubblica Amministrazione. Permette di erogare servizi digitali più sicuri, scalabili e sostenibili, migliorando la gestione dei dati e semplificando il lavoro di enti e fornitori. "
-        imgUrl="https://placeholderimage.eu/api/city/800/600"
-      />
-      <Footer
-        brand={{
-          title: "Nome dipartimento",
-          description: "è un progetto di",
-          logos: [
-            {
-              icon: "it-team-digitale",
-              label: "Dipertimento di trasformazione digitale",
-              linkTo: "#",
-            },
-            {
-              icon: "it-team-digitale",
-              label: "Dipertimento di trasformazione digitale",
-              linkTo: "#",
-            },
-          ],
-        }}
-        topics={{
-          title: "Parliamo di",
-          items: [
-            {
-              label: "Sviluppo interfaccia",
-              visuallyHidden: "link",
-              linkTo: "#",
-            },
-            {
-              label: "Sviluppo interfaccia",
-              visuallyHidden: "link",
-              linkTo: "#",
-            },
-          ],
-        }}
-        utilities={[
-          {
-            title: "Community",
-            items: [
-              {
-                label: "Forum italia",
-                ariaLabel: "link",
-                icon: "it-designers-italia",
-                linkTo: "#",
-              },
-              {
-                label: "Slack",
-                ariaLabel: "link",
-                icon: "it-slack",
-                linkTo: "#",
-              },
-              {
-                label: "Github",
-                ariaLabel: "link",
-                icon: "it-github",
-                linkTo: "#",
-              },
-            ],
-          },
-        ]}
-        smallPrints={{
-          labelVisualHidden: "Sezione link utili",
-          links: [
-            { label: "Media Policy", linkTo: "#" },
-            { label: "Note legali", linkTo: "#" },
-          ],
-        }}
-      />
     </main>
   </body>
   <script src={bsi}></script>

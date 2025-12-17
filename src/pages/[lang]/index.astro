@@ -1,5 +1,4 @@
 ---
-import Welcome from "../../components/Welcome.astro";
 import Layout from "../../layouts/Layout.astro";
 import { executeQuery } from "../../lib/datocms";
 import { LocalesQuery } from "../../utils/query";
@@ -19,6 +18,4 @@ const { lang } = Astro.params;
 const random = Math.round(Math.random() * 100);
 ---
 
-<Layout locale={lang}>
-  <Welcome cta=`Hello world static ${random}` />
-</Layout>
+<Layout locale={lang} />
