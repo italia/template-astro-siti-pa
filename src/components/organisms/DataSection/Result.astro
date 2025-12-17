@@ -1,0 +1,27 @@
+---
+import { List } from "../../molecules/List";
+import { CardEditorialNews } from "../../molecules/CardEditorialNews";
+import type { ResultProps } from "./types";
+
+type Props = ResultProps;
+
+const { title, paragraph, items, label, news } = Astro.props;
+---
+
+<div class="row align-items-center justify-content-between">
+  <div class="col-lg-6 col-12">
+    <h3 class="mb-3">
+      {title}
+    </h3>
+    <p class="mb-4">{paragraph}</p>
+    <List items={items} variant="small" />
+  </div>
+  <div class="col-lg-4 col-12">
+    <p class="fw-semibold fs-6 text-uppercase">{label}</p>
+    {
+      news.map((newItem) => (
+        <CardEditorialNews fullHeight={false} {...newItem} />
+      ))
+    }
+  </div>
+</div>

@@ -1,9 +1,12 @@
+import type { ImageProps } from "../../atoms/Image/types";
+
 export type HeroProps = {
   title: string;
   paragraph: string;
-  imageUrl: string;
-  imageTitle?: string;
-  imageAlt?: string;
-  size?: "xsmall" | "small" | "default";
+  image: ImageProps;
+  size?: HeroSizeProps;
   category?: string;
+  showBreadcrumb?: boolean;
 };
+
+export type HeroSizeProps = "xsmall" | "small" | "default";

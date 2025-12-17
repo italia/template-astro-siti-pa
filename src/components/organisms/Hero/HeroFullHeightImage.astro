@@ -1,17 +1,9 @@
 ---
 import type { HeroProps } from "./types";
 import { Image } from "../../atoms/Image";
-
 type Props = HeroProps;
 
-const {
-  title,
-  paragraph,
-  image,
-  size,
-  category,
-  showBreadcrumb = false,
-} = Astro.props;
+const { title, paragraph, image, size, category } = Astro.props;
 const sizeClass =
   size === "xsmall"
     ? "xsmall-size"
@@ -23,8 +15,9 @@ const sizeClass =
 <style>
   @import "./style.scss";
 </style>
-
-<section class=`it-hero-wrapper it-primary ${sizeClass}`>
+<section
+  class=`it-hero-wrapper it-hero-wrapper-full-height-image it-primary ${sizeClass}`
+>
   <div class="img-responsive-wrapper">
     <div class="img-responsive">
       <div class="img-wrapper">
@@ -35,10 +28,10 @@ const sizeClass =
 
   <div class="container">
     <div class="row">
-      <div class="col-12">
+      <div class="col-12 col-lg-7">
         <div class="it-hero-text-wrapper">
           {category && <span class="it-category">{category}</span>}
-          {showBreadcrumb && <slot name="breadcrumb" />}
+          <slot name="category" />
           <h1>{title}</h1>
           <div class="d-none d-lg-block font-sans-serif" set:html={paragraph} />
         </div>

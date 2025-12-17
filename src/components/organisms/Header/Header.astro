@@ -1,16 +1,14 @@
 ---
-type Props = {
-  slimContent: string;
-  brandTitle: string;
-  brandTagLine: string;
-};
+import type { HeaderProps } from "./types";
 
-const { slimContent, brandTitle, brandTagLine } = Astro.props;
+type Props = HeaderProps;
+
+const { slimContent, brandTitle, brandTagLine, menuItems } = Astro.props;
 ---
 
 <header class="it-header-wrapper shadow-sm">
   <div class="it-header-slim-wrapper theme-light">
-    <div class="container">
+    <div class="container-xxl">
       <div class="row">
         <div class="col-12">
           <div class="it-header-slim-wrapper-content">
@@ -82,7 +80,7 @@ const { slimContent, brandTitle, brandTagLine } = Astro.props;
   </div>
   <div class="it-nav-wrapper">
     <div class="it-header-center-wrapper theme-light">
-      <div class="container">
+      <div class="container-xxl">
         <div class="row">
           <div class="col-12">
             <div class="it-header-center-content-wrapper">
@@ -133,7 +131,7 @@ const { slimContent, brandTitle, brandTagLine } = Astro.props;
       </div>
     </div>
     <div class="it-header-navbar-wrapper theme-light-desk">
-      <div class="container">
+      <div class="container-xxl">
         <div class="row">
           <div class="col-12">
             <nav
@@ -163,24 +161,24 @@ const { slimContent, brandTitle, brandTagLine } = Astro.props;
                 </div>
                 <div class="menu-wrapper">
                   <ul class="navbar-nav">
-                    <li class="nav-item active">
-                      <a class="nav-link active" href="#" aria-current="page"
-                        ><span>Strategia</span></a
-                      >
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="#" aria-disabled="true"
-                        ><span>Utilizzo del cloud</span></a
-                      >
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="#"><span>Risorse</span></a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="#"
-                        ><span>Tutto sul cloud</span></a
-                      >
-                    </li>
+                    {
+                      menuItems.map((menuItem) => {
+                        return (
+                          <li
+                            class={`nav-item ${menuItem.active ? "active" : ""}`}
+                            id={menuItem.id}
+                          >
+                            <a
+                              class={`nav-link 
+                                ${menuItem.active ? "active" : ""}`}
+                              href={menuItem.url}
+                            >
+                              {menuItem.title}
+                            </a>
+                          </li>
+                        );
+                      })
+                    }
                   </ul>
                 </div>
               </div>

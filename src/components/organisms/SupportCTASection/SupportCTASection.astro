@@ -1,0 +1,47 @@
+---
+import TextContainer from "../../molecules/TextContainer/TextContainer.astro";
+import { SectionContainer } from "../SectionContainer";
+import { Image } from "../../atoms/Image";
+import type { SupportCTASectionProps } from "./types";
+
+type Props = SupportCTASectionProps;
+
+const {
+  title,
+  paragraph,
+  labelButton,
+  image,
+  variant = "lighter",
+  size = "default",
+} = Astro.props;
+
+const backgroundColor = {
+  lighter: "lightgrey-bg-a3",
+  default: "",
+};
+
+const backgroundColorClass = backgroundColor[variant];
+---
+
+<section class={backgroundColorClass}>
+  <div class={`container py-5  ${size === "small" ? "px-5" : ""}`}>
+    <div
+      class={`row align-items-center justify-content-between ${size === "small" ? "rounded-2" : ""}`}
+    >
+      <div class={`${size === "small" ? "col-lg-9" : "col-lg-7"} col-12`}>
+        <TextContainer
+          title={title}
+          paragraph={paragraph}
+          labelButton={labelButton}
+        />
+      </div>
+      <div class={`${size === "small" ? "col-lg-3" : "col-lg-5"} col-12`}>
+        <div class="img-container">
+          <div class={`ratio ${size === "small" ? "ratio-1x1" : "ratio-16x9"}`}>
+            <Image {...image} />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

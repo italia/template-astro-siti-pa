@@ -20,7 +20,7 @@ const { title, paragraph, labelAccordion, accordion } = Astro.props;
     </div>
     <div class="col-lg-5 col-12">
       <p class="fw-semibold fs-6 text-uppercase">{labelAccordion}</p>
-      <Accordion {...accordion} />
+      <Accordion {...accordion} variant="background-active" />
     </div>
   </div>
 </SectionContainer>

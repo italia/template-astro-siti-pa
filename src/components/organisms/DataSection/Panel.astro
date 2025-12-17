@@ -1,0 +1,27 @@
+---
+import { Chart } from "../../charts/Chart";
+import Loader from "../../Loader.astro";
+import type { PanelProps } from "./types";
+
+type Props = PanelProps;
+
+const { title, paragraph, chart } = Astro.props;
+---
+
+<div class="row align-items-top justify-content-between mb-5">
+  <div class="col-12">
+    <h3 class="mb-3">
+      {title}
+    </h3>
+    <p class="mb-4">{paragraph}</p>
+    {
+      chart && (
+        <Chart client:only="react" data={chart}>
+          <div slot="fallback">
+            <Loader />
+          </div>
+        </Chart>
+      )
+    }
+  </div>
+</div>

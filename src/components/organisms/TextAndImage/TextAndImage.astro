@@ -3,6 +3,7 @@ import { CardEditorialWithIcon } from "../../molecules/CardEditorialWithIcon";
 import TextContainer from "../../molecules/TextContainer/TextContainer.astro";
 import { SectionContainer } from "../SectionContainer";
 import type { TextAndImageProps } from "./types";
+import { Image } from "../../atoms/Image";
 
 type Props = TextAndImageProps;
 
@@ -10,9 +11,7 @@ const {
   title,
   paragraph,
   labelButton,
-  imgUrl,
-  imgTitle = "",
-  imgAlt = "",
+  image,
   variant = "default",
   cards,
   labelCards,
@@ -49,13 +48,13 @@ const alignItems = variant === "big" ? "align-items-top" : "align-items-center";
     <div class={secondElementClass}>
       <div class="img-container">
         <div class="ratio ratio-4x3">
-          <img src={imgUrl} title={imgTitle} alt={imgAlt} />
+          <Image {...image} />
         </div>
       </div>
     </div>
   </div>
   {
-    cards && (
+    cards && cards.length > 0 && (
       <div class="row align-item-center justify-content-between pt-5">
         <p class={`fw-semibold fs-6 text-uppercase ${textLabelColorClass}`}>
           {labelCards}

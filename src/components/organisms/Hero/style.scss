@@ -1,14 +1,23 @@
 .default-size {
-  min-height: 440px;
-  max-height: 440px;
+  min-height: 440px !important;
+  max-height: 440px !important;
 }
 
 .small-size {
-  min-height: 400px;
-  max-height: 400px;
+  min-height: 400px !important;
+  max-height: 400px !important;
 }
 
 .xsmall-size {
-  min-height: 340px;
-  max-height: 340px;
+  min-height: 340px !important;
+  max-height: 340px !important;
+}
+
+.bg-primary-dark {
+  background-color: hsl(210, 74%, 30%) !important;
+}
+
+.it-hero-wrapper-full-height-image .img-responsive-wrapper {
+  width: 40% !important;
+  right: 0 !important;
 }

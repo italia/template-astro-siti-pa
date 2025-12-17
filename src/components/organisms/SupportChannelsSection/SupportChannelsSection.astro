@@ -1,24 +1,28 @@
 ---
 import { CardPresentationBanner } from "../../molecules/CardPresentationBanner";
-import type { CardPresentationBannerProps } from "../../molecules/CardPresentationBanner/types";
 import TextContainer from "../../molecules/TextContainer/TextContainer.astro";
 import { SectionContainer } from "../SectionContainer";
+import type { SupportChannelSectionProps } from "./types";
 
-type Props = {
-  title: string;
-  paragraph: string;
-  channels: CardPresentationBannerProps[];
+type Props = SupportChannelSectionProps;
+
+const { title, paragraph, channels, variant = "default" } = Astro.props;
+
+const backgroundColor = {
+  lighter: "lightgrey-bg-a3",
+  default: "",
 };
-const { title, paragraph, channels } = Astro.props;
+
+const backgroundColorClass = backgroundColor[variant];
 ---
 
-<SectionContainer>
+<SectionContainer className={backgroundColorClass}>
   <div class="row align-items-top justify-content-between">
     <div class="col-lg-5 col-12">
       <TextContainer title={title} paragraph={paragraph} />
     </div>
   </div>
-  <div class="row pt-5">
+  <div class="row pt-4">
     {
       channels.map((item) => (
         <div class="col-12 col-md-6 mb-3 mb-md-4 col-lg-4">

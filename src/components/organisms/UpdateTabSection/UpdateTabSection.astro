@@ -24,7 +24,7 @@ const { title, paragraph, tabs, news } = Astro.props;
   {
     tabs && (
       <div class="row pt-5">
-        <Tabs items={tabs} />
+        <Tabs id="tabs" variant="dark" items={tabs} />
       </div>
     )
   }
