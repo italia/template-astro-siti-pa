@@ -1,0 +1,18 @@
+---
+import { UseCaseCard } from "../UseCaseCard";
+import type { UseCaseCardProps } from "../UseCaseCard/types";
+
+type Props = {
+  items: UseCaseCardProps[];
+};
+
+const { items } = Astro.props;
+---
+
+<style>
+  @import "./style.scss";
+</style>
+
+<div class="usecase-container">
+  {items.map((useCase) => <UseCaseCard {...useCase} />)}
+</div>

@@ -1,8 +1,8 @@
 ---
+import { SplitContent } from "../../layout/SplitContent";
 import { Accordion } from "../../molecules/Accordion";
 import type { AccordionProps } from "../../molecules/Accordion/types";
 import TextContainer from "../../molecules/TextContainer/TextContainer.astro";
-import { SectionContainer } from "../SectionContainer";
 
 type Props = {
   title: string;
@@ -13,14 +13,10 @@ type Props = {
 const { title, paragraph, labelAccordion, accordion } = Astro.props;
 ---
 
-<SectionContainer>
-  <div class="row align-items-top justify-content-between">
-    <div class="col-lg-5 col-12">
-      <TextContainer title={title} paragraph={paragraph} />
-    </div>
-    <div class="col-lg-5 col-12">
-      <p class="fw-semibold fs-6 text-uppercase">{labelAccordion}</p>
-      <Accordion {...accordion} variant="background-active" />
-    </div>
+<SplitContent leftColumns={5} rightColumns={5} alignItems="top">
+  <TextContainer slot="left" title={title} paragraph={paragraph} />
+  <div slot="right">
+    <p class="fw-semibold fs-6 text-uppercase">{labelAccordion}</p>
+    <Accordion {...accordion} variant="background-active" />
   </div>
-</SectionContainer>
+</SplitContent>

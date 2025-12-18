@@ -1,8 +1,9 @@
 ---
+import { SplitContent } from "../../layout/SplitContent";
 import TextContainer from "../../molecules/TextContainer/TextContainer.astro";
-import { UseCaseCard } from "../../molecules/UseCaseCard";
 import type { UseCaseCardProps } from "../../molecules/UseCaseCard/types";
-import { SectionContainer } from "../SectionContainer";
+import UseCases from "../../molecules/UseCases/UseCases.astro";
+import UseCaseContainer from "../UseCaseContainer/UseCaseContainer.astro";
 
 type Props = {
   title: string;
@@ -17,20 +18,16 @@ const { title, paragraph, labelButton, labelUseCases, useCases } = Astro.props;
 <style>
   @import "./style.scss";
 </style>
-<SectionContainer>
-  <div class="row align-items-top justify-content-between">
-    <div class="col-lg-5 col-12">
-      <TextContainer
-        title={title}
-        paragraph={paragraph}
-        labelButton={labelButton}
-      />
-    </div>
-    <div class="col-lg-6 col-12">
-      <p class="fw-semibold fs-6 text-uppercase">{labelUseCases}</p>
-      <div class="usecase-container">
-        {useCases.map((useCase) => <UseCaseCard {...useCase} />)}
-      </div>
-    </div>
+
+<SplitContent leftColumns={5} alignItems="top">
+  <TextContainer
+    slot="left"
+    title={title}
+    paragraph={paragraph}
+    labelButton={labelButton}
+  />
+  <div slot="right">
+    <p class="fw-semibold fs-6 text-uppercase">{labelUseCases}</p>
+    <UseCases items={useCases} />
   </div>
-</SectionContainer>
+</SplitContent>

@@ -1,9 +1,9 @@
 ---
 import { CardEditorialWithIcon } from "../../molecules/CardEditorialWithIcon";
 import TextContainer from "../../molecules/TextContainer/TextContainer.astro";
-import { SectionContainer } from "../SectionContainer";
 import type { TextAndImageProps } from "./types";
 import { Image } from "../../atoms/Image";
+import { SplitContent } from "../../layout/SplitContent";
 
 type Props = TextAndImageProps;
 
@@ -17,41 +17,32 @@ const {
   labelCards,
 } = Astro.props;
 
-const backgroundColor = {
-  default: "",
-  big: "bg-primary",
-  withBox: "primary-bg-a10",
-};
-const backgroundColorClass = backgroundColor[variant];
-
 const textContainerVariant =
   variant === "big" || variant === "withBox" ? "primary" : undefined;
 const textLabelColorClass =
   variant === "big" || variant === "withBox" ? "text-white" : undefined;
-const firstElementClass =
-  variant === "big" ? "col-lg-4  col-12" : "col-lg-6 col-12";
-const secondElementClass =
-  variant === "big" ? "col-lg-8 col-12" : "col-lg-5 col-12";
-const alignItems = variant === "big" ? "align-items-top" : "align-items-center";
+
+const leftColumns = variant === "big" ? 4 : 6;
+const rightColumns = variant === "big" ? 8 : 5;
+const background =
+  variant === "big" ? "primary" : variant === "withBox" ? "dark" : "default";
 ---
 
-<SectionContainer className={backgroundColorClass}>
-  <div class=`row ${alignItems} justify-content-between `>
-    <div class={firstElementClass}>
-      <TextContainer
-        title={title}
-        paragraph={paragraph}
-        labelButton={labelButton}
-        variant={textContainerVariant}
-      />
-    </div>
-    <div class={secondElementClass}>
-      <div class="img-container">
-        <div class="ratio ratio-4x3">
-          <Image {...image} />
-        </div>
-      </div>
-    </div>
+<SplitContent
+  leftColumns={leftColumns}
+  rightColumns={rightColumns}
+  alignItems={variant === "big" ? "top" : "center"}
+  background={background}
+>
+  <TextContainer
+    slot="left"
+    title={title}
+    paragraph={paragraph}
+    labelButton={labelButton}
+    variant={textContainerVariant}
+  />
+  <div class="ratio ratio-4x3" slot="right">
+    <Image {...image} />
   </div>
   {
     cards && cards.length > 0 && (
@@ -67,4 +58,4 @@ const alignItems = variant === "big" ? "align-items-top" : "align-items-center";
       </div>
     )
   }
-</SectionContainer>
+</SplitContent>

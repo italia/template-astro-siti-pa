@@ -1,0 +1,18 @@
+---
+import { DataContainer } from "../../molecules/DataContainer";
+import type { DataContainerProps } from "../DataContainer/types";
+
+type Props = {
+  items: DataContainerProps[];
+};
+
+const { items } = Astro.props;
+---
+
+<style>
+  @import "./style.scss";
+</style>
+
+<div class="statistics-container">
+  {items.map((item) => <DataContainer {...item} />)}
+</div>

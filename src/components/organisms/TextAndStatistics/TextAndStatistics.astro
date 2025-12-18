@@ -1,7 +1,7 @@
 ---
-import { DataContainer } from "../../molecules/DataContainer";
-import TextContainer from "../../molecules/TextContainer/TextContainer.astro";
-import { SectionContainer } from "../SectionContainer";
+import { SplitContent } from "../../layout/SplitContent";
+import { Statistics } from "../../molecules/Statistics";
+import { TextContainer } from "../../molecules/TextContainer";
 import type { TextAndStatisticsProps } from "./types";
 
 type Props = TextAndStatisticsProps;
@@ -9,23 +9,13 @@ type Props = TextAndStatisticsProps;
 const { title, paragraph, labelButton, dataStatistics } = Astro.props;
 ---
 
-<style>
-  @import "./style.scss";
-</style>
-<SectionContainer className="primary-bg-a10">
-  <div class="row align-items-top justify-content-between">
-    <div class="col-lg-6 col-12">
-      <TextContainer
-        title={title}
-        paragraph={paragraph}
-        labelButton={labelButton}
-        variant="dark"
-      />
-    </div>
-    <div class="col-lg-5 col-12">
-      <div class="data-container">
-        {dataStatistics.map((data) => <DataContainer {...data} />)}
-      </div>
-    </div>
-  </div>
-</SectionContainer>
+<SplitContent rightColumns={5} background="dark">
+  <TextContainer
+    slot="left"
+    title={title}
+    paragraph={paragraph}
+    labelButton={labelButton}
+    variant="dark"
+  />
+  <Statistics slot="right" items={dataStatistics} />
+</SplitContent>

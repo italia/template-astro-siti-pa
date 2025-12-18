@@ -1,27 +1,20 @@
 ---
 import { CardPresentationBanner } from "../../molecules/CardPresentationBanner";
 import TextContainer from "../../molecules/TextContainer/TextContainer.astro";
-import { SectionContainer } from "../SectionContainer";
+import { SplitContent } from "../../layout/SplitContent";
 import type { SupportChannelSectionProps } from "./types";
 
 type Props = SupportChannelSectionProps;
 
 const { title, paragraph, channels, variant = "default" } = Astro.props;
-
-const backgroundColor = {
-  lighter: "lightgrey-bg-a3",
-  default: "",
-};
-
-const backgroundColorClass = backgroundColor[variant];
 ---
 
-<SectionContainer className={backgroundColorClass}>
-  <div class="row align-items-top justify-content-between">
-    <div class="col-lg-5 col-12">
-      <TextContainer title={title} paragraph={paragraph} />
-    </div>
-  </div>
+<SplitContent
+  background={variant === "lighter" ? "lighter" : "default"}
+  leftColumns={5}
+  alignItems="top"
+>
+  <TextContainer slot="left" title={title} paragraph={paragraph} />
   <div class="row pt-4">
     {
       channels.map((item) => (
@@ -31,4 +24,4 @@ const backgroundColorClass = backgroundColor[variant];
       ))
     }
   </div>
-</SectionContainer>
+</SplitContent>
