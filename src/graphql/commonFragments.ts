@@ -17,12 +17,48 @@ export const LocaleFragment = graphql(`
 
 export type LocaleFragmentType = FragmentOf<typeof LocaleFragment>;
 
+export const ImageFragment = graphql(`
+  fragment ImageFragment on FileField @_unmask {
+    id
+    url
+    alt
+    title
+    width
+    height
+  }
+`);
+
+export type ImageFragmentType = FragmentOf<typeof ImageFragment>;
+
+export const InternalLinkFragment = graphql(`
+  fragment InternalLinkFragment on InternalLinkRecord @_unmask {
+    label
+    linkTo {
+      slug
+    }
+  }
+`);
+export type InternalLinkFragmentType = FragmentOf<typeof InternalLinkFragment>;
+
+export const TopicsBlockFragment = graphql(`
+  fragment TopicsBlockFragment on TopicsBlockRecord @_unmask {
+    id
+    title
+    listTopics {
+      id
+      label
+    }
+  }
+`);
+
+export type TopicsBlockFragmentType = FragmentOf<typeof TopicsBlockFragment>;
+
 export const ChartFragment = graphql(`
   fragment ChartFragment on SettingsChartRecord @_unmask {
+    id
     downloadData
     downloadImage
     footerText
-    id
     selectChart {
       chartData
       id
@@ -39,6 +75,7 @@ export type ChartFragmentType = FragmentOf<typeof ChartFragment>;
 
 export const KpiFragment = graphql(`
   fragment KpiFragment on SettingsKpiRecord @_unmask {
+    id
     title
     subtitle
     selectKpi {
@@ -55,8 +92,249 @@ export const KpiFragment = graphql(`
       flow_detail: flowDetail
       background_color: backgroundColor
     }
-    id
   }
 `);
 
 export type KpiFragmentType = FragmentOf<typeof KpiFragment>;
+
+export const SupportCTASectionFragment = graphql(
+  `
+    fragment SupportCTASectionFragment on SupportCtaSectionRecord @_unmask {
+      id
+      title
+      paragraph
+      image {
+        ...ImageFragment
+      }
+    }
+  `,
+  [ImageFragment],
+);
+
+export type SupportCTASectionFragmentType = FragmentOf<
+  typeof SupportCTASectionFragment
+>;
+
+export const UseCaseFragment = graphql(
+  `
+    fragment UseCaseFragment on UseCaseRecord @_unmask {
+      id
+      title
+      paragraph
+      listTopics {
+        ...TopicsBlockFragment
+      }
+      image {
+        ...ImageFragment
+      }
+      pointsTo {
+        slug
+      }
+      descriptionTitle
+      description(markdown: true)
+    }
+  `,
+  [ImageFragment, TopicsBlockFragment],
+);
+
+export type UseCaseFragmentType = FragmentOf<typeof UseCaseFragment>;
+
+export const NewsItemFragment = graphql(
+  `
+    fragment NewsItemFragment on NewsItemRecord @_unmask {
+      id
+      title
+      paragraph
+      link
+      image {
+        ...ImageFragment
+      }
+    }
+  `,
+  [ImageFragment],
+);
+
+export type NewsItemFragmentType = FragmentOf<typeof NewsItemFragment>;
+
+export const NewsTabFragment = graphql(
+  `
+    fragment NewsTabFragment on NewsTabRecord @_unmask {
+      id
+      title
+      cta {
+        ...InternalLinkFragment
+      }
+      news {
+        ...NewsItemFragment
+      }
+    }
+  `,
+  [NewsItemFragment, InternalLinkFragment],
+);
+
+export type NewsTabFragmentType = FragmentOf<typeof NewsTabFragment>;
+
+export const StoryItemFragment = graphql(
+  `
+    fragment StoryItemFragment on StoryItemRecord @_unmask {
+      id
+      title
+      title
+      linkTo {
+        slug
+      }
+      image {
+        ...ImageFragment
+      }
+    }
+  `,
+  [ImageFragment],
+);
+
+export type StoryItemFragmentType = FragmentOf<typeof StoryItemFragment>;
+
+export const StoryTabFragment = graphql(
+  `
+    fragment StoryTabFragment on StoryTabRecord @_unmask {
+      id
+      title
+      cta {
+        ...InternalLinkFragment
+      }
+      news {
+        ...StoryItemFragment
+      }
+    }
+  `,
+  [StoryItemFragment, InternalLinkFragment],
+);
+
+export type StoryTabFragmentType = FragmentOf<typeof StoryTabFragment>;
+
+export const ChannelFragment = graphql(`
+  fragment ChannelFragment on ChannelRecord @_unmask {
+    id
+    title
+    icon
+    description
+  }
+`);
+
+export type ChannelFragmentType = FragmentOf<typeof ChannelFragment>;
+
+export const TextBlockFragment = graphql(
+  `
+    fragment TextBlockFragment on TextBlockRecord @_unmask {
+      id
+      title
+      paragraph
+      cta {
+        ...InternalLinkFragment
+      }
+    }
+  `,
+  [InternalLinkFragment],
+);
+
+export type TextBlockFragmentType = FragmentOf<typeof TextBlockFragment>;
+
+export const UseCaseBlockFragment = graphql(
+  `
+    fragment UseCaseBlockFragment on UseCaseBlockRecord @_unmask {
+      id
+      title
+      useCases {
+        ...UseCaseFragment
+      }
+    }
+  `,
+  [UseCaseFragment],
+);
+
+export type UseCaseBlockFragmentType = FragmentOf<typeof UseCaseBlockFragment>;
+
+export const DataContainerFragment = graphql(`
+  fragment DataContainerFragment on DataContainerRecord @_unmask {
+    id
+    contentIcon
+    info
+    title
+  }
+`);
+
+export type DataContainerFragmentType = FragmentOf<
+  typeof DataContainerFragment
+>;
+
+export const StatisticBlockFragment = graphql(
+  `
+    fragment StatisticBlockFragment on StatisticBlockRecord @_unmask {
+      id
+      statistics {
+        ...DataContainerFragment
+      }
+    }
+  `,
+  [DataContainerFragment],
+);
+
+export type StatisticBlockFragmentType = FragmentOf<
+  typeof StatisticBlockFragment
+>;
+
+export const ImageBlockFragment = graphql(
+  `
+    fragment ImageBlockFragment on ImageBlockRecord @_unmask {
+      id
+      image {
+        ...ImageFragment
+      }
+    }
+  `,
+  [ImageFragment],
+);
+
+export type ImageBlockFragmentType = FragmentOf<typeof ImageBlockFragment>;
+
+export const AccordionFragment = graphql(`
+  fragment AccordionFragment on AccordionRecord @_unmask {
+    id
+    items {
+      id
+      body
+      header
+    }
+  }
+`);
+
+export type AccordionFragmentType = FragmentOf<typeof AccordionFragment>;
+
+export const AccordionBlockFragment = graphql(
+  `
+    fragment AccordionBlockFragment on AccordionBlockRecord @_unmask {
+      id
+      title
+      accordion {
+        ...AccordionFragment
+      }
+    }
+  `,
+  [AccordionFragment],
+);
+
+export type AccordionBlockFragmentType = FragmentOf<
+  typeof AccordionBlockFragment
+>;
+
+export const MenuItemFragment = graphql(`
+  fragment MenuItemFragment on MenuItemRecord @_unmask {
+    id
+    title
+    pointsTo {
+      id
+      slug
+    }
+  }
+`);
+
+export type MenuItemFragmentType = FragmentOf<typeof MenuItemFragment>;
