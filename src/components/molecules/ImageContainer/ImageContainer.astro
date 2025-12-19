@@ -1,0 +1,12 @@
+---
+import { Image } from "../../atoms/Image";
+import type { ImageWithRatioProps } from "./types";
+
+type Props = ImageWithRatioProps;
+
+const { ratio = "4x3", image } = Astro.props;
+---
+
+<div class=`ratio ratio-${ratio}`>
+  <Image {...image} />
+</div>
