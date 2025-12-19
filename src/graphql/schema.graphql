@@ -4667,11 +4667,14 @@ type SectionRecord implements RecordInterface {
   _status: ItemStatus!
   _unpublishingScheduledAt: DateTime
   _updatedAt: DateTime!
+  alignItems: String
+  background: String
   columnLeftSize: IntType!
-  columnLeftSizeCopy1: IntType!
+  columnRightSize: IntType!
   id: ItemId!
   left: TextBlockRecord!
   right: SectionModelRightField!
+  title: String
 }
 
 type SeoField {

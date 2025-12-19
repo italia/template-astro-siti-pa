@@ -76,6 +76,10 @@ export const SectionFragment = graphql(
   `
     fragment SectionFragment on SectionRecord @_unmask {
       id
+      columnLeftSize
+      columnRightSize
+      background
+      alignItems
       left {
         ... on RecordInterface {
           id

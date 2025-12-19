@@ -180,9 +180,7 @@ export const StoryItemFragment = graphql(
       id
       title
       title
-      linkTo {
-        slug
-      }
+
       image {
         ...ImageFragment
       }
