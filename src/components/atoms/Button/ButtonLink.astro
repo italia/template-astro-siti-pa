@@ -1,10 +1,11 @@
 ---
 type Props = {
   label: string;
+  linkTo: string;
   variant?: "light" | "dark" | "outline-light" | "outline-dark";
   size?: "mini" | "small" | "large";
 };
-const { label, variant = "light", size = "large" } = Astro.props;
+const { label, linkTo, variant = "light", size = "large" } = Astro.props;
 
 const sizeMap = {
   mini: "btn-xs",
@@ -24,4 +25,4 @@ const btnVariant = variantMap[variant];
 const className = `btn ${btnVariant} ${sizeClass}`;
 ---
 
-<a class={className}>{label}</a>
+<a class={className} href={linkTo}>{label}</a>
