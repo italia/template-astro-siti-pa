@@ -12,7 +12,7 @@ import {
 import { Accordion } from "./molecules/Accordion";
 import { Breadcrumb } from "./molecules/Breadcrumb";
 import { Callout } from "./molecules/Callout";
-import { CardEditorialInline } from "./molecules/CardEditorialInline";
+import { CardEditorialInlineMini } from "./molecules/CardEditorialInlineMini";
 import { CardEditorialNews } from "./molecules/CardEditorialNews";
 import { CardEditorialWithIcon } from "./molecules/CardEditorialWithIcon";
 import { CardInfoAndService } from "./molecules/CardInfoAndService";
@@ -154,18 +154,16 @@ import { UseCaseCard } from "./molecules/UseCaseCard";
       </td>
     </tr>
     <tr>
-      <td>Inline</td>
+      <td>Inline Mini</td>
       <td class="bg-primary p-3">
         <div class="row">
           <div class="col-12 mb-3 mb-md-4">
-            <CardEditorialInline
+            <CardEditorialInlineMini
               linkTo="#"
               image={image}
               title="Titolo contenuto editoriale"
-              description="Testo breve che riassume il contenuto della pagina di destinazione in massimo tre o quattro righe, senza troncamento."
               category="Articolo"
               dateTime="2022-04-05"
-              formatDate="05/04/2022"
             />
           </div>
         </div>

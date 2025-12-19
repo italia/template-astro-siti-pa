@@ -1,0 +1,64 @@
+---
+import { Image } from "../../atoms/Image";
+import type { ImageProps } from "../../atoms/Image/types";
+
+export type CardEditorialInlineMiniProps = {
+  title: string;
+  description?: string;
+  image: ImageProps;
+  linkTo: string;
+  category?: string;
+  dateTime?: string;
+};
+
+type Props = CardEditorialInlineMiniProps;
+
+const { lang } = Astro.locals;
+const { title, description, image, linkTo, category, dateTime } = Astro.props;
+
+const shouldShowFooter = category || dateTime;
+---
+
+<article
+  class="it-card it-card-inline it-card-inline-mini it-card-image rounded shadow-sm border"
+>
+  <div class="it-card-inline-content">
+    <h3 class="it-card-title h4">
+      <a href={linkTo}>{title}</a>
+    </h3>
+    {
+      description && (
+        <div class="it-card-body">
+          <p class="it-card-text">{description}</p>
+        </div>
+      )
+    }
+    {
+      shouldShowFooter && (
+        <footer class="it-card-related it-card-footer">
+          <div class="it-card-taxonomy">
+            <div class="chip chip-simple">
+              <span class="chip-label">{category}</span>
+            </div>
+          </div>
+          {dateTime && (
+            <time class="it-card-date" datetime={dateTime}>
+              {new Intl.DateTimeFormat(lang, {
+                year: "numeric",
+                month: "long",
+                day: "2-digit",
+              }).format(new Date(dateTime))}
+            </time>
+          )}
+        </footer>
+      )
+    }
+  </div>
+  <div class="it-card-image-wrapper">
+    <div class="ratio ratio-1x1">
+      <figure class="figure img-full">
+        <Image {...image} />
+      </figure>
+    </div>
+  </div>
+</article>
