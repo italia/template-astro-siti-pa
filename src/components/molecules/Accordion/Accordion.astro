@@ -2,12 +2,13 @@
 import AccordionItem from "./AccordionItem.astro";
 import type { AccordionProps } from "./types";
 type Props = AccordionProps & { fullWidth?: boolean };
-const { id, items, variant = "default", fullWidth = true } = Astro.props;
+const { id, items, variant = "default", fullWidth = true, label } = Astro.props;
 
 const className =
   variant === "background-active" ? "accordion-background-active" : "";
 ---
 
+{label && <p class="fw-semibold fs-6 text-uppercase">{label}</p>}
 <div class=`accordion ${className}` id={id}>
   {items.map((item) => <AccordionItem {...item} fullWidth={fullWidth} />)}
 </div>
