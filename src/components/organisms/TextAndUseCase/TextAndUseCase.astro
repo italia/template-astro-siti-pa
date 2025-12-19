@@ -27,7 +27,6 @@ const { title, paragraph, labelButton, labelUseCases, useCases } = Astro.props;
     labelButton={labelButton}
   />
   <div slot="right">
-    <p class="fw-semibold fs-6 text-uppercase">{labelUseCases}</p>
-    <UseCases items={useCases} />
+    <UseCases label={labelUseCases} items={useCases} />
   </div>
 </SplitContent>
