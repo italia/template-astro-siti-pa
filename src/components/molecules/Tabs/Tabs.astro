@@ -10,11 +10,11 @@ const { id, items, variant = "light" } = Astro.props;
 </style>
 <ul
   class=`nav nav-tabs ${variant==="dark" ? "bg-primary" : ""}`
-  id={id}
+  id={`tabs-${id}`}
   role="tablist"
 >
   {items.map((item) => <TabsItem {...item} />)}
 </ul>
-<div class="tab-content" id="tabsContent">
+<div class="tab-content" id=`tabs-${id}-content`>
   <slot />
 </div>
