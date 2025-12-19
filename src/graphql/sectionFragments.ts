@@ -38,6 +38,9 @@ export const NewsFeedFragment = graphql(
       title
       paragraph
       tabs {
+        ... on RecordInterface {
+          componentName: __typename
+        }
         ... on NewsTabRecord {
           ...NewsTabFragment
         }

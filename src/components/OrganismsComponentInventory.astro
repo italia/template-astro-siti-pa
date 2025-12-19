@@ -26,7 +26,7 @@ import { TextAndAccordions } from "./organisms/TextAndAccordions";
 import { TextAndImage } from "./organisms/TextAndImage";
 import { TextAndStatistics } from "./organisms/TextAndStatistics";
 import { TextAndUseCase } from "./organisms/TextAndUseCase";
-import { UpdateTabSection } from "./organisms/UpdateTabSection";
+import { NewsFeed } from "./organisms/NewsFeed";
 ---
 
 <h2 class="mb-4">Organisms</h2>
@@ -495,11 +495,40 @@ import { UpdateTabSection } from "./organisms/UpdateTabSection";
   <tbody>
     <tr>
       <td class="p-0">
-        <UpdateTabSection
-          title="Cos’è il cloud e perché è importante?"
-          paragraph="Il cloud è alla base della modernizzazione della Pubblica Amministrazione. Permette di erogare servizi digitali più sicuri, scalabili e sostenibili, migliorando la gestione dei dati e semplificando il lavoro di enti e fornitori. "
-          tabs={tabsItems}
-          news={newsItems}
+        <NewsFeed
+          id="newsFeed1"
+          title="Novità dal mondo cloud"
+          paragraph="Notizie sul cloud e testimonianze di come enti e servizi pubblici hanno adottato e fatto evolvere l'infrastruttura."
+          tabs={[
+            {
+              title: "Notizie",
+              componentName: "CardEditorialNews",
+              news: [
+                {
+                  title: "Notizia 1",
+                  description: "Lorem ipsum",
+                  category: "Articolo",
+                  image: image,
+                  linkTo: "http://www.google.com?q=Notizia1",
+                  dateTime: "2025-12-01",
+                },
+              ],
+            },
+            {
+              title: "Storie in evidenza",
+              componentName: "CardEditorialInlineMini",
+              news: [
+                {
+                  title: "Notizia 1",
+                  description: "Lorem ipsum",
+                  category: "Articolo",
+                  image: image,
+                  linkTo: "#",
+                  dateTime: "2025-12-01",
+                },
+              ],
+            },
+          ]}
         />
       </td>
     </tr>

@@ -1,13 +1,12 @@
 ---
 import "../styles/global.scss";
 import bsi from "bootstrap-italia/dist/js/bootstrap-italia.bundle.min.js?url";
-import { Header } from "../components/organisms/Header";
 import { Footer } from "../components/organisms/Footer";
 import { Hero } from "../components/organisms/Hero";
 import { TabContent, Tabs } from "../components/molecules/Tabs";
 import { TextAndImage } from "../components/organisms/TextAndImage";
 import { TextAndStatistics } from "../components/organisms/TextAndStatistics";
-import { UpdateTabSection } from "../components/organisms/UpdateTabSection";
+import { NewsFeed } from "../components/organisms/NewsFeed";
 import { SupportChannelsSection } from "../components/organisms/SupportChannelsSection";
 import { DataSection } from "../components/organisms/DataSection";
 
@@ -88,11 +87,40 @@ const tabsComponentInventory: TabItemProps[] = [
               image={image}
               labelButton="Azione primaria"
             />
-            <UpdateTabSection
-              title="Cos’è il cloud e perché è importante?"
-              paragraph="Il cloud è alla base della modernizzazione della Pubblica Amministrazione. Permette di erogare servizi digitali più sicuri, scalabili e sostenibili, migliorando la gestione dei dati e semplificando il lavoro di enti e fornitori. "
-              tabs={tabsItems}
-              news={newsItems}
+            <NewsFeed
+              id="newsFeed2"
+              title="Novità dal mondo cloud"
+              paragraph="Notizie sul cloud e testimonianze di come enti e servizi pubblici hanno adottato e fatto evolvere l'infrastruttura."
+              tabs={[
+                {
+                  title: "Notizie",
+                  componentName: "CardEditorialNews",
+                  news: [
+                    {
+                      title: "Notizia 1",
+                      description: "Lorem ipsum",
+                      category: "Articolo",
+                      image: image,
+                      linkTo: "http://www.google.com?q=Notizia1",
+                      dateTime: "2025-12-01",
+                    },
+                  ],
+                },
+                {
+                  title: "Storie in evidenza",
+                  componentName: "CardEditorialInlineMini",
+                  news: [
+                    {
+                      title: "Notizia 1",
+                      description: "Lorem ipsum",
+                      category: "Articolo",
+                      image: image,
+                      linkTo: "#",
+                      dateTime: "2025-12-01",
+                    },
+                  ],
+                },
+              ]}
             />
             <TextAndStatistics
               title="Cos’è il cloud e perché è importante?"

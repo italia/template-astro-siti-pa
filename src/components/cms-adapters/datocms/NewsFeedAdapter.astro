@@ -1,0 +1,47 @@
+---
+import type { NewsFeedFragmentType } from "../../../graphql/sectionFragments";
+import { NewsFeed } from "../../organisms/NewsFeed";
+
+type Props = {
+  block: NewsFeedFragmentType;
+};
+
+const { block } = Astro.props;
+---
+
+<NewsFeed
+  id={block.id}
+  title={block.title}
+  paragraph={block.paragraph}
+  tabs={block.tabs.map((tab) => {
+    switch (tab.componentName) {
+      case "NewsTabRecord":
+        return {
+          componentName: "CardEditorialNews",
+          title: tab.title,
+          news: tab.news.map((n) => ({
+            title: n.title,
+            description: n.paragraph,
+            image: n.image,
+            linkTo: n.link,
+            category: n.category,
+            dateTime: n.dateOfPublication,
+            action: new URL(n.link).host,
+          })),
+        };
+
+      case "StoryTabRecord":
+        return {
+          componentName: "CardEditorialInlineMini",
+          title: tab.title,
+          news: tab.news.map((n) => ({
+            title: n.title,
+            image: n.image,
+            linkTo: `/${n.slug}`,
+            category: n.category,
+            dateTime: n.dateOfPublication,
+          })),
+        };
+    }
+  })}
+/>

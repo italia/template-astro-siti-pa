@@ -1,0 +1,75 @@
+---
+import type { ImageProps } from "../../atoms/Image/types";
+import { SplitContent } from "../../layout/SplitContent";
+import { CardEditorialInlineMini } from "../../molecules/CardEditorialInlineMini";
+import type { CardEditorialInlineMiniProps } from "../../molecules/CardEditorialInlineMini/CardEditorialInlineMini.astro";
+import { CardEditorialNews } from "../../molecules/CardEditorialNews";
+import type { CardEditorialNewsProps } from "../../molecules/CardEditorialNews/types";
+import { TabContent, Tabs } from "../../molecules/Tabs";
+import TextContainer from "../../molecules/TextContainer/TextContainer.astro";
+
+type NewsTab = {
+  title: string;
+  componentName: "CardEditorialNews";
+  news: CardEditorialNewsProps[];
+};
+
+type StoryTab = {
+  title: string;
+  componentName: "CardEditorialInlineMini";
+  news: CardEditorialInlineMiniProps[];
+};
+
+export type UpdateTabSectionTab = NewsTab | StoryTab;
+
+type UpdateTabSectionProps = {
+  id: string;
+  title: string;
+  paragraph: string;
+  tabs: UpdateTabSectionTab[];
+};
+
+type Props = UpdateTabSectionProps;
+
+const { id, title, paragraph, tabs = [] } = Astro.props;
+
+const tabsItems = tabs.map((tab, index) => ({
+  id: `tab-${id}-${index}`,
+  label: tab.title,
+  active: index === 0,
+}));
+---
+
+<SplitContent leftColumns={5} background="primary" alignItems="top">
+  <TextContainer
+    slot="left"
+    title={title}
+    paragraph={paragraph}
+    variant="primary"
+  />
+  <div class="row pt-5">
+    <Tabs id={id} variant="dark" items={tabsItems}>
+      {
+        tabs.map((tab, index) => (
+          <TabContent tab={tabsItems[index]}>
+            <ul class="it-card-list row pt-5" aria-label={tab.title}>
+              {tab.componentName === "CardEditorialNews" &&
+                tab.news.map((n) => (
+                  <li class="col-12 col-lg-4 mb-3">
+                    <CardEditorialNews {...n} />
+                  </li>
+                ))}
+
+              {tab.componentName === "CardEditorialInlineMini" &&
+                tab.news.map((n) => (
+                  <li class="col-12 col-lg-6 mb-3">
+                    <CardEditorialInlineMini {...n} />
+                  </li>
+                ))}
+            </ul>
+          </TabContent>
+        ))
+      }
+    </Tabs>
+  </div>
+</SplitContent>
