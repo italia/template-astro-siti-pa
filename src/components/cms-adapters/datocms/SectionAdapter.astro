@@ -1,0 +1,63 @@
+---
+import type { SectionFragmentType } from "../../../graphql/sectionFragments";
+import { SplitContent } from "../../layout/SplitContent";
+import type {
+  SectionAlignItems,
+  SectionBackground,
+} from "../../layout/SplitContent/SplitContent.astro";
+import { TextContainer } from "../../molecules/TextContainer";
+import AccordionAdapter from "./AccordionAdapter.astro";
+import ImageContainerAdapter from "./ImageContainerAdapter.astro";
+import StatisticAdapter from "./StatisticAdapter.astro";
+import UseCasesAdapter from "./UseCasesAdapter.astro";
+
+type Props = {
+  block: SectionFragmentType;
+};
+
+const { block } = Astro.props;
+
+const leftBlock = block.left;
+const rightBlock = block.right;
+
+const variantTextContainer =
+  block.background === "dark"
+    ? "dark"
+    : block.background === "primary"
+      ? "primary"
+      : "light";
+---
+
+<SplitContent
+  leftColumns={block.columnLeftSize}
+  rightColumns={block.columnRightSize}
+  alignItems={block.alignItems as SectionAlignItems}
+  background={block.background as SectionBackground}
+>
+  <TextContainer
+    slot="left"
+    title={leftBlock.title}
+    paragraph={leftBlock.paragraph}
+    variant={variantTextContainer}
+    labelButton={leftBlock.cta?.label}
+    linkTo={leftBlock.cta?.linkTo.slug}
+  />
+  <Fragment slot="right">
+    {
+      (() => {
+        switch (rightBlock.componentName) {
+          case "UseCaseBlockRecord":
+            return <UseCasesAdapter block={rightBlock} />;
+          case "ImageBlockRecord":
+            return <ImageContainerAdapter block={rightBlock} />;
+          case "StatisticBlockRecord":
+            return <StatisticAdapter block={rightBlock} />;
+          case "AccordionBlockRecord":
+            return <AccordionAdapter block={rightBlock} />;
+          default:
+            return;
+        }
+      })()
+    }
+  </Fragment>
+</SplitContent>

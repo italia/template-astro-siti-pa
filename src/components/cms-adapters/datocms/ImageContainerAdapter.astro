@@ -1,0 +1,12 @@
+---
+import type { ImageBlockFragmentType } from "../../../graphql/commonFragments";
+import { ImageContainer } from "../../molecules/ImageContainer";
+
+type Props = {
+  block: ImageBlockFragmentType;
+};
+
+const { block } = Astro.props;
+---
+
+<ImageContainer image={block.image} />

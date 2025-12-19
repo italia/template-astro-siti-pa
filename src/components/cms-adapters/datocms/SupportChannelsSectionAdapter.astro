@@ -1,0 +1,27 @@
+---
+import type { SupportChannelsSectionFragmentType } from "../../../graphql/sectionFragments";
+import { SupportChannelsSection } from "../../organisms/SupportChannelsSection";
+import type { SupportChannelSectionVariantProps } from "../../organisms/SupportChannelsSection/types";
+
+type Props = {
+  block: SupportChannelsSectionFragmentType;
+};
+
+const { block } = Astro.props;
+
+const channelItems = block.channels.map((channel) => {
+  return {
+    title: channel.title,
+    description: channel.description,
+    icon: channel.icon,
+    linkTo: "#",
+  };
+});
+---
+
+<SupportChannelsSection
+  title={block.title}
+  paragraph={block.paragraph}
+  channels={channelItems}
+  variant={block.variant as SupportChannelSectionVariantProps}
+/>

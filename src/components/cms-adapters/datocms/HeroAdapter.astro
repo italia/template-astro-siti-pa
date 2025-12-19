@@ -1,0 +1,32 @@
+---
+import type { HeroFragmentType } from "../../../graphql/sectionFragments";
+import { createBreadcrumb } from "../../../utils/createBreadcrumb";
+import { Breadcrumb } from "../../molecules/Breadcrumb";
+import { Hero } from "../../organisms/Hero";
+import type { HeroSizeProps } from "../../organisms/Hero/types";
+
+type Props = {
+  block: HeroFragmentType;
+  sitename: string;
+};
+
+const { block, sitename } = Astro.props as Props;
+
+const { pathname } = Astro.url;
+
+const itemsBreadcrumb = createBreadcrumb(pathname, sitename);
+---
+
+<Hero
+  title={block.title}
+  paragraph={block.paragraph}
+  size={block.size as HeroSizeProps}
+  image={block.backgroundImage}
+  showBreadcrumb={block.showBreadcrumb}
+>
+  <Breadcrumb
+    ariaLabel="Breadbrumb"
+    items={itemsBreadcrumb}
+    slot="breadcrumb"
+  />
+</Hero>

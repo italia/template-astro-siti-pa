@@ -1,0 +1,12 @@
+---
+import type { AccordionBlockFragmentType } from "../../../graphql/commonFragments";
+import { Accordion } from "../../molecules/Accordion";
+
+type Props = {
+  block: AccordionBlockFragmentType;
+};
+
+const { block } = Astro.props;
+---
+
+<Accordion {...block.accordion} variant="background-active" />

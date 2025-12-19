@@ -1,0 +1,12 @@
+---
+import type { StatisticBlockFragmentType } from "../../../graphql/commonFragments";
+import { Statistics } from "../../molecules/Statistics";
+
+type Props = {
+  block: StatisticBlockFragmentType;
+};
+
+const { block } = Astro.props;
+---
+
+<Statistics items={block.statistics} />
