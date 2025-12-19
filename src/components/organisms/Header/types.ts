@@ -11,3 +11,10 @@ export type MenuItemsProps = {
   active: boolean;
   title: string;
 };
+
+export type HeaderCentralProps = {
+  brandTitle: string;
+  brandTagLine: string;
+  menuItems: MenuItemsProps[];
+  linkBackHome: string;
+};
