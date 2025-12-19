@@ -1,13 +1,20 @@
 ---
-import { Button } from "../../atoms/Button";
+import { ButtonLink } from "../../atoms/Button";
 
 type Props = {
   title: string;
   paragraph: string;
   variant?: "light" | "dark" | "primary";
   labelButton?: string;
+  linkTo?: string;
 };
-const { title, paragraph, labelButton, variant = "light" } = Astro.props;
+const {
+  title,
+  paragraph,
+  labelButton,
+  linkTo,
+  variant = "light",
+} = Astro.props;
 const colorClass =
   variant === "dark" || variant === "primary" ? "text-white" : "";
 const variantButton =
@@ -24,9 +31,14 @@ const variantButton =
   </h2>
   <div class="mb-4" set:html={paragraph} />
   {
-    labelButton && (
+    labelButton && linkTo && (
       <div class="mt-5">
-        <Button size="large" label={labelButton} variant={variantButton} />
+        <ButtonLink
+          size="large"
+          label={labelButton}
+          variant={variantButton}
+          linkTo={linkTo}
+        />
       </div>
     )
   }
