@@ -1,0 +1,34 @@
+---
+import type { DataSectionRecordFragmentType } from "../../../graphql/sectionFragments";
+import { DataSection } from "../../organisms/DataSection";
+
+type Props = {
+  block: DataSectionRecordFragmentType;
+};
+
+const { block } = Astro.props as Props;
+const highlights = {
+  ...block.highlights,
+  image: block.highlights.image,
+};
+const panel = block.panel;
+const result = block.result;
+const newsResult = [
+  {
+    title: block.result.news.title,
+    description: block.result.news.description,
+    image: block.result.news.image,
+    linkTo: "#",
+    category: block.result.news.category,
+    dateTime: block.result.news.date,
+    formatDate: block.result.news.date,
+    action: block.result.news.footerLink,
+  },
+];
+---
+
+<DataSection
+  highlights={highlights}
+  panel={panel}
+  result={{ ...result, news: newsResult }}
+/>

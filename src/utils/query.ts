@@ -1,11 +1,9 @@
 import { graphql } from "@graphql/graphql";
+import { TagFragment, LocaleFragment } from "@graphql/commonFragments";
 import {
-  TagFragment,
-  LocaleFragment,
-  ChartFragment,
-  KpiFragment,
-} from "@graphql/commonFragments";
-import { HomepageModelContentFragment } from "@graphql/templateFragments";
+  HomepageModelContentFragment,
+  PageContentFragment,
+} from "@graphql/templateFragments";
 import { HeaderFragment } from "@graphql/sectionFragments";
 
 export const LocalesQuery = graphql(`
@@ -27,40 +25,6 @@ export const SiteMetaTagsQuery = graphql(
     }
   `,
   [TagFragment],
-);
-
-export const AllPagesSlugQuery = graphql(
-  `
-    query AllPages {
-      allPages {
-        allSlugLocales: _allSlugLocales {
-          ...LocaleFragment
-        }
-      }
-    }
-  `,
-  [LocaleFragment],
-);
-
-export const PageBySlugQuery = graphql(
-  `
-    query PageBySlug($slug: String!, $locale: SiteLocale!) {
-      page(filter: { slug: { eq: $slug } }, locale: $locale) {
-        title
-        slug
-        seo: _seoMetaTags(locale: $locale) {
-          ...TagFragment
-        }
-        chart {
-          ...ChartFragment
-        }
-        kpi {
-          ...KpiFragment
-        }
-      }
-    }
-  `,
-  [TagFragment, ChartFragment, KpiFragment],
 );
 
 export const GlobalSettingsQuery = graphql(`
@@ -94,4 +58,33 @@ export const HomepageQuery = graphql(
     }
   `,
   [HomepageModelContentFragment],
+);
+
+export const AllPagesSlugQuery = graphql(
+  `
+    query AllPages {
+      allPages {
+        allSlugLocales: _allSlugLocales {
+          ...LocaleFragment
+        }
+      }
+    }
+  `,
+  [LocaleFragment],
+);
+
+export const PageBySlugQuery = graphql(
+  `
+    query PageBySlug($slug: String!, $locale: SiteLocale!) {
+      page(filter: { slug: { eq: $slug } }, locale: $locale) {
+        id
+        title
+        slug
+        content {
+          ...PageContentFragment
+        }
+      }
+    }
+  `,
+  [PageContentFragment],
 );

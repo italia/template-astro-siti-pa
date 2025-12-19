@@ -26,12 +26,12 @@ const { globalSetting } = await executeQuery(GlobalSettingsQuery, {
   variables: { locale: lang },
 });
 
-const template = homepage?.content as HomepageModelContentFragmentType[];
+const content = homepage?.content as HomepageModelContentFragmentType[];
 ---
 
 <Layout locale={lang}>
   <TemplatePage
-    template={template}
+    content={content}
     sitename={globalSetting?.siteName || "Home"}
   />
 </Layout>

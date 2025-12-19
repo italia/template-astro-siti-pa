@@ -311,6 +311,7 @@ export const AccordionFragment = graphql(`
       body
       header
     }
+    variant
   }
 `);
 
@@ -345,3 +346,46 @@ export const MenuItemFragment = graphql(`
 `);
 
 export type MenuItemFragmentType = FragmentOf<typeof MenuItemFragment>;
+
+export const StatisticsBoxFragment = graphql(`
+  fragment StatisticsBoxFragment on StatisticsBoxRecord @_unmask {
+    id
+    title
+    description
+  }
+`);
+
+export type StatisticsBoxFragmentType = FragmentOf<
+  typeof StatisticsBoxFragment
+>;
+
+export const CardEditorialNewsFragment = graphql(
+  `
+    fragment CardEditorialNewsFragment on CardEditorialNewsRecord @_unmask {
+      id
+      title
+      image {
+        ...ImageFragment
+      }
+      footerLink
+      description
+      date
+      category
+    }
+  `,
+  [ImageFragment],
+);
+
+export type CardEditorialNewsFragmentType = FragmentOf<
+  typeof CardEditorialNewsFragment
+>;
+
+export const ListItemFragment = graphql(`
+  fragment ListItemFragment on ListItemRecord @_unmask {
+    id
+    paragraph
+    title
+  }
+`);
+
+export type ListItemFragmentType = FragmentOf<typeof ListItemFragment>;

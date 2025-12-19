@@ -1,11 +1,15 @@
 ---
 import Layout from "@layouts/Layout.astro";
 import { executeQuery } from "@lib/datocms";
-import { AllPagesSlugQuery, PageBySlugQuery } from "@utils/query";
+import {
+  AllPagesSlugQuery,
+  PageBySlugQuery,
+  GlobalSettingsQuery,
+} from "@utils/query";
 import type { SiteLocale } from "@graphql/types";
-import { Chart } from "@components/charts/Chart";
-import Loader from "@components/Loader.astro";
-import { Kpi } from "@components/charts/Kpi";
+
+import TemplatePage from "@components/template/TemplatePage.astro";
+import type { PageContentFragmentType } from "@graphql/templateFragments";
 
 export async function getStaticPaths() {
   type PathItem = {
@@ -36,23 +40,16 @@ const response = await executeQuery(PageBySlugQuery, {
   variables: { slug: slug, locale: lang },
 });
 
-const page = response.page;
-const chart = page?.chart;
-const kpi = page?.kpi;
+const content = response.page?.content as PageContentFragmentType[];
+
+const { globalSetting } = await executeQuery(GlobalSettingsQuery, {
+  variables: { locale: lang },
+});
 ---
 
-<Layout locale={lang} pageSeo={page?.seo}>
-  <div class="mx-4">
-    <h1>{page?.title}</h1>
-    {kpi && <Kpi data={kpi} />}
-    {
-      chart && (
-        <Chart client:only="react" data={chart}>
-          <div slot="fallback">
-            <Loader />
-          </div>
-        </Chart>
-      )
-    }
-  </div>
+<Layout locale={lang}>
+  <TemplatePage
+    content={content}
+    sitename={globalSetting?.siteName || "Home"}
+  />
 </Layout>

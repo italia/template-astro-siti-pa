@@ -1,11 +1,16 @@
 import {
   AccordionBlockFragment,
+  AccordionFragment,
+  CardEditorialNewsFragment,
   ChannelFragment,
+  ChartFragment,
   ImageBlockFragment,
   ImageFragment,
+  ListItemFragment,
   MenuItemFragment,
   NewsTabFragment,
   StatisticBlockFragment,
+  StatisticsBoxFragment,
   StoryTabFragment,
   TextBlockFragment,
   UseCaseBlockFragment,
@@ -83,6 +88,16 @@ export const SectionFragment = graphql(
       columnRightSize
       background
       alignItems
+      additionalContent {
+        title
+        id
+        content {
+          title
+          id
+          icon
+          description
+        }
+      }
       left {
         ... on RecordInterface {
           id
@@ -140,3 +155,70 @@ export const HeaderFragment = graphql(
 );
 
 export type HeaderFragmentType = FragmentOf<typeof HeaderFragment>;
+
+export const FaqSectionRecordFragment = graphql(
+  `
+    fragment FaqSectionRecordFragment on FaqSectionRecord @_unmask {
+      id
+      title
+      accordion {
+        ...AccordionFragment
+      }
+    }
+  `,
+  [AccordionFragment],
+);
+
+export type FaqSectionRecordFragmentType = FragmentOf<
+  typeof FaqSectionRecordFragment
+>;
+
+export const DataSectionRecordFragment = graphql(
+  `
+    fragment DataSectionRecordFragment on DataSectionRecord @_unmask {
+      id
+      highlights {
+        id
+        cards {
+          ...StatisticsBoxFragment
+        }
+        image {
+          ...ImageFragment
+        }
+        paragraph(markdown: true)
+        title
+      }
+      panel {
+        id
+        paragraph
+        title
+        chart {
+          ...ChartFragment
+        }
+      }
+      result {
+        id
+        title
+        paragraph
+        label
+        items {
+          ...ListItemFragment
+        }
+        news {
+          ...CardEditorialNewsFragment
+        }
+      }
+    }
+  `,
+  [
+    ChartFragment,
+    CardEditorialNewsFragment,
+    ImageFragment,
+    StatisticsBoxFragment,
+    ListItemFragment,
+  ],
+);
+
+export type DataSectionRecordFragmentType = FragmentOf<
+  typeof DataSectionRecordFragment
+>;
