@@ -1,0 +1,31 @@
+---
+import type { HomepageModelContentFragmentType } from "../../graphql/templateFragments";
+import HeroAdapter from "../cms-adapters/datocms/HeroAdapter.astro";
+import NewsFeedAdapter from "../cms-adapters/datocms/NewsFeedAdapter.astro";
+import SectionAdapter from "../cms-adapters/datocms/SectionAdapter.astro";
+import SupportChannelsSectionAdapter from "../cms-adapters/datocms/SupportChannelsSectionAdapter.astro";
+
+type Props = {
+  template: HomepageModelContentFragmentType[];
+  sitename: string;
+};
+
+const { template, sitename } = Astro.props;
+---
+
+{
+  template.map((block) => {
+    switch (block.componentName) {
+      case "HeroRecord":
+        return <HeroAdapter block={block} sitename={sitename} />;
+      case "NewsFeedRecord":
+        return <NewsFeedAdapter block={block} />;
+      case "SupportChannelsSectionRecord":
+        return <SupportChannelsSectionAdapter block={block} />;
+      case "SectionRecord":
+        return <SectionAdapter block={block} />;
+      default:
+        return null;
+    }
+  })
+}
