@@ -1,8 +1,8 @@
-import type { ChartFragmentType } from "../../../graphql/commonFragments";
-import type { ImageProps } from "../../atoms/Image/types";
-import type { CardEditorialNewsProps } from "../../molecules/CardEditorialNews/types";
-import type { ListItemProps } from "../../molecules/List/types";
-import type { StatisticsBoxProps } from "../../molecules/StatisticsBox/types";
+import type { ChartFragmentType } from "@graphql/commonFragments";
+import type { ImageProps } from "@components/atoms/Image/types";
+import type { CardEditorialNewsProps } from "@components/molecules/CardEditorialNews/types";
+import type { ListItemProps } from "@components/molecules/List/types";
+import type { StatisticsBoxProps } from "@components/molecules/StatisticsBox/types";
 
 export type HighlightsProps = {
   title: string;

@@ -1,5 +1,5 @@
 import type { SchemaTypes } from "@datocms/cma-client";
-import type { SiteLocale } from "../graphql/types";
+import type { SiteLocale } from "@graphql/types";
 
 type LocalizedSchemaTypesItem = SchemaTypes.Item & {
   attributes: SchemaTypes.Item["attributes"] & {

@@ -3,7 +3,7 @@ import {
   type FieldDataType,
   type InfosType,
 } from "dataviz-components";
-import type { ChartFragmentType } from "../../graphql/commonFragments";
+import type { ChartFragmentType } from "@graphql/commonFragments";
 
 type ChartProps = {
   data: ChartFragmentType;

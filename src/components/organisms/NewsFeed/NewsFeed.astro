@@ -1,12 +1,11 @@
 ---
-import type { ImageProps } from "../../atoms/Image/types";
-import { SplitContent } from "../../layout/SplitContent";
-import { CardEditorialInlineMini } from "../../molecules/CardEditorialInlineMini";
-import type { CardEditorialInlineMiniProps } from "../../molecules/CardEditorialInlineMini/CardEditorialInlineMini.astro";
-import { CardEditorialNews } from "../../molecules/CardEditorialNews";
-import type { CardEditorialNewsProps } from "../../molecules/CardEditorialNews/types";
-import { TabContent, Tabs } from "../../molecules/Tabs";
-import TextContainer from "../../molecules/TextContainer/TextContainer.astro";
+import { SplitContent } from "@components/layout/SplitContent";
+import { CardEditorialInlineMini } from "@components/molecules/CardEditorialInlineMini";
+import type { CardEditorialInlineMiniProps } from "@components/molecules/CardEditorialInlineMini/CardEditorialInlineMini.astro";
+import { CardEditorialNews } from "@components/molecules/CardEditorialNews";
+import type { CardEditorialNewsProps } from "@components/molecules/CardEditorialNews/types";
+import { TabContent, Tabs } from "@components/molecules/Tabs";
+import TextContainer from "@components/molecules/TextContainer/TextContainer.astro";
 
 type NewsTab = {
   title: string;

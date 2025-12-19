@@ -1,4 +1,4 @@
-import { graphql, type FragmentOf } from "../graphql/graphql";
+import { graphql, type FragmentOf } from "@graphql/graphql";
 
 export const TagFragment = graphql(`
   fragment TagFragment on Tag @_unmask {

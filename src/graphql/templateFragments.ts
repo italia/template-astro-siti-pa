@@ -1,10 +1,10 @@
-import { graphql, type FragmentOf } from "./graphql";
+import { graphql, type FragmentOf } from "@graphql/graphql";
 import {
   HeroFragment,
   NewsFeedFragment,
   SectionFragment,
   SupportChannelsSectionFragment,
-} from "./sectionFragments";
+} from "@graphql/sectionFragments";
 
 export const HomepageModelContentFragment = graphql(
   `

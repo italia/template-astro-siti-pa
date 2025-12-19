@@ -1,12 +1,12 @@
-import { graphql } from "../graphql/graphql";
+import { graphql } from "@graphql/graphql";
 import {
   TagFragment,
   LocaleFragment,
   ChartFragment,
   KpiFragment,
-} from "../graphql/commonFragments";
-import { HomepageModelContentFragment } from "../graphql/templateFragments";
-import { HeaderFragment } from "../graphql/sectionFragments";
+} from "@graphql/commonFragments";
+import { HomepageModelContentFragment } from "@graphql/templateFragments";
+import { HeaderFragment } from "@graphql/sectionFragments";
 
 export const LocalesQuery = graphql(`
   query Locales {

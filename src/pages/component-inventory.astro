@@ -1,27 +1,25 @@
 ---
-import "../styles/global.scss";
+import "@styles/global.scss";
 import bsi from "bootstrap-italia/dist/js/bootstrap-italia.bundle.min.js?url";
-import { Footer } from "../components/organisms/Footer";
-import { Hero } from "../components/organisms/Hero";
-import { TabContent, Tabs } from "../components/molecules/Tabs";
-import { TextAndImage } from "../components/organisms/TextAndImage";
-import { TextAndStatistics } from "../components/organisms/TextAndStatistics";
-import { NewsFeed } from "../components/organisms/NewsFeed";
-import { SupportChannelsSection } from "../components/organisms/SupportChannelsSection";
-import { DataSection } from "../components/organisms/DataSection";
+import { Footer } from "@components/organisms/Footer";
+import { Hero } from "@components/organisms/Hero";
+import { TabContent, Tabs } from "@components/molecules/Tabs";
+import { TextAndImage } from "@components/organisms/TextAndImage";
+import { TextAndStatistics } from "@components/organisms/TextAndStatistics";
+import { NewsFeed } from "@components/organisms/NewsFeed";
+import { SupportChannelsSection } from "@components/organisms/SupportChannelsSection";
+import { DataSection } from "@components/organisms/DataSection";
 
 import {
   image,
   listItems,
-  tabsItems,
   channelItems,
   dataStatisticsItems,
-  newsItems,
-} from "../utils/mock";
-import type { TabItemProps } from "../components/molecules/Tabs/types";
-import AtomsComponentInventory from "../components/AtomsComponentInventory.astro";
-import MoleculesComponentInventory from "../components/MoleculesComponentInventory.astro";
-import OrganismsComponentInventory from "../components/OrganismsComponentInventory.astro";
+} from "@utils/mock";
+import type { TabItemProps } from "@components/molecules/Tabs/types";
+import AtomsComponentInventory from "@components/AtomsComponentInventory.astro";
+import MoleculesComponentInventory from "@components/MoleculesComponentInventory.astro";
+import OrganismsComponentInventory from "@components/OrganismsComponentInventory.astro";
 
 if (import.meta.env.PROD) {
   return new Response(null, {

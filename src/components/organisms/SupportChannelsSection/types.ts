@@ -1,4 +1,4 @@
-import type { CardPresentationBannerProps } from "../../molecules/CardPresentationBanner/types";
+import type { CardPresentationBannerProps } from "@components/molecules/CardPresentationBanner/types";
 
 export type SupportChannelSectionProps = {
   title: string;

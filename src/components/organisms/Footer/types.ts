@@ -1,5 +1,5 @@
-import type { ChipLinkProps } from "../../atoms/Chip/types";
-import type { LinkProps } from "../../atoms/Link/types";
+import type { ChipLinkProps } from "@components/atoms/Chip/types";
+import type { LinkProps } from "@components/atoms/Link/types";
 
 export type FooterLogoProps = {
   icon: string;

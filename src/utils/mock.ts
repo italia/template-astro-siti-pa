@@ -1,10 +1,10 @@
-import type { ImageProps } from "../components/atoms/Image/types";
-import type { CardEditorialNewsProps } from "../components/molecules/CardEditorialNews/types";
-import type { CardEditorialWithIconProps } from "../components/molecules/CardEditorialWithIcon/types";
-import type { CardPresentationBannerProps } from "../components/molecules/CardPresentationBanner/types";
-import type { DataContainerProps } from "../components/molecules/DataContainer/types";
-import type { ListItemProps } from "../components/molecules/List/types";
-import type { UseCaseCardProps } from "../components/molecules/UseCaseCard/types";
+import type { ImageProps } from "@components/atoms/Image/types";
+import type { CardEditorialNewsProps } from "@components/molecules/CardEditorialNews/types";
+import type { CardEditorialWithIconProps } from "@components/molecules/CardEditorialWithIcon/types";
+import type { CardPresentationBannerProps } from "@components/molecules/CardPresentationBanner/types";
+import type { DataContainerProps } from "@components/molecules/DataContainer/types";
+import type { ListItemProps } from "@components/molecules/List/types";
+import type { UseCaseCardProps } from "@components/molecules/UseCaseCard/types";
 
 export const accordionItems = [
   {

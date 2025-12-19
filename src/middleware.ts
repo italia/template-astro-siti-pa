@@ -1,5 +1,5 @@
 import { defineMiddleware } from "astro/middleware";
-import type { SiteLocale } from "./graphql/types";
+import type { SiteLocale } from "@graphql/types";
 
 declare namespace App {
   interface Locals {

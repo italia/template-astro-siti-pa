@@ -14,6 +14,7 @@ export default defineConfig({
   vite: {
     resolve: {
       alias: {
+        "/^@(.*)$/": resolve("./src/*"),
         "@splidejs/splide/src/css/core/index": resolve(
           "node_modules/@splidejs/splide/src/css/core/index.scss",
         ),

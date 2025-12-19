@@ -1,5 +1,5 @@
-import type { ImageProps } from "../../atoms/Image/types";
-import type { TopicsProps } from "../Topics/types";
+import type { ImageProps } from "@components/atoms/Image/types";
+import type { TopicsProps } from "@components/molecules/Topics/types";
 
 export type UseCaseCardProps = {
   title: string;

@@ -1,10 +1,10 @@
 import type { APIRoute } from "astro";
-import { disableDraftMode } from "../../../../lib/draftMode";
+import { disableDraftMode } from "@lib/draftMode";
 import {
   handleUnexpectedError,
   invalidRequestResponse,
   isRelativeUrl,
-} from "../../../../utils/apiUtils";
+} from "@utils/apiUtils";
 
 export const prerender = false;
 

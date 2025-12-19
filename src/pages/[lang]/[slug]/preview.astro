@@ -1,14 +1,13 @@
 ---
-import type { TitleMetaLinkTag } from "@datocms/astro";
-import Layout from "../../../layouts/Layout.astro";
-import { executeQuery } from "../../../lib/datocms";
-import { PageBySlugQuery } from "../../../utils/query";
-import type { SiteLocale } from "../../../graphql/types";
-import { isDraftModeEnabled } from "../../../lib/draftMode";
-import DraftModeQueryListener from "../../../components/DraftModeQueryListener.astro";
-import { Chart } from "../../../components/charts/Chart";
-import Loader from "../../../components/Loader.astro";
-import { Kpi } from "../../../components/charts/Kpi";
+import Layout from "@layouts/Layout.astro";
+import { executeQuery } from "@lib/datocms";
+import { PageBySlugQuery } from "@utils/query";
+import type { SiteLocale } from "@graphql/types";
+import { isDraftModeEnabled } from "@lib/draftMode";
+import DraftModeQueryListener from "@components/DraftModeQueryListener.astro";
+import { Chart } from "@components/charts/Chart";
+import Loader from "@components/Loader.astro";
+import { Kpi } from "@components/charts/Kpi";
 
 export const prerender = false;
 

@@ -1,5 +1,5 @@
-import type { ImageProps } from "../../atoms/Image/types";
-import type { CardEditorialWithIconProps } from "../../molecules/CardEditorialWithIcon/types";
+import type { ImageProps } from "@components/atoms/Image/types";
+import type { CardEditorialWithIconProps } from "@components/molecules/CardEditorialWithIcon/types";
 
 export type TextAndImageProps = {
   title: string;

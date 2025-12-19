@@ -1,4 +1,4 @@
-import type { DataContainerProps } from "../../molecules/DataContainer/types";
+import type { DataContainerProps } from "@components/molecules/DataContainer/types";
 
 export type TextAndStatisticsProps = {
   title: string;

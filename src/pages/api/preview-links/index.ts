@@ -4,8 +4,8 @@ import {
   invalidRequestResponse,
   json,
   withCORS,
-} from "../../../utils/apiUtils";
-import { generateWebsiteUrl } from "../../../utils/generateWebsiteUrl";
+} from "@utils/apiUtils";
+import { generateWebsiteUrl } from "@utils/generateWebsiteUrl";
 
 export const prerender = false;
 

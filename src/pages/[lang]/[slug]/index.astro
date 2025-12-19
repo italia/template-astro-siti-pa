@@ -1,11 +1,11 @@
 ---
-import Layout from "../../../layouts/Layout.astro";
-import { executeQuery } from "../../../lib/datocms";
-import { AllPagesSlugQuery, PageBySlugQuery } from "../../../utils/query";
-import type { SiteLocale } from "../../../graphql/types";
-import { Chart } from "../../../components/charts/Chart";
-import Loader from "../../../components/Loader.astro";
-import { Kpi } from "../../../components/charts/Kpi";
+import Layout from "@layouts/Layout.astro";
+import { executeQuery } from "@lib/datocms";
+import { AllPagesSlugQuery, PageBySlugQuery } from "@utils/query";
+import type { SiteLocale } from "@graphql/types";
+import { Chart } from "@components/charts/Chart";
+import Loader from "@components/Loader.astro";
+import { Kpi } from "@components/charts/Kpi";
 
 export async function getStaticPaths() {
   type PathItem = {

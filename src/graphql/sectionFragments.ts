@@ -9,8 +9,8 @@ import {
   StoryTabFragment,
   TextBlockFragment,
   UseCaseBlockFragment,
-} from "./commonFragments";
-import { graphql, type FragmentOf } from "./graphql";
+} from "@graphql/commonFragments";
+import { graphql, type FragmentOf } from "@graphql/graphql";
 
 export const HeroFragment = graphql(
   `

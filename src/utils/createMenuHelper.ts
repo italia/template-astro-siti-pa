@@ -1,6 +1,6 @@
-import type { MenuItemsProps } from "../components/organisms/Header/types";
-import type { MenuItemFragmentType } from "../graphql/commonFragments";
-import type { SiteLocale } from "../graphql/types";
+import type { MenuItemsProps } from "@components/organisms/Header/types";
+import type { MenuItemFragmentType } from "@graphql/commonFragments";
+import type { SiteLocale } from "@graphql/types";
 
 export function createMenu(
   datoItems: MenuItemFragmentType[],

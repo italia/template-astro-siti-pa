@@ -1,4 +1,4 @@
-import type { ImageProps } from "../../atoms/Image/types";
+import type { ImageProps } from "@components/atoms/Image/types";
 
 export type SupportCTASectionProps = {
   title: string;
