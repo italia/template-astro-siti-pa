@@ -1,4 +1,6 @@
 ---
+import { Chip } from "../../atoms/Chip";
+import { DateTime } from "../../atoms/DateTime";
 import { Image } from "../../atoms/Image";
 import type { ImageProps } from "../../atoms/Image/types";
 
@@ -13,7 +15,6 @@ export type CardEditorialInlineMiniProps = {
 
 type Props = CardEditorialInlineMiniProps;
 
-const { lang } = Astro.locals;
 const { title, description, image, linkTo, category, dateTime } = Astro.props;
 
 const shouldShowFooter = category || dateTime;
@@ -36,20 +37,12 @@ const shouldShowFooter = category || dateTime;
     {
       shouldShowFooter && (
         <footer class="it-card-related it-card-footer">
-          <div class="it-card-taxonomy">
-            <div class="chip chip-simple">
-              <span class="chip-label">{category}</span>
+          {category && (
+            <div class="it-card-taxonomy">
+              <Chip label={category} visuallyHidden="" />
             </div>
-          </div>
-          {dateTime && (
-            <time class="it-card-date" datetime={dateTime}>
-              {new Intl.DateTimeFormat(lang, {
-                year: "numeric",
-                month: "long",
-                day: "2-digit",
-              }).format(new Date(dateTime))}
-            </time>
           )}
+          {dateTime && <DateTime className="it-card-date" value={dateTime} />}
         </footer>
       )
     }

@@ -1,0 +1,19 @@
+---
+type Props = {
+  value: string;
+  className?: string;
+};
+
+const { lang } = Astro.locals;
+const { value, className } = Astro.props;
+---
+
+<time class={className} datetime={value}>
+  {
+    new Intl.DateTimeFormat(lang, {
+      year: "numeric",
+      month: "long",
+      day: "2-digit",
+    }).format(new Date(value))
+  }
+</time>

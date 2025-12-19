@@ -7,7 +7,6 @@ export type CardEditorialNewsProps = {
   linkTo: string;
   category?: string | null;
   dateTime?: string | null;
-  formatDate?: string | null;
   action?: string | null;
   fullHeight?: boolean;
 };

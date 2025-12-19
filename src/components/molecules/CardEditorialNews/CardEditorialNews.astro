@@ -1,5 +1,6 @@
 ---
 import { Image } from "../../atoms/Image";
+import { DateTime } from "../../atoms/DateTime";
 import type { CardEditorialNewsProps } from "./types";
 
 type Props = CardEditorialNewsProps;
@@ -11,10 +12,11 @@ const {
   linkTo,
   category,
   dateTime,
-  formatDate,
   action,
   fullHeight = true,
 } = Astro.props;
+
+const shouldShowFooter = category || dateTime;
 ---
 
 <article
@@ -34,17 +36,17 @@ const {
     <p class="it-card-text">{description}</p>
   </div>
   {
-    category && (
+    shouldShowFooter && (
       <footer class="it-card-related it-card-footer">
-        <div class="it-card-taxonomy">
-          <a href="#" class="it-card-category it-card-link">
-            <span class="visually-hidden">Categoria correlata: </span>
-            {category}
-          </a>
-        </div>
-        <time class="it-card-date" datetime={dateTime}>
-          {formatDate}
-        </time>
+        {category && (
+          <div class="it-card-taxonomy">
+            <a href="#" class="it-card-category it-card-link">
+              <span class="visually-hidden">Categoria correlata: </span>
+              {category}
+            </a>
+          </div>
+        )}
+        {dateTime && <DateTime className="it-card-date" value={dateTime} />}
       </footer>
     )
   }
