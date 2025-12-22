@@ -389,3 +389,33 @@ export const ListItemFragment = graphql(`
 `);
 
 export type ListItemFragmentType = FragmentOf<typeof ListItemFragment>;
+
+export const ExternalLinkFragment = graphql(`
+  fragment ExternalLinkFragment on ExternalLinkRecord @_unmask {
+    id
+    url
+    titleIcon
+    label
+    icon
+    description
+  }
+`);
+
+export type ExternalLinkFragmentType = FragmentOf<typeof ExternalLinkFragment>;
+
+export const AdditionalContentFragment = graphql(`
+  fragment AdditionalContentFragment on ListContentRecord @_unmask {
+    id
+    title
+    content {
+      id
+      title
+      icon
+      description
+    }
+  }
+`);
+
+export type AdditionalContentFragmentType = FragmentOf<
+  typeof AdditionalContentFragment
+>;

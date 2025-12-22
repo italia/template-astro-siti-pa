@@ -1,9 +1,11 @@
 import {
   AccordionBlockFragment,
   AccordionFragment,
+  AdditionalContentFragment,
   CardEditorialNewsFragment,
   ChannelFragment,
   ChartFragment,
+  ExternalLinkFragment,
   ImageBlockFragment,
   ImageFragment,
   ListItemFragment,
@@ -89,14 +91,7 @@ export const SectionFragment = graphql(
       background
       alignItems
       additionalContent {
-        title
-        id
-        content {
-          title
-          id
-          icon
-          description
-        }
+        ...AdditionalContentFragment
       }
       left {
         ... on RecordInterface {
@@ -128,6 +123,7 @@ export const SectionFragment = graphql(
     }
   `,
   [
+    AdditionalContentFragment,
     TextBlockFragment,
     UseCaseBlockFragment,
     StatisticBlockFragment,
@@ -173,50 +169,80 @@ export type FaqSectionRecordFragmentType = FragmentOf<
   typeof FaqSectionRecordFragment
 >;
 
+export const HighlightsFragment = graphql(
+  `
+    fragment HighlightsFragment on HighlightRecord @_unmask {
+      id
+      title
+      paragraph(markdown: true)
+      cards {
+        ...StatisticsBoxFragment
+      }
+      image {
+        ...ImageFragment
+      }
+    }
+  `,
+  [StatisticsBoxFragment, ImageFragment],
+);
+
+export type HighlightsFragmentType = FragmentOf<typeof HighlightsFragment>;
+
+export const PanelFragment = graphql(
+  `
+    fragment PanelFragment on PanelRecord @_unmask {
+      id
+      paragraph
+      title
+      chart {
+        ...ChartFragment
+      }
+      externalLink {
+        ...ExternalLinkFragment
+      }
+    }
+  `,
+  [ChartFragment, ExternalLinkFragment],
+);
+
+export type PanelFragmentType = FragmentOf<typeof PanelFragment>;
+
+export const ResultFragment = graphql(
+  `
+    fragment ResultFragment on ResultRecord @_unmask {
+      id
+      title
+      paragraph
+      label
+      items {
+        ...ListItemFragment
+      }
+      news {
+        ...CardEditorialNewsFragment
+      }
+    }
+  `,
+  [ListItemFragment, CardEditorialNewsFragment],
+);
+
+export type ResultFragmentType = FragmentOf<typeof ResultFragment>;
+
 export const DataSectionRecordFragment = graphql(
   `
     fragment DataSectionRecordFragment on DataSectionRecord @_unmask {
       id
       highlights {
-        id
-        cards {
-          ...StatisticsBoxFragment
-        }
-        image {
-          ...ImageFragment
-        }
-        paragraph(markdown: true)
-        title
+        ...HighlightsFragment
       }
       panel {
-        id
-        paragraph
-        title
-        chart {
-          ...ChartFragment
-        }
+        ...PanelFragment
       }
       result {
-        id
-        title
-        paragraph
-        label
-        items {
-          ...ListItemFragment
-        }
-        news {
-          ...CardEditorialNewsFragment
-        }
+        ...ResultFragment
       }
     }
   `,
-  [
-    ChartFragment,
-    CardEditorialNewsFragment,
-    ImageFragment,
-    StatisticsBoxFragment,
-    ListItemFragment,
-  ],
+  [HighlightsFragment, PanelFragment, ResultFragment],
 );
 
 export type DataSectionRecordFragmentType = FragmentOf<
