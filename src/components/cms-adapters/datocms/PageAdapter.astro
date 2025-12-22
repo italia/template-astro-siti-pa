@@ -9,6 +9,7 @@ import type {
   HomepageModelContentFragmentType,
   PageContentFragmentType,
 } from "@graphql/templateFragments";
+import UseCaseContainerAdapter from "./UseCaseContainerAdapter.astro";
 
 type ContentType = HomepageModelContentFragmentType | PageContentFragmentType;
 
@@ -35,6 +36,8 @@ const { content, sitename } = Astro.props;
         return <FAQSectionAdapter block={block} />;
       case "DataSectionRecord":
         return <DataSectionAdapter block={block} />;
+      case "UseCaseContainerRecord":
+        return <UseCaseContainerAdapter block={block} />;
       default:
         return null;
     }
