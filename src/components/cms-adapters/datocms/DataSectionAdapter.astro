@@ -11,7 +11,19 @@ const highlights = {
   ...block.highlights,
   image: block.highlights.image,
 };
-const panel = block.panel;
+const panel = {
+  title: block.panel.title,
+  paragraph: block.panel.paragraph,
+  chart: block.panel.chart,
+  externalLink: {
+    label: block.panel.externalLink.label,
+    linkTo: block.panel.externalLink.url,
+    externalLink: true,
+    icon: block.panel.externalLink.icon || undefined,
+    titleIcon: block.panel.externalLink.titleIcon || undefined,
+  },
+};
+
 const result = block.result;
 const newsResult = [
   {
@@ -19,10 +31,6 @@ const newsResult = [
     description: block.result.news.description,
     image: block.result.news.image,
     linkTo: "#",
-    category: block.result.news.category,
-    dateTime: block.result.news.date,
-    formatDate: block.result.news.date,
-    action: block.result.news.footerLink,
   },
 ];
 ---
