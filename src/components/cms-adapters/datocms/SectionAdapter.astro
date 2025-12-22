@@ -10,7 +10,7 @@ import AccordionAdapter from "./AccordionAdapter.astro";
 import ImageContainerAdapter from "./ImageContainerAdapter.astro";
 import StatisticAdapter from "./StatisticAdapter.astro";
 import UseCasesAdapter from "./UseCasesAdapter.astro";
-import { CardEditorialWithIcon } from "@components/molecules/CardEditorialWithIcon";
+import { AdditionalContent } from "@components/organisms/AdditionalContent";
 
 type Props = {
   block: SectionFragmentType;
@@ -28,6 +28,11 @@ const variantTextContainer =
     : block.background === "primary"
       ? "primary"
       : "light";
+
+const variantAdditionalContent =
+  block.background === "dark" || block.background === "primary"
+    ? "light"
+    : undefined;
 ---
 
 <SplitContent
@@ -66,16 +71,11 @@ const variantTextContainer =
 
   {
     additionalContent && (
-      <div class="row align-item-center justify-content-between pt-5">
-        <p class={`fw-semibold fs-6 text-uppercase`}>
-          {additionalContent.title}
-        </p>
-        {additionalContent.content.map((card) => (
-          <div class="col-12 col-md-6 mb-3 mb-md-4 col-lg-4">
-            <CardEditorialWithIcon {...card} />
-          </div>
-        ))}
-      </div>
+      <AdditionalContent
+        variant={variantAdditionalContent}
+        content={additionalContent.content}
+        title={additionalContent.title || undefined}
+      />
     )
   }
 </SplitContent>
