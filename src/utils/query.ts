@@ -51,13 +51,16 @@ export const HomepageQuery = graphql(
     query HomepageQuery($locale: SiteLocale!) {
       homepage(locale: $locale) {
         title
+        seo: _seoMetaTags(locale: $locale) {
+          ...TagFragment
+        }
         content {
           ...HomepageModelContentFragment
         }
       }
     }
   `,
-  [HomepageModelContentFragment],
+  [HomepageModelContentFragment, TagFragment],
 );
 
 export const AllPagesSlugQuery = graphql(
@@ -80,11 +83,14 @@ export const PageBySlugQuery = graphql(
         id
         title
         slug
+        seo: _seoMetaTags(locale: $locale) {
+          ...TagFragment
+        }
         content {
           ...PageContentFragment
         }
       }
     }
   `,
-  [PageContentFragment],
+  [PageContentFragment, TagFragment],
 );

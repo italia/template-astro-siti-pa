@@ -967,6 +967,12 @@ type HomepageRecord implements RecordInterface {
     """
     fallbackLocales: [SiteLocale!]
   ): [HomepageModelContentFieldListListNonNullMultiLocaleField!]
+  _allSeoLocales(
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+  ): [SeoFieldMultiLocaleField!]
   _allTitleLocales(
     """
     If you want to fallback to a default translation when a translation has not been found
@@ -1003,6 +1009,15 @@ type HomepageRecord implements RecordInterface {
   ): [HomepageModelContentField!]!
   contentBlock: ContentRecord
   id: ItemId!
+  seo(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+  ): SeoField
   title(
     """The locale to use to fetch the field's content"""
     locale: SiteLocale
@@ -3984,6 +3999,7 @@ input PageModelFilter {
   _updatedAt: UpdatedAtFilter
   _isValid: BooleanFilter
   _locales: LocalesFilter
+  seo: SeoFilter
   slug: SlugFilter
   title: StringFilter
   OR: [PageModelFilter]
@@ -4023,6 +4039,12 @@ type PageRecord implements RecordInterface {
     """
     fallbackLocales: [SiteLocale!]
   ): [PageModelContentFieldListListNonNullMultiLocaleField!]
+  _allSeoLocales(
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+  ): [SeoFieldMultiLocaleField!]
   _allSlugLocales(
     """
     If you want to fallback to a default translation when a translation has not been found
@@ -4068,6 +4090,15 @@ type PageRecord implements RecordInterface {
   id: ItemId!
   parent: PageRecord
   position: IntType
+  seo(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+  ): SeoField
   slug(
     """The locale to use to fetch the field's content"""
     locale: SiteLocale

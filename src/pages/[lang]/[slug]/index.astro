@@ -8,8 +8,8 @@ import {
 } from "@utils/query";
 import type { SiteLocale } from "@graphql/types";
 
-import TemplatePage from "@components/template/TemplatePage.astro";
 import type { PageContentFragmentType } from "@graphql/templateFragments";
+import PageAdapter from "@components/cms-adapters/datocms/PageAdapter.astro";
 
 export async function getStaticPaths() {
   type PathItem = {
@@ -36,20 +36,17 @@ export async function getStaticPaths() {
 
 const { lang, slug } = Astro.params;
 
-const response = await executeQuery(PageBySlugQuery, {
+const { page } = await executeQuery(PageBySlugQuery, {
   variables: { slug: slug, locale: lang },
 });
 
-const content = response.page?.content as PageContentFragmentType[];
+const content = page?.content as PageContentFragmentType[];
 
 const { globalSetting } = await executeQuery(GlobalSettingsQuery, {
   variables: { locale: lang },
 });
 ---
 
-<Layout locale={lang}>
-  <TemplatePage
-    content={content}
-    sitename={globalSetting?.siteName || "Home"}
-  />
+<Layout locale={lang} pageSeo={page?.seo}>
+  <PageAdapter content={content} sitename={globalSetting?.siteName || "Home"} />
 </Layout>

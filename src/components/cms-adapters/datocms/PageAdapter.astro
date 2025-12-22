@@ -5,7 +5,12 @@ import SectionAdapter from "@components/cms-adapters/datocms/SectionAdapter.astr
 import SupportChannelsSectionAdapter from "@components/cms-adapters/datocms/SupportChannelsSectionAdapter.astro";
 import DataSectionAdapter from "@components/cms-adapters/datocms/DataSectionAdapter.astro";
 import FAQSectionAdapter from "@components/cms-adapters/datocms/FAQSectionAdapter.astro";
-import type { ContentType } from "@graphql/types";
+import type {
+  HomepageModelContentFragmentType,
+  PageContentFragmentType,
+} from "@graphql/templateFragments";
+
+type ContentType = HomepageModelContentFragmentType | PageContentFragmentType;
 
 type Props = {
   content: ContentType[];
