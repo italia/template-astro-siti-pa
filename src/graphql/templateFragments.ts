@@ -6,6 +6,7 @@ import {
   NewsFeedFragment,
   SectionFragment,
   SupportChannelsSectionFragment,
+  UseCaseContainerFragment,
 } from "@graphql/sectionFragments";
 
 export const HomepageModelContentFragment = graphql(
@@ -44,7 +45,7 @@ export type HomepageModelContentFragmentType = FragmentOf<
 
 export const PageContentFragment = graphql(
   `
-    fragment PageContentFragment on ContentModelContentField @_unmask {
+    fragment PageContentFragment on PageModelContentField @_unmask {
       ... on RecordInterface {
         id
         componentName: __typename
@@ -67,6 +68,9 @@ export const PageContentFragment = graphql(
       ... on DataSectionRecord {
         ...DataSectionRecordFragment
       }
+      ... on UseCaseContainerRecord {
+        ...UseCaseContainerFragment
+      }
     }
   `,
   [
@@ -76,6 +80,7 @@ export const PageContentFragment = graphql(
     SupportChannelsSectionFragment,
     FaqSectionRecordFragment,
     DataSectionRecordFragment,
+    UseCaseContainerFragment,
   ],
 );
 

@@ -16,6 +16,7 @@ import {
   StoryTabFragment,
   TextBlockFragment,
   UseCaseBlockFragment,
+  UseCaseFragment,
 } from "@graphql/commonFragments";
 import { graphql, type FragmentOf } from "@graphql/graphql";
 
@@ -247,4 +248,20 @@ export const DataSectionRecordFragment = graphql(
 
 export type DataSectionRecordFragmentType = FragmentOf<
   typeof DataSectionRecordFragment
+>;
+
+export const UseCaseContainerFragment = graphql(
+  `
+    fragment UseCaseContainerFragment on UseCaseContainerRecord @_unmask {
+      id
+      useCases {
+        ...UseCaseFragment
+      }
+    }
+  `,
+  [UseCaseFragment],
+);
+
+export type UseCaseContainerFragmentType = FragmentOf<
+  typeof UseCaseContainerFragment
 >;
