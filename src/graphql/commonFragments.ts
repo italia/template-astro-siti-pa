@@ -502,6 +502,23 @@ export type ListInternalLinkFragmentType = FragmentOf<
   typeof ListInternalLinkFragment
 >;
 
+export const SidebarMenuFragment = graphql(`
+  fragment SidebarMenuFragment on AccordionMenuRecord @_unmask {
+    id
+    label
+    menu {
+      id
+      label
+      pointsTo {
+        slug
+        id
+      }
+    }
+  }
+`);
+
+export type SidebarMenuFragmentType = FragmentOf<typeof SidebarMenuFragment>;
+
 export const SidebarFragment = graphql(`
   fragment SidebarFragment on SidebarRecord @_unmask {
     id

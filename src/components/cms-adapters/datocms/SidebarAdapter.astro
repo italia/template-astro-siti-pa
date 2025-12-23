@@ -1,7 +1,7 @@
 ---
 import { Sidebar } from "@components/organisms/Sidebar";
-import type { SidebarItemFirstLevelProps } from "@components/organisms/Sidebar/types";
 import type { SidebarFragmentType } from "@graphql/commonFragments";
+import { createMenuSidebar } from "@utils/createMenuSidebarHelper";
 
 type Props = {
   sidebar: SidebarFragmentType;
@@ -10,34 +10,7 @@ type Props = {
 const { sidebar } = Astro.props;
 const currentPathname = Astro.url.pathname.replace(/\/$/, "");
 
-const sidebarItems: SidebarItemFirstLevelProps[] = sidebar.menu.map(
-  (firstLevel) => {
-    const items = firstLevel.menu.map((secondLevel) => {
-      const slug = secondLevel.pointsTo.slug;
-      const linkTo = `/${slug}`;
-
-      const isActive = currentPathname.endsWith(slug);
-
-      return {
-        id: secondLevel.id,
-        label: secondLevel.label,
-        linkTo: linkTo,
-        active: isActive,
-      };
-    });
-
-    const hasActiveChild = items.some((item) => item.active);
-
-    return {
-      idAccordion: firstLevel.id,
-      label: firstLevel.label,
-      isOpen: hasActiveChild,
-      items: items,
-    };
-  },
-);
-
-console.log("#### sidebarItems", sidebarItems);
+const sidebarItems = createMenuSidebar(sidebar.menu, currentPathname);
 ---
 
 <Sidebar

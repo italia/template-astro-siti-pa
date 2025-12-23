@@ -1,0 +1,58 @@
+---
+import { SidebarLayout } from "@components/layout/SidebarLayout";
+import type { TitleMetaLinkTag } from "@datocms/astro";
+import type {
+  SidebarFragmentType,
+  TagFragmentType,
+} from "@graphql/commonFragments";
+import type { ArticleContentFragmentType } from "@graphql/templateFragments";
+import type { SiteLocale } from "@graphql/types";
+import Layout from "@layouts/Layout.astro";
+import { executeQuery } from "@lib/datocms";
+import { buildFullPath } from "@utils/pathHelper";
+import { AllArticlesQuery, SidebarQuery } from "@utils/query";
+
+export async function getStaticPaths() {
+  type PathItem = {
+    params: {
+      slug: string;
+      lang: SiteLocale;
+    };
+    props: {
+      seo: TagFragmentType[];
+      content: ArticleContentFragmentType;
+    };
+  };
+
+  const data = await executeQuery(AllArticlesQuery);
+  const allArticles = data.allArticles;
+  return allArticles
+    .flatMap(
+      (article) =>
+        article.allSlugLocales?.map((slugLocale) => ({
+          params: {
+            slug: buildFullPath(article, slugLocale.locale!, allArticles),
+            lang: slugLocale.locale,
+          },
+          props: {
+            seo: article.seo,
+            content: article.content,
+          },
+        })) ?? [],
+    )
+    .filter((path): path is PathItem => !!path.params.lang);
+}
+
+const { lang } = Astro.params;
+const { seo, content } = Astro.props;
+
+const { tree } = await executeQuery(SidebarQuery, {
+  variables: { locale: lang },
+});
+
+const sidebar = tree?.sidebar as SidebarFragmentType;
+---
+
+<Layout locale={lang} pageSeo={seo}>
+  <SidebarLayout sidebar={sidebar} content={content} />
+</Layout>
