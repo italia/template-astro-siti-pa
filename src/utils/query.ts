@@ -1,6 +1,12 @@
 import { graphql } from "@graphql/graphql";
-import { TagFragment, LocaleFragment } from "@graphql/commonFragments";
 import {
+  TagFragment,
+  LocaleFragment,
+  SidebarFragment,
+} from "@graphql/commonFragments";
+import {
+  AllArticlesSlugFragment,
+  ArticleContentFragment,
   HomepageModelContentFragment,
   PageContentFragment,
 } from "@graphql/templateFragments";
@@ -93,4 +99,37 @@ export const PageBySlugQuery = graphql(
     }
   `,
   [PageContentFragment, TagFragment],
+);
+
+export const AllArticlesQuery = graphql(
+  `
+    query AllArticles {
+      allArticles {
+        ...AllArticlesSlugFragment
+        id
+        title
+        slug
+        seo: _seoMetaTags {
+          ...TagFragment
+        }
+        content {
+          ...ArticleContentFragment
+        }
+      }
+    }
+  `,
+  [AllArticlesSlugFragment, ArticleContentFragment, TagFragment],
+);
+
+export const SidebarQuery = graphql(
+  `
+    query Sidebar($locale: SiteLocale!) {
+      tree(locale: $locale) {
+        sidebar {
+          ...SidebarFragment
+        }
+      }
+    }
+  `,
+  [SidebarFragment],
 );

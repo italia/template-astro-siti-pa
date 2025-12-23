@@ -8,6 +8,17 @@ import {
   SupportChannelsSectionFragment,
   UseCaseContainerFragment,
 } from "@graphql/sectionFragments";
+import {
+  CalloutFragment,
+  ExternalLinkFragment,
+  ListCardEditorialWithIconFragment,
+  ListInternalLinkFragment,
+  LocaleFragment,
+  OrderedListFragment,
+  QuickLinkCardFragment,
+  SupportCTASectionFragment,
+  TopicsBlockFragment,
+} from "./commonFragments";
 
 export const HomepageModelContentFragment = graphql(
   `
@@ -85,3 +96,74 @@ export const PageContentFragment = graphql(
 );
 
 export type PageContentFragmentType = FragmentOf<typeof PageContentFragment>;
+
+export const ArticleContentFragment = graphql(
+  `
+    fragment ArticleContentFragment on ArticleModelContentField @_unmask {
+      value
+      blocks {
+        ... on RecordInterface {
+          id
+          __typename
+        }
+        ... on ListCardEditorialWithIconRecord {
+          ...ListCardEditorialWithIconFragment
+        }
+        ... on ExternalLinkRecord {
+          ...ExternalLinkFragment
+        }
+        ... on OrderedListRecord {
+          ...OrderedListFragment
+        }
+        ... on CalloutRecord {
+          ...CalloutFragment
+        }
+        ... on QuickLinkCardRecord {
+          ...QuickLinkCardFragment
+        }
+        ... on SupportCtaSectionRecord {
+          ...SupportCTASectionFragment
+        }
+        ... on ListInternalLinkRecord {
+          ...ListInternalLinkFragment
+        }
+        ... on TopicsBlockRecord {
+          ...TopicsBlockFragment
+        }
+      }
+    }
+  `,
+  [
+    ListCardEditorialWithIconFragment,
+    ExternalLinkFragment,
+    OrderedListFragment,
+    CalloutFragment,
+    QuickLinkCardFragment,
+    SupportCTASectionFragment,
+    ListInternalLinkFragment,
+    TopicsBlockFragment,
+  ],
+);
+
+export type ArticleContentFragmentType = FragmentOf<
+  typeof ArticleContentFragment
+>;
+
+export const AllArticlesSlugFragment = graphql(
+  `
+    fragment AllArticlesSlugFragment on ArticleRecord @_unmask {
+      id
+      allSlugLocales: _allSlugLocales {
+        ...LocaleFragment
+      }
+      parent {
+        id
+      }
+    }
+  `,
+  [LocaleFragment],
+);
+
+export type AllArticlesSlugFragmentType = FragmentOf<
+  typeof AllArticlesSlugFragment
+>;

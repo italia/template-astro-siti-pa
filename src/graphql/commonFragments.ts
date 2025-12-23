@@ -8,6 +8,8 @@ export const TagFragment = graphql(`
   }
 `);
 
+export type TagFragmentType = FragmentOf<typeof TagFragment>;
+
 export const LocaleFragment = graphql(`
   fragment LocaleFragment on StringNonNullMultiLocaleField @_unmask {
     locale
@@ -419,3 +421,106 @@ export const AdditionalContentFragment = graphql(`
 export type AdditionalContentFragmentType = FragmentOf<
   typeof AdditionalContentFragment
 >;
+
+export const CardEditorialWithIconFragment = graphql(`
+  fragment CardEditorialWithIconFragment on CardEditorialWithIconRecord
+  @_unmask {
+    id
+    title
+    icon
+    description
+  }
+`);
+
+export type CardEditorialWithIconFragmentType = FragmentOf<
+  typeof CardEditorialWithIconFragment
+>;
+
+export const ListCardEditorialWithIconFragment = graphql(
+  `
+    fragment ListCardEditorialWithIconFragment on ListCardEditorialWithIconRecord
+    @_unmask {
+      cards {
+        ...CardEditorialWithIconFragment
+      }
+    }
+  `,
+  [CardEditorialWithIconFragment],
+);
+
+export const OrderedListFragment = graphql(`
+  fragment OrderedListFragment on OrderedListRecord @_unmask {
+    id
+    items {
+      title
+      paragraph
+    }
+  }
+`);
+
+export type OrderedListFragmentType = FragmentOf<typeof OrderedListFragment>;
+
+export const CalloutFragment = graphql(`
+  fragment CalloutFragment on CalloutRecord @_unmask {
+    id
+    title
+    paragraph
+    visuallyHidden
+  }
+`);
+
+export type CalloutFragmentType = FragmentOf<typeof CalloutFragment>;
+
+export const QuickLinkCardFragment = graphql(
+  `
+    fragment QuickLinkCardFragment on QuickLinkCardRecord @_unmask {
+      id
+      title
+      links {
+        ...ExternalLinkFragment
+      }
+    }
+  `,
+  [ExternalLinkFragment],
+);
+
+export type QuickLinkCardFragmentType = FragmentOf<
+  typeof QuickLinkCardFragment
+>;
+
+export const ListInternalLinkFragment = graphql(`
+  fragment ListInternalLinkFragment on ListInternalLinkRecord @_unmask {
+    id
+    links {
+      label
+      icon
+    }
+  }
+`);
+
+export type ListInternalLinkFragmentType = FragmentOf<
+  typeof ListInternalLinkFragment
+>;
+
+export const SidebarFragment = graphql(`
+  fragment SidebarFragment on SidebarRecord @_unmask {
+    id
+    headerLabel
+    openLabel
+    closeLabel
+    menu {
+      id
+      label
+      menu {
+        id
+        label
+        pointsTo {
+          slug
+          id
+        }
+      }
+    }
+  }
+`);
+
+export type SidebarFragmentType = FragmentOf<typeof SidebarFragment>;
