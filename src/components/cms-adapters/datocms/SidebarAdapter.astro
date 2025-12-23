@@ -1,0 +1,50 @@
+---
+import { Sidebar } from "@components/organisms/Sidebar";
+import type { SidebarItemFirstLevelProps } from "@components/organisms/Sidebar/types";
+import type { SidebarFragmentType } from "@graphql/commonFragments";
+
+type Props = {
+  sidebar: SidebarFragmentType;
+};
+
+const { sidebar } = Astro.props;
+const currentPathname = Astro.url.pathname.replace(/\/$/, "");
+
+const sidebarItems: SidebarItemFirstLevelProps[] = sidebar.menu.map(
+  (firstLevel) => {
+    const items = firstLevel.menu.map((secondLevel) => {
+      const slug = secondLevel.pointsTo.slug;
+      const linkTo = `/${slug}`;
+
+      const isActive = currentPathname.endsWith(slug);
+
+      return {
+        id: secondLevel.id,
+        label: secondLevel.label,
+        linkTo: linkTo,
+        active: isActive,
+      };
+    });
+
+    const hasActiveChild = items.some((item) => item.active);
+
+    return {
+      idAccordion: firstLevel.id,
+      label: firstLevel.label,
+      isOpen: hasActiveChild,
+      items: items,
+    };
+  },
+);
+
+console.log("#### sidebarItems", sidebarItems);
+---
+
+<Sidebar
+  id={sidebar.id}
+  header={sidebar.headerLabel || undefined}
+  ariaLabel="Apri/chiudi sidebar"
+  openLabel={sidebar.openLabel}
+  closeLabel={sidebar.closeLabel}
+  items={sidebarItems}
+/>
