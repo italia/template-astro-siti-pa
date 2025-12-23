@@ -1,0 +1,103 @@
+---
+import { TextContainer } from "@components/molecules/TextContainer";
+import { SectionContainer } from "@components/organisms/SectionContainer";
+import type { TopicFilterProps } from "./types";
+import { CardEditorialNews } from "@components/molecules/CardEditorialNews";
+import { Chip } from "@components/atoms/Chip";
+import { Topics } from "@components/molecules/Topics";
+
+type Props = TopicFilterProps;
+
+const { title, paragraph, contentCollection } = Astro.props;
+
+const slugify = (text: string) =>
+  text
+    .toLowerCase()
+    .trim()
+    .replace(/\s+/g, "-")
+    .replace(/[^\w-]+/g, "");
+---
+
+<SectionContainer>
+  <div class=`row justify-content-between align-items-top`>
+    <div class=`col-lg-5 col-12`>
+      <TextContainer title={title} paragraph={paragraph} />
+    </div>
+    <div class=`col-lg-4 col-12` id="filter-container">
+      <Topics
+        title="Filtra per argomenti"
+        topics={["Tutti", "Fondamenti", "verso la migrazione"]}
+        variant="column"
+        disabled={false}
+      />
+    </div>
+  </div>
+
+  <div id="filterable-content">
+    {
+      contentCollection.map((collection) => (
+        <div
+          class="row justify-content-between align-items-top py-5 filter-section"
+          data-topic={slugify(collection.title)}
+        >
+          <div class="col-lg-6 col-12">
+            <TextContainer
+              title={collection.title}
+              paragraph={collection.paragraph}
+            />
+          </div>
+
+          <div class="it-card-group it-card-group-3-cols">
+            {collection.items.map((item) => (
+              <CardEditorialNews {...item} fullHeight={false} />
+            ))}
+          </div>
+        </div>
+      ))
+    }
+  </div>
+</SectionContainer>
+
+<script>
+  const initFilters = () => {
+    const container = document.querySelector("#filter-container");
+    const sections = document.querySelectorAll(".filter-section");
+
+    if (!container) return;
+
+    const buttons = container.querySelectorAll("button");
+
+    buttons.forEach((btn) => {
+      btn.removeAttribute("disabled");
+
+      btn.addEventListener("click", () => {
+        const labelSpan = btn.querySelector(".chip-label");
+        if (!labelSpan) return;
+
+        const filterText = labelSpan.textContent.trim();
+        const filterSlug = filterText
+          .toLowerCase()
+          .replace(/\s+/g, "-")
+          .replace(/[^\w-]+/g, "");
+
+        sections.forEach((section) => {
+          const sectionTopic = section.getAttribute("data-topic");
+
+          if (filterSlug === "tutti" || sectionTopic === filterSlug) {
+            section.classList.remove("d-none");
+            section.classList.add("d-flex");
+          } else {
+            section.classList.add("d-none");
+            section.classList.remove("d-flex");
+          }
+        });
+
+        buttons.forEach((b) => b.classList.remove("chip-primary"));
+        btn.classList.add("chip-primary");
+      });
+    });
+  };
+
+  initFilters();
+  document.addEventListener("astro:page-load", initFilters);
+</script>

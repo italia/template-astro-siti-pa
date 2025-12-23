@@ -3688,8 +3688,8 @@ type ListCollectionRecord implements RecordInterface {
   paragraph(
     """Process content as markdown"""
     markdown: Boolean
-  ): String
-  title: String
+  ): String!
+  title: String!
 }
 
 """Block of type List content (list_content)"""
@@ -5717,6 +5717,7 @@ type TopicFilterRecord implements RecordInterface {
   ): String!
   showFilter: BooleanType!
   title: String!
+  titleFilter: String!
 }
 
 """Block of type 🏷️ Topic (topic)"""

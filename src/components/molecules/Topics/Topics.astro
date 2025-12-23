@@ -3,7 +3,7 @@ import { Chip } from "@components/atoms/Chip";
 import type { TopicsProps } from "./types";
 
 type Props = TopicsProps;
-const { title, topics, variant = "row" } = Astro.props;
+const { title, topics, variant = "row", disabled = true } = Astro.props;
 ---
 
 <div
@@ -25,7 +25,12 @@ const { title, topics, variant = "row" } = Astro.props;
     {
       topics.map((topic) => (
         <li class="list-item border-bottom-0 me-3 mt-1">
-          <Chip visuallyHidden="" disabled label={topic} size="large" />
+          <Chip
+            visuallyHidden=""
+            disabled={disabled}
+            label={topic}
+            size="large"
+          />
         </li>
       ))
     }
