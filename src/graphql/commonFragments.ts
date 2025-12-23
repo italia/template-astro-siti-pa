@@ -419,3 +419,25 @@ export const AdditionalContentFragment = graphql(`
 export type AdditionalContentFragmentType = FragmentOf<
   typeof AdditionalContentFragment
 >;
+
+export const ListCollectionFragment = graphql(
+  `
+    fragment ListCollectionFragment on ListCollectionRecord @_unmask {
+      title
+      paragraph
+      content {
+        title
+        tag
+        abstract
+        image {
+          ...ImageFragment
+        }
+      }
+    }
+  `,
+  [ImageFragment],
+);
+
+export type ListCollectionFragmentType = FragmentOf<
+  typeof ListCollectionFragment
+>;
