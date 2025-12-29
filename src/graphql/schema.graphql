@@ -3090,7 +3090,6 @@ input InsightModelFilter {
   _locales: LocalesFilter
   abstract: TextFilter
   image: FileFilter
-  tag: StringFilter
   title: StringFilter
   OR: [InsightModelFilter]
   AND: [InsightModelFilter]
@@ -3115,8 +3114,6 @@ enum InsightModelOrderBy {
   _updatedAt_DESC
   _isValid_ASC
   _isValid_DESC
-  tag_ASC
-  tag_DESC
   title_ASC
   title_DESC
 }
@@ -3138,12 +3135,6 @@ type InsightRecord implements RecordInterface {
     """
     fallbackLocales: [SiteLocale!]
   ): [FileFieldNonNullMultiLocaleField!]
-  _allTagLocales(
-    """
-    If you want to fallback to a default translation when a translation has not been found
-    """
-    fallbackLocales: [SiteLocale!]
-  ): [StringMultiLocaleField!]
   _allTitleLocales(
     """
     If you want to fallback to a default translation when a translation has not been found
@@ -3191,15 +3182,6 @@ type InsightRecord implements RecordInterface {
     """
     fallbackLocales: [SiteLocale!]
   ): FileField!
-  tag(
-    """The locale to use to fetch the field's content"""
-    locale: SiteLocale
-
-    """
-    If you want to fallback to a default translation when a translation has not been found
-    """
-    fallbackLocales: [SiteLocale!]
-  ): String
   title(
     """The locale to use to fetch the field's content"""
     locale: SiteLocale
@@ -5710,7 +5692,7 @@ type TopicFilterRecord implements RecordInterface {
   _updatedAt: DateTime!
   content: [ListCollectionRecord!]!
   id: ItemId!
-  labelForAllCategory: String
+  labelForAllCategory: String!
   paragraph(
     """Process content as markdown"""
     markdown: Boolean

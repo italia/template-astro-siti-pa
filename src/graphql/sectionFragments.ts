@@ -273,6 +273,7 @@ export const TopicFilterFragment = graphql(
       id
       title
       showFilter
+      titleFilter
       paragraph
       labelForAllCategory
       content {
