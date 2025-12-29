@@ -13,6 +13,7 @@ const contentCollection: ContentCollectionProps[] = block.content.map(
   (content) => {
     return {
       title: content.title,
+      topicSlug: content.content[0].topic.label,
       paragraph: content.paragraph,
       items: content.content.map((item) => {
         return {
@@ -20,6 +21,7 @@ const contentCollection: ContentCollectionProps[] = block.content.map(
           description: item.abstract,
           image: item.image,
           linkTo: "#",
+          category: item.topic.label,
         };
       }),
     };
@@ -29,8 +31,8 @@ const contentCollection: ContentCollectionProps[] = block.content.map(
 
 <TopicFilter
   title={block.title}
-  titleFilter={block.titleFilter}
-  labelForAll={block.labelForAllCategory}
+  filterTitle={block.titleFilter}
+  labelForAll={block.labelForAll}
   paragraph={block.paragraph}
   contentCollection={contentCollection}
 />

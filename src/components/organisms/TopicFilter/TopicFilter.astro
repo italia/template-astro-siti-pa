@@ -7,7 +7,7 @@ import { Topics } from "@components/molecules/Topics";
 
 type Props = TopicFilterProps;
 
-const { title, titleFilter, labelForAll, paragraph, contentCollection } =
+const { title, filterTitle, labelForAll, paragraph, contentCollection } =
   Astro.props;
 
 const slugify = (text: string) =>
@@ -29,10 +29,10 @@ const slugify = (text: string) =>
       data-label-for-all={labelForAll}
     >
       <Topics
-        title={titleFilter}
+        title={filterTitle}
         topics={[
           labelForAll,
-          ...contentCollection.map((collection) => collection.title),
+          ...contentCollection.map((collection) => collection.topicSlug),
         ]}
         variant="column"
         disabled={false}
@@ -46,7 +46,7 @@ const slugify = (text: string) =>
       contentCollection.map((collection) => (
         <div
           class="row justify-content-between align-items-top py-5 filter-section"
-          data-topic={slugify(collection.title)}
+          data-topic={slugify(collection.topicSlug)}
         >
           <div class="col-lg-6 col-12">
             <TextContainer
@@ -57,11 +57,7 @@ const slugify = (text: string) =>
 
           <div class="it-card-group it-card-group-3-cols">
             {collection.items.map((item) => (
-              <CardEditorialNews
-                {...item}
-                category={collection.title}
-                fullHeight={false}
-              />
+              <CardEditorialNews {...item} fullHeight={false} />
             ))}
           </div>
         </div>
