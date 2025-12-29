@@ -1,44 +1,44 @@
-import type { AllArticlesSlugFragmentType } from "@graphql/templateFragments";
+import type { AllArticlesFragmentType } from "@graphql/templateFragments";
 import type { SiteLocale } from "../graphql/types";
 
+interface HasSlugLocales {
+  allSlugLocales?:
+    | {
+        locale?: SiteLocale | string | null;
+        value?: string | null;
+      }[]
+    | null;
+}
+
 export function buildFullPath(
-  item: AllArticlesSlugFragmentType,
+  article: AllArticlesFragmentType,
   locale: SiteLocale,
-  allItems: AllArticlesSlugFragmentType[],
+  allArticles: AllArticlesFragmentType[],
 ) {
-  let pathSegments: string[] = [];
-  let currentItem: AllArticlesSlugFragmentType | null = item;
+  const segments = [];
 
-  const itemMap = allItems.reduce(
-    (map: Record<string, AllArticlesSlugFragmentType>, page) => {
-      map[page.id] = page;
-      return map;
-    },
-    {},
-  );
+  const getSlug = (item: HasSlugLocales | null | undefined) =>
+    item?.allSlugLocales?.find((s) => s.locale === locale)?.value;
 
-  while (currentItem) {
-    const slugLocales = currentItem.allSlugLocales;
-    if (!slugLocales) {
-      return;
+  let current: AllArticlesFragmentType | null = article;
+
+  while (current) {
+    const slug = getSlug(current);
+    if (slug) segments.unshift(slug);
+
+    if (!current.parent && current.parentPage) {
+      const parentPageSlug = getSlug(current.parentPage);
+      if (parentPageSlug) segments.unshift(parentPageSlug);
     }
 
-    const currentSlug = slugLocales.find((s) => s.locale === locale)?.value;
-
-    if (currentSlug) {
-      pathSegments.unshift(currentSlug);
-    }
-
-    if (currentItem.parent && currentItem.parent.id) {
-      currentItem = itemMap[currentItem.parent.id];
+    if (current.parent?.id) {
+      const parentId: string = current.parent.id;
+      const foundArticle = allArticles.find((a) => a.id === parentId);
+      current = foundArticle || null;
     } else {
-      currentItem = null;
+      current = null;
     }
   }
 
-  if (pathSegments.length === 1 && pathSegments[0] === "") {
-    return "";
-  }
-
-  return pathSegments.join("/");
+  return segments.join("/");
 }
