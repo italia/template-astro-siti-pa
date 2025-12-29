@@ -417,6 +417,22 @@ export type StructuredTextFragmentType = FragmentOf<
   typeof StructuredTextFragment
 >;
 
+export const NewsPageFragment = graphql(`
+  fragment NewsPageFragment on NewsPageFeedRecord @_unmask {
+    id
+    tabs {
+      title
+      paragraph
+      newsPageTabType
+      labelForAll
+      id
+      filterTitle
+    }
+  }
+`);
+
+export type NewsPageFragmentType = FragmentOf<typeof NewsPageFragment>;
+
 export const ActionCardFragment = graphql(`
   fragment ActionCardFragment on ActionCardRecord @_unmask {
     id

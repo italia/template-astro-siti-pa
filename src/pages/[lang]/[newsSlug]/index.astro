@@ -1,0 +1,63 @@
+---
+import Layout from "@layouts/Layout.astro";
+import { executeQuery } from "@lib/datocms";
+import {
+  PageBySlugQuery,
+  GlobalSettingsQuery,
+  NewsPageQuery,
+} from "@utils/query";
+import type { SiteLocale } from "@graphql/types";
+
+import type {
+  NewsPageContentFragmentType,
+  PageContentFragmentType,
+} from "@graphql/templateFragments";
+import PageAdapter from "@components/cms-adapters/datocms/PageAdapter.astro";
+
+export async function getStaticPaths() {
+  type PathItem = {
+    params: {
+      newsSlug: string;
+      lang: SiteLocale;
+    };
+    props: {
+      content: NewsPageContentFragmentType[];
+    };
+  };
+
+  const response = await executeQuery(NewsPageQuery);
+
+  if (!response.newsPage) {
+    return [];
+  }
+
+  return response.newsPage?.locales
+    .map((lang) => ({
+      params: {
+        newsSlug: response.newsPage?.allSlugLocales?.find(
+          (slugLocale) => slugLocale.locale === lang,
+        )?.value,
+        lang: response.newsPage?.allSlugLocales?.find(
+          (slugLocale) => slugLocale.locale === lang,
+        )?.locale,
+      },
+      props: {
+        content: response.newsPage?.allContentLocales?.find(
+          (contentLocale) => contentLocale.locale === lang,
+        )?.value,
+      },
+    }))
+    .filter((path): path is PathItem => !!path.params.lang);
+}
+
+const { lang } = Astro.params;
+const { content } = Astro.props;
+
+const { globalSetting } = await executeQuery(GlobalSettingsQuery, {
+  variables: { locale: lang },
+});
+---
+
+<Layout locale={lang}>
+  <PageAdapter content={content} sitename={globalSetting?.siteName || "Home"} />
+</Layout>

@@ -10,6 +10,7 @@ import {
   AllStoryItemsFragment,
   AllWebinarItemsFragment,
   HomepageModelContentFragment,
+  NewsPageContentFragment,
   PageContentFragment,
 } from "@graphql/templateFragments";
 import { FooterFragment, HeaderFragment } from "@graphql/sectionFragments";
@@ -181,6 +182,27 @@ export const AllInsightsQuery = graphql(
     }
   `,
   [AllInsightsFragment],
+);
+
+export const NewsPageQuery = graphql(
+  `
+    query NewsPage {
+      newsPage {
+        id
+        locales: _locales
+        allSlugLocales: _allSlugLocales {
+          ...LocaleFragment
+        }
+        allContentLocales: _allContentLocales {
+          locale
+          value {
+            ...NewsPageContentFragment
+          }
+        }
+      }
+    }
+  `,
+  [NewsPageContentFragment, LocaleFragment],
 );
 
 export const AllStoryItemsQuery = graphql(

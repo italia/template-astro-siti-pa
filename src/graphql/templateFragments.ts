@@ -4,6 +4,7 @@ import {
   FaqSectionRecordFragment,
   HeroFragment,
   NewsFeedFragment,
+  NewsPageFragment,
   SectionFragment,
   SupportChannelsSectionFragment,
   TopicFilterFragment,
@@ -254,6 +255,28 @@ export const AllInsightsFragment = graphql(
 );
 
 export type AllInsightsFragmentType = FragmentOf<typeof AllInsightsFragment>;
+
+export const NewsPageContentFragment = graphql(
+  `
+    fragment NewsPageContentFragment on NewsPageModelContentField @_unmask {
+      ... on RecordInterface {
+        id
+        componentName: __typename
+      }
+      ... on HeroRecord {
+        ...HeroFragment
+      }
+      ... on NewsPageFeedRecord {
+        ...NewsPageFragment
+      }
+    }
+  `,
+  [HeroFragment, NewsPageFragment],
+);
+
+export type NewsPageContentFragmentType = FragmentOf<
+  typeof NewsPageContentFragment
+>;
 
 export const StoryContentFragment = graphql(
   `
