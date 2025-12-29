@@ -4,7 +4,7 @@ import {
   FaqSectionRecordFragment,
   HeroFragment,
   NewsFeedFragment,
-  NewsPageFragment,
+  NewsPageFeedFragment,
   SectionFragment,
   SupportChannelsSectionFragment,
   TopicFilterFragment,
@@ -267,11 +267,11 @@ export const NewsPageContentFragment = graphql(
         ...HeroFragment
       }
       ... on NewsPageFeedRecord {
-        ...NewsPageFragment
+        ...NewsPageFeedFragment
       }
     }
   `,
-  [HeroFragment, NewsPageFragment],
+  [HeroFragment, NewsPageFeedFragment],
 );
 
 export type NewsPageContentFragmentType = FragmentOf<

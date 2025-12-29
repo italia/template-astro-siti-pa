@@ -1,0 +1,78 @@
+---
+import { Chip } from "@components/atoms/Chip";
+import { SplitContent } from "@components/layout/SplitContent";
+import { CardEditorialInlineMini } from "@components/molecules/CardEditorialInlineMini";
+import type { CardEditorialInlineMiniProps } from "@components/molecules/CardEditorialInlineMini/CardEditorialInlineMini.astro";
+import { CardEditorialNews } from "@components/molecules/CardEditorialNews";
+import type { CardEditorialNewsProps } from "@components/molecules/CardEditorialNews/types";
+import { TabContent, Tabs } from "@components/molecules/Tabs";
+import { TextContainer } from "@components/molecules/TextContainer";
+import { getCollection } from "astro:content";
+
+// type NewsTab = {
+//   title: string;
+//   componentName: "CardEditorialNews";
+//   news: CardEditorialNewsProps[];
+// };
+
+// type StoryTab = {
+//   title: string;
+//   componentName: "CardEditorialInlineMini";
+//   news: CardEditorialInlineMiniProps[];
+// };
+
+type PageNewsTab = {
+  title: string;
+  paragraph: string;
+  filterTitle: string;
+  labelForAll: string;
+};
+
+type UpdateTabSectionProps = {
+  id: string;
+  tabs: PageNewsTab[];
+};
+
+type Props = UpdateTabSectionProps;
+
+const { id, tabs = [] } = Astro.props;
+
+const tabsItems = tabs.map((tab, index) => ({
+  id: `tab-${id}-${index}`,
+  label: tab.title,
+  active: index === 0,
+}));
+
+const news = await getCollection("news");
+---
+
+<SplitContent leftColumns={5} alignItems="top">
+  <div class="row pt-5">
+    <Tabs id={id} items={tabsItems}>
+      {
+        tabs.map((tab, index) => (
+          <TabContent tab={tabsItems[index]}>
+            <SplitContent leftColumns={5} rightColumns={5}>
+              <TextContainer
+                slot="left"
+                title={tab.title}
+                paragraph={tab.paragraph}
+              />
+              <div slot="right">
+                <p class="fw-semibold fs-6 text-uppercase">{tab.filterTitle}</p>
+                <Chip
+                  label={tab.labelForAll}
+                  variant="primary"
+                  visuallyHidden={tab.labelForAll}
+                />
+              </div>
+            </SplitContent>
+            {news.map((n) => (
+              <div>{n.data.title}</div>
+            ))}
+          </TabContent>
+        ))
+      }
+    </Tabs>
+  </div>
+</SplitContent>

@@ -1,17 +1,10 @@
 ---
 import Layout from "@layouts/Layout.astro";
 import { executeQuery } from "@lib/datocms";
-import {
-  PageBySlugQuery,
-  GlobalSettingsQuery,
-  NewsPageQuery,
-} from "@utils/query";
+import { GlobalSettingsQuery, NewsPageQuery } from "@utils/query";
 import type { SiteLocale } from "@graphql/types";
 
-import type {
-  NewsPageContentFragmentType,
-  PageContentFragmentType,
-} from "@graphql/templateFragments";
+import type { NewsPageContentFragmentType } from "@graphql/templateFragments";
 import PageAdapter from "@components/cms-adapters/datocms/PageAdapter.astro";
 
 export async function getStaticPaths() {

@@ -417,8 +417,8 @@ export type StructuredTextFragmentType = FragmentOf<
   typeof StructuredTextFragment
 >;
 
-export const NewsPageFragment = graphql(`
-  fragment NewsPageFragment on NewsPageFeedRecord @_unmask {
+export const NewsPageFeedFragment = graphql(`
+  fragment NewsPageFeedFragment on NewsPageFeedRecord @_unmask {
     id
     tabs {
       title
@@ -431,7 +431,7 @@ export const NewsPageFragment = graphql(`
   }
 `);
 
-export type NewsPageFragmentType = FragmentOf<typeof NewsPageFragment>;
+export type NewsPageFeedFragmentType = FragmentOf<typeof NewsPageFeedFragment>;
 
 export const ActionCardFragment = graphql(`
   fragment ActionCardFragment on ActionCardRecord @_unmask {

@@ -205,6 +205,19 @@ export const NewsPageQuery = graphql(
   [NewsPageContentFragment, LocaleFragment],
 );
 
+export const AllNewsQuery = graphql(`
+  query AllNews {
+    allNewsItems {
+      title
+      paragraph
+      link
+      id
+      dateOfPublication
+      category
+    }
+  }
+`);
+
 export const AllStoryItemsQuery = graphql(
   `
     query allStoryItems {
