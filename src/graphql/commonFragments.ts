@@ -428,6 +428,9 @@ export const ListCollectionFragment = graphql(
       content {
         title
         abstract
+        topic {
+          label
+        }
         image {
           ...ImageFragment
         }

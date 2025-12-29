@@ -272,10 +272,9 @@ export const TopicFilterFragment = graphql(
     fragment TopicFilterFragment on TopicFilterRecord @_unmask {
       id
       title
-      showFilter
       titleFilter
       paragraph
-      labelForAllCategory
+      labelForAll
       content {
         ...ListCollectionFragment
       }
