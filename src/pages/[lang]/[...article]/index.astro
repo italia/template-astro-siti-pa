@@ -15,7 +15,7 @@ import { AllArticlesQuery, SidebarQuery } from "@utils/query";
 export async function getStaticPaths() {
   type PathItem = {
     params: {
-      slug: string;
+      article: string;
       lang: SiteLocale;
     };
     props: {
@@ -24,21 +24,24 @@ export async function getStaticPaths() {
     };
   };
 
-  const data = await executeQuery(AllArticlesQuery);
-  const allArticles = data.allArticles;
-  return allArticles
-    .flatMap(
-      (article) =>
-        article.allSlugLocales?.map((slugLocale) => ({
-          params: {
-            slug: buildFullPath(article, slugLocale.locale!, allArticles),
-            lang: slugLocale.locale,
-          },
-          props: {
-            seo: article.seo,
-            content: article.content,
-          },
-        })) ?? [],
+  const response = await executeQuery(AllArticlesQuery);
+  if (!response.allArticles) {
+    return [];
+  }
+
+  return response.allArticles
+    ?.flatMap((article) =>
+      article.locales.map((lang) => ({
+        params: {
+          article: buildFullPath(article, lang, response.allArticles),
+          lang: lang,
+        },
+        props: {
+          content: article.allContentLocales?.find(
+            (contentLocale) => contentLocale.locale === lang,
+          )?.value,
+        },
+      })),
     )
     .filter((path): path is PathItem => !!path.params.lang);
 }
@@ -46,13 +49,15 @@ export async function getStaticPaths() {
 const { lang } = Astro.params;
 const { seo, content } = Astro.props;
 
-const { tree } = await executeQuery(SidebarQuery, {
+const { sidebarForArticle } = await executeQuery(SidebarQuery, {
   variables: { locale: lang },
 });
 
-const sidebar = tree?.sidebar as SidebarFragmentType;
+if (!sidebarForArticle) {
+  return;
+}
 ---
 
 <Layout locale={lang} pageSeo={seo}>
-  <SidebarLayout sidebar={sidebar} content={content} />
+  <SidebarLayout sidebar={sidebarForArticle} content={content} />
 </Layout>
