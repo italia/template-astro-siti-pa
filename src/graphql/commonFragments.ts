@@ -422,6 +422,30 @@ export type AdditionalContentFragmentType = FragmentOf<
   typeof AdditionalContentFragment
 >;
 
+export const ListCollectionFragment = graphql(
+  `
+    fragment ListCollectionFragment on ListCollectionRecord @_unmask {
+      title
+      paragraph
+      content {
+        title
+        abstract
+        topic {
+          label
+        }
+        image {
+          ...ImageFragment
+        }
+      }
+    }
+  `,
+  [ImageFragment],
+);
+
+export type ListCollectionFragmentType = FragmentOf<
+  typeof ListCollectionFragment
+>;
+
 export const CardEditorialWithIconFragment = graphql(`
   fragment CardEditorialWithIconFragment on CardEditorialWithIconRecord
   @_unmask {
