@@ -5,8 +5,7 @@ import {
   SidebarFragment,
 } from "@graphql/commonFragments";
 import {
-  AllArticlesSlugFragment,
-  ArticleContentFragment,
+  AllArticlesFragment,
   HomepageModelContentFragment,
   PageContentFragment,
 } from "@graphql/templateFragments";
@@ -105,29 +104,18 @@ export const AllArticlesQuery = graphql(
   `
     query AllArticles {
       allArticles {
-        ...AllArticlesSlugFragment
-        id
-        title
-        slug
-        seo: _seoMetaTags {
-          ...TagFragment
-        }
-        content {
-          ...ArticleContentFragment
-        }
+        ...AllArticlesFragment
       }
     }
   `,
-  [AllArticlesSlugFragment, ArticleContentFragment, TagFragment],
+  [AllArticlesFragment],
 );
 
 export const SidebarQuery = graphql(
   `
     query Sidebar($locale: SiteLocale!) {
-      tree(locale: $locale) {
-        sidebar {
-          ...SidebarFragment
-        }
+      sidebarForArticle(locale: $locale) {
+        ...SidebarFragment
       }
     }
   `,

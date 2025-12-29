@@ -544,7 +544,7 @@ export const SidebarMenuFragment = graphql(`
 export type SidebarMenuFragmentType = FragmentOf<typeof SidebarMenuFragment>;
 
 export const SidebarFragment = graphql(`
-  fragment SidebarFragment on SidebarRecord @_unmask {
+  fragment SidebarFragment on SidebarForArticleRecord @_unmask {
     id
     headerLabel
     openLabel
