@@ -18,6 +18,7 @@ import {
   OrderedListFragment,
   QuickLinkCardFragment,
   SupportCTASectionFragment,
+  TagFragment,
   TopicsBlockFragment,
 } from "./commonFragments";
 
@@ -154,21 +155,35 @@ export type ArticleContentFragmentType = FragmentOf<
   typeof ArticleContentFragment
 >;
 
-export const AllArticlesSlugFragment = graphql(
+export const AllArticlesFragment = graphql(
   `
-    fragment AllArticlesSlugFragment on ArticleRecord @_unmask {
+    fragment AllArticlesFragment on ArticleRecord @_unmask {
       id
+      locales: _locales
+      seo: _seoMetaTags {
+        ...TagFragment
+      }
+      allContentLocales: _allContentLocales {
+        locale
+        value {
+          ...ArticleContentFragment
+        }
+      }
       allSlugLocales: _allSlugLocales {
         ...LocaleFragment
       }
       parent {
         id
       }
+      parentPage {
+        id
+        allSlugLocales: _allSlugLocales {
+          ...LocaleFragment
+        }
+      }
     }
   `,
-  [LocaleFragment],
+  [LocaleFragment, TagFragment, ArticleContentFragment],
 );
 
-export type AllArticlesSlugFragmentType = FragmentOf<
-  typeof AllArticlesSlugFragment
->;
+export type AllArticlesFragmentType = FragmentOf<typeof AllArticlesFragment>;
