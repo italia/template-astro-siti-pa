@@ -3,6 +3,8 @@ import type { CardEditorialNewsProps } from "@components/molecules/CardEditorial
 export type TopicFilterProps = {
   title: string;
   paragraph: string;
+  titleFilter: string;
+  labelForAll: string;
   contentCollection: ContentCollectionProps[];
 };
 

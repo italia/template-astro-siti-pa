@@ -3,12 +3,12 @@ import { TextContainer } from "@components/molecules/TextContainer";
 import { SectionContainer } from "@components/organisms/SectionContainer";
 import type { TopicFilterProps } from "./types";
 import { CardEditorialNews } from "@components/molecules/CardEditorialNews";
-import { Chip } from "@components/atoms/Chip";
 import { Topics } from "@components/molecules/Topics";
 
 type Props = TopicFilterProps;
 
-const { title, paragraph, contentCollection } = Astro.props;
+const { title, titleFilter, labelForAll, paragraph, contentCollection } =
+  Astro.props;
 
 const slugify = (text: string) =>
   text
@@ -18,17 +18,25 @@ const slugify = (text: string) =>
     .replace(/[^\w-]+/g, "");
 ---
 
-<SectionContainer>
+<SectionContainer className="lightgrey-bg-a3">
   <div class=`row justify-content-between align-items-top`>
     <div class=`col-lg-5 col-12`>
       <TextContainer title={title} paragraph={paragraph} />
     </div>
-    <div class=`col-lg-4 col-12` id="filter-container">
+    <div
+      class=`col-lg-5 col-12`
+      id="filter-container"
+      data-label-for-all={labelForAll}
+    >
       <Topics
-        title="Filtra per argomenti"
-        topics={["Tutti", "Fondamenti", "verso la migrazione"]}
+        title={titleFilter}
+        topics={[
+          labelForAll,
+          ...contentCollection.map((collection) => collection.title),
+        ]}
         variant="column"
         disabled={false}
+        variantChip="primary"
       />
     </div>
   </div>
@@ -49,7 +57,11 @@ const slugify = (text: string) =>
 
           <div class="it-card-group it-card-group-3-cols">
             {collection.items.map((item) => (
-              <CardEditorialNews {...item} fullHeight={false} />
+              <CardEditorialNews
+                {...item}
+                category={collection.title}
+                fullHeight={false}
+              />
             ))}
           </div>
         </div>
@@ -59,45 +71,7 @@ const slugify = (text: string) =>
 </SectionContainer>
 
 <script>
-  const initFilters = () => {
-    const container = document.querySelector("#filter-container");
-    const sections = document.querySelectorAll(".filter-section");
-
-    if (!container) return;
-
-    const buttons = container.querySelectorAll("button");
-
-    buttons.forEach((btn) => {
-      btn.removeAttribute("disabled");
-
-      btn.addEventListener("click", () => {
-        const labelSpan = btn.querySelector(".chip-label");
-        if (!labelSpan) return;
-
-        const filterText = labelSpan.textContent.trim();
-        const filterSlug = filterText
-          .toLowerCase()
-          .replace(/\s+/g, "-")
-          .replace(/[^\w-]+/g, "");
-
-        sections.forEach((section) => {
-          const sectionTopic = section.getAttribute("data-topic");
-
-          if (filterSlug === "tutti" || sectionTopic === filterSlug) {
-            section.classList.remove("d-none");
-            section.classList.add("d-flex");
-          } else {
-            section.classList.add("d-none");
-            section.classList.remove("d-flex");
-          }
-        });
-
-        buttons.forEach((b) => b.classList.remove("chip-primary"));
-        btn.classList.add("chip-primary");
-      });
-    });
-  };
-
+  import { initFilters } from "@utils/filterTopics";
   initFilters();
   document.addEventListener("astro:page-load", initFilters);
 </script>
