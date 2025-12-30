@@ -220,12 +220,12 @@ export const ResultFragment = graphql(
       items {
         ...ListItemFragment
       }
-      news {
-        ...CardEditorialNewsFragment
+      useCase {
+        ...UseCaseFragment
       }
     }
   `,
-  [ListItemFragment, CardEditorialNewsFragment],
+  [ListItemFragment, UseCaseFragment],
 );
 
 export type ResultFragmentType = FragmentOf<typeof ResultFragment>;

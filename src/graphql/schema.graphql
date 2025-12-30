@@ -5357,6 +5357,7 @@ type ResultRecord implements RecordInterface {
   news: CardEditorialNewsRecord!
   paragraph: String!
   title: String!
+  useCase: UseCaseRecord!
 }
 
 union SectionModelRightField = AccordionBlockRecord | ImageBlockRecord | StatisticBlockRecord | UseCaseBlockRecord
