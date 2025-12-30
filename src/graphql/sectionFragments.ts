@@ -8,6 +8,7 @@ import {
   ExternalLinkFragment,
   ImageBlockFragment,
   ImageFragment,
+  InternalLinkFragment,
   ListCollectionFragment,
   ListItemFragment,
   MenuItemFragment,
@@ -284,3 +285,35 @@ export const TopicFilterFragment = graphql(
 );
 
 export type TopicFilterFragmentType = FragmentOf<typeof TopicFilterFragment>;
+
+export const SupportCTASectionFragment = graphql(
+  `
+    fragment SupportCTASectionFragment on SupportCtaSectionRecord @_unmask {
+      id
+      title
+      paragraph
+      background
+      size
+      image {
+        ...ImageFragment
+      }
+      cta {
+        ... on RecordInterface {
+          id
+          componentName: __typename
+        }
+        ... on ExternalLinkRecord {
+          ...ExternalLinkFragment
+        }
+        ... on InternalLinkRecord {
+          ...InternalLinkFragment
+        }
+      }
+    }
+  `,
+  [ImageFragment, ExternalLinkFragment, InternalLinkFragment],
+);
+
+export type SupportCTASectionFragmentType = FragmentOf<
+  typeof SupportCTASectionFragment
+>;
