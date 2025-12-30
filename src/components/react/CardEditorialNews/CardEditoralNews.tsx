@@ -1,7 +1,7 @@
 import React from "react";
 import { Image } from "@components/atoms/Image";
 import { DateTime } from "@components/atoms/DateTime";
-import type { ImageProps } from "@datocms/astro";
+import type { ImageProps } from "@components/atoms/Image/types";
 
 export type CardEditorialNewsProps = {
   title: string;
