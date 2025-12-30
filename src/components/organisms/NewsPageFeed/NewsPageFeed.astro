@@ -56,26 +56,17 @@ const mappedNews: CardEditorialNewsProps[] = news.map((n) =>
       {
         tabs.map((tab, index) => (
           <TabContent tab={tabsItems[index]}>
-            <SplitContent leftColumns={5} rightColumns={5}>
-              <TextContainer
-                slot="left"
+            {tab.newsPageTabType === "news" && (
+              <PaginatedNews
+                client:load
+                news={mappedNews}
+                perPage={2}
                 title={tab.title}
                 paragraph={tab.paragraph}
+                filterTitle={tab.filterTitle}
+                labelForAll={tab.labelForAll}
               />
-              <div slot="right">
-                <p class="fw-semibold fs-6 text-uppercase">{tab.filterTitle}</p>
-                <Chip
-                  label={tab.labelForAll}
-                  variant="primary"
-                  visuallyHidden={tab.labelForAll}
-                />
-              </div>
-            </SplitContent>
-            <ul class="it-card-list row" aria-label={tab.title}>
-              {tab.newsPageTabType === "news" && (
-                <PaginatedNews client:load news={mappedNews} perPage={2} />
-              )}
-            </ul>
+            )}
           </TabContent>
         ))
       }
