@@ -2,6 +2,7 @@ export type HeaderProps = {
   slimContent: string;
   brandTitle: string;
   brandTagLine: string;
+  locales: string[];
   menuItems: MenuItemsProps[];
 };
 
