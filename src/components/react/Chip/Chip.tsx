@@ -7,6 +7,7 @@ type ChipProps = {
   active?: boolean;
   variant?: "primary" | "standard" | "outline-white";
   size?: "default" | "large";
+  onClick?: () => void;
 };
 
 const sizeMap = {
@@ -27,6 +28,7 @@ export function Chip({
   disabled = false,
   size = "default",
   active = false,
+  onClick,
 }: ChipProps) {
   const sizeClass = sizeMap[size];
   const chipVariant = variantMap[variant];
@@ -43,7 +45,7 @@ export function Chip({
     .join(" ");
 
   return (
-    <button disabled={disabled} className={className}>
+    <button disabled={disabled} className={className} onClick={onClick}>
       <span className="visually-hidden">{visuallyHidden}</span>
       <span className="chip-label">{label}</span>
     </button>

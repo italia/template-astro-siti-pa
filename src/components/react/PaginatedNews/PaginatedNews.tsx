@@ -24,10 +24,32 @@ export function PaginatedNews({
   labelForAll,
 }: PaginatedNewsProps) {
   const [page, setPage] = useState(1);
+  const [selectedCategory, setSelectedCategory] = useState(labelForAll);
 
-  const totalPages = Math.ceil(news.length / perPage);
+  const newsCategories: string[] = [
+    labelForAll,
+    ...Array.from(
+      new Set(
+        news
+          .map((item) => item.category)
+          .filter((c): c is string => typeof c === "string"),
+      ),
+    ),
+  ];
+
+  const filteredNews =
+    selectedCategory === labelForAll
+      ? news
+      : news.filter((item) => item.category === selectedCategory);
+
+  const totalPages = Math.ceil(filteredNews.length / perPage);
   const start = (page - 1) * perPage;
-  const paginatedNews = news.slice(start, start + perPage);
+  const paginatedNews = filteredNews.slice(start, start + perPage);
+
+  const handleCategoryChange = (category: string) => {
+    setSelectedCategory(category);
+    setPage(1);
+  };
 
   return (
     <div className="container py-80">
@@ -40,15 +62,20 @@ export function PaginatedNews({
         </div>
         <div className="col-lg-5 col-12">
           <p className="fw-semibold fs-6 text-uppercase">{filterTitle}</p>
-          <Chip
-            label={labelForAll}
-            variant="primary"
-            visuallyHidden={labelForAll}
-          />
+          {newsCategories.map((category) => (
+            <Chip
+              key={category}
+              variant="primary"
+              label={category}
+              visuallyHidden={category}
+              onClick={() => handleCategoryChange(category)}
+              active={selectedCategory === category}
+            />
+          ))}
         </div>
       </div>
       <ul className="it-card-list row">
-        {paginatedNews.map((n, idx) => (
+        {paginatedNews.map((n) => (
           <li className="col-12 col-lg-4 mb-3" key={n.title}>
             <CardEditorialNews {...n} />
           </li>
