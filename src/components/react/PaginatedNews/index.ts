@@ -1,0 +1,1 @@
+export { PaginatedNews } from "./PaginatedNews";

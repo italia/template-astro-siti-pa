@@ -1,14 +1,12 @@
 ---
 import { Chip } from "@components/atoms/Chip";
 import { SplitContent } from "@components/layout/SplitContent";
-import { CardEditorialInlineMini } from "@components/molecules/CardEditorialInlineMini";
-import type { CardEditorialInlineMiniProps } from "@components/molecules/CardEditorialInlineMini/CardEditorialInlineMini.astro";
-import { CardEditorialNews } from "@components/molecules/CardEditorialNews";
-import type { CardEditorialNewsProps } from "@components/molecules/CardEditorialNews/types";
+import type { CardEditorialNewsProps } from "@components/react/CardEditorialNews";
 import { TabContent, Tabs } from "@components/molecules/Tabs";
 import { TextContainer } from "@components/molecules/TextContainer";
 import { mapNewsToCardEditorialNewsProps } from "@utils/mappers";
 import { getCollection } from "astro:content";
+import { PaginatedNews } from "@components/react/PaginatedNews/PaginatedNews";
 
 // type NewsTab = {
 //   title: string;
@@ -74,12 +72,9 @@ const mappedNews: CardEditorialNewsProps[] = news.map((n) =>
               </div>
             </SplitContent>
             <ul class="it-card-list row" aria-label={tab.title}>
-              {tab.newsPageTabType === "news" &&
-                mappedNews.map((n) => (
-                  <li class="col-12 col-lg-4 mb-3">
-                    <CardEditorialNews {...n} />
-                  </li>
-                ))}
+              {tab.newsPageTabType === "news" && (
+                <PaginatedNews client:load news={mappedNews} perPage={2} />
+              )}
             </ul>
           </TabContent>
         ))
