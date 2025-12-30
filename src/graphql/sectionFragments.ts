@@ -2,7 +2,6 @@ import {
   AccordionBlockFragment,
   AccordionFragment,
   AdditionalContentFragment,
-  CardEditorialNewsFragment,
   ChannelFragment,
   ChartFragment,
   ExternalLinkFragment,
@@ -317,3 +316,36 @@ export const SupportCTASectionFragment = graphql(
 export type SupportCTASectionFragmentType = FragmentOf<
   typeof SupportCTASectionFragment
 >;
+
+export const FooterFragment = graphql(`
+  fragment FooterFragment on LayoutRecord @_unmask {
+    heading(markdown: true)
+    organizations {
+      id
+      icon
+      label
+      url
+    }
+    topicTitle
+    topicLink {
+      id
+      linkTo {
+        id
+      }
+      label
+    }
+    utilityTitle
+    utility {
+      id
+      url
+      label
+      icon
+    }
+    smallPrint {
+      label
+      url
+    }
+  }
+`);
+
+export type FooterFragmentType = FragmentOf<typeof FooterFragment>;

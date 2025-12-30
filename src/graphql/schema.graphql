@@ -3626,6 +3626,7 @@ type LayoutRecord implements RecordInterface {
     """
     fallbackLocales: [SiteLocale!]
   ): String!
+  topicLink: [InternalLinkRecord!]!
   topicTitle(
     """The locale to use to fetch the field's content"""
     locale: SiteLocale
