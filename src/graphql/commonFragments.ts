@@ -36,7 +36,7 @@ export const InternalLinkFragment = graphql(`
   fragment InternalLinkFragment on InternalLinkRecord @_unmask {
     label
     linkTo {
-      slug
+      id
     }
   }
 `);
@@ -130,7 +130,7 @@ export const UseCaseFragment = graphql(
         ...ImageFragment
       }
       pointsTo {
-        slug
+        id
       }
       descriptionTitle
       description(markdown: true)
@@ -428,6 +428,7 @@ export const ListCollectionFragment = graphql(
       title
       paragraph
       content {
+        id
         title
         abstract
         topic {
@@ -518,6 +519,9 @@ export const ListInternalLinkFragment = graphql(`
     links {
       label
       icon
+      linkTo {
+        id
+      }
     }
   }
 `);
@@ -534,7 +538,6 @@ export const SidebarMenuFragment = graphql(`
       id
       label
       pointsTo {
-        slug
         id
       }
     }
@@ -543,25 +546,19 @@ export const SidebarMenuFragment = graphql(`
 
 export type SidebarMenuFragmentType = FragmentOf<typeof SidebarMenuFragment>;
 
-export const SidebarFragment = graphql(`
-  fragment SidebarFragment on SidebarForArticleRecord @_unmask {
-    id
-    headerLabel
-    openLabel
-    closeLabel
-    menu {
+export const SidebarFragment = graphql(
+  `
+    fragment SidebarFragment on SidebarForArticleRecord @_unmask {
       id
-      label
+      headerLabel
+      openLabel
+      closeLabel
       menu {
-        id
-        label
-        pointsTo {
-          slug
-          id
-        }
+        ...SidebarMenuFragment
       }
     }
-  }
-`);
+  `,
+  [SidebarMenuFragment],
+);
 
 export type SidebarFragmentType = FragmentOf<typeof SidebarFragment>;
