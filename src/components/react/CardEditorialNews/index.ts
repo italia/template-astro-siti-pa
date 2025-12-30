@@ -1,4 +1,4 @@
 export {
   CardEditorialNews,
   type CardEditorialNewsProps,
-} from "./CardEditoralNews";
+} from "./CardEditorialNews";
