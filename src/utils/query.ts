@@ -3,6 +3,7 @@ import {
   TagFragment,
   LocaleFragment,
   SidebarFragment,
+  NewsItemFragment,
 } from "@graphql/commonFragments";
 import {
   AllArticlesFragment,
@@ -205,18 +206,16 @@ export const NewsPageQuery = graphql(
   [NewsPageContentFragment, LocaleFragment],
 );
 
-export const AllNewsQuery = graphql(`
-  query AllNews {
-    allNewsItems {
-      title
-      paragraph
-      link
-      id
-      dateOfPublication
-      category
+export const AllNewsQuery = graphql(
+  `
+    query AllNews {
+      allNewsItems {
+        ...NewsItemFragment
+      }
     }
-  }
-`);
+  `,
+  [NewsItemFragment],
+);
 
 export const AllStoryItemsQuery = graphql(
   `

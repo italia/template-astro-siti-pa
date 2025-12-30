@@ -7,6 +7,7 @@ import { CardEditorialNews } from "@components/molecules/CardEditorialNews";
 import type { CardEditorialNewsProps } from "@components/molecules/CardEditorialNews/types";
 import { TabContent, Tabs } from "@components/molecules/Tabs";
 import { TextContainer } from "@components/molecules/TextContainer";
+import { mapNewsToCardEditorialNewsProps } from "@utils/mappers";
 import { getCollection } from "astro:content";
 
 // type NewsTab = {
@@ -26,6 +27,7 @@ type PageNewsTab = {
   paragraph: string;
   filterTitle: string;
   labelForAll: string;
+  newsPageTabType: string;
 };
 
 type UpdateTabSectionProps = {
@@ -44,6 +46,10 @@ const tabsItems = tabs.map((tab, index) => ({
 }));
 
 const news = await getCollection("news");
+
+const mappedNews: CardEditorialNewsProps[] = news.map((n) =>
+  mapNewsToCardEditorialNewsProps(n.data),
+);
 ---
 
 <SplitContent leftColumns={5} alignItems="top">
@@ -67,9 +73,14 @@ const news = await getCollection("news");
                 />
               </div>
             </SplitContent>
-            {news.map((n) => (
-              <div>{n.data.title}</div>
-            ))}
+            <ul class="it-card-list row" aria-label={tab.title}>
+              {tab.newsPageTabType === "news" &&
+                mappedNews.map((n) => (
+                  <li class="col-12 col-lg-4 mb-3">
+                    <CardEditorialNews {...n} />
+                  </li>
+                ))}
+            </ul>
           </TabContent>
         ))
       }
