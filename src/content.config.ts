@@ -1,6 +1,15 @@
 import { executeQuery } from "@lib/datocms";
-import { AllNewsQuery } from "@utils/query";
+import { AllNewsQuery, AllStoryQuery } from "@utils/query";
 import { defineCollection, z } from "astro:content";
+
+const imageSchema = z.object({
+  id: z.string(),
+  url: z.string(),
+  alt: z.string().nullable(),
+  title: z.string().nullable(),
+  width: z.number().nullable(),
+  height: z.number().nullable(),
+});
 
 // TODO: sync with NewsItemFragmentType
 const newsSchema = z.object({
@@ -10,14 +19,17 @@ const newsSchema = z.object({
   category: z.string(),
   dateOfPublication: z.string(),
   link: z.string(),
-  image: z.object({
-    id: z.string(),
-    url: z.string(),
-    alt: z.string().nullable(),
-    title: z.string().nullable(),
-    width: z.number().nullable(),
-    height: z.number().nullable(),
-  }),
+  image: imageSchema,
+});
+
+// TODO: sync with StoryItemFragmentType
+const storySchema = z.object({
+  id: z.string(),
+  title: z.string(),
+  category: z.string(),
+  dateOfPublication: z.string(),
+  slug: z.string(),
+  image: imageSchema,
 });
 
 const newsCollection = defineCollection({
@@ -28,6 +40,15 @@ const newsCollection = defineCollection({
   },
 });
 
+const storiesCollection = defineCollection({
+  schema: storySchema,
+  loader: async () => {
+    const response = await executeQuery(AllStoryQuery);
+    return response.allStoryItems;
+  },
+});
+
 export const collections = {
   news: newsCollection,
+  stories: storiesCollection,
 };

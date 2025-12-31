@@ -1,24 +1,12 @@
 ---
-import { Chip } from "@components/atoms/Chip";
 import { SplitContent } from "@components/layout/SplitContent";
-import type { CardEditorialNewsProps } from "@components/react/CardEditorialNews";
 import { TabContent, Tabs } from "@components/molecules/Tabs";
-import { TextContainer } from "@components/molecules/TextContainer";
-import { mapNewsToCardEditorialNewsProps } from "@utils/mappers";
+import {
+  mapNewsToCardEditorialNewsProps,
+  mapStoryToCardEditorialInlineMiniProps,
+} from "@utils/mappers";
 import { getCollection } from "astro:content";
-import { PaginatedNews } from "@components/react/PaginatedNews/PaginatedNews";
-
-// type NewsTab = {
-//   title: string;
-//   componentName: "CardEditorialNews";
-//   news: CardEditorialNewsProps[];
-// };
-
-// type StoryTab = {
-//   title: string;
-//   componentName: "CardEditorialInlineMini";
-//   news: CardEditorialInlineMiniProps[];
-// };
+import { PaginatedCollection } from "@components/react/PaginatedCollection/PaginatedCollection";
 
 type PageNewsTab = {
   title: string;
@@ -36,6 +24,7 @@ type UpdateTabSectionProps = {
 type Props = UpdateTabSectionProps;
 
 const { id, tabs = [] } = Astro.props;
+const { lang } = Astro.locals;
 
 const tabsItems = tabs.map((tab, index) => ({
   id: `tab-${id}-${index}`,
@@ -44,10 +33,23 @@ const tabsItems = tabs.map((tab, index) => ({
 }));
 
 const news = await getCollection("news");
+const stories = await getCollection("stories");
 
-const mappedNews: CardEditorialNewsProps[] = news.map((n) =>
-  mapNewsToCardEditorialNewsProps(n.data),
-);
+function isValidTabType(val: string): val is "news" | "story" {
+  return val === "news" || val === "story";
+}
+
+function getItems(tab: PageNewsTab) {
+  if (tab.newsPageTabType === "news") {
+    return news.map((n) => mapNewsToCardEditorialNewsProps(n.data));
+  }
+  if (tab.newsPageTabType === "story") {
+    return stories.map((s) =>
+      mapStoryToCardEditorialInlineMiniProps(s.data, lang),
+    );
+  }
+  return [];
+}
 ---
 
 <SplitContent leftColumns={5} alignItems="top">
@@ -56,15 +58,16 @@ const mappedNews: CardEditorialNewsProps[] = news.map((n) =>
       {
         tabs.map((tab, index) => (
           <TabContent tab={tabsItems[index]}>
-            {tab.newsPageTabType === "news" && (
-              <PaginatedNews
+            {isValidTabType(tab.newsPageTabType) && (
+              <PaginatedCollection
                 client:load
-                news={mappedNews}
+                items={getItems(tab)}
                 perPage={10}
                 title={tab.title}
                 paragraph={tab.paragraph}
                 filterTitle={tab.filterTitle}
                 labelForAll={tab.labelForAll}
+                newsPageTabType={tab.newsPageTabType}
               />
             )}
           </TabContent>

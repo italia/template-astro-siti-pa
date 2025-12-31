@@ -4,6 +4,7 @@ import {
   LocaleFragment,
   SidebarFragment,
   NewsItemFragment,
+  StoryItemFragment,
 } from "@graphql/commonFragments";
 import {
   AllArticlesFragment,
@@ -215,6 +216,17 @@ export const AllNewsQuery = graphql(
     }
   `,
   [NewsItemFragment],
+);
+
+export const AllStoryQuery = graphql(
+  `
+    query AllStory {
+      allStoryItems {
+        ...StoryItemFragment
+      }
+    }
+  `,
+  [StoryItemFragment],
 );
 
 export const AllStoryItemsQuery = graphql(

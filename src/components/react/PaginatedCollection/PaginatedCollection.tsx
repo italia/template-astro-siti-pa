@@ -5,24 +5,38 @@ import {
   type CardEditorialNewsProps,
 } from "@components/react/CardEditorialNews";
 import { Chip } from "@components/react/Chip";
+import {
+  CardEditorialInlineMini,
+  type CardEditorialInlineMiniProps,
+} from "../CardEditorialInlineMini/CardEditorialInlineMini";
 
-type PaginatedNewsProps = {
+type PaginatedCollectionCommonProps = {
   title: string;
   paragraph: string;
   filterTitle: string;
   labelForAll: string;
-  news: CardEditorialNewsProps[];
   perPage?: number;
 };
 
-export function PaginatedNews({
-  news,
+type PaginatedCollectionProps =
+  | (PaginatedCollectionCommonProps & {
+      items: CardEditorialNewsProps[];
+      newsPageTabType: "news";
+    })
+  | (PaginatedCollectionCommonProps & {
+      items: CardEditorialInlineMiniProps[];
+      newsPageTabType: "story";
+    });
+
+export function PaginatedCollection({
+  items,
   perPage = 6,
   title,
   paragraph,
   filterTitle,
   labelForAll,
-}: PaginatedNewsProps) {
+  newsPageTabType,
+}: PaginatedCollectionProps) {
   const [page, setPage] = useState(1);
   const [selectedCategory, setSelectedCategory] = useState(labelForAll);
 
@@ -30,21 +44,21 @@ export function PaginatedNews({
     labelForAll,
     ...Array.from(
       new Set(
-        news
+        items
           .map((item) => item.category)
           .filter((c): c is string => typeof c === "string"),
       ),
     ),
   ];
 
-  const filteredNews =
+  const filteredItems =
     selectedCategory === labelForAll
-      ? news
-      : news.filter((item) => item.category === selectedCategory);
+      ? items
+      : items.filter((item) => item.category === selectedCategory);
 
-  const totalPages = Math.ceil(filteredNews.length / perPage);
+  const totalPages = Math.ceil(filteredItems.length / perPage);
   const start = (page - 1) * perPage;
-  const paginatedNews = filteredNews.slice(start, start + perPage);
+  const paginatedItems = filteredItems.slice(start, start + perPage);
 
   const handleCategoryChange = (category: string) => {
     setSelectedCategory(category);
@@ -75,9 +89,10 @@ export function PaginatedNews({
         </div>
       </div>
       <ul className="it-card-list row">
-        {paginatedNews.map((n) => (
+        {paginatedItems.map((n) => (
           <li className="col-12 col-lg-4 mb-3" key={n.title}>
-            <CardEditorialNews {...n} />
+            {newsPageTabType === "news" && <CardEditorialNews {...n} />}
+            {newsPageTabType === "story" && <CardEditorialInlineMini {...n} />}
           </li>
         ))}
       </ul>
