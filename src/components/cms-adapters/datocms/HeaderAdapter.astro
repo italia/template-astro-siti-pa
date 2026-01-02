@@ -2,21 +2,31 @@
 import type { HeaderFragmentType } from "@graphql/sectionFragments";
 import { createMenu } from "@utils/createMenuHelper";
 import { Header } from "@components/organisms/Header";
-import { executeQuery } from "@lib/datocms";
-import { LocalesQuery } from "@utils/query";
+import { linkResolver } from "@data/linkMap";
 
-type Props = HeaderFragmentType;
+type Props = HeaderFragmentType & {
+  homeRecordId?: string;
+};
 
-const { tagline, organization, siteName, navigationBar } = Astro.props;
+const {
+  tagline,
+  organization,
+  siteName,
+  mainNavigation,
+  secondaryNavigation,
+  locales,
+  homeRecordId,
+} = Astro.props;
 
 const { lang } = Astro.locals;
 const currentUrl = Astro.url.pathname;
 
-const {
-  site: { locales },
-} = await executeQuery(LocalesQuery);
-
-const menuItems = createMenu(navigationBar, currentUrl, lang);
+const menuItems = createMenu(
+  mainNavigation,
+  secondaryNavigation,
+  currentUrl,
+  lang,
+);
 ---
 
 <Header
@@ -25,4 +35,5 @@ const menuItems = createMenu(navigationBar, currentUrl, lang);
   slimContent={tagline}
   menuItems={menuItems}
   locales={locales}
+  linkBackHome={linkResolver(homeRecordId, lang)}
 />

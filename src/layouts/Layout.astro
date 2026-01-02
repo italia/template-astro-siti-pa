@@ -24,7 +24,7 @@ const { lang } = Astro.locals;
 
 const result = await executeQuery(SiteMetaTagsQuery);
 
-const { layout } = await executeQuery(LayoutQuery, {
+const { layout, homepage } = await executeQuery(LayoutQuery, {
   variables: { locale: lang },
 });
 
@@ -34,7 +34,9 @@ const headerLayout: HeaderFragmentType = {
   tagline: layout.tagline,
   organization: layout.organization,
   siteName: layout.siteName,
-  navigationBar: layout.navigationBar,
+  mainNavigation: layout.mainNavigation,
+  secondaryNavigation: layout.secondaryNavigation,
+  locales: layout.locales,
 };
 
 const footerLayout: FooterFragmentType = {
@@ -69,7 +71,7 @@ const isShowingPreviewBar = isDraftModeEnabled(Astro.cookies) && redirectUrl;
   </head>
   <body>
     {isShowingPreviewBar && <PreviewBar redirectUrl={redirectUrl} />}
-    <HeaderAdapter {...headerLayout} />
+    <HeaderAdapter {...headerLayout} homeRecordId={homepage?.id} />
     <main>
       <slot />
     </main>
