@@ -49,6 +49,9 @@ export const LayoutQuery = graphql(
         ...FooterFragment
         ...HeaderFragment
       }
+      homepage(locale: $locale) {
+        id
+      }
     }
   `,
   [FooterFragment, HeaderFragment],

@@ -139,7 +139,13 @@ export type SectionFragmentType = FragmentOf<typeof SectionFragment>;
 export const HeaderFragment = graphql(
   `
     fragment HeaderFragment on LayoutRecord @_unmask {
-      navigationBar {
+      locales: _locales
+      mainNavigation: navigationBar {
+        ... on MenuItemRecord {
+          ...MenuItemFragment
+        }
+      }
+      secondaryNavigation: navigationBarSecondary {
         ... on MenuItemRecord {
           ...MenuItemFragment
         }
