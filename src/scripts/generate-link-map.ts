@@ -1,5 +1,5 @@
 import { executeQuery } from "@lib/datocms";
-import { buildFullPath } from "@utils/pathHelper";
+import { buildFullPath, buildFullPathInsights } from "@utils/pathHelper";
 import { AllLinkQuery } from "@utils/query";
 import fs from "fs";
 import path from "path";
@@ -36,6 +36,15 @@ async function run() {
       const fullPath = buildFullPath(article, locale, data.allArticles);
       const prefix = `/${locale}`;
       linkMap[article.id][locale] = `${prefix}/${fullPath}`;
+    });
+  });
+
+  data.allInsights?.forEach((insight) => {
+    linkMap[insight.id] = {};
+    insight.locales.forEach((locale) => {
+      const fullPath = buildFullPathInsights(insight, locale);
+      const prefix = `/${locale}`;
+      linkMap[insight.id][locale] = `${prefix}/${fullPath}`;
     });
   });
 

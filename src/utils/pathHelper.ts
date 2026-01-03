@@ -1,4 +1,7 @@
-import type { AllArticlesSlugFragmentType } from "@graphql/templateFragments";
+import type {
+  AllArticlesSlugFragmentType,
+  AllInsightsSlugFragmentType,
+} from "@graphql/templateFragments";
 import type { SiteLocale } from "../graphql/types";
 
 interface HasSlugLocales {
@@ -38,6 +41,26 @@ export function buildFullPath(
     } else {
       current = null;
     }
+  }
+
+  return segments.join("/");
+}
+
+export function buildFullPathInsights(
+  insigth: AllInsightsSlugFragmentType,
+  locale: SiteLocale,
+) {
+  const segments = [];
+
+  const getSlug = (item: HasSlugLocales | null | undefined) =>
+    item?.allSlugLocales?.find((s) => s.locale === locale)?.value;
+
+  const slug = getSlug(insigth);
+  if (slug) segments.unshift(slug);
+
+  if (insigth.parentPage) {
+    const parentPageSlug = getSlug(insigth.parentPage);
+    if (parentPageSlug) segments.unshift(parentPageSlug);
   }
 
   return segments.join("/");
