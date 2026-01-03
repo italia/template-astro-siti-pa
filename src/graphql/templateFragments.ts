@@ -9,6 +9,7 @@ import {
   TopicFilterFragment,
   UseCaseContainerFragment,
   SupportCTASectionFragment,
+  StructuredTextFragment,
 } from "@graphql/sectionFragments";
 import {
   CalloutFragment,
@@ -215,12 +216,87 @@ export const AllArticlesFragment = graphql(
       ...AllArticlesSlugFragment
     }
   `,
-  [
-    LocaleFragment,
-    TagFragment,
-    ArticleContentFragment,
-    AllArticlesSlugFragment,
-  ],
+  [TagFragment, ArticleContentFragment, AllArticlesSlugFragment],
 );
 
 export type AllArticlesFragmentType = FragmentOf<typeof AllArticlesFragment>;
+
+export const AllInsightsSlugFragment = graphql(
+  `
+    fragment AllInsightsSlugFragment on InsightRecord @_unmask {
+      id
+      locales: _locales
+      allSlugLocales: _allSlugLocales {
+        ...LocaleFragment
+      }
+      parentPage {
+        id
+        allSlugLocales: _allSlugLocales {
+          ...LocaleFragment
+        }
+      }
+    }
+  `,
+  [LocaleFragment],
+);
+
+export type AllInsightsSlugFragmentType = FragmentOf<
+  typeof AllInsightsSlugFragment
+>;
+
+export const InsightContentFragment = graphql(
+  `
+    fragment InsightContentFragment on InsightModelContentField @_unmask {
+      ... on RecordInterface {
+        id
+        componentName: __typename
+      }
+      ... on HeroRecord {
+        ...HeroFragment
+      }
+      ... on NewsFeedRecord {
+        ...NewsFeedFragment
+      }
+      ... on FaqSectionRecord {
+        ...FaqSectionRecordFragment
+      }
+      ... on StructuredTextRecord {
+        content {
+          ...StructuredTextFragment
+        }
+      }
+    }
+  `,
+  [
+    FaqSectionRecordFragment,
+    HeroFragment,
+    NewsFeedFragment,
+    CalloutFragment,
+    StructuredTextFragment,
+  ],
+);
+
+export type InsightContentFragmentType = FragmentOf<
+  typeof InsightContentFragment
+>;
+
+export const AllInsightsFragment = graphql(
+  `
+    fragment AllInsightsFragment on InsightRecord @_unmask {
+      id
+      seo: _seoMetaTags {
+        ...TagFragment
+      }
+      allContentLocales: _allContentLocales {
+        locale
+        value {
+          ...InsightContentFragment
+        }
+      }
+      ...AllInsightsSlugFragment
+    }
+  `,
+  [TagFragment, InsightContentFragment, AllInsightsSlugFragment],
+);
+
+export type AllInsightsFragmentType = FragmentOf<typeof AllInsightsFragment>;

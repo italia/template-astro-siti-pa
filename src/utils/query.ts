@@ -7,6 +7,8 @@ import {
 import {
   AllArticlesFragment,
   AllArticlesSlugFragment,
+  AllInsightsFragment,
+  AllInsightsSlugFragment,
   AllPagesSlugFragment,
   HomepageModelContentFragment,
   PageContentFragment,
@@ -138,11 +140,25 @@ export const AllLinkQuery = graphql(
       allArticles {
         ...AllArticlesSlugFragment
       }
+      allInsights {
+        ...AllInsightsSlugFragment
+      }
       homepage {
         id
         locales: _locales
       }
     }
   `,
-  [AllArticlesSlugFragment, AllPagesSlugFragment],
+  [AllArticlesSlugFragment, AllPagesSlugFragment, AllInsightsSlugFragment],
+);
+
+export const AllInsightsQuery = graphql(
+  `
+    query allInsights {
+      allInsights {
+        ...AllInsightsFragment
+      }
+    }
+  `,
+  [AllInsightsFragment],
 );
