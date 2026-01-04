@@ -1,29 +1,46 @@
 ---
+import type { SectionBackground } from "@components/layout/SplitContent/SplitContent.astro";
 import type { HeroProps } from "./types";
 import { Image } from "@components/atoms/Image";
 type Props = HeroProps;
 
-const { title, paragraph, image, size, category } = Astro.props;
+const {
+  title,
+  paragraph,
+  image,
+  size,
+  category,
+  showBreadcrumb,
+  backgroundColor = "default",
+} = Astro.props;
 const sizeClass =
   size === "xsmall"
     ? "xsmall-size"
     : size === "small"
       ? "small-size"
       : "default-size";
+
+const backgroundColorClassNames: Record<SectionBackground, string> = {
+  default: "",
+  primary: "bg-primary",
+  dark: "primary-bg-a10",
+  lighter: "lightgrey-bg-a3 dark",
+};
 ---
 
 <style>
   @import "./style.scss";
 </style>
-<section class=`it-hero-wrapper it-primary bg-primary-dark ${sizeClass}`>
+<section
+  class=`it-hero-wrapper ${sizeClass} ${backgroundColorClassNames[backgroundColor]}`
+>
   <div class="container">
     <div class="row align-items-center">
       <div class="col-12 col-lg-8">
         <div class="it-hero-text-wrapper">
-          {category && <span class="it-category">{category}</span>}
-          <slot name="category" />
+          {showBreadcrumb && <slot name="breadcrumb" />}
           <h1>{title}</h1>
-          <div class="d-none d-lg-block font-sans-serif" set:html={paragraph} />
+          <p class="d-none d-lg-block font-sans-serif">{paragraph}</p>
         </div>
       </div>
 

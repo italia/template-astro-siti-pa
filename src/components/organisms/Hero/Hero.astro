@@ -1,6 +1,8 @@
 ---
+import HeroCompactImage from "./HeroCompactImage.astro";
+import HeroDefault from "./HeroDefault.astro";
+import HeroFullHeightImage from "./HeroFullHeightImage.astro";
 import type { HeroProps } from "./types";
-import { Image } from "@components/atoms/Image";
 
 type Props = HeroProps;
 
@@ -8,41 +10,61 @@ const {
   title,
   paragraph,
   image,
-  size,
   category,
   showBreadcrumb = false,
+  variant = "default",
+  backgroundColor = "default",
 } = Astro.props;
-const sizeClass =
-  size === "xsmall"
-    ? "xsmall-size"
-    : size === "small"
-      ? "small-size"
-      : "default-size";
 ---
 
 <style>
   @import "./style.scss";
 </style>
 
-<section class=`it-hero-wrapper it-primary ${sizeClass}`>
-  <div class="img-responsive-wrapper">
-    <div class="img-responsive">
-      <div class="img-wrapper">
-        <Image {...image} />
-      </div>
-    </div>
-  </div>
+{
+  (variant === "default" || variant === "small") && (
+    <HeroDefault
+      title={title}
+      paragraph={paragraph}
+      image={image}
+      variant={variant}
+      category={category}
+      showBreadcrumb={showBreadcrumb}
+      backgroundColor={backgroundColor}
+    >
+      <slot name="breadcrumb" slot="breadcrumb" />
+    </HeroDefault>
+  )
+}
 
-  <div class="container">
-    <div class="row">
-      <div class="col-12">
-        <div class="it-hero-text-wrapper">
-          {category && <span class="it-category">{category}</span>}
-          {showBreadcrumb && <slot name="breadcrumb" />}
-          <h1>{title}</h1>
-          <div class="d-none d-lg-block font-sans-serif" set:html={paragraph} />
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+{
+  variant === "xsmall-compact" && (
+    <HeroCompactImage
+      title={title}
+      paragraph={paragraph}
+      image={image}
+      size="xsmall"
+      category={category}
+      showBreadcrumb={showBreadcrumb}
+      backgroundColor={backgroundColor}
+    >
+      <slot name="breadcrumb" slot="breadcrumb" />
+    </HeroCompactImage>
+  )
+}
+
+{
+  variant === "xsmall-full" && (
+    <HeroFullHeightImage
+      title={title}
+      paragraph={paragraph}
+      image={image}
+      size="xsmall"
+      category={category}
+      showBreadcrumb={showBreadcrumb}
+      backgroundColor={backgroundColor}
+    >
+      <slot name="breadcrumb" slot="breadcrumb" />
+    </HeroFullHeightImage>
+  )
+}

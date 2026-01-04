@@ -1,7 +1,7 @@
 ---
-import type { SectionBackground } from "@components/layout/SplitContent/SplitContent.astro";
 import type { HeroProps } from "./types";
 import { Image } from "@components/atoms/Image";
+
 type Props = HeroProps;
 
 const {
@@ -10,30 +10,17 @@ const {
   image,
   size,
   category,
-  showBreadcrumb,
-  backgroundColor = "default",
+  showBreadcrumb = false,
+  variant = "default",
 } = Astro.props;
-const sizeClass =
-  size === "xsmall"
-    ? "xsmall-size"
-    : size === "small"
-      ? "small-size"
-      : "default-size";
-
-const backgroundColorClassNames: Record<SectionBackground, string> = {
-  default: "",
-  primary: "bg-primary",
-  dark: "primary-bg-a10",
-  lighter: "lightgrey-bg-a3 dark",
-};
+const sizeClass = variant === "small" ? "small-size" : "default-size";
 ---
 
 <style>
   @import "./style.scss";
 </style>
-<section
-  class=`it-hero-wrapper it-hero-wrapper-full-height-image  ${sizeClass} ${backgroundColorClassNames[backgroundColor]}`
->
+
+<section class={`it-hero-wrapper it-primary ${sizeClass}`}>
   <div class="img-responsive-wrapper">
     <div class="img-responsive">
       <div class="img-wrapper">
@@ -44,7 +31,7 @@ const backgroundColorClassNames: Record<SectionBackground, string> = {
 
   <div class="container">
     <div class="row">
-      <div class="col-12 col-lg-7">
+      <div class="col-12">
         <div class="it-hero-text-wrapper">
           {category && <span class="it-category">{category}</span>}
           {showBreadcrumb && <slot name="breadcrumb" />}

@@ -21,3 +21,10 @@
   width: 40% !important;
   right: 0 !important;
 }
+
+.it-hero-wrapper.dark {
+  .it-hero-text-wrapper h1,
+  .it-hero-text-wrapper p {
+    color: #1a1a1a !important;
+  }
+}
