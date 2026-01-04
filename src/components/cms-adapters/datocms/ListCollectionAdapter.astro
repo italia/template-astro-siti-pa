@@ -1,0 +1,24 @@
+---
+import { ListCollection } from "@components/molecules/ListCollection";
+import { linkResolver } from "@data/linkMap";
+import type { ListCollectionFragmentType } from "@graphql/commonFragments";
+
+type Props = {
+  block: ListCollectionFragmentType;
+};
+
+const { block } = Astro.props;
+const { lang } = Astro.locals;
+
+const items = block.content.map((item) => {
+  return {
+    title: item.title,
+    description: item.abstract,
+    image: item.image,
+    linkTo: linkResolver(item.id, lang),
+    category: item.topic.label,
+  };
+});
+---
+
+<ListCollection title={block.title} paragraph={block.paragraph} items={items} />
