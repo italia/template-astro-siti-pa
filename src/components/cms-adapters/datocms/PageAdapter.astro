@@ -14,6 +14,7 @@ import UseCaseContainerAdapter from "@components/cms-adapters/datocms/UseCaseCon
 import TopicFilterAdapter from "@components/cms-adapters/datocms/TopicFilterAdapter.astro";
 import SupportCTASectionAdapter from "@components/cms-adapters/datocms/SupportCTASectionAdapter.astro";
 import StructuredTextAdapter from "@components/cms-adapters/datocms/StructuredTextAdapter.astro";
+import ListCollectionAdapter from "@components/cms-adapters/datocms/ListCollectionAdapter.astro";
 
 type ContentType =
   | HomepageModelContentFragmentType
@@ -50,7 +51,9 @@ const { content, sitename } = Astro.props;
       case "SupportCtaSectionRecord":
         return <SupportCTASectionAdapter block={block} />;
       case "StructuredTextRecord":
-        return <StructuredTextAdapter block={block.content} />;
+        return <StructuredTextAdapter block={block.textContent} />;
+      case "ListCollectionRecord":
+        return <ListCollectionAdapter block={block} />;
       default:
         return null;
     }
