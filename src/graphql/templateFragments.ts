@@ -17,12 +17,15 @@ import {
   ListCardEditorialWithIconFragment,
   ListCollectionFragment,
   ListInternalLinkFragment,
-  LocaleFragment,
   OrderedListFragment,
   QuickLinkCardFragment,
   TagFragment,
   TopicsBlockFragment,
-} from "./commonFragments";
+} from "@graphql/commonFragments";
+import {
+  AllArticlesSlugFragment,
+  AllInsightsSlugFragment,
+} from "@graphql/slugFragments";
 
 export const HomepageModelContentFragment = graphql(
   `
@@ -161,46 +164,6 @@ export type ArticleContentFragmentType = FragmentOf<
   typeof ArticleContentFragment
 >;
 
-export const AllArticlesSlugFragment = graphql(
-  `
-    fragment AllArticlesSlugFragment on ArticleRecord @_unmask {
-      id
-      locales: _locales
-      allSlugLocales: _allSlugLocales {
-        ...LocaleFragment
-      }
-      parent {
-        id
-      }
-      parentPage {
-        id
-        allSlugLocales: _allSlugLocales {
-          ...LocaleFragment
-        }
-      }
-    }
-  `,
-  [LocaleFragment],
-);
-
-export type AllArticlesSlugFragmentType = FragmentOf<
-  typeof AllArticlesSlugFragment
->;
-
-export const AllPagesSlugFragment = graphql(
-  `
-    fragment AllPagesSlugFragment on PageRecord @_unmask {
-      id
-      allSlugLocales: _allSlugLocales {
-        ...LocaleFragment
-      }
-    }
-  `,
-  [LocaleFragment],
-);
-
-export type AllPagesSlugFragmentType = FragmentOf<typeof AllPagesSlugFragment>;
-
 export const AllArticlesFragment = graphql(
   `
     fragment AllArticlesFragment on ArticleRecord @_unmask {
@@ -221,29 +184,6 @@ export const AllArticlesFragment = graphql(
 );
 
 export type AllArticlesFragmentType = FragmentOf<typeof AllArticlesFragment>;
-
-export const AllInsightsSlugFragment = graphql(
-  `
-    fragment AllInsightsSlugFragment on InsightRecord @_unmask {
-      id
-      locales: _locales
-      allSlugLocales: _allSlugLocales {
-        ...LocaleFragment
-      }
-      parentPage {
-        id
-        allSlugLocales: _allSlugLocales {
-          ...LocaleFragment
-        }
-      }
-    }
-  `,
-  [LocaleFragment],
-);
-
-export type AllInsightsSlugFragmentType = FragmentOf<
-  typeof AllInsightsSlugFragment
->;
 
 export const InsightContentFragment = graphql(
   `
