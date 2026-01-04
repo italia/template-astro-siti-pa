@@ -1,16 +1,13 @@
 ---
 import BreadcrumbItem from "./BreadcrumbItem.astro";
-import type { BreadcrumbItemProps } from "./types";
+import type { BreadcrumbProps } from "./types";
 
-type Props = {
-  ariaLabel: string;
-  items: BreadcrumbItemProps[];
-};
-const { ariaLabel, items } = Astro.props;
+type Props = BreadcrumbProps;
+const { ariaLabel, items, variant = "light" } = Astro.props;
 ---
 
 <nav class="breadcrumb-container mb-4" aria-label={ariaLabel}>
-  <ol class="breadcrumb dark bg-transparent mb-0">
-    {items.map((item) => <BreadcrumbItem {...item} />)}
+  <ol class=`breadcrumb ${variant==="dark" ? "dark": ""} bg-transparent mb-0`>
+    {items.map((item) => <BreadcrumbItem {...item} variant={variant} />)}
   </ol>
 </nav>

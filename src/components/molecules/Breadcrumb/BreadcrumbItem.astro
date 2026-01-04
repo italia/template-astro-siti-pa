@@ -2,7 +2,7 @@
 import type { BreadcrumbItemProps } from "./types";
 
 type Props = BreadcrumbItemProps;
-const { label, linkTo, id, active } = Astro.props;
+const { label, linkTo, id, active, variant = "light" } = Astro.props;
 const ariaCurrent = active ? "page" : undefined;
 ---
 
@@ -15,7 +15,7 @@ const ariaCurrent = active ? "page" : undefined;
   {
     !active && (
       <span class="separator mb-0">
-        <svg class="icon icon-sm icon-white">
+        <svg class={`icon icon-sm ${variant === "dark" ? "icon-white" : ""}`}>
           <use xlink:href="/bsi-svg/sprites.svg#it-arrow-right-triangle" />
         </svg>
       </span>

@@ -3,4 +3,13 @@ export type BreadcrumbItemProps = {
   label: string;
   id: string;
   active: boolean;
+  variant?: VariantBreadcrumbProps;
 };
+
+export type BreadcrumbProps = {
+  ariaLabel: string;
+  items: BreadcrumbItemProps[];
+  variant?: VariantBreadcrumbProps;
+};
+
+export type VariantBreadcrumbProps = "dark" | "light";
