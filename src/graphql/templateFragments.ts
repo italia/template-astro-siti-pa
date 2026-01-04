@@ -15,6 +15,7 @@ import {
   CalloutFragment,
   ExternalLinkFragment,
   ListCardEditorialWithIconFragment,
+  ListCollectionFragment,
   ListInternalLinkFragment,
   LocaleFragment,
   OrderedListFragment,
@@ -254,23 +255,23 @@ export const InsightContentFragment = graphql(
       ... on HeroRecord {
         ...HeroFragment
       }
-      ... on NewsFeedRecord {
-        ...NewsFeedFragment
-      }
       ... on FaqSectionRecord {
         ...FaqSectionRecordFragment
       }
       ... on StructuredTextRecord {
-        content {
+        textContent: content {
           ...StructuredTextFragment
         }
+      }
+      ... on ListCollectionRecord {
+        ...ListCollectionFragment
       }
     }
   `,
   [
     FaqSectionRecordFragment,
     HeroFragment,
-    NewsFeedFragment,
+    ListCollectionFragment,
     CalloutFragment,
     StructuredTextFragment,
   ],
