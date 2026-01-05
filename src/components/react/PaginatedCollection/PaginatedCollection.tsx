@@ -26,6 +26,10 @@ type PaginatedCollectionProps =
   | (PaginatedCollectionCommonProps & {
       items: CardEditorialInlineMiniProps[];
       newsPageTabType: "story";
+    })
+  | (PaginatedCollectionCommonProps & {
+      items: CardEditorialNewsProps[];
+      newsPageTabType: "webinar";
     });
 
 export function PaginatedCollection({
@@ -40,7 +44,7 @@ export function PaginatedCollection({
   const [page, setPage] = useState(1);
   const [selectedCategory, setSelectedCategory] = useState(labelForAll);
 
-  const newsCategories: string[] = [
+  const categories: string[] = [
     labelForAll,
     ...Array.from(
       new Set(
@@ -76,7 +80,7 @@ export function PaginatedCollection({
         </div>
         <div className="col-lg-5 col-12">
           <p className="fw-semibold fs-6 text-uppercase">{filterTitle}</p>
-          {newsCategories.map((category) => (
+          {categories.map((category) => (
             <Chip
               key={category}
               variant="primary"
@@ -93,6 +97,7 @@ export function PaginatedCollection({
           <li className="col-12 col-lg-4 mb-3" key={n.title}>
             {newsPageTabType === "news" && <CardEditorialNews {...n} />}
             {newsPageTabType === "story" && <CardEditorialInlineMini {...n} />}
+            {newsPageTabType === "webinar" && <CardEditorialNews {...n} />}
           </li>
         ))}
       </ul>

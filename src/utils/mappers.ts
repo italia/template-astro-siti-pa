@@ -3,6 +3,7 @@ import type { CardEditorialInlineMiniProps } from "@components/react/CardEditori
 import type {
   NewsItemFragmentType,
   StoryItemFragmentType,
+  WebinarItemFragmentType,
 } from "@graphql/commonFragments";
 import { linkResolver } from "@data/linkMap";
 
@@ -28,4 +29,16 @@ export const mapStoryToCardEditorialInlineMiniProps = (
   category: story.category,
   dateTime: story.dateOfPublication,
   description: "",
+});
+
+export const mapWebinarToCardEditorialNewsProps = (
+  webinar: WebinarItemFragmentType,
+  lang: string,
+): CardEditorialNewsProps => ({
+  title: webinar.title,
+  description: webinar.paragraph,
+  image: webinar.image,
+  linkTo: linkResolver(webinar.id, lang),
+  category: webinar.topic.label,
+  dateTime: webinar.date,
 });

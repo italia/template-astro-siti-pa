@@ -5,6 +5,7 @@ import {
   SidebarFragment,
   NewsItemFragment,
   StoryItemFragment,
+  WebinarItemFragment,
 } from "@graphql/commonFragments";
 import {
   AllArticlesFragment,
@@ -227,6 +228,17 @@ export const AllStoryQuery = graphql(
     }
   `,
   [StoryItemFragment],
+);
+
+export const AllWebinarQuery = graphql(
+  `
+    query AllWebinar {
+      allWebinarItems {
+        ...WebinarItemFragment
+      }
+    }
+  `,
+  [WebinarItemFragment],
 );
 
 export const AllStoryItemsQuery = graphql(

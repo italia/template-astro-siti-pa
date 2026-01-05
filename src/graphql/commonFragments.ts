@@ -141,6 +141,27 @@ export const NewsItemFragment = graphql(
 
 export type NewsItemFragmentType = FragmentOf<typeof NewsItemFragment>;
 
+export const WebinarItemFragment = graphql(
+  `
+    fragment WebinarItemFragment on WebinarItemRecord @_unmask {
+      id
+      title
+      paragraph
+      topic {
+        label
+      }
+      date
+      image {
+        ...ImageFragment
+      }
+      slug
+    }
+  `,
+  [ImageFragment],
+);
+
+export type WebinarItemFragmentType = FragmentOf<typeof WebinarItemFragment>;
+
 export const NewsTabFragment = graphql(
   `
     fragment NewsTabFragment on NewsTabRecord @_unmask {

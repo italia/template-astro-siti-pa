@@ -4,6 +4,7 @@ import { TabContent, Tabs } from "@components/molecules/Tabs";
 import {
   mapNewsToCardEditorialNewsProps,
   mapStoryToCardEditorialInlineMiniProps,
+  mapWebinarToCardEditorialNewsProps,
 } from "@utils/mappers";
 import { getCollection } from "astro:content";
 import { PaginatedCollection } from "@components/react/PaginatedCollection/PaginatedCollection";
@@ -34,9 +35,10 @@ const tabsItems = tabs.map((tab, index) => ({
 
 const news = await getCollection("news");
 const stories = await getCollection("stories");
+const webinars = await getCollection("webinars");
 
-function isValidTabType(val: string): val is "news" | "story" {
-  return val === "news" || val === "story";
+function isValidTabType(val: string): val is "news" | "story" | "webinar" {
+  return val === "news" || val === "story" || val === "webinar";
 }
 
 function getItems(tab: PageNewsTab) {
@@ -46,6 +48,11 @@ function getItems(tab: PageNewsTab) {
   if (tab.newsPageTabType === "story") {
     return stories.map((s) =>
       mapStoryToCardEditorialInlineMiniProps(s.data, lang),
+    );
+  }
+  if (tab.newsPageTabType === "webinar") {
+    return webinars.map((w) =>
+      mapWebinarToCardEditorialNewsProps(w.data, lang),
     );
   }
   return [];

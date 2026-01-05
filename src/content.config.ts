@@ -1,5 +1,5 @@
 import { executeQuery } from "@lib/datocms";
-import { AllNewsQuery, AllStoryQuery } from "@utils/query";
+import { AllNewsQuery, AllStoryQuery, AllWebinarQuery } from "@utils/query";
 import { defineCollection, z } from "astro:content";
 
 const imageSchema = z.object({
@@ -32,6 +32,19 @@ const storySchema = z.object({
   image: imageSchema,
 });
 
+// TODO: sync with WebinarItemFragmentType
+const webinarSchema = z.object({
+  id: z.string(),
+  title: z.string(),
+  paragraph: z.string(),
+  topic: z.object({
+    label: z.string(),
+  }),
+  date: z.string(),
+  slug: z.string(),
+  image: imageSchema,
+});
+
 const newsCollection = defineCollection({
   schema: newsSchema,
   loader: async () => {
@@ -48,7 +61,16 @@ const storiesCollection = defineCollection({
   },
 });
 
+const webinarsCollection = defineCollection({
+  schema: webinarSchema,
+  loader: async () => {
+    const response = await executeQuery(AllWebinarQuery);
+    return response.allWebinarItems;
+  },
+});
+
 export const collections = {
   news: newsCollection,
   stories: storiesCollection,
+  webinars: webinarsCollection,
 };
