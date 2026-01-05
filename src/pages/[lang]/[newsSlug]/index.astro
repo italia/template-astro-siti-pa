@@ -51,6 +51,6 @@ const { globalSetting } = await executeQuery(GlobalSettingsQuery, {
 });
 ---
 
-<Layout locale={lang}>
+<Layout>
   <PageAdapter content={content} sitename={globalSetting?.siteName || "Home"} />
 </Layout>
