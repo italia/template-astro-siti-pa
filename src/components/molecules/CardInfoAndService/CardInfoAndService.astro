@@ -2,19 +2,27 @@
 import type { CardInfoAndServiceProps } from "./types";
 type Props = CardInfoAndServiceProps;
 const { title, description, icon, titleIcon, linkTo } = Astro.props;
+const TitleTag = linkTo ? "a" : "span";
 ---
 
 <article class="it-card rounded shadow-sm border">
   <h3 class="it-card-title it-card-title-icon">
-    <a href={linkTo} target="_blank"
+    <TitleTag
+      href={linkTo}
+      target={linkTo ? "_blank" : undefined}
+      rel={linkTo ? "noopener noreferrer" : undefined}
       >{title}
-      <div class="it-card-title-icon-wrapper">
-        <svg class="icon icon-primary" role="img">
-          {titleIcon && <title>{titleIcon}</title>}
-          <use href=`/bsi-svg/sprites.svg#${icon}`></use></svg
-        >
-      </div>
-    </a>
+      {
+        icon && (
+          <div class="it-card-title-icon-wrapper">
+            <svg class="icon icon-primary" role="img">
+              {titleIcon && <title>{titleIcon}</title>}
+              <use href={`/bsi-svg/sprites.svg#${icon}`} />
+            </svg>
+          </div>
+        )
+      }
+    </TitleTag>
   </h3>
   <div class="it-card-body">
     <p class="it-card-text">
