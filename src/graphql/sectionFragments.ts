@@ -26,16 +26,14 @@ export const HeroFragment = graphql(
   `
     fragment HeroFragment on HeroRecord @_unmask {
       id
-      paragraph
-      size
       title
-      category
-      showBreadcrumb
-      variant
-      backgroundColor
+      paragraph
       backgroundImage {
         ...ImageFragment
       }
+      showBreadcrumb
+      variant
+      backgroundColor
     }
   `,
   [ImageFragment],

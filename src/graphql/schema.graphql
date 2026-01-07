@@ -981,14 +981,12 @@ type HeroRecord implements RecordInterface {
   _updatedAt: DateTime!
   backgroundColor: String
   backgroundImage: FileField!
-  category: String
   id: ItemId!
   paragraph(
     """Process content as markdown"""
     markdown: Boolean
-  ): String!
+  ): String
   showBreadcrumb: BooleanType!
-  size: String
   title: String!
   variant: String
 }
@@ -3813,7 +3811,7 @@ type ListCollectionRecord implements RecordInterface {
   paragraph(
     """Process content as markdown"""
     markdown: Boolean
-  ): String!
+  ): String
   title: String!
 }
 
@@ -4546,7 +4544,7 @@ type PageLegacyRecord implements RecordInterface {
   ): String!
 }
 
-union PageModelContentField = DataSectionRecord | FaqSectionRecord | HeroRecord | NewsFeedRecord | SectionRecord | SupportChannelsSectionRecord | SupportCtaSectionRecord | TopicFilterRecord | UpdateTabSectionRecord | UseCaseContainerRecord
+union PageModelContentField = DataSectionRecord | FaqSectionRecord | HeroRecord | NewsFeedRecord | SectionRecord | SupportChannelsSectionRecord | SupportCtaSectionRecord | TopicFilterRecord | UseCaseContainerRecord
 
 type PageModelContentFieldListListNonNullMultiLocaleField {
   locale: SiteLocale
@@ -6283,35 +6281,6 @@ input TypeFilter {
 
   """Search uploads without the specified types"""
   notIn: [UploadType]
-}
-
-"""Block of type 📑 Update tab section (update_tab_section)"""
-type UpdateTabSectionRecord implements RecordInterface {
-  _createdAt: DateTime!
-
-  """Editing URL"""
-  _editingUrl: String
-  _firstPublishedAt: DateTime!
-  _isValid: BooleanType!
-  _modelApiKey: String!
-  _publicationScheduledAt: DateTime
-  _publishedAt: DateTime!
-
-  """Generates SEO and Social card meta tags to be used in your frontend"""
-  _seoMetaTags(
-    """The locale to use to fetch the field's content"""
-    locale: SiteLocale
-  ): [Tag!]!
-  _status: ItemStatus!
-  _unpublishingScheduledAt: DateTime
-  _updatedAt: DateTime!
-  id: ItemId!
-  news: [CardEditorialNewsRecord!]!
-  paragraph(
-    """Process content as markdown"""
-    markdown: Boolean
-  ): String!
-  title: String!
 }
 
 """Specifies how to filter by update datetime"""
