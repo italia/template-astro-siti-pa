@@ -1,3 +1,4 @@
+import type { SiteLocale } from "@graphql/types";
 import { executeQuery } from "@lib/datocms";
 import { buildFullPath, buildFullPathInsights } from "@utils/pathHelper";
 import { AllLinkQuery } from "@utils/query";
@@ -6,45 +7,124 @@ import path from "path";
 
 const OUTPUT_PATH = "src/data/linkMap.ts";
 
+interface HasTitles {
+  allTitleLocales:
+    | {
+        locale: SiteLocale | null;
+        value: string;
+      }[]
+    | null;
+}
+
+type BreadcrumbStep = {
+  title: string;
+  id: string;
+};
+
+type PageRouteInfo = {
+  path: string;
+  breadcrumb: BreadcrumbStep[];
+};
+
+type LocaleMap = Record<SiteLocale, PageRouteInfo>;
+
+type SiteMap = Record<string, LocaleMap>;
+
 async function run() {
   console.log("Link map generation...");
   const data = await executeQuery(AllLinkQuery);
 
-  const linkMap: Record<string, Record<string, string>> = {};
+  const getTitle = (item: HasTitles, locale: string) =>
+    item?.allTitleLocales?.find((t) => t.locale === locale)?.value ||
+    "No title";
+
+  const linkMap: SiteMap = {};
 
   const home = data.homepage;
   if (home) {
-    linkMap[home.id] = {};
+    linkMap[home.id] = {} as LocaleMap;
     home.locales.forEach((locale) => {
-      linkMap[home.id][locale] = `/${locale}`;
+      linkMap[home.id][locale] = {} as PageRouteInfo;
+      linkMap[home.id][locale].path = `/${locale}`;
     });
   }
 
   data.allPages?.forEach((page) => {
-    linkMap[page.id] = {};
+    linkMap[page.id] = {} as LocaleMap;
     page.allSlugLocales?.forEach((item) => {
       const prefix = `/${item.locale}`;
       const slug = `/${item.value}`;
       if (!item.locale) return;
-      linkMap[page.id][item.locale] = `${prefix}${slug}`;
+      linkMap[page.id][item.locale] = {} as PageRouteInfo;
+      linkMap[page.id][item.locale].path = `${prefix}${slug}`;
+      if (home) {
+        linkMap[page.id][item.locale].breadcrumb = [
+          {
+            title: getTitle(home, item.locale),
+            id: home.id,
+          },
+        ];
+      }
+      linkMap[page.id][item.locale].breadcrumb.push({
+        title: getTitle(page, item.locale),
+        id: page.id,
+      });
     });
   });
 
   data.allArticles?.forEach((article) => {
-    linkMap[article.id] = {};
+    linkMap[article.id] = {} as LocaleMap;
     article.locales.forEach((locale) => {
-      const fullPath = buildFullPath(article, locale, data.allArticles);
+      const { fullPath, steps } = buildFullPath(
+        article,
+        locale,
+        data.allArticles,
+      );
       const prefix = `/${locale}`;
-      linkMap[article.id][locale] = `${prefix}/${fullPath}`;
+      linkMap[article.id][locale] = {} as PageRouteInfo;
+      linkMap[article.id][locale].path = `${prefix}/${fullPath}`;
+      if (home) {
+        linkMap[article.id][locale].breadcrumb = [
+          {
+            title: getTitle(home, locale),
+            id: home.id,
+          },
+        ];
+      }
+      linkMap[article.id][locale].breadcrumb.push(
+        ...steps.map((step) => {
+          return {
+            title: step.title,
+            id: step.id,
+          };
+        }),
+      );
     });
   });
 
   data.allInsights?.forEach((insight) => {
-    linkMap[insight.id] = {};
+    linkMap[insight.id] = {} as LocaleMap;
     insight.locales.forEach((locale) => {
-      const fullPath = buildFullPathInsights(insight, locale);
+      const { fullPath, steps } = buildFullPathInsights(insight, locale);
       const prefix = `/${locale}`;
-      linkMap[insight.id][locale] = `${prefix}/${fullPath}`;
+      linkMap[insight.id][locale] = {} as PageRouteInfo;
+      linkMap[insight.id][locale].path = `${prefix}/${fullPath}`;
+      if (home) {
+        linkMap[insight.id][locale].breadcrumb = [
+          {
+            title: getTitle(home, locale),
+            id: home.id,
+          },
+        ];
+      }
+      linkMap[insight.id][locale].breadcrumb.push(
+        ...steps.map((step) => {
+          return {
+            title: step.title,
+            id: step.id,
+          };
+        }),
+      );
     });
   });
 
@@ -55,16 +135,39 @@ async function run() {
 * This map is generated from DatoCMS data during the build process.
 */
 
-export const linkMap = ${JSON.stringify(linkMap, null, 2)};
+import type { SiteLocale } from "@graphql/types";
+
+export type BreadcrumbStep = {
+  title: string;
+  id: string;
+};
+
+export type PageRouteInfo = {
+  path: string;
+  breadcrumb?: BreadcrumbStep[];
+};
+
+export type LocaleMap = Partial<Record<SiteLocale, PageRouteInfo>>;
+
+export type SiteMap = Record<string, LocaleMap>;
+
+export const linkMap: SiteMap = ${JSON.stringify(linkMap, null, 2)};
 
 export type LinkMap = typeof linkMap;
 export type RecordId = keyof LinkMap;
 
 export function linkResolver(id: string | undefined, locale: string): string {
-    if (!id || !(id in linkMap)) {
-        return '#';
-    }
-    return (linkMap[id as RecordId] as Record<string, string>)[locale] || '#';
+  if (!id || !(id in linkMap)) {
+    return '#';
+  }
+  return linkMap[id as RecordId][locale as SiteLocale]?.path || '#';
+}
+
+export function getBreadcrumbs(id: string  | undefined, locale: string) {
+  if (!id || !(id in linkMap)) {
+    return [];
+  }
+  return linkMap[id as RecordId][locale as SiteLocale]?.breadcrumb || [];
 }
 `;
 
