@@ -1,5 +1,5 @@
 ---
-import { List } from "@components/molecules/List";
+import { OrderedList } from "@components/molecules/OrderedList";
 import { CardEditorialNews } from "@components/molecules/CardEditorialNews";
 import type { ResultProps } from "./types";
 
@@ -14,7 +14,7 @@ const { title, paragraph, items, label, news } = Astro.props;
       {title}
     </h3>
     <p class="mb-4">{paragraph}</p>
-    <List items={items} variant="small" />
+    <OrderedList items={items} variant="small" />
   </div>
   <div class="col-lg-4 col-12">
     <p class="fw-semibold fs-6 text-uppercase">{label}</p>

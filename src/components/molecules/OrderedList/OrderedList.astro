@@ -1,5 +1,5 @@
 ---
-import ListItem from "./ListItem.astro";
+import OrderedListItem from "./OrderedListItem.astro";
 import type { ListProps } from "./types";
 
 type Props = ListProps;
@@ -10,7 +10,11 @@ const { variant = "default", items } = Astro.props;
   <ol class="it-list">
     {
       items.map((item, index) => (
-        <ListItem index={(index + 1).toString()} {...item} variant={variant} />
+        <OrderedListItem
+          index={(index + 1).toString()}
+          {...item}
+          variant={variant}
+        />
       ))
     }
   </ol>

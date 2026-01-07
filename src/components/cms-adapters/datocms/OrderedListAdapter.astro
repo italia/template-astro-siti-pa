@@ -1,6 +1,6 @@
 ---
-import type { OrderedListFragmentType } from "../../../graphql/commonFragments";
-import { List } from "../../molecules/List";
+import { OrderedList } from "@components/molecules/OrderedList";
+import type { OrderedListFragmentType } from "@graphql/commonFragments";
 
 type DatoRecord = OrderedListFragmentType & {
   __typename: string;
@@ -14,4 +14,4 @@ type Props = {
 const { block } = Astro.props as Props;
 ---
 
-<List items={block.items} variant="default" />
+<OrderedList items={block.items} variant="default" />

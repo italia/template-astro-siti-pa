@@ -1,7 +1,7 @@
 import type { ChartFragmentType } from "@graphql/commonFragments";
 import type { ImageProps } from "@components/atoms/Image/types";
 import type { CardEditorialNewsProps } from "@components/molecules/CardEditorialNews/types";
-import type { ListItemProps } from "@components/molecules/List/types";
+import type { ListItemProps } from "@components/molecules/OrderedList/types";
 import type { StatisticsBoxProps } from "@components/molecules/StatisticsBox/types";
 import type { LinkProps } from "@components/atoms/Link/types";
 
