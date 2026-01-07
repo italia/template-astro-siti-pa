@@ -1,10 +1,10 @@
 ---
-import QuickLinkItem from "./QuickLinkItem.astro";
-import type { LinkProps } from "@components/atoms/Link/types";
+import type { GenericListItemProps } from "@components/molecules/GenericList/types";
+import { GenericList } from "@components/molecules/GenericList";
 
 type Props = {
   title: string;
-  links: LinkProps[];
+  links: GenericListItemProps[];
 };
 
 const { title, links } = Astro.props;
@@ -12,9 +12,5 @@ const { title, links } = Astro.props;
 
 <div class="primary-bg-a8 rounded-2 py-4 px-5 text-white">
   <h3>{title}</h3>
-  <div class="link-list-wrapper">
-    <ul class="link-list">
-      {links.map((link) => <QuickLinkItem {...link} />)}
-    </ul>
-  </div>
+  <GenericList items={links} variant="dark" />
 </div>
