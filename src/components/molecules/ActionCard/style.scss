@@ -1,0 +1,11 @@
+.content-collapsed {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  position: relative;
+}
+
+.content-expanded {
+  display: block;
+}
