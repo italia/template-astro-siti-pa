@@ -8,17 +8,9 @@ const {
   title,
   paragraph,
   image,
-  size,
-  category,
   showBreadcrumb,
   backgroundColor = "default",
 } = Astro.props;
-const sizeClass =
-  size === "xsmall"
-    ? "xsmall-size"
-    : size === "small"
-      ? "small-size"
-      : "default-size";
 
 const backgroundColorClassNames: Record<SectionBackground, string> = {
   default: "",
@@ -32,7 +24,7 @@ const backgroundColorClassNames: Record<SectionBackground, string> = {
   @import "./style.scss";
 </style>
 <section
-  class=`it-hero-wrapper it-hero-wrapper-full-height-image  ${sizeClass} ${backgroundColorClassNames[backgroundColor]}`
+  class=`it-hero-wrapper it-hero-wrapper-full-height-image xsmall-size ${backgroundColorClassNames[backgroundColor]}`
 >
   <div class="img-responsive-wrapper">
     <div class="img-responsive">
@@ -46,10 +38,13 @@ const backgroundColorClassNames: Record<SectionBackground, string> = {
     <div class="row">
       <div class="col-12 col-lg-7">
         <div class="it-hero-text-wrapper">
-          {category && <span class="it-category">{category}</span>}
           {showBreadcrumb && <slot name="breadcrumb" />}
           <h1>{title}</h1>
-          <p class="d-none d-lg-block font-sans-serif">{paragraph}</p>
+          {
+            paragraph && (
+              <p class="d-none d-lg-block font-sans-serif">{paragraph}</p>
+            )
+          }
         </div>
       </div>
     </div>

@@ -9,7 +9,6 @@ const {
   paragraph,
   image,
   size,
-  category,
   showBreadcrumb = false,
   variant = "default",
 } = Astro.props;
@@ -33,10 +32,13 @@ const sizeClass = variant === "small" ? "small-size" : "default-size";
     <div class="row">
       <div class="col-12">
         <div class="it-hero-text-wrapper">
-          {category && <span class="it-category">{category}</span>}
           {showBreadcrumb && <slot name="breadcrumb" />}
           <h1>{title}</h1>
-          <p class="d-none d-lg-block font-sans-serif">{paragraph}</p>
+          {
+            paragraph && (
+              <p class="d-none d-lg-block font-sans-serif">{paragraph}</p>
+            )
+          }
         </div>
       </div>
     </div>

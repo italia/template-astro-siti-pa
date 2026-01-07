@@ -3,10 +3,8 @@ import type { SectionBackground } from "@components/layout/SplitContent/SplitCon
 
 export type HeroProps = {
   title: string;
-  paragraph: string;
   image: ImageProps;
-  size?: HeroSizeProps;
-  category?: string;
+  paragraph?: string;
   showBreadcrumb?: boolean;
   variant?: HeroVariantProps;
   backgroundColor?: SectionBackground;

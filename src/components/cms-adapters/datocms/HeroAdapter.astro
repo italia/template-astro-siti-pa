@@ -4,10 +4,7 @@ import { createBreadcrumb } from "@utils/createBreadcrumb";
 import { Breadcrumb } from "@components/molecules/Breadcrumb";
 import { Hero } from "@components/organisms/Hero";
 import type { SectionBackground } from "@components/layout/SplitContent/SplitContent.astro";
-import type {
-  HeroSizeProps,
-  HeroVariantProps,
-} from "@components/organisms/Hero/types";
+import type { HeroVariantProps } from "@components/organisms/Hero/types";
 
 type Props = {
   block: HeroFragmentType;
@@ -22,8 +19,7 @@ const itemsBreadcrumb = createBreadcrumb(recordId, lang);
 
 <Hero
   title={block.title}
-  paragraph={block.paragraph}
-  size={(block.size || undefined) as HeroSizeProps}
+  paragraph={block.paragraph || undefined}
   image={block.backgroundImage}
   showBreadcrumb={block.showBreadcrumb}
   variant={(block.variant || undefined) as HeroVariantProps}
