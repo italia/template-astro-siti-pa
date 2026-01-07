@@ -4,9 +4,31 @@ import { Chip, ChipLink } from "@components/atoms/Chip";
 import { IconContainer } from "@components/atoms/IconContainer";
 import { Link } from "@components/atoms/Link";
 import { Blockquote } from "@components/atoms/Blockquote";
+import Badge from "./atoms/Badge/Badge.astro";
 ---
 
 <h2 class="mb-4">Atoms</h2>
+
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>Badge</th>
+      <th>Primary</th>
+      <th>Secondary</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td></td>
+      <td class="p-3">
+        <Badge label="Badge example" variant="primary" />
+      </td>
+      <td class="p-3">
+        <Badge label="Badge example" variant="secondary" />
+      </td>
+    </tr>
+  </tbody>
+</table>
 
 <table class="table table-bordered">
   <thead>
@@ -24,177 +46,174 @@ import { Blockquote } from "@components/atoms/Blockquote";
       </td>
     </tr>
   </tbody>
+</table>
 
-  <table class="table table-bordered">
-    <thead>
-      <tr>
-        <th
-          >Buttons <p>
-            <em>Button</em> for actions.<br />
-            <em>ButtonLink</em> for links.
-          </p></th
-        >
-        <th>Primary Large</th>
-        <th>Outline Primary Large</th>
-        <th>Primary Small</th>
-        <th>Outline Primary Small</th>
-        <th>Primary Mini</th>
-        <th>Outline Primary Mini</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td class="p-3">Light background</td>
-        <td class="p-3"><Button label="Cliccami" /></td>
-        <td class="p-3"><Button label="Cliccami" variant="outline-light" /></td>
-        <td class="p-3"> <Button size="small" label="Cliccami" /></td>
-        <td class="p-3">
-          <Button size="small" label="Cliccami" variant="outline-light" />
-        </td>
-        <td class="p-3"><Button size="mini" label="Cliccami" /></td>
-        <td class="p-3">
-          <Button size="mini" label="Cliccami" variant="outline-light" />
-        </td>
-      </tr>
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th
+        >Buttons <p>
+          <em>Button</em> for actions.<br />
+          <em>ButtonLink</em> for links.
+        </p></th
+      >
+      <th>Primary Large</th>
+      <th>Outline Primary Large</th>
+      <th>Primary Small</th>
+      <th>Outline Primary Small</th>
+      <th>Primary Mini</th>
+      <th>Outline Primary Mini</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="p-3">Light background</td>
+      <td class="p-3"><Button label="Cliccami" /></td>
+      <td class="p-3"><Button label="Cliccami" variant="outline-light" /></td>
+      <td class="p-3"> <Button size="small" label="Cliccami" /></td>
+      <td class="p-3">
+        <Button size="small" label="Cliccami" variant="outline-light" />
+      </td>
+      <td class="p-3"><Button size="mini" label="Cliccami" /></td>
+      <td class="p-3">
+        <Button size="mini" label="Cliccami" variant="outline-light" />
+      </td>
+    </tr>
 
-      <tr>
-        <td class="p-3">Dark background</td>
-        <td class="primary-bg-a10 p-3"
-          ><Button label="Cliccami" variant="dark" /></td
-        >
-        <td class="primary-bg-a10 p-3"
-          ><Button label="Cliccami" variant="outline-dark" /></td
-        >
-        <td class="primary-bg-a10 p-3"
-          ><Button size="small" label="Cliccami" variant="dark" /></td
-        >
-        <td class="primary-bg-a10 p-3"
-          ><Button size="small" label="Cliccami" variant="outline-dark" /></td
-        >
-        <td class="primary-bg-a10 p-3"
-          ><Button size="mini" label="Cliccami" variant="dark" /></td
-        >
-        <td class="primary-bg-a10 p-3"
-          ><Button size="mini" label="Cliccami" variant="outline-dark" /></td
-        >
-      </tr>
+    <tr>
+      <td class="p-3">Dark background</td>
+      <td class="primary-bg-a10 p-3"
+        ><Button label="Cliccami" variant="dark" /></td
+      >
+      <td class="primary-bg-a10 p-3"
+        ><Button label="Cliccami" variant="outline-dark" /></td
+      >
+      <td class="primary-bg-a10 p-3"
+        ><Button size="small" label="Cliccami" variant="dark" /></td
+      >
+      <td class="primary-bg-a10 p-3"
+        ><Button size="small" label="Cliccami" variant="outline-dark" /></td
+      >
+      <td class="primary-bg-a10 p-3"
+        ><Button size="mini" label="Cliccami" variant="dark" /></td
+      >
+      <td class="primary-bg-a10 p-3"
+        ><Button size="mini" label="Cliccami" variant="outline-dark" /></td
+      >
+    </tr>
 
-      <tr>
-        <td class="p-3">Primary background</td>
-        <td class="bg-primary p-3"></td>
-        <td class="bg-primary p-3"
-          ><Button label="Cliccami" variant="outline-dark" /></td
-        >
-        <td class="bg-primary p-3"></td>
-        <td class="bg-primary p-3"
-          ><Button size="small" label="Cliccami" variant="outline-dark" /></td
-        >
-        <td class="bg-primary p-3"></td>
-        <td class="bg-primary p-3"
-          ><Button size="mini" label="Cliccami" variant="outline-dark" /></td
-        >
-      </tr>
-    </tbody>
-  </table>
+    <tr>
+      <td class="p-3">Primary background</td>
+      <td class="bg-primary p-3"></td>
+      <td class="bg-primary p-3"
+        ><Button label="Cliccami" variant="outline-dark" /></td
+      >
+      <td class="bg-primary p-3"></td>
+      <td class="bg-primary p-3"
+        ><Button size="small" label="Cliccami" variant="outline-dark" /></td
+      >
+      <td class="bg-primary p-3"></td>
+      <td class="bg-primary p-3"
+        ><Button size="mini" label="Cliccami" variant="outline-dark" /></td
+      >
+    </tr>
+  </tbody>
+</table>
 
-  <table class="table table-bordered">
-    <thead>
-      <tr>
-        <th>Chips</th>
-        <th>Primary</th>
-        <th>Standard</th>
-        <th>Outline white</th>
-        <th>Disabled</th>
-        <th>Active</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td class="p-3">Light background</td>
-        <td class="p-3">
-          <Chip
-            visuallyHidden="Argomento"
-            label="Informazione"
-            variant="primary"
-          />
-        </td>
-        <td class="p-3">
-          <Chip
-            visuallyHidden="Argomento"
-            label="Informazione"
-            variant="standard"
-          />
-        </td>
-        <td class="p-3"> </td>
-        <td class="p-3">
-          <Chip
-            disabled={true}
-            visuallyHidden="Argomento"
-            label="Informazione"
-          />
-        </td>
-        <td class="p-3">
-          <Chip
-            active={true}
-            visuallyHidden="Argomento"
-            label="Informazione"
-            variant="primary"
-          />
-        </td>
-      </tr>
-      <tr>
-        <td class="p-3">Dark background</td>
-        <td class="bg-dark p-3"> </td>
-        <td class="bg-dark p-3">
-          <ChipLink
-            visuallyHidden="Argomento"
-            label="Informazione"
-            variant="standard"
-            linkTo="#"
-          />
-        </td>
-        <td class="bg-dark p-3">
-          <ChipLink
-            visuallyHidden="Argomento"
-            visuallyHidden="Argomento"
-            label="Informazione"
-            variant="outline-white"
-            linkTo="#"
-          />
-        </td>
-        <td class="bg-dark p-3">
-          <ChipLink
-            disabled={true}
-            visuallyHidden="Argomento"
-            label="Informazione"
-            variant="outline-white"
-            linkTo="#"
-          />
-        </td>
-        <td class="bg-dark p-3"> </td>
-      </tr>
-    </tbody>
-  </table>
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>Chips</th>
+      <th>Primary</th>
+      <th>Standard</th>
+      <th>Outline white</th>
+      <th>Disabled</th>
+      <th>Active</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="p-3">Light background</td>
+      <td class="p-3">
+        <Chip
+          visuallyHidden="Argomento"
+          label="Informazione"
+          variant="primary"
+        />
+      </td>
+      <td class="p-3">
+        <Chip
+          visuallyHidden="Argomento"
+          label="Informazione"
+          variant="standard"
+        />
+      </td>
+      <td class="p-3"> </td>
+      <td class="p-3">
+        <Chip disabled={true} visuallyHidden="Argomento" label="Informazione" />
+      </td>
+      <td class="p-3">
+        <Chip
+          active={true}
+          visuallyHidden="Argomento"
+          label="Informazione"
+          variant="primary"
+        />
+      </td>
+    </tr>
+    <tr>
+      <td class="p-3">Dark background</td>
+      <td class="bg-dark p-3"> </td>
+      <td class="bg-dark p-3">
+        <ChipLink
+          visuallyHidden="Argomento"
+          label="Informazione"
+          variant="standard"
+          linkTo="#"
+        />
+      </td>
+      <td class="bg-dark p-3">
+        <ChipLink
+          visuallyHidden="Argomento"
+          visuallyHidden="Argomento"
+          label="Informazione"
+          variant="outline-white"
+          linkTo="#"
+        />
+      </td>
+      <td class="bg-dark p-3">
+        <ChipLink
+          disabled={true}
+          visuallyHidden="Argomento"
+          label="Informazione"
+          variant="outline-white"
+          linkTo="#"
+        />
+      </td>
+      <td class="bg-dark p-3"> </td>
+    </tr>
+  </tbody>
+</table>
 
-  <table class="table table-bordered">
-    <thead>
-      <tr>
-        <th>Icon Container</th>
-        <th>Standard</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td class="p-3">Light background</td>
-        <td class="p-3">
-          <IconContainer content="1" />
-        </td>
-      </tr>
-      <tr>
-        <td class="p-3">Dark background</td>
-        <td class="bg-dark p-3">
-          <IconContainer
-            content=`<svg
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>Icon Container</th>
+      <th>Standard</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="p-3">Light background</td>
+      <td class="p-3">
+        <IconContainer content="1" />
+      </td>
+    </tr>
+    <tr>
+      <td class="p-3">Dark background</td>
+      <td class="bg-dark p-3">
+        <IconContainer
+          content=`<svg
         width="27"
         height="27"
         viewBox="0 0 27 27"
@@ -206,37 +225,36 @@ import { Blockquote } from "@components/atoms/Blockquote";
           fill="#003366"
         />
       </svg>`
-          />
-        </td>
-      </tr>
-    </tbody>
-  </table>
+        />
+      </td>
+    </tr>
+  </tbody>
+</table>
 
-  <table class="table table-bordered">
-    <thead>
-      <tr>
-        <th>Link</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td class="p-3">Link</td>
-        <td class="p-3">
-          <Link label="Link example" linkTo="#" />
-        </td>
-      </tr>
-      <tr>
-        <td class="p-3">Link with icon</td>
-        <td class="p-3">
-          <Link
-            label="Link example"
-            linkTo="#"
-            icon="it-arrow-right"
-            titleIcon="Freccia destra"
-          />
-        </td>
-      </tr>
-    </tbody>
-  </table>
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>Link</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="p-3">Link</td>
+      <td class="p-3">
+        <Link label="Link example" linkTo="#" />
+      </td>
+    </tr>
+    <tr>
+      <td class="p-3">Link with icon</td>
+      <td class="p-3">
+        <Link
+          label="Link example"
+          linkTo="#"
+          icon="it-arrow-right"
+          titleIcon="Freccia destra"
+        />
+      </td>
+    </tr>
+  </tbody>
 </table>

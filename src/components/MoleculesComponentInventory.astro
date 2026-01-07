@@ -26,9 +26,36 @@ import { TextContainer } from "@components/molecules/TextContainer";
 import { Topics } from "@components/molecules/Topics";
 import { UseCaseCard } from "@components/molecules/UseCaseCard";
 import { GenericList } from "@components/molecules/GenericList";
+import { ActionCard } from "@components/molecules/ActionCard";
 ---
 
 <h2 class="mb-4">Molecules</h2>
+
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>Action Card</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="p-0">
+        <div class="row">
+          <div class="col-8 mb-3">
+            <ActionCard
+              title="Sintesi Webinar"
+              paragraph={`<p>In apertura, i relatori hanno delineato il contesto di riferimento: oltre il 70% delle amministrazioni ha già avviato il percorso di migrazione, ma la sfida principale resta la capacità di coordinare i diversi livelli organizzativi, assicurando coerenza con la Strategia Cloud Italia e con le normative ACN. È stato ricordato come la governance non si esaurisca nella fase tecnica di migrazione, ma rappresenti un processo continuo di gestione, monitoraggio e miglioramento dei servizi nel tempo.Nel corso del webinar “Governance del Cloud nella Pubblica Amministrazione”, esperti di AgID e dell’Agenzia per la Cybersicurezza Nazionale hanno illustrato come costruire un modello di governance efficace e sostenibile per la gestione dei servizi cloud pubblici.
+In apertura, i relatori hanno delineato il contesto di riferimento: oltre il 70% delle amministrazioni ha già avviato il percorso di migrazione, ma la sfida principale resta la capacità di coordinare i diversi livelli organizzativi, assicurando coerenza con la Strategia Cloud Italia e con le normative ACN. È stato ricordato come la governance non si esaurisca nella fase tecnica di migrazione, ma rappresenti un processo continuo di gestione, monitoraggio e miglioramento dei servizi nel tempo.</p>`}
+              ctaLabel="Scarica la sintesi del webinar"
+              category="Generato da IA"
+              labelButton="Leggi di più"
+            />
+          </div>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
 
 <table class="table table-bordered">
   <thead>
@@ -322,6 +349,32 @@ import { GenericList } from "@components/molecules/GenericList";
       <td class="p-3">Small</td>
       <td class="p-3">
         <GenericList label="Link utili" size="small" items={genericListItems} />
+      </td>
+    </tr>
+    <tr>
+      <td class="p-3">Rich</td>
+      <td class="p-3">
+        <GenericList
+          size="default"
+          bordered={true}
+          items={[
+            {
+              text: "Modello di governance del Cloud Italia",
+              subtext:
+                "Struttura, attori coinvolti e strumenti di coordinamento tra PA e fornitori.",
+            },
+            {
+              text: "Modello di governance del Cloud Italia",
+              subtext:
+                "Struttura, attori coinvolti e strumenti di coordinamento tra PA e fornitori.",
+            },
+            {
+              text: "Modello di governance del Cloud Italia",
+              subtext:
+                "Struttura, attori coinvolti e strumenti di coordinamento tra PA e fornitori.",
+            },
+          ]}
+        />
       </td>
     </tr>
   </tbody>
