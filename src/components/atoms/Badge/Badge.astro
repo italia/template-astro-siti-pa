@@ -1,0 +1,15 @@
+---
+type Props = {
+  label: string;
+  variant?: "primary" | "secondary";
+};
+const { label, variant = "secondary" } = Astro.props;
+
+const className = variant === "primary" ? "bg-teal" : "bg-secondary";
+---
+
+<style>
+  @import "./style.scss";
+</style>
+
+<span class={`badge ${className} text-uppercase`}>{label}</span>
