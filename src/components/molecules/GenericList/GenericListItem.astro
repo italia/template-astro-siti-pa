@@ -1,0 +1,63 @@
+---
+import type {
+  GenericListItemProps,
+  GenericListVariantProps,
+  GenericListSizeProps,
+} from "./types";
+
+type Props = GenericListItemProps & {
+  size?: GenericListSizeProps;
+  variant?: GenericListVariantProps;
+};
+const {
+  text,
+  avatar,
+  iconRight,
+  icon,
+  size = "default",
+  linkTo,
+  variant = "light",
+} = Astro.props;
+const textClassName =
+  size === "small" ? "small" : size === "bold" ? "text" : "";
+
+const colorClassName = variant === "dark" ? "text-white text-underline" : "";
+const iconClassName = variant === "dark" ? "icon-white" : "";
+const RightZoneTag = linkTo ? "a" : "div";
+---
+
+<li>
+  <div class="list-item border-0">
+    {
+      avatar && (
+        <div class="avatar size-lg">
+          <img src={avatar} alt={text} />
+        </div>
+      )
+    }
+
+    {
+      !avatar && icon && (
+        <div class="it-rounded-icon">
+          <svg class={`icon ${iconClassName}`}>
+            <use href={`/bsi-svg/sprites.svg#${icon}`} />
+          </svg>
+        </div>
+      )
+    }
+
+    <RightZoneTag href={linkTo} class={`it-right-zone ${colorClassName}`}>
+      <span class=`${textClassName} m-0`>
+        {text}
+      </span>
+
+      {
+        iconRight && (
+          <svg class={`icon  ${iconClassName}`}>
+            <use href={`/bsi-svg/sprites.svg#${iconRight}`} />
+          </svg>
+        )
+      }
+    </RightZoneTag>
+  </div>
+</li>
