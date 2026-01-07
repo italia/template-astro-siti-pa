@@ -31,7 +31,7 @@ export async function getStaticPaths() {
     ?.flatMap((insight) =>
       insight.locales.map((lang) => ({
         params: {
-          insight: buildFullPathInsights(insight, lang),
+          insight: buildFullPathInsights(insight, lang).fullPath,
           lang: lang,
         },
         props: {
@@ -52,5 +52,5 @@ Astro.locals.recordId = id;
 ---
 
 <Layout pageSeo={seo}>
-  <PageAdapter content={content} sitename={"Home"} />
+  <PageAdapter content={content} />
 </Layout>

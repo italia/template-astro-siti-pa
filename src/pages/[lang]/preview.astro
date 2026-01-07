@@ -1,11 +1,7 @@
 ---
 import Layout from "@layouts/Layout.astro";
 import { executeQuery } from "@lib/datocms";
-import {
-  GlobalSettingsQuery,
-  HomepageQuery,
-  PageBySlugQuery,
-} from "@utils/query";
+import { HomepageQuery, PageBySlugQuery } from "@utils/query";
 import { isDraftModeEnabled } from "@lib/draftMode";
 import DraftModeQueryListener from "@components/DraftModeQueryListener.astro";
 import PageAdapter from "@components/cms-adapters/datocms/PageAdapter.astro";
@@ -29,10 +25,6 @@ if (!homepage) return;
 
 const content = homepage.content;
 
-const { globalSetting } = await executeQuery(GlobalSettingsQuery, {
-  variables: { locale: lang },
-});
-
 const redirectUrl =
   typeof lang === "string" && typeof slug === "string"
     ? `/${lang}/${slug}`
@@ -42,7 +34,7 @@ Astro.locals.recordId = homepage.id;
 ---
 
 <Layout redirectUrl={redirectUrl} pageSeo={homepage?.seo}>
-  <PageAdapter content={content} sitename={globalSetting?.siteName || "Home"} />
+  <PageAdapter content={content} />
 </Layout>
 <DraftModeQueryListener
   query={PageBySlugQuery}

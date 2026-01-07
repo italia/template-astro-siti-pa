@@ -30,7 +30,7 @@ export async function getStaticPaths() {
     ?.flatMap((article) =>
       article.locales.map((lang) => ({
         params: {
-          article: buildFullPath(article, lang, response.allArticles),
+          article: buildFullPath(article, lang, response.allArticles).fullPath,
           lang: lang,
         },
         props: {

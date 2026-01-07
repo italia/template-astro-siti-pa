@@ -23,17 +23,16 @@ type ContentType =
 
 type Props = {
   content: ContentType[];
-  sitename: string;
 };
 
-const { content, sitename } = Astro.props;
+const { content } = Astro.props;
 ---
 
 {
   content.map((block) => {
     switch (block.componentName) {
       case "HeroRecord":
-        return <HeroAdapter block={block} sitename={sitename} />;
+        return <HeroAdapter block={block} />;
       case "NewsFeedRecord":
         return <NewsFeedAdapter block={block} />;
       case "SupportChannelsSectionRecord":

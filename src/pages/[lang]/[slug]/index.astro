@@ -1,11 +1,7 @@
 ---
 import Layout from "@layouts/Layout.astro";
 import { executeQuery } from "@lib/datocms";
-import {
-  AllPagesSlugQuery,
-  PageBySlugQuery,
-  GlobalSettingsQuery,
-} from "@utils/query";
+import { AllPagesSlugQuery, PageBySlugQuery } from "@utils/query";
 import type { SiteLocale } from "@graphql/types";
 
 import type { PageContentFragmentType } from "@graphql/templateFragments";
@@ -43,13 +39,9 @@ const { page } = await executeQuery(PageBySlugQuery, {
 if (!page) return;
 const content = page.content as PageContentFragmentType[];
 
-const { globalSetting } = await executeQuery(GlobalSettingsQuery, {
-  variables: { locale: lang },
-});
-
 Astro.locals.recordId = page.id;
 ---
 
 <Layout pageSeo={page?.seo}>
-  <PageAdapter content={content} sitename={globalSetting?.siteName || "Home"} />
+  <PageAdapter content={content} />
 </Layout>

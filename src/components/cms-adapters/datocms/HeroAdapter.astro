@@ -11,14 +11,13 @@ import type {
 
 type Props = {
   block: HeroFragmentType;
-  sitename: string;
 };
 
-const { block, sitename } = Astro.props as Props;
+const { block } = Astro.props as Props;
 
-const { pathname } = Astro.url;
+const { recordId, lang } = Astro.locals;
 
-const itemsBreadcrumb = createBreadcrumb(pathname, sitename);
+const itemsBreadcrumb = createBreadcrumb(recordId, lang);
 ---
 
 <Hero
