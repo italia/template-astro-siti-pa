@@ -1,0 +1,20 @@
+---
+type Props = {
+  text: string;
+  author: string;
+};
+const { text, author } = Astro.props;
+---
+
+<style>
+  @import "./style.scss";
+</style>
+
+<blockquote class="blockquote blockquote-card border-left-primary">
+  <p class="mb-0">
+    <em>{text}</em>
+  </p>
+  <footer class="blockquote-footer">
+    <cite title={author}>{author}</cite>
+  </footer>
+</blockquote>

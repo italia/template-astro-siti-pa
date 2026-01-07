@@ -1,0 +1,5 @@
+@use "bootstrap-italia/src/scss/bootstrap-italia" as *;
+
+.border-left-primary {
+  border-left-color: $primary !important;
+}
