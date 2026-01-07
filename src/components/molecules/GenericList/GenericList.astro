@@ -4,7 +4,7 @@ import type { GenericListProps } from "./types";
 
 type Props = GenericListProps;
 
-const { label, items, variant, size } = Astro.props;
+const { label, items, variant, size, bordered } = Astro.props;
 ---
 
 <style>
@@ -16,7 +16,12 @@ const { label, items, variant, size } = Astro.props;
   <ul class="it-list">
     {
       items.map((item) => (
-        <GenericListItem {...item} variant={variant} size={size} />
+        <GenericListItem
+          {...item}
+          variant={variant}
+          size={size}
+          bordered={bordered}
+        />
       ))
     }
   </ul>

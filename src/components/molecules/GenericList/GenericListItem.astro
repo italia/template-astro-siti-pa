@@ -8,15 +8,18 @@ import type {
 type Props = GenericListItemProps & {
   size?: GenericListSizeProps;
   variant?: GenericListVariantProps;
+  bordered?: boolean;
 };
 const {
   text,
+  subtext,
   avatar,
   iconRight,
   icon,
   size = "default",
   linkTo,
   variant = "light",
+  bordered = false,
 } = Astro.props;
 const textClassName =
   size === "small" ? "small" : size === "bold" ? "text" : "";
@@ -27,7 +30,7 @@ const RightZoneTag = linkTo ? "a" : "div";
 ---
 
 <li>
-  <div class="list-item border-0">
+  <div class={`list-item ${!bordered ? "border-0" : ""}`}>
     {
       avatar && (
         <div class="avatar size-lg">
@@ -47,10 +50,16 @@ const RightZoneTag = linkTo ? "a" : "div";
     }
 
     <RightZoneTag href={linkTo} class={`it-right-zone ${colorClassName}`}>
-      <span class=`${textClassName} m-0`>
-        {text}
-      </span>
-
+      {
+        subtext ? (
+          <div>
+            <h4 class="text m-0">{text}</h4>
+            <p class="small m-0">{subtext}</p>
+          </div>
+        ) : (
+          <span class={`${textClassName} m-0`}>{text}</span>
+        )
+      }
       {
         iconRight && (
           <svg class={`icon  ${iconClassName}`}>

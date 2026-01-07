@@ -3,10 +3,12 @@ export type GenericListProps = {
   label?: string;
   size?: GenericListSizeProps;
   variant?: GenericListVariantProps;
+  bordered?: boolean;
 };
 
 export type GenericListItemProps = {
   text: string;
+  subtext?: string;
   avatar?: string;
   icon?: string;
   iconRight?: string;
