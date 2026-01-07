@@ -2,8 +2,8 @@
 import {
   accordionItems,
   breadcrumbItems,
+  genericListItems,
   image,
-  linkListItems,
   listItems,
   listItemsDefault,
   tabsItems,
@@ -18,13 +18,14 @@ import { CardEditorialWithIcon } from "@components/molecules/CardEditorialWithIc
 import { CardInfoAndService } from "@components/molecules/CardInfoAndService";
 import { CardPresentationBanner } from "@components/molecules/CardPresentationBanner";
 import { DataContainer } from "@components/molecules/DataContainer";
-import { List } from "@components/molecules/List";
+import { OrderedList } from "@components/molecules/OrderedList";
 import { QuickLinkCard } from "@components/molecules/QuickLinkCard";
 import { StatisticsBox } from "@components/molecules/StatisticsBox";
 import { Tabs } from "@components/molecules/Tabs";
 import { TextContainer } from "@components/molecules/TextContainer";
 import { Topics } from "@components/molecules/Topics";
 import { UseCaseCard } from "@components/molecules/UseCaseCard";
+import { GenericList } from "@components/molecules/GenericList";
 ---
 
 <h2 class="mb-4">Molecules</h2>
@@ -247,6 +248,65 @@ import { UseCaseCard } from "@components/molecules/UseCaseCard";
 <table class="table table-bordered">
   <thead>
     <tr>
+      <th>Generic list</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="p-3">Default</td>
+      <td class="p-3">
+        <GenericList
+          label="Relatori"
+          size="default"
+          items={[
+            {
+              text: "Mario Rossi",
+              avatar: "https://randomuser.me/api/portraits/men/41.jpg",
+            },
+            {
+              text: "Mario Rossi",
+              avatar: "https://randomuser.me/api/portraits/men/41.jpg",
+            },
+            {
+              text: "Mario Rossi",
+              avatar: "https://randomuser.me/api/portraits/men/41.jpg",
+            },
+          ]}
+        />
+      </td>
+    </tr>
+    <tr>
+      <td class="p-3">Bold</td>
+      <td class="p-3">
+        <GenericList
+          label="Risultati raggiunti"
+          size="bold"
+          items={[
+            {
+              text: "Consolidamento di 200+ applicativi su infrastruttura cloud qualificata",
+              icon: "it-folder",
+            },
+            {
+              text: "Consolidamento di 200+ applicativi su infrastruttura cloud qualificata",
+              icon: "it-folder",
+            },
+          ]}
+        />
+      </td>
+    </tr>
+    <tr>
+      <td class="p-3">Small</td>
+      <td class="p-3">
+        <GenericList label="Link utili" size="small" items={genericListItems} />
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<table class="table table-bordered">
+  <thead>
+    <tr>
       <th>List Item</th>
       <th></th>
     </tr>
@@ -255,13 +315,13 @@ import { UseCaseCard } from "@components/molecules/UseCaseCard";
     <tr>
       <td class="p-3">Small</td>
       <td class="p-3">
-        <List items={listItems} variant="small" />
+        <OrderedList items={listItems} variant="small" />
       </td>
     </tr>
     <tr>
       <td class="p-3">Default</td>
       <td class="p-3">
-        <List items={listItemsDefault} />
+        <OrderedList items={listItemsDefault} />
       </td>
     </tr>
   </tbody>
@@ -280,7 +340,7 @@ import { UseCaseCard } from "@components/molecules/UseCaseCard";
       <td class="p-3">
         <QuickLinkCard
           title="Titolo sezione link rapidi"
-          links={linkListItems}
+          links={genericListItems}
         />
       </td>
     </tr>

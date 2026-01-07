@@ -3,7 +3,8 @@ import type { CardEditorialNewsProps } from "@components/molecules/CardEditorial
 import type { CardEditorialWithIconProps } from "@components/molecules/CardEditorialWithIcon/types";
 import type { CardPresentationBannerProps } from "@components/molecules/CardPresentationBanner/types";
 import type { DataContainerProps } from "@components/molecules/DataContainer/types";
-import type { ListItemProps } from "@components/molecules/List/types";
+import type { GenericListItemProps } from "@components/molecules/GenericList/types";
+import type { ListItemProps } from "@components/molecules/OrderedList/types";
 import type { UseCaseCardProps } from "@components/molecules/UseCaseCard/types";
 import type { SidebarItemFirstLevelProps } from "@components/organisms/Sidebar/types";
 
@@ -261,24 +262,21 @@ export const listItemsDefault: ListItemProps[] = [
 
 export const topicItems: string[] = ["Sviluppo interfaccia", "Performance"];
 
-export const linkListItems = [
+export const genericListItems: GenericListItemProps[] = [
   {
-    label: "Link lista 1 attivo",
+    text: "Link lista 1 attivo",
     linkTo: "#",
-    active: true,
-    icon: "it-external-link",
+    iconRight: "it-external-link",
   },
   {
-    label: "Link lista 2",
+    text: "Link lista 2",
     linkTo: "#",
-    icon: "it-link",
-    active: false,
+    iconRight: "it-link",
   },
   {
-    label: "Link lista 3 disabilitato",
+    text: "Link lista 3",
     linkTo: "#",
-    disabled: true,
-    icon: "it-download",
+    iconRight: "it-download",
   },
 ];
 
