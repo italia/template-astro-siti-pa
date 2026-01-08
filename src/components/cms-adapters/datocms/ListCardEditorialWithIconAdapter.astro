@@ -1,5 +1,5 @@
 ---
-import { ListCardEditorialWithIcon } from "@components/molecules/ListCardEditorialWithIcon";
+import { ListCard } from "@components/molecules/ListCard";
 import type { ListCardEditorialWithIconFragmentType } from "@graphql/commonFragments";
 
 type DatoRecord = ListCardEditorialWithIconFragmentType & {
@@ -16,4 +16,4 @@ const { block } = Astro.props;
 const cardsData = block?.items || [];
 ---
 
-<ListCardEditorialWithIcon cards={cardsData} />
+<ListCard cards={cardsData} type="CardEditorialWithIcon" />

@@ -9,6 +9,8 @@ import QuickLinkCardAdapter from "@components/cms-adapters/datocms/QuickLinkCard
 import SupportCTASectionAdapter from "@components/cms-adapters/datocms/SupportCTASectionAdapter.astro";
 import ListInternalLinkAdapter from "@components/cms-adapters/datocms/ListInternalLinkAdapter.astro";
 import TopicsAdapter from "@components/cms-adapters/datocms/TopicsAdapter.astro";
+import ListCardInfoAdapter from "@components/cms-adapters/datocms/ListCardInfoAdapter.astro";
+import ListBlockquoteAdapter from "@components/cms-adapters/datocms/ListBlockquoteAdapter.astro";
 import type { StructuredTextFragmentType } from "@graphql/sectionFragments";
 
 type Props = {
@@ -30,6 +32,8 @@ const { block } = Astro.props;
       SupportCtaSectionRecord: SupportCTASectionAdapter,
       ListInternalLinkRecord: ListInternalLinkAdapter,
       TopicsBlockRecord: TopicsAdapter,
+      ListCardInfoRecord: ListCardInfoAdapter,
+      ListBlockquoteRecord: ListBlockquoteAdapter,
     }}
   />
 </SectionContainer>

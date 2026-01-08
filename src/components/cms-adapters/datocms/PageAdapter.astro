@@ -9,6 +9,7 @@ import type {
   HomepageModelContentFragmentType,
   InsightContentFragmentType,
   PageContentFragmentType,
+  StoryContentFragmentType,
 } from "@graphql/templateFragments";
 import UseCaseContainerAdapter from "@components/cms-adapters/datocms/UseCaseContainerAdapter.astro";
 import TopicFilterAdapter from "@components/cms-adapters/datocms/TopicFilterAdapter.astro";
@@ -19,7 +20,8 @@ import ListCollectionAdapter from "@components/cms-adapters/datocms/ListCollecti
 type ContentType =
   | HomepageModelContentFragmentType
   | PageContentFragmentType
-  | InsightContentFragmentType;
+  | InsightContentFragmentType
+  | StoryContentFragmentType;
 
 type Props = {
   content: ContentType[];

@@ -6,12 +6,13 @@ import type {
 } from "@components/layout/SplitContent/SplitContent.astro";
 import { TextContainer } from "@components/molecules/TextContainer";
 import type { SectionFragmentType } from "@graphql/sectionFragments";
-import AccordionAdapter from "./AccordionAdapter.astro";
-import ImageContainerAdapter from "./ImageContainerAdapter.astro";
-import StatisticAdapter from "./StatisticAdapter.astro";
-import UseCasesAdapter from "./UseCasesAdapter.astro";
+import AccordionAdapter from "@components/cms-adapters/datocms/AccordionAdapter.astro";
+import ImageContainerAdapter from "@components/cms-adapters/datocms/ImageContainerAdapter.astro";
+import StatisticAdapter from "@components/cms-adapters/datocms/StatisticAdapter.astro";
+import UseCasesAdapter from "@components/cms-adapters/datocms/UseCasesAdapter.astro";
 import { AdditionalContent } from "@components/organisms/AdditionalContent";
 import { linkResolver } from "@data/linkMap";
+import IconListAdapter from "@components/cms-adapters/datocms/IconListAdapter.astro";
 
 type Props = {
   block: SectionFragmentType;
@@ -65,6 +66,8 @@ const { lang } = Astro.locals;
             return <StatisticAdapter block={rightBlock} />;
           case "AccordionBlockRecord":
             return <AccordionAdapter block={rightBlock} />;
+          case "IconListBlockRecord":
+            return <IconListAdapter block={rightBlock} />;
           default:
             return;
         }

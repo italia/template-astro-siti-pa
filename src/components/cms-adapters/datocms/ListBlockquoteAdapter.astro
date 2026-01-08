@@ -1,0 +1,24 @@
+---
+import type { BlockquoteProps } from "@components/atoms/Blockquote/types";
+import { ListBlockquote } from "@components/molecules/ListBlockquote";
+import type { ListBlockquoteFragmentType } from "@graphql/commonFragments";
+
+type DatoRecord = ListBlockquoteFragmentType & {
+  __typename: string;
+  id: string;
+};
+
+type Props = {
+  block: DatoRecord;
+};
+
+const { block } = Astro.props;
+
+const items: BlockquoteProps[] =
+  block?.items.map((item) => ({
+    text: item.paragraph,
+    author: item.author,
+  })) || [];
+---
+
+<ListBlockquote cards={items} />
