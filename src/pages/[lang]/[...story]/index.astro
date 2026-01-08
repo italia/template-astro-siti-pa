@@ -1,42 +1,45 @@
 ---
-import { SidebarLayout } from "@components/layout/SidebarLayout";
+import ArticleAdapter from "@components/cms-adapters/datocms/ArticleAdapter.astro";
+import PageAdapter from "@components/cms-adapters/datocms/PageAdapter.astro";
 import type { TagFragmentType } from "@graphql/commonFragments";
-import type { ArticleContentFragmentType } from "@graphql/templateFragments";
+import type {
+  InsightContentFragmentType,
+  StoryContentFragmentType,
+} from "@graphql/templateFragments";
 import type { SiteLocale } from "@graphql/types";
 import Layout from "@layouts/Layout.astro";
 import { executeQuery } from "@lib/datocms";
 import { resolveRoutePath } from "@utils/pathHelper";
-import { AllArticlesQuery, SidebarQuery } from "@utils/query";
+import { AllStoryItemsQuery } from "@utils/query";
 
 export async function getStaticPaths() {
   type PathItem = {
     params: {
-      article: string;
+      story: string;
       lang: SiteLocale;
     };
     props: {
       seo: TagFragmentType[];
-      content: ArticleContentFragmentType;
+      content: StoryContentFragmentType[];
       id: string;
     };
   };
 
-  const response = await executeQuery(AllArticlesQuery);
-  if (!response.allArticles) {
+  const response = await executeQuery(AllStoryItemsQuery);
+  if (!response.allStoryItems) {
     return [];
   }
 
-  return response.allArticles
-    ?.flatMap((article) =>
-      article.locales.map((lang) => ({
+  return response.allStoryItems
+    ?.flatMap((story) =>
+      story.locales.map((lang) => ({
         params: {
-          article: resolveRoutePath(article, lang, response.allArticles)
-            .fullPath,
+          story: resolveRoutePath(story, lang).fullPath,
           lang: lang,
         },
         props: {
-          id: article.id,
-          content: article.allContentLocales?.find(
+          id: story.id,
+          content: story.allContentLocales?.find(
             (contentLocale) => contentLocale.locale === lang,
           )?.value,
         },
@@ -48,17 +51,9 @@ export async function getStaticPaths() {
 const { lang } = Astro.params;
 const { seo, content, id } = Astro.props;
 
-const { sidebarForArticle } = await executeQuery(SidebarQuery, {
-  variables: { locale: lang },
-});
-
-if (!sidebarForArticle) {
-  return;
-}
-
 Astro.locals.recordId = id;
 ---
 
 <Layout pageSeo={seo}>
-  <SidebarLayout sidebar={sidebarForArticle} content={content} />
+  <PageAdapter content={content} />
 </Layout>

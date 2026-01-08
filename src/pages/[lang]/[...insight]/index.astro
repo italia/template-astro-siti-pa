@@ -6,7 +6,7 @@ import type { InsightContentFragmentType } from "@graphql/templateFragments";
 import type { SiteLocale } from "@graphql/types";
 import Layout from "@layouts/Layout.astro";
 import { executeQuery } from "@lib/datocms";
-import { buildFullPathInsights } from "@utils/pathHelper";
+import { resolveRoutePath } from "@utils/pathHelper";
 import { AllInsightsQuery } from "@utils/query";
 
 export async function getStaticPaths() {
@@ -31,7 +31,7 @@ export async function getStaticPaths() {
     ?.flatMap((insight) =>
       insight.locales.map((lang) => ({
         params: {
-          insight: buildFullPathInsights(insight, lang).fullPath,
+          insight: resolveRoutePath(insight, lang).fullPath,
           lang: lang,
         },
         props: {
