@@ -1,0 +1,27 @@
+---
+import { CardEditorialWithIcon } from "@components/molecules/CardEditorialWithIcon";
+import type { CardEditorialWithIconProps } from "@components/molecules/CardEditorialWithIcon/types";
+import type { CardInfoAndServiceProps } from "../CardInfoAndService/types";
+import { CardInfoAndService } from "../CardInfoAndService";
+
+type Props =
+  | { type: "CardEditorialWithIcon"; cards: CardEditorialWithIconProps[] }
+  | { type: "CardInfoAndService"; cards: CardInfoAndServiceProps[] };
+
+const { cards, type } = Astro.props;
+
+if (!cards || cards.length === 0) {
+  return null;
+}
+---
+
+<div class="it-card-group it-card-group-2-cols">
+  {
+    type === "CardEditorialWithIcon" &&
+      cards.map((card) => <CardEditorialWithIcon {...card} />)
+  }
+  {
+    type === "CardInfoAndService" &&
+      cards.map((card) => <CardInfoAndService {...card} />)
+  }
+</div>
