@@ -12,7 +12,7 @@ type Props = {
   block: DatoRecord;
 };
 
-const { block } = Astro.props as Props;
+const { block } = Astro.props;
 const { lang } = Astro.locals;
 const links = block.links.map((link) => ({
   linkTo: linkResolver(link.linkTo.id, lang),

@@ -11,7 +11,7 @@ type Props = {
   block: DatoRecord;
 };
 
-const { block } = Astro.props as Props;
+const { block } = Astro.props;
 
 if (!block.description || !block.icon || !block.label || !block.url) {
   return null;
