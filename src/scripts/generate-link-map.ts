@@ -1,6 +1,6 @@
 import type { SiteLocale } from "@graphql/types";
 import { executeQuery } from "@lib/datocms";
-import { buildFullPath, buildFullPathInsights } from "@utils/pathHelper";
+import { resolveRoutePath } from "@utils/pathHelper";
 import { AllLinkQuery } from "@utils/query";
 import fs from "fs";
 import path from "path";
@@ -75,7 +75,7 @@ async function run() {
   data.allArticles?.forEach((article) => {
     linkMap[article.id] = {} as LocaleMap;
     article.locales.forEach((locale) => {
-      const { fullPath, steps } = buildFullPath(
+      const { fullPath, steps } = resolveRoutePath(
         article,
         locale,
         data.allArticles,
@@ -105,7 +105,7 @@ async function run() {
   data.allInsights?.forEach((insight) => {
     linkMap[insight.id] = {} as LocaleMap;
     insight.locales.forEach((locale) => {
-      const { fullPath, steps } = buildFullPathInsights(insight, locale);
+      const { fullPath, steps } = resolveRoutePath(insight, locale);
       const prefix = `/${locale}`;
       linkMap[insight.id][locale] = {} as PageRouteInfo;
       linkMap[insight.id][locale].path = `${prefix}/${fullPath}`;
@@ -118,6 +118,32 @@ async function run() {
         ];
       }
       linkMap[insight.id][locale].breadcrumb.push(
+        ...steps.map((step) => {
+          return {
+            title: step.title,
+            id: step.id,
+          };
+        }),
+      );
+    });
+  });
+
+  data.allStoryItems?.forEach((story) => {
+    linkMap[story.id] = {} as LocaleMap;
+    story.locales.forEach((locale) => {
+      const { fullPath, steps } = resolveRoutePath(story, locale);
+      const prefix = `/${locale}`;
+      linkMap[story.id][locale] = {} as PageRouteInfo;
+      linkMap[story.id][locale].path = `${prefix}/${fullPath}`;
+      if (home) {
+        linkMap[story.id][locale].breadcrumb = [
+          {
+            title: getTitle(home, locale),
+            id: home.id,
+          },
+        ];
+      }
+      linkMap[story.id][locale].breadcrumb.push(
         ...steps.map((step) => {
           return {
             title: step.title,
