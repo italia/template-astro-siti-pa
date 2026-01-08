@@ -218,7 +218,7 @@ export const TextBlockFragment = graphql(
     fragment TextBlockFragment on TextBlockRecord @_unmask {
       id
       title
-      paragraph
+      paragraph(markdown: true)
       cta {
         ...InternalLinkFragment
       }
@@ -548,3 +548,49 @@ export const SidebarFragment = graphql(
 );
 
 export type SidebarFragmentType = FragmentOf<typeof SidebarFragment>;
+
+export const ListBlockquoteFragment = graphql(`
+  fragment ListBlockquoteFragment on ListBlockquoteRecord @_unmask {
+    id
+    items {
+      id
+      paragraph
+      author
+    }
+  }
+`);
+
+export type ListBlockquoteFragmentType = FragmentOf<
+  typeof ListBlockquoteFragment
+>;
+
+export const ListCardInfoFragment = graphql(`
+  fragment ListCardInfoFragment on ListCardInfoRecord @_unmask {
+    id
+    items {
+      id
+      title
+      paragraph
+    }
+  }
+`);
+
+export type ListCardInfoFragmentType = FragmentOf<typeof ListCardInfoFragment>;
+
+export const IconListBlockFragment = graphql(`
+  fragment IconListBlockFragment on IconListBlockRecord @_unmask {
+    id
+    title
+    items {
+      id
+      items {
+        icon
+        label
+      }
+    }
+  }
+`);
+
+export type IconListBlockFragmentType = FragmentOf<
+  typeof IconListBlockFragment
+>;

@@ -26,6 +26,20 @@ export const PageLocalesFragment = graphql(
   [LocaleFragment],
 );
 
+export const NewsPageLocalesFragment = graphql(
+  `
+    fragment NewsPageLocalesFragment on NewsPageRecord @_unmask {
+      allSlugLocales: _allSlugLocales {
+        ...LocaleFragment
+      }
+      allTitleLocales: _allTitleLocales {
+        ...LocaleFragment
+      }
+    }
+  `,
+  [LocaleFragment],
+);
+
 export const ArticleLocalesFragment = graphql(
   `
     fragment ArticleLocalesFragment on ArticleRecord @_unmask {
@@ -43,6 +57,20 @@ export const ArticleLocalesFragment = graphql(
 export const InsightLocalesFragment = graphql(
   `
     fragment InsightLocalesFragment on InsightRecord @_unmask {
+      allSlugLocales: _allSlugLocales {
+        ...LocaleFragment
+      }
+      allTitleLocales: _allTitleLocales {
+        ...LocaleFragment
+      }
+    }
+  `,
+  [LocaleFragment],
+);
+
+export const StoryItemLocalesFragment = graphql(
+  `
+    fragment StoryItemLocalesFragment on StoryItemRecord @_unmask {
       allSlugLocales: _allSlugLocales {
         ...LocaleFragment
       }

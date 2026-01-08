@@ -6,13 +6,17 @@ import {
   ChannelFragment,
   ChartFragment,
   ExternalLinkFragment,
+  IconListBlockFragment,
   ImageBlockFragment,
   ImageFragment,
   InternalLinkFragment,
+  ListBlockquoteFragment,
+  ListCardInfoFragment,
   ListCollectionFragment,
   ListItemFragment,
   MenuItemFragment,
   NewsTabFragment,
+  OrderedListFragment,
   StatisticBlockFragment,
   StatisticsBoxFragment,
   StoryTabFragment,
@@ -122,6 +126,9 @@ export const SectionFragment = graphql(
         ... on AccordionBlockRecord {
           ...AccordionBlockFragment
         }
+        ... on IconListBlockRecord {
+          ...IconListBlockFragment
+        }
       }
     }
   `,
@@ -132,6 +139,7 @@ export const SectionFragment = graphql(
     StatisticBlockFragment,
     ImageBlockFragment,
     AccordionBlockFragment,
+    IconListBlockFragment,
   ],
 );
 
@@ -370,10 +378,24 @@ export const StructuredTextFragment = graphql(
         ... on CalloutRecord {
           ...CalloutFragment
         }
+        ... on OrderedListRecord {
+          ...OrderedListFragment
+        }
+        ... on ListBlockquoteRecord {
+          ...ListBlockquoteFragment
+        }
+        ... on ListCardInfoRecord {
+          ...ListCardInfoFragment
+        }
       }
     }
   `,
-  [CalloutFragment],
+  [
+    CalloutFragment,
+    OrderedListFragment,
+    ListCardInfoFragment,
+    ListBlockquoteFragment,
+  ],
 );
 
 export type StructuredTextFragmentType = FragmentOf<

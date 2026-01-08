@@ -25,6 +25,7 @@ import {
 import {
   AllArticlesSlugFragment,
   AllInsightsSlugFragment,
+  AllStoryItemsSlugFragment,
 } from "@graphql/slugFragments";
 
 export const HomepageModelContentFragment = graphql(
@@ -241,3 +242,60 @@ export const AllInsightsFragment = graphql(
 );
 
 export type AllInsightsFragmentType = FragmentOf<typeof AllInsightsFragment>;
+
+export const StoryContentFragment = graphql(
+  `
+    fragment StoryContentFragment on StoryItemModelContentField @_unmask {
+      ... on RecordInterface {
+        id
+        componentName: __typename
+      }
+      ... on HeroRecord {
+        ...HeroFragment
+      }
+      ... on StructuredTextRecord {
+        textContent: content {
+          ...StructuredTextFragment
+        }
+      }
+      ... on SectionRecord {
+        ...SectionFragment
+      }
+      ... on SupportCtaSectionRecord {
+        ...SupportCTASectionFragment
+      }
+    }
+  `,
+  [
+    HeroFragment,
+    CalloutFragment,
+    StructuredTextFragment,
+    SectionFragment,
+    SupportCTASectionFragment,
+  ],
+);
+
+export type StoryContentFragmentType = FragmentOf<typeof StoryContentFragment>;
+
+export const AllStoryItemsFragment = graphql(
+  `
+    fragment AllStoryItemsFragment on StoryItemRecord @_unmask {
+      id
+      seo: _seoMetaTags {
+        ...TagFragment
+      }
+      allContentLocales: _allContentLocales {
+        locale
+        value {
+          ...StoryContentFragment
+        }
+      }
+      ...AllStoryItemsSlugFragment
+    }
+  `,
+  [TagFragment, StoryContentFragment, AllStoryItemsSlugFragment],
+);
+
+export type AllStoryItemsFragmentType = FragmentOf<
+  typeof AllStoryItemsFragment
+>;

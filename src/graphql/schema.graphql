@@ -4452,11 +4452,6 @@ type NewsPageRecord implements RecordInterface {
   ): String!
 }
 
-type NewsPageRecordMultiLocaleField {
-  locale: SiteLocale
-  value: NewsPageRecord
-}
-
 """Block of type News tab (news_tab)"""
 type NewsTabRecord implements RecordInterface {
   _createdAt: DateTime!
@@ -5970,6 +5965,13 @@ enum StoryItemModelOrderBy {
   title_DESC
 }
 
+union StoryItemModelParentPageField = NewsPageRecord | PageRecord
+
+type StoryItemModelParentPageFieldMultiLocaleField {
+  locale: SiteLocale
+  value: StoryItemModelParentPageField
+}
+
 """Record of type 📓 Story item (story_item)"""
 type StoryItemRecord implements RecordInterface {
   _allCategoryLocales(
@@ -5995,7 +5997,7 @@ type StoryItemRecord implements RecordInterface {
     If you want to fallback to a default translation when a translation has not been found
     """
     fallbackLocales: [SiteLocale!]
-  ): [NewsPageRecordMultiLocaleField!]
+  ): [StoryItemModelParentPageFieldMultiLocaleField!]
   _allSlugLocales(
     """
     If you want to fallback to a default translation when a translation has not been found
@@ -6064,7 +6066,7 @@ type StoryItemRecord implements RecordInterface {
     If you want to fallback to a default translation when a translation has not been found
     """
     fallbackLocales: [SiteLocale!]
-  ): NewsPageRecord
+  ): StoryItemModelParentPageField
   slug(
     """The locale to use to fetch the field's content"""
     locale: SiteLocale
