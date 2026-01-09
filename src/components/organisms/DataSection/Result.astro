@@ -5,7 +5,7 @@ import type { ResultProps } from "./types";
 
 type Props = ResultProps;
 
-const { title, paragraph, items, label, news } = Astro.props;
+const { title, paragraph, items, titleListNews, news } = Astro.props;
 ---
 
 <div class="row align-items-center justify-content-between">
@@ -17,7 +17,11 @@ const { title, paragraph, items, label, news } = Astro.props;
     <OrderedList items={items} variant="small" />
   </div>
   <div class="col-lg-4 col-12">
-    <p class="fw-semibold fs-6 text-uppercase">{label}</p>
+    {
+      titleListNews && (
+        <p class="fw-semibold fs-6 text-uppercase">{titleListNews}</p>
+      )
+    }
     {
       news.map((newItem) => (
         <CardEditorialNews fullHeight={false} {...newItem} />

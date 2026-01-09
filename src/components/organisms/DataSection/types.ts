@@ -23,6 +23,6 @@ export type ResultProps = {
   title: string;
   paragraph: string;
   items: ListItemProps[];
-  label: string;
+  titleListNews?: string;
   news: CardEditorialNewsProps[];
 };
