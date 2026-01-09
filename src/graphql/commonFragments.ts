@@ -46,7 +46,7 @@ export const TopicsBlockFragment = graphql(`
   fragment TopicsBlockFragment on TopicsBlockRecord @_unmask {
     id
     title
-    listTopics {
+    topics {
       id
       label
     }
@@ -99,20 +99,17 @@ export const KpiFragment = graphql(`
 
 export type KpiFragmentType = FragmentOf<typeof KpiFragment>;
 
-export const UseCaseFragment = graphql(
+export const ArticleCardPreviewFragment = graphql(
   `
-    fragment UseCaseFragment on UseCaseRecord @_unmask {
+    fragment ArticleCardPreviewFragment on ArticleRecord @_unmask {
       id
       title
       paragraph
-      listTopics {
+      topics {
         ...TopicsBlockFragment
       }
       image {
         ...ImageFragment
-      }
-      pointsTo {
-        id
       }
       descriptionTitle
       description(markdown: true)
@@ -121,7 +118,9 @@ export const UseCaseFragment = graphql(
   [ImageFragment, TopicsBlockFragment],
 );
 
-export type UseCaseFragmentType = FragmentOf<typeof UseCaseFragment>;
+export type ArticleCardPreviewFragmentType = FragmentOf<
+  typeof ArticleCardPreviewFragment
+>;
 
 export const NewsItemFragment = graphql(
   `
@@ -235,11 +234,11 @@ export const UseCaseBlockFragment = graphql(
       id
       title
       useCases {
-        ...UseCaseFragment
+        ...ArticleCardPreviewFragment
       }
     }
   `,
-  [UseCaseFragment],
+  [ArticleCardPreviewFragment],
 );
 
 export type UseCaseBlockFragmentType = FragmentOf<typeof UseCaseBlockFragment>;

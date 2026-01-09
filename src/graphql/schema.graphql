@@ -190,6 +190,10 @@ input ArticleModelFilter {
   _isValid: BooleanFilter
   _locales: LocalesFilter
   content: StructuredTextFilter
+  description: TextFilter
+  descriptionTitle: StringFilter
+  image: FileFilter
+  paragraph: TextFilter
   parentPage: LinkFilter
   seo: SeoFilter
   slug: SlugFilter
@@ -219,6 +223,8 @@ enum ArticleModelOrderBy {
   _updatedAt_DESC
   _isValid_ASC
   _isValid_DESC
+  descriptionTitle_ASC
+  descriptionTitle_DESC
   title_ASC
   title_DESC
 }
@@ -231,6 +237,36 @@ type ArticleRecord implements RecordInterface {
     """
     fallbackLocales: [SiteLocale!]
   ): [ArticleModelContentFieldMultiLocaleField!]
+  _allDescriptionLocales(
+    """Process content as markdown"""
+    markdown: Boolean
+
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+  ): [StringMultiLocaleField!]
+  _allDescriptionTitleLocales(
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+  ): [StringMultiLocaleField!]
+  _allImageLocales(
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+  ): [FileFieldMultiLocaleField!]
+  _allParagraphLocales(
+    """Process content as markdown"""
+    markdown: Boolean
+
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+  ): [StringMultiLocaleField!]
   _allParentPageLocales(
     """
     If you want to fallback to a default translation when a translation has not been found
@@ -255,6 +291,12 @@ type ArticleRecord implements RecordInterface {
     """
     fallbackLocales: [SiteLocale!]
   ): [StringNonNullMultiLocaleField!]
+  _allTopicsLocales(
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+  ): [TopicsBlockRecordMultiLocaleField!]
   _createdAt: DateTime!
 
   """Editing URL"""
@@ -284,7 +326,49 @@ type ArticleRecord implements RecordInterface {
     """
     fallbackLocales: [SiteLocale!]
   ): ArticleModelContentField
+  description(
+    """Process content as markdown"""
+    markdown: Boolean
+
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+  ): String
+  descriptionTitle(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+  ): String
   id: ItemId!
+  image(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+  ): FileField
+  paragraph(
+    """Process content as markdown"""
+    markdown: Boolean
+
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+  ): String
   parent: ArticleRecord
   parentPage(
     """The locale to use to fetch the field's content"""
@@ -315,6 +399,93 @@ type ArticleRecord implements RecordInterface {
     fallbackLocales: [SiteLocale!]
   ): String!
   title(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+  ): String!
+  topics(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+  ): TopicsBlockRecord
+}
+
+input ArticleTopicModelFilter {
+  _createdAt: CreatedAtFilter
+  id: ItemIdFilter
+  _firstPublishedAt: PublishedAtFilter
+  _publicationScheduledAt: PublishedAtFilter
+  _unpublishingScheduledAt: PublishedAtFilter
+  _publishedAt: PublishedAtFilter
+  _status: StatusFilter
+  _updatedAt: UpdatedAtFilter
+  _isValid: BooleanFilter
+  _locales: LocalesFilter
+  label: StringFilter
+  OR: [ArticleTopicModelFilter]
+  AND: [ArticleTopicModelFilter]
+}
+
+enum ArticleTopicModelOrderBy {
+  _createdAt_ASC
+  _createdAt_DESC
+  id_ASC
+  id_DESC
+  _firstPublishedAt_ASC
+  _firstPublishedAt_DESC
+  _publicationScheduledAt_ASC
+  _publicationScheduledAt_DESC
+  _unpublishingScheduledAt_ASC
+  _unpublishingScheduledAt_DESC
+  _publishedAt_ASC
+  _publishedAt_DESC
+  _status_ASC
+  _status_DESC
+  _updatedAt_ASC
+  _updatedAt_DESC
+  _isValid_ASC
+  _isValid_DESC
+  label_ASC
+  label_DESC
+}
+
+"""Record of type 🏷️ Article topic (article_topic)"""
+type ArticleTopicRecord implements RecordInterface {
+  _allLabelLocales(
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+  ): [StringNonNullMultiLocaleField!]
+  _createdAt: DateTime!
+
+  """Editing URL"""
+  _editingUrl: String
+  _firstPublishedAt: DateTime!
+  _isValid: BooleanType!
+  _locales: [SiteLocale!]!
+  _modelApiKey: String!
+  _publicationScheduledAt: DateTime
+  _publishedAt: DateTime!
+
+  """Generates SEO and Social card meta tags to be used in your frontend"""
+  _seoMetaTags(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+  ): [Tag!]!
+  _status: ItemStatus!
+  _unpublishingScheduledAt: DateTime
+  _updatedAt: DateTime!
+  id: ItemId!
+  label(
     """The locale to use to fetch the field's content"""
     locale: SiteLocale
 
@@ -1059,6 +1230,11 @@ interface FileFieldInterface {
   ): String!
   video: UploadVideoField
   width: IntType
+}
+
+type FileFieldMultiLocaleField {
+  locale: SiteLocale
+  value: FileField
 }
 
 type FileFieldNonNullMultiLocaleField {
@@ -5072,6 +5248,13 @@ input PublishedAtFilter {
 """The query root for this schema"""
 type Query {
   """Returns meta information regarding a record collection"""
+  _allArticleTopicsMeta(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+    filter: ArticleTopicModelFilter
+  ): CollectionMetadata!
+
+  """Returns meta information regarding a record collection"""
   _allArticlesMeta(
     """The locale to use to fetch the field's content"""
     locale: SiteLocale
@@ -5172,6 +5355,25 @@ type Query {
     """
     fallbackLocales: [SiteLocale!]
   ): Site!
+
+  """Returns a collection of records"""
+  allArticleTopics(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+
+    """Skip the first results"""
+    skip: IntType
+
+    """Limit the number of results"""
+    first: IntType = 20
+    filter: ArticleTopicModelFilter
+    orderBy: [ArticleTopicModelOrderBy] = [_updatedAt_DESC]
+  ): [ArticleTopicRecord!]!
 
   """Returns a collection of records"""
   allArticles(
@@ -5432,6 +5634,19 @@ type Query {
     filter: ArticleModelFilter
     orderBy: [ArticleModelOrderBy] = [position_ASC]
   ): ArticleRecord
+
+  """Returns a specific record"""
+  articleTopic(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+    filter: ArticleTopicModelFilter
+    orderBy: [ArticleTopicModelOrderBy] = [_updatedAt_DESC]
+  ): ArticleTopicRecord
 
   """Returns a specific record"""
   chartElement(
@@ -5761,11 +5976,10 @@ type ResultRecord implements RecordInterface {
   _updatedAt: DateTime!
   id: ItemId!
   items: [ListItemRecord!]!
-  label: String!
-  news: CardEditorialNewsRecord!
   paragraph: String!
   title: String!
-  useCase: UseCaseRecord!
+  titleListUseCases: String
+  useCases: [ArticleRecord!]!
 }
 
 union SectionModelLeftField = FeatureListBlockRecord | TextBlockRecord
@@ -6589,8 +6803,13 @@ type TopicsBlockRecord implements RecordInterface {
   _unpublishingScheduledAt: DateTime
   _updatedAt: DateTime!
   id: ItemId!
-  listTopics: [TopicRecord!]!
   title: String
+  topics: [ArticleTopicRecord!]!
+}
+
+type TopicsBlockRecordMultiLocaleField {
+  locale: SiteLocale
+  value: TopicsBlockRecord
 }
 
 """Specifies how to filter by upload type"""
@@ -7141,7 +7360,7 @@ type UseCaseBlockRecord implements RecordInterface {
   _updatedAt: DateTime!
   id: ItemId!
   title: String!
-  useCases: [UseCaseRecord!]!
+  useCases: [ArticleRecord!]!
 }
 
 """Block of type 🗂️ Use case container (use_case_container)"""
@@ -7165,43 +7384,7 @@ type UseCaseContainerRecord implements RecordInterface {
   _unpublishingScheduledAt: DateTime
   _updatedAt: DateTime!
   id: ItemId!
-  useCases: [UseCaseRecord!]!
-}
-
-"""Block of type 💼 UseCase (use_case)"""
-type UseCaseRecord implements RecordInterface {
-  _createdAt: DateTime!
-
-  """Editing URL"""
-  _editingUrl: String
-  _firstPublishedAt: DateTime!
-  _isValid: BooleanType!
-  _modelApiKey: String!
-  _publicationScheduledAt: DateTime
-  _publishedAt: DateTime!
-
-  """Generates SEO and Social card meta tags to be used in your frontend"""
-  _seoMetaTags(
-    """The locale to use to fetch the field's content"""
-    locale: SiteLocale
-  ): [Tag!]!
-  _status: ItemStatus!
-  _unpublishingScheduledAt: DateTime
-  _updatedAt: DateTime!
-  description(
-    """Process content as markdown"""
-    markdown: Boolean
-  ): String
-  descriptionTitle: String
-  id: ItemId!
-  image: FileField!
-  listTopics: TopicsBlockRecord
-  paragraph(
-    """Process content as markdown"""
-    markdown: Boolean
-  ): String!
-  pointsTo: ArticleRecord!
-  title: String!
+  useCases: [ArticleRecord!]!
 }
 
 enum VideoMp4Res {

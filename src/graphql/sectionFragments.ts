@@ -2,6 +2,7 @@ import {
   AccordionBlockFragment,
   AccordionFragment,
   AdditionalContentFragment,
+  ArticleCardPreviewFragment,
   AuthorListFragment,
   CalloutFragment,
   ChannelFragment,
@@ -25,7 +26,6 @@ import {
   StoryTabFragment,
   TextBlockFragment,
   UseCaseBlockFragment,
-  UseCaseFragment,
 } from "@graphql/commonFragments";
 import { graphql, type FragmentOf } from "@graphql/graphql";
 
@@ -245,16 +245,16 @@ export const ResultFragment = graphql(
       id
       title
       paragraph
-      label
       items {
         ...ListItemFragment
       }
-      useCase {
-        ...UseCaseFragment
+      titleListUseCases
+      useCases {
+        ...ArticleCardPreviewFragment
       }
     }
   `,
-  [ListItemFragment, UseCaseFragment],
+  [ListItemFragment, ArticleCardPreviewFragment],
 );
 
 export type ResultFragmentType = FragmentOf<typeof ResultFragment>;
@@ -286,11 +286,11 @@ export const UseCaseContainerFragment = graphql(
     fragment UseCaseContainerFragment on UseCaseContainerRecord @_unmask {
       id
       useCases {
-        ...UseCaseFragment
+        ...ArticleCardPreviewFragment
       }
     }
   `,
-  [UseCaseFragment],
+  [ArticleCardPreviewFragment],
 );
 
 export type UseCaseContainerFragmentType = FragmentOf<
