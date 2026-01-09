@@ -2,6 +2,7 @@
 import type { UseCaseBlockFragmentType } from "@graphql/commonFragments";
 import UseCases from "@components/molecules/UseCases/UseCases.astro";
 import { linkResolver } from "@data/linkMap";
+import type { UseCaseCardProps } from "@components/molecules/UseCaseCard/types";
 
 type Props = {
   block: UseCaseBlockFragmentType;
@@ -10,12 +11,12 @@ type Props = {
 const { block } = Astro.props;
 const { lang } = Astro.locals;
 
-const usecases = block.useCases.map((usecase) => {
+const usecases: UseCaseCardProps[] = block.useCases.map((usecase) => {
   return {
     title: usecase.title,
-    paragraph: usecase.paragraph,
-    linkTo: linkResolver(usecase.pointsTo.id, lang),
-    image: usecase.image,
+    paragraph: usecase.paragraph || "",
+    linkTo: linkResolver(usecase.id, lang),
+    image: usecase.image || undefined,
   };
 });
 ---

@@ -5,7 +5,7 @@ export type UseCaseCardProps = {
   title: string;
   paragraph: string;
   linkTo: string;
-  image: ImageProps;
+  image?: ImageProps;
   listTopics?: TopicsProps;
   descriptionTitle?: string;
   description?: string;

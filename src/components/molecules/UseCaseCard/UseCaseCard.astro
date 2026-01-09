@@ -23,11 +23,15 @@ const {
   class=`it-card it-card-profile ${variant==="big" && "it-card-big"} rounded shadow-sm border lightgrey-bg-a3`
 >
   <div class="it-card-profile-header">
-    <div class="it-card-profile-image ratio ratio-1x1">
-      <figure class="figure img-full">
-        <Image {...image} />
-      </figure>
-    </div>
+    {
+      image && (
+        <div class="it-card-profile-image ratio ratio-1x1">
+          <figure class="figure img-full">
+            <Image {...image} />
+          </figure>
+        </div>
+      )
+    }
 
     <div class="it-card-profile it-card-body">
       <div>
