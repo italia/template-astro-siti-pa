@@ -1,0 +1,33 @@
+---
+import { ListInternalLink } from "@components/molecules/ListInternalLink";
+import type { RelatedArticleFragmentType } from "../../../graphql/commonFragments";
+import { linkResolver } from "@data/linkMap";
+import { Link } from "@components/atoms/Link";
+import { ArticleNavigation } from "@components/molecules/ArticleNavigation";
+import ArticleNavigationAdapter from "./ArticleNavigationAdapter.astro";
+import ArticleListAdapter from "./ArticleListAdapter.astro";
+
+type DatoRecord = RelatedArticleFragmentType & {
+  __typename: string;
+  id: string;
+};
+
+type Props = {
+  block: DatoRecord;
+};
+
+const { block } = Astro.props;
+---
+
+{
+  (() => {
+    switch (block.relatedBlock.componentName) {
+      case "ArticleNavigationRecord":
+        return <ArticleNavigationAdapter block={block.relatedBlock} />;
+      case "ArticleListRecord":
+        return <ArticleListAdapter block={block.relatedBlock} />;
+      default:
+        return;
+    }
+  })()
+}

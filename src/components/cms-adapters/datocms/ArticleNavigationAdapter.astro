@@ -1,0 +1,38 @@
+---
+import { linkResolver } from "@data/linkMap";
+import { ArticleNavigation } from "@components/molecules/ArticleNavigation";
+import type { ArticleNavigationFragmentType } from "@graphql/commonFragments";
+
+type Props = {
+  block: ArticleNavigationFragmentType;
+};
+
+const { block } = Astro.props;
+
+const { lang } = Astro.locals;
+const blockPrevious = block.previousArticle;
+const blockNext = block.nextArticle;
+
+let previousArticle = undefined;
+if (blockPrevious) {
+  previousArticle = {
+    title: blockPrevious.label,
+    url: linkResolver(blockPrevious.pointsTo.id, lang),
+  };
+}
+
+let nextArticle = undefined;
+if (blockNext) {
+  nextArticle = {
+    title: blockNext.label,
+    url: linkResolver(blockNext.pointsTo.id, lang),
+  };
+}
+---
+
+<ArticleNavigation
+  previousLabel={block.previousLabel || undefined}
+  nextLabel={block.nextLabel || undefined}
+  previousArticle={previousArticle}
+  nextArticle={nextArticle}
+/>
