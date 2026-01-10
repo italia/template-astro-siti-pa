@@ -10,6 +10,7 @@ import QuickLinkCardAdapter from "@components/cms-adapters/datocms/QuickLinkCard
 import SupportCTASectionAdapter from "@components/cms-adapters/datocms/SupportCTASectionAdapter.astro";
 import ListInternalLinkAdapter from "@components/cms-adapters/datocms/ListInternalLinkAdapter.astro";
 import TopicsAdapter from "@components/cms-adapters/datocms/TopicsAdapter.astro";
+import RelatedArticleAdapter from "@components/cms-adapters/datocms/RelatedArticleAdapter.astro";
 
 type Props = {
   content: ArticleContentFragmentType;
@@ -30,6 +31,7 @@ const { content } = Astro.props;
       SupportCtaSectionRecord: SupportCTASectionAdapter,
       ListInternalLinkRecord: ListInternalLinkAdapter,
       TopicsBlockRecord: TopicsAdapter,
+      RelatedArticleRecord: RelatedArticleAdapter,
     }}
   />
 </SectionContainer>
