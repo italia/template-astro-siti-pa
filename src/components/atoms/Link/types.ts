@@ -6,4 +6,5 @@ export type LinkProps = {
   titleIcon?: string;
   active?: boolean;
   disabled?: boolean;
+  iconPosition?: "left" | "right";
 };

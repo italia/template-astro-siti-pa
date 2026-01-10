@@ -10,6 +10,7 @@ const {
   linkTo,
   disabled,
   openInNewTab = false,
+  iconPosition = "right",
 } = Astro.props;
 
 const finalHref = disabled ? undefined : linkTo;
@@ -18,16 +19,20 @@ const target = openInNewTab ? "_blank" : "_self";
 const rel = openInNewTab ? "noopener noreferrer" : undefined;
 ---
 
-<a href={finalHref} aria-disabled={ariaDisabled} target={target} rel={rel}>
-  <span class="list-item-title-icon-wrapper">
-    <span class="fw-semibold">{label}</span>
-    {
-      icon && (
-        <svg class="icon icon-sm icon-primary">
-          {titleIcon && <title>{titleIcon}</title>}
-          <use href={`/bsi-svg/sprites.svg#${icon}`} />
-        </svg>
-      )
-    }
-  </span>
+<a
+  href={finalHref}
+  aria-disabled={ariaDisabled}
+  target={target}
+  rel={rel}
+  class={`d-inline-flex align-items-center gap-2 ${iconPosition === "left" ? "flex-row-reverse" : ""}`}
+>
+  <span class="fw-semibold">{label}</span>
+  {
+    icon && (
+      <svg class="icon icon-sm icon-primary">
+        {titleIcon && <title>{titleIcon}</title>}
+        <use href={`/bsi-svg/sprites.svg#${icon}`} />
+      </svg>
+    )
+  }
 </a>
