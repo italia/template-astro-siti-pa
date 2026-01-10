@@ -20,6 +20,7 @@ import {
   ListInternalLinkFragment,
   OrderedListFragment,
   QuickLinkCardFragment,
+  RelatedArticleFragment,
   TagFragment,
   TopicsBlockFragment,
 } from "@graphql/commonFragments";
@@ -148,6 +149,9 @@ export const ArticleContentFragment = graphql(
         ... on TopicsBlockRecord {
           ...TopicsBlockFragment
         }
+        ... on RelatedArticleRecord {
+          ...RelatedArticleFragment
+        }
       }
     }
   `,
@@ -160,6 +164,7 @@ export const ArticleContentFragment = graphql(
     SupportCTASectionFragment,
     ListInternalLinkFragment,
     TopicsBlockFragment,
+    RelatedArticleFragment,
   ],
 );
 

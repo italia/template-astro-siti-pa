@@ -342,27 +342,6 @@ export type StatisticsBoxFragmentType = FragmentOf<
   typeof StatisticsBoxFragment
 >;
 
-export const CardEditorialNewsFragment = graphql(
-  `
-    fragment CardEditorialNewsFragment on CardEditorialNewsRecord @_unmask {
-      id
-      title
-      image {
-        ...ImageFragment
-      }
-      footerLink
-      description
-      date
-      category
-    }
-  `,
-  [ImageFragment],
-);
-
-export type CardEditorialNewsFragmentType = FragmentOf<
-  typeof CardEditorialNewsFragment
->;
-
 export const ListItemFragment = graphql(`
   fragment ListItemFragment on ListItemRecord @_unmask {
     id
@@ -515,19 +494,32 @@ export type ListInternalLinkFragmentType = FragmentOf<
   typeof ListInternalLinkFragment
 >;
 
-export const SidebarMenuFragment = graphql(`
-  fragment SidebarMenuFragment on AccordionMenuRecord @_unmask {
+export const MenuArticleItemFragment = graphql(`
+  fragment MenuArticleItemFragment on MenuArticleItemRecord @_unmask {
     id
     label
-    menu {
+    pointsTo {
       id
-      label
-      pointsTo {
-        id
-      }
     }
   }
 `);
+
+export type MenuArticleItemFragmentType = FragmentOf<
+  typeof MenuArticleItemFragment
+>;
+
+export const SidebarMenuFragment = graphql(
+  `
+    fragment SidebarMenuFragment on AccordionMenuRecord @_unmask {
+      id
+      label
+      menu {
+        ...MenuArticleItemFragment
+      }
+    }
+  `,
+  [MenuArticleItemFragment],
+);
 
 export type SidebarMenuFragmentType = FragmentOf<typeof SidebarMenuFragment>;
 
@@ -631,3 +623,61 @@ export const AuthorListFragment = graphql(
 );
 
 export type AuthorListFragmentType = FragmentOf<typeof AuthorListFragment>;
+
+export const ArticleNavigationFragment = graphql(
+  `
+    fragment ArticleNavigationFragment on ArticleNavigationRecord @_unmask {
+      nextLabel
+      previousLabel
+      previousArticle {
+        ...MenuArticleItemFragment
+      }
+      nextArticle {
+        ...MenuArticleItemFragment
+      }
+    }
+  `,
+  [MenuArticleItemFragment],
+);
+
+export type ArticleNavigationFragmentType = FragmentOf<
+  typeof ArticleNavigationFragment
+>;
+
+export const ArticleListFragment = graphql(
+  `
+    fragment ArticleListFragment on ArticleListRecord @_unmask {
+      relatedArticles {
+        ...MenuArticleItemFragment
+      }
+    }
+  `,
+  [MenuArticleItemFragment],
+);
+
+export type ArticleListFragmentType = FragmentOf<typeof ArticleListFragment>;
+
+export const RelatedArticleFragment = graphql(
+  `
+    fragment RelatedArticleFragment on RelatedArticleRecord @_unmask {
+      id
+      relatedBlock {
+        ... on RecordInterface {
+          id
+          componentName: __typename
+        }
+        ... on ArticleNavigationRecord {
+          ...ArticleNavigationFragment
+        }
+        ... on ArticleListRecord {
+          ...ArticleListFragment
+        }
+      }
+    }
+  `,
+  [ArticleNavigationFragment, ArticleListFragment],
+);
+
+export type RelatedArticleFragmentType = FragmentOf<
+  typeof RelatedArticleFragment
+>;
