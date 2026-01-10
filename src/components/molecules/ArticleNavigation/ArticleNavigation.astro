@@ -1,0 +1,40 @@
+---
+import { Link } from "@components/atoms/Link";
+import type { ArticleNavigationProps } from "./types";
+
+type Props = ArticleNavigationProps;
+
+const { previousArticle, previousLabel, nextArticle, nextLabel } = Astro.props;
+---
+
+<div class="row justify-content-between">
+  <div class="col-5">
+    {
+      previousArticle && (
+        <>
+          <p class="fw-semibold fs-6 text-uppercase">{previousLabel}</p>
+          <Link
+            linkTo={previousArticle.url}
+            label={previousArticle.title}
+            icon="it-arrow-left"
+            iconPosition="left"
+          />
+        </>
+      )
+    }
+  </div>
+  <div class="col-5">
+    {
+      nextArticle && (
+        <>
+          <p class="fw-semibold fs-6 text-uppercase">{nextLabel}</p>
+          <Link
+            linkTo={nextArticle.url}
+            label={nextArticle.title}
+            icon="it-arrow-right"
+          />
+        </>
+      )
+    }
+  </div>
+</div>
