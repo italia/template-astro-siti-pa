@@ -1572,6 +1572,7 @@ type ImageBlockRecord implements RecordInterface {
   _updatedAt: DateTime!
   id: ItemId!
   image: FileField!
+  ratio: String
 }
 
 input ImgixParams {

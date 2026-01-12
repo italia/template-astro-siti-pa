@@ -276,6 +276,7 @@ export const ImageBlockFragment = graphql(
   `
     fragment ImageBlockFragment on ImageBlockRecord @_unmask {
       id
+      ratio
       image {
         ...ImageFragment
       }

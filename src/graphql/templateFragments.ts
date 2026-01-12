@@ -15,6 +15,7 @@ import {
 import {
   CalloutFragment,
   ExternalLinkFragment,
+  ImageBlockFragment,
   ListCardEditorialWithIconFragment,
   ListCollectionFragment,
   ListInternalLinkFragment,
@@ -152,6 +153,9 @@ export const ArticleContentFragment = graphql(
         ... on RelatedArticleRecord {
           ...RelatedArticleFragment
         }
+        ... on ImageBlockRecord {
+          ...ImageBlockFragment
+        }
       }
     }
   `,
@@ -165,6 +169,7 @@ export const ArticleContentFragment = graphql(
     ListInternalLinkFragment,
     TopicsBlockFragment,
     RelatedArticleFragment,
+    ImageBlockFragment,
   ],
 );
 
