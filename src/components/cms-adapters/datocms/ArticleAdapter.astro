@@ -11,6 +11,7 @@ import SupportCTASectionAdapter from "@components/cms-adapters/datocms/SupportCT
 import ListInternalLinkAdapter from "@components/cms-adapters/datocms/ListInternalLinkAdapter.astro";
 import TopicsAdapter from "@components/cms-adapters/datocms/TopicsAdapter.astro";
 import RelatedArticleAdapter from "@components/cms-adapters/datocms/RelatedArticleAdapter.astro";
+import ImageContainerAdapter from "@components/cms-adapters/datocms/ImageContainerAdapter.astro";
 
 type Props = {
   content: ArticleContentFragmentType;
@@ -32,6 +33,7 @@ const { content } = Astro.props;
       ListInternalLinkRecord: ListInternalLinkAdapter,
       TopicsBlockRecord: TopicsAdapter,
       RelatedArticleRecord: RelatedArticleAdapter,
+      ImageBlockRecord: ImageContainerAdapter,
     }}
   />
 </SectionContainer>
