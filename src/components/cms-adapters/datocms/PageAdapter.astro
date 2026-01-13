@@ -18,7 +18,7 @@ import TopicFilterAdapter from "@components/cms-adapters/datocms/TopicFilterAdap
 import SupportCTASectionAdapter from "@components/cms-adapters/datocms/SupportCTASectionAdapter.astro";
 import StructuredTextBlockAdapter from "@components/cms-adapters/datocms/StructuredTextBlockAdapter.astro";
 import ListCollectionAdapter from "@components/cms-adapters/datocms/ListCollectionAdapter.astro";
-import NewsPageFeedAdapter from "./NewsPageFeedAdapter.astro";
+import CatalogueFeedAdapter from "@components/cms-adapters/datocms/CatalogueFeedAdapter.astro";
 import ActionCardAdapter from "@components/cms-adapters/datocms/ActionCardAdapter.astro";
 
 type ContentType =
@@ -61,8 +61,8 @@ const { content } = Astro.props;
         return <StructuredTextBlockAdapter block={block.textContent} />;
       case "ListCollectionRecord":
         return <ListCollectionAdapter block={block} />;
-      case "NewsPageFeedRecord":
-        return <NewsPageFeedAdapter block={block} />;
+      case "CatalogueFeedRecord":
+        return <CatalogueFeedAdapter block={block} />;
       case "ActionCardRecord":
         return <ActionCardAdapter block={block} />;
       default:

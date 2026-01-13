@@ -1,15 +1,15 @@
 ---
-import type { NewsPageFeedFragmentType } from "@graphql/sectionFragments";
-import { NewsPageFeed } from "@components/organisms/NewsPageFeed";
+import type { CatalogueFeedFragmentType } from "@graphql/sectionFragments";
+import { CatalogueFeed } from "@components/organisms/CatalogueFeed";
 
 type Props = {
-  block: NewsPageFeedFragmentType;
+  block: CatalogueFeedFragmentType;
 };
 
 const { block } = Astro.props;
 ---
 
-<NewsPageFeed
+<CatalogueFeed
   id={block.id}
   tabs={block.tabs.map((tab) => ({
     title: tab.title,
