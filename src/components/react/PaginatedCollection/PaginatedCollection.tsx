@@ -76,7 +76,7 @@ export function PaginatedCollection({
 
   return (
     <div className="container">
-      <div className="row justify-content-between align-items-center">
+      <div className="row justify-content-between align-items-top">
         <div className="col-lg-5 col-12">
           <div className={`text-container mb-4 mb-lg-0`}>
             <h2 className="mb-3">{title}</h2>
@@ -84,20 +84,32 @@ export function PaginatedCollection({
           </div>
         </div>
         <div className="col-lg-5 col-12">
-          <p className="fw-semibold fs-6 text-uppercase">{filterTitle}</p>
-          {categories.map((category) => (
-            <Chip
-              key={category}
-              variant="primary"
-              label={category}
-              visuallyHidden={category}
-              onClick={() => handleCategoryChange(category)}
-              active={selectedCategory === category}
-            />
-          ))}
+          <div className="it-list-wrapper d-flex flex-column">
+            <span className="text-uppercase text-dark fw-semibold mt-1 me-3 fs-6">
+              {filterTitle}
+            </span>
+            <ul
+              className="it-list d-flex mb-0 flex-wrap"
+              aria-label="Argomenti correlati:"
+            >
+              {categories.map((category) => (
+                <li className="list-item border-bottom-0 me-3 mt-1">
+                  <Chip
+                    key={category}
+                    variant="primary"
+                    size="large"
+                    label={category}
+                    visuallyHidden={category}
+                    onClick={() => handleCategoryChange(category)}
+                    active={selectedCategory === category}
+                  />
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
-      <ul className="it-card-list row">
+      <ul className="it-card-list row pt-4">
         {paginatedItems.map((n) => (
           <>
             {newsPageTabType === "news" && (
@@ -133,3 +145,33 @@ export function PaginatedCollection({
     </div>
   );
 }
+
+/* 
+<div
+  class=`it-list-wrapper d-flex ${variant === "column" ? "flex-column" : "align-items-center "} `
+>
+  {
+    title && (
+      <span
+        class={`text-uppercase text-dark fw-semibold mt-1 me-3 ${variant === "column" ? "fs-6" : ""}`}
+      >
+        {title}
+      </span>
+    )
+  }
+  <ul class="it-list d-flex mb-0 flex-wrap" aria-label="Argomenti correlati:">
+    {
+      topics.map((topic) => (
+        <li class="list-item border-bottom-0 me-3 mt-1">
+          <Chip
+            visuallyHidden=""
+            disabled={disabled}
+            label={topic}
+            size={sizeChip}
+            variant={variantChip}
+          />
+        </li>
+      ))
+    }
+  </ul>
+</div> */

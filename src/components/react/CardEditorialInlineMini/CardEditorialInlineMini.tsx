@@ -39,7 +39,7 @@ export function CardEditorialInlineMini({
           <footer className="it-card-related it-card-footer">
             {category && (
               <div className="it-card-taxonomy">
-                <Chip label={category} visuallyHidden="" />
+                <Chip label={category} visuallyHidden="" disabled />
               </div>
             )}
             {dateTime && (
