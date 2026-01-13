@@ -1,49 +1,25 @@
+import type {
+  NewsItemFragmentType,
+  ResourceFragmentType,
+  StoryItemFragmentType,
+  WebinarItemFragmentType,
+} from "@graphql/commonFragments";
 import { executeQuery } from "@lib/datocms";
-import { AllNewsQuery, AllStoryQuery, AllWebinarQuery } from "@utils/query";
+import {
+  AllNewsQuery,
+  AllStoryQuery,
+  AllWebinarQuery,
+  AllResourcesQuery,
+} from "@utils/query";
 import { defineCollection, z } from "astro:content";
 
-const imageSchema = z.object({
-  id: z.string(),
-  url: z.string(),
-  alt: z.string().nullable(),
-  title: z.string().nullable(),
-  width: z.number().nullable(),
-  height: z.number().nullable(),
-});
+const newsSchema = z.custom<NewsItemFragmentType>();
 
-// TODO: sync with NewsItemFragmentType
-const newsSchema = z.object({
-  id: z.string(),
-  title: z.string(),
-  paragraph: z.string(),
-  category: z.string(),
-  dateOfPublication: z.string(),
-  link: z.string(),
-  image: imageSchema,
-});
+const storySchema = z.custom<StoryItemFragmentType>();
 
-// TODO: sync with StoryItemFragmentType
-const storySchema = z.object({
-  id: z.string(),
-  title: z.string(),
-  category: z.string(),
-  dateOfPublication: z.string(),
-  slug: z.string(),
-  image: imageSchema,
-});
+const webinarSchema = z.custom<WebinarItemFragmentType>();
 
-// TODO: sync with WebinarItemFragmentType
-const webinarSchema = z.object({
-  id: z.string(),
-  title: z.string(),
-  paragraph: z.string(),
-  topic: z.object({
-    label: z.string(),
-  }),
-  date: z.string(),
-  slug: z.string(),
-  image: imageSchema,
-});
+const resourceSchema = z.custom<ResourceFragmentType>();
 
 const newsCollection = defineCollection({
   schema: newsSchema,
@@ -69,8 +45,17 @@ const webinarsCollection = defineCollection({
   },
 });
 
+const resourcesCollection = defineCollection({
+  schema: resourceSchema,
+  loader: async () => {
+    const response = await executeQuery(AllResourcesQuery);
+    return response.allResources;
+  },
+});
+
 export const collections = {
   news: newsCollection,
   stories: storiesCollection,
   webinars: webinarsCollection,
+  resources: resourcesCollection,
 };
