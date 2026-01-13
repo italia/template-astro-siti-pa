@@ -9,6 +9,7 @@ import {
   CardEditorialInlineMini,
   type CardEditorialInlineMiniProps,
 } from "../CardEditorialInlineMini/CardEditorialInlineMini";
+import { Resource, type ResourceProps } from "../Resource";
 
 type PaginatedCollectionCommonProps = {
   title: string;
@@ -16,6 +17,7 @@ type PaginatedCollectionCommonProps = {
   filterTitle: string;
   labelForAll: string;
   perPage?: number;
+  lang: string;
 };
 
 type PaginatedCollectionProps =
@@ -30,6 +32,10 @@ type PaginatedCollectionProps =
   | (PaginatedCollectionCommonProps & {
       items: CardEditorialNewsProps[];
       newsPageTabType: "webinar";
+    })
+  | (PaginatedCollectionCommonProps & {
+      items: ResourceProps[];
+      newsPageTabType: "resource";
     });
 
 export function PaginatedCollection({
@@ -40,6 +46,7 @@ export function PaginatedCollection({
   filterTitle,
   labelForAll,
   newsPageTabType,
+  lang,
 }: PaginatedCollectionProps) {
   const [page, setPage] = useState(1);
   const [selectedCategory, setSelectedCategory] = useState(labelForAll);
@@ -94,11 +101,37 @@ export function PaginatedCollection({
       </div>
       <ul className="it-card-list row">
         {paginatedItems.map((n) => (
-          <li className="col-12 col-lg-4 mb-3" key={n.title}>
-            {newsPageTabType === "news" && <CardEditorialNews {...n} />}
-            {newsPageTabType === "story" && <CardEditorialInlineMini {...n} />}
-            {newsPageTabType === "webinar" && <CardEditorialNews {...n} />}
-          </li>
+          <>
+            {newsPageTabType === "news" && (
+              <li className="col-12 col-lg-4 mb-3" key={n.title}>
+                <CardEditorialNews
+                  {...(n as CardEditorialNewsProps)}
+                  lang={lang}
+                />
+              </li>
+            )}
+            {newsPageTabType === "story" && (
+              <li className="col-12 col-lg-6 mb-3" key={n.title}>
+                <CardEditorialInlineMini
+                  {...(n as CardEditorialInlineMiniProps)}
+                  lang={lang}
+                />
+              </li>
+            )}
+            {newsPageTabType === "webinar" && (
+              <li className="col-12 col-lg-4 mb-3" key={n.title}>
+                <CardEditorialNews
+                  {...(n as CardEditorialNewsProps)}
+                  lang={lang}
+                />
+              </li>
+            )}
+            {newsPageTabType === "resource" && (
+              <li className="col-12 col-lg-7 mb-3" key={n.title}>
+                <Resource {...(n as ResourceProps)} />
+              </li>
+            )}
+          </>
         ))}
       </ul>
       <Pagination
