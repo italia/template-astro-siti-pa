@@ -128,7 +128,9 @@ export const NewsItemFragment = graphql(
       id
       title
       paragraph
-      category
+      topic {
+        label
+      }
       dateOfPublication
       link
       image {
@@ -188,7 +190,9 @@ export const StoryItemFragment = graphql(
     fragment StoryItemFragment on StoryItemRecord @_unmask {
       id
       title
-      category
+      topic {
+        label
+      }
       dateOfPublication
       slug
       image {
