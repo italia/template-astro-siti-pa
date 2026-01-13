@@ -1,7 +1,6 @@
-import React from "react";
-import { Image } from "@components/atoms/Image";
-import { DateTime } from "@components/atoms/DateTime";
+import { DateTime } from "@components/react/DateTime";
 import type { ImageProps } from "@components/atoms/Image/types";
+import { Image } from "@components/react/Image";
 
 export type CardEditorialNewsProps = {
   title: string;
@@ -12,6 +11,7 @@ export type CardEditorialNewsProps = {
   dateTime?: string | null;
   action?: string | null;
   fullHeight?: boolean;
+  lang: string;
 };
 
 export function CardEditorialNews({
@@ -23,6 +23,7 @@ export function CardEditorialNews({
   dateTime,
   action,
   fullHeight = true,
+  lang,
 }: CardEditorialNewsProps) {
   const shouldShowFooter = !!category || !!dateTime;
 
@@ -36,8 +37,7 @@ export function CardEditorialNews({
       <div className="it-card-image-wrapper">
         <div className="ratio ratio-16x9">
           <figure className="figure img-full">
-            {/* TODO: implement image */}
-            {/* <Image {...image} /> */}
+            <Image {...image} />
           </figure>
         </div>
       </div>
@@ -54,8 +54,9 @@ export function CardEditorialNews({
               </a>
             </div>
           )}
-          {/* TODO: implement date */}
-          {/* {dateTime && <DateTime className="it-card-date" value={dateTime} />} */}
+          {dateTime && (
+            <DateTime className="it-card-date" value={dateTime} lang={lang} />
+          )}
         </footer>
       )}
       {action && (

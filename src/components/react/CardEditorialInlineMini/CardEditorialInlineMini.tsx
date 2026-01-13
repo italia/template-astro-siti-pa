@@ -1,5 +1,7 @@
 import { Chip } from "@components/react/Chip";
 import type { ImageProps } from "@components/atoms/Image/types";
+import { Image } from "@components/react/Image";
+import { DateTime } from "@components/react/DateTime";
 
 export type CardEditorialInlineMiniProps = {
   title: string;
@@ -38,16 +40,14 @@ export function CardEditorialInlineMini({
                 <Chip label={category} visuallyHidden="" />
               </div>
             )}
-            {/* TODO: implement date */}
-            {/* {dateTime && <DateTime className="it-card-date" value={dateTime} />} */}
+            {dateTime && <DateTime className="it-card-date" value={dateTime} />}
           </footer>
         )}
       </div>
       <div className="it-card-image-wrapper">
         <div className="ratio ratio-1x1">
           <figure className="figure img-full">
-            {/* TODO: implement image */}
-            {/* <Image {...image} /> */}
+            <Image {...image} />
           </figure>
         </div>
       </div>
