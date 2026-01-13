@@ -7,6 +7,7 @@ import {
   CalloutFragment,
   ChannelFragment,
   ChartFragment,
+  DownloadLinkFragment,
   ExternalLinkFragment,
   FeatureListBlockFragment,
   IconListBlockFragment,
@@ -427,30 +428,27 @@ export const NewsPageFeedFragment = graphql(`
       labelForAll
       id
       filterTitle
+      elementPerPage
     }
   }
 `);
 
 export type NewsPageFeedFragmentType = FragmentOf<typeof NewsPageFeedFragment>;
 
-export const ActionCardFragment = graphql(`
-  fragment ActionCardFragment on ActionCardRecord @_unmask {
-    id
-    title
-    paragraph(markdown: true)
-    category
-    cta {
+export const ActionCardFragment = graphql(
+  `
+    fragment ActionCardFragment on ActionCardRecord @_unmask {
       id
-      label
-      doc {
-        size
-        format
-        url
-        filename
+      title
+      paragraph(markdown: true)
+      category
+      cta {
+        ...DownloadLinkFragment
       }
+      readMoreLabel
     }
-    readMoreLabel
-  }
-`);
+  `,
+  [DownloadLinkFragment],
+);
 
 export type ActionCardFragmentType = FragmentOf<typeof ActionCardFragment>;

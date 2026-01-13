@@ -667,6 +667,138 @@ type CardEditorialWithIconRecord implements RecordInterface {
   title: String!
 }
 
+union CatalogueModelContentField = HeroRecord | NewsPageFeedRecord
+
+type CatalogueModelContentFieldListListNonNullMultiLocaleField {
+  locale: SiteLocale
+  value: [CatalogueModelContentField!]!
+}
+
+input CatalogueModelFilter {
+  _createdAt: CreatedAtFilter
+  id: ItemIdFilter
+  _firstPublishedAt: PublishedAtFilter
+  _publicationScheduledAt: PublishedAtFilter
+  _unpublishingScheduledAt: PublishedAtFilter
+  _publishedAt: PublishedAtFilter
+  _status: StatusFilter
+  _updatedAt: UpdatedAtFilter
+  _isValid: BooleanFilter
+  _locales: LocalesFilter
+  seo: SeoFilter
+  slug: SlugFilter
+  title: StringFilter
+  OR: [CatalogueModelFilter]
+  AND: [CatalogueModelFilter]
+}
+
+enum CatalogueModelOrderBy {
+  _createdAt_ASC
+  _createdAt_DESC
+  id_ASC
+  id_DESC
+  _firstPublishedAt_ASC
+  _firstPublishedAt_DESC
+  _publicationScheduledAt_ASC
+  _publicationScheduledAt_DESC
+  _unpublishingScheduledAt_ASC
+  _unpublishingScheduledAt_DESC
+  _publishedAt_ASC
+  _publishedAt_DESC
+  _status_ASC
+  _status_DESC
+  _updatedAt_ASC
+  _updatedAt_DESC
+  _isValid_ASC
+  _isValid_DESC
+  title_ASC
+  title_DESC
+}
+
+"""Record of type 📰 Catalogue (catalogue)"""
+type CatalogueRecord implements RecordInterface {
+  _allContentLocales(
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+  ): [CatalogueModelContentFieldListListNonNullMultiLocaleField!]
+  _allSeoLocales(
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+  ): [SeoFieldMultiLocaleField!]
+  _allSlugLocales(
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+  ): [StringNonNullMultiLocaleField!]
+  _allTitleLocales(
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+  ): [StringNonNullMultiLocaleField!]
+  _createdAt: DateTime!
+
+  """Editing URL"""
+  _editingUrl: String
+  _firstPublishedAt: DateTime!
+  _isValid: BooleanType!
+  _locales: [SiteLocale!]!
+  _modelApiKey: String!
+  _publicationScheduledAt: DateTime
+  _publishedAt: DateTime!
+
+  """Generates SEO and Social card meta tags to be used in your frontend"""
+  _seoMetaTags(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+  ): [Tag!]!
+  _status: ItemStatus!
+  _unpublishingScheduledAt: DateTime
+  _updatedAt: DateTime!
+  content(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+  ): [CatalogueModelContentField!]!
+  id: ItemId!
+  seo(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+  ): SeoField
+  slug(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+  ): String!
+  title(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+  ): String!
+}
+
 """Block of type 📺 Card presentation banner (channel)"""
 type ChannelRecord implements RecordInterface {
   _createdAt: DateTime!
@@ -4491,6 +4623,8 @@ type MenuArticleItemRecord implements RecordInterface {
   pointsTo: ArticleRecord!
 }
 
+union MenuItemModelPointsToField = CatalogueRecord | PageRecord
+
 """Block of type ➡️ Menu Item (menu_item)"""
 type MenuItemRecord implements RecordInterface {
   _createdAt: DateTime!
@@ -4512,7 +4646,7 @@ type MenuItemRecord implements RecordInterface {
   _unpublishingScheduledAt: DateTime
   _updatedAt: DateTime!
   id: ItemId!
-  pointsTo: PageRecord!
+  pointsTo: MenuItemModelPointsToField!
   title: String!
 }
 
@@ -4740,13 +4874,6 @@ type NewsPageFeedRecord implements RecordInterface {
   tabs: [NewsPageNewsTabRecord!]!
 }
 
-union NewsPageModelContentField = HeroRecord | NewsPageFeedRecord
-
-type NewsPageModelContentFieldListListNonNullMultiLocaleField {
-  locale: SiteLocale
-  value: [NewsPageModelContentField!]!
-}
-
 """Block of type News page - tab (news_page_news_tab)"""
 type NewsPageNewsTabRecord implements RecordInterface {
   _createdAt: DateTime!
@@ -4767,99 +4894,16 @@ type NewsPageNewsTabRecord implements RecordInterface {
   _status: ItemStatus!
   _unpublishingScheduledAt: DateTime
   _updatedAt: DateTime!
+  elementPerPage: IntType
   filterTitle: String!
   id: ItemId!
-  labelForAll: String
+  labelForAll: String!
   newsPageTabType: String!
   paragraph(
     """Process content as markdown"""
     markdown: Boolean
   ): String!
   title: String!
-}
-
-"""Record of type 📰 News page (news_page)"""
-type NewsPageRecord implements RecordInterface {
-  _allContentLocales(
-    """
-    If you want to fallback to a default translation when a translation has not been found
-    """
-    fallbackLocales: [SiteLocale!]
-  ): [NewsPageModelContentFieldListListNonNullMultiLocaleField!]
-  _allSeoLocales(
-    """
-    If you want to fallback to a default translation when a translation has not been found
-    """
-    fallbackLocales: [SiteLocale!]
-  ): [SeoFieldMultiLocaleField!]
-  _allSlugLocales(
-    """
-    If you want to fallback to a default translation when a translation has not been found
-    """
-    fallbackLocales: [SiteLocale!]
-  ): [StringNonNullMultiLocaleField!]
-  _allTitleLocales(
-    """
-    If you want to fallback to a default translation when a translation has not been found
-    """
-    fallbackLocales: [SiteLocale!]
-  ): [StringNonNullMultiLocaleField!]
-  _createdAt: DateTime!
-
-  """Editing URL"""
-  _editingUrl: String
-  _firstPublishedAt: DateTime!
-  _isValid: BooleanType!
-  _locales: [SiteLocale!]!
-  _modelApiKey: String!
-  _publicationScheduledAt: DateTime
-  _publishedAt: DateTime!
-
-  """Generates SEO and Social card meta tags to be used in your frontend"""
-  _seoMetaTags(
-    """The locale to use to fetch the field's content"""
-    locale: SiteLocale
-  ): [Tag!]!
-  _status: ItemStatus!
-  _unpublishingScheduledAt: DateTime
-  _updatedAt: DateTime!
-  content(
-    """The locale to use to fetch the field's content"""
-    locale: SiteLocale
-
-    """
-    If you want to fallback to a default translation when a translation has not been found
-    """
-    fallbackLocales: [SiteLocale!]
-  ): [NewsPageModelContentField!]!
-  id: ItemId!
-  seo(
-    """The locale to use to fetch the field's content"""
-    locale: SiteLocale
-
-    """
-    If you want to fallback to a default translation when a translation has not been found
-    """
-    fallbackLocales: [SiteLocale!]
-  ): SeoField
-  slug(
-    """The locale to use to fetch the field's content"""
-    locale: SiteLocale
-
-    """
-    If you want to fallback to a default translation when a translation has not been found
-    """
-    fallbackLocales: [SiteLocale!]
-  ): String!
-  title(
-    """The locale to use to fetch the field's content"""
-    locale: SiteLocale
-
-    """
-    If you want to fallback to a default translation when a translation has not been found
-    """
-    fallbackLocales: [SiteLocale!]
-  ): String!
 }
 
 """Block of type News tab (news_tab)"""
@@ -5366,6 +5410,13 @@ type Query {
   ): CollectionMetadata!
 
   """Returns meta information regarding a record collection"""
+  _allCataloguesMeta(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+    filter: CatalogueModelFilter
+  ): CollectionMetadata!
+
+  """Returns meta information regarding a record collection"""
   _allChartElementsMeta(
     """The locale to use to fetch the field's content"""
     locale: SiteLocale
@@ -5518,6 +5569,25 @@ type Query {
     filter: ArticleModelFilter
     orderBy: [ArticleModelOrderBy] = [position_ASC]
   ): [ArticleRecord!]!
+
+  """Returns a collection of records"""
+  allCatalogues(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+
+    """Skip the first results"""
+    skip: IntType
+
+    """Limit the number of results"""
+    first: IntType = 20
+    filter: CatalogueModelFilter
+    orderBy: [CatalogueModelOrderBy] = [_updatedAt_DESC]
+  ): [CatalogueRecord!]!
 
   """Returns a collection of records"""
   allChartElements(
@@ -5831,6 +5901,19 @@ type Query {
   ): ArticleTopicRecord
 
   """Returns a specific record"""
+  catalogue(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+    filter: CatalogueModelFilter
+    orderBy: [CatalogueModelOrderBy] = [_updatedAt_DESC]
+  ): CatalogueRecord
+
+  """Returns a specific record"""
   chartElement(
     """The locale to use to fetch the field's content"""
     locale: SiteLocale
@@ -5951,17 +6034,6 @@ type Query {
     filter: NewsItemModelFilter
     orderBy: [NewsItemModelOrderBy] = [_updatedAt_DESC]
   ): NewsItemRecord
-
-  """Returns the single instance record"""
-  newsPage(
-    """The locale to use to fetch the field's content"""
-    locale: SiteLocale
-
-    """
-    If you want to fallback to a default translation when a translation has not been found
-    """
-    fallbackLocales: [SiteLocale!]
-  ): NewsPageRecord
 
   """Returns a specific record"""
   page(
@@ -6794,7 +6866,7 @@ enum StoryItemModelOrderBy {
   title_DESC
 }
 
-union StoryItemModelParentPageField = NewsPageRecord | PageRecord
+union StoryItemModelParentPageField = CatalogueRecord | PageRecord
 
 type StoryItemModelParentPageFieldMultiLocaleField {
   locale: SiteLocale
@@ -7975,7 +8047,7 @@ enum WebinarItemModelOrderBy {
   title_DESC
 }
 
-union WebinarItemModelParentPageField = NewsPageRecord | PageRecord
+union WebinarItemModelParentPageField = CatalogueRecord | PageRecord
 
 type WebinarItemModelParentPageFieldMultiLocaleField {
   locale: SiteLocale

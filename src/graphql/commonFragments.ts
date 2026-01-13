@@ -344,8 +344,12 @@ export const MenuItemFragment = graphql(`
     id
     title
     pointsTo {
-      id
-      slug
+      ... on CatalogueRecord {
+        id
+      }
+      ... on PageRecord {
+        id
+      }
     }
   }
 `);
@@ -386,6 +390,22 @@ export const ExternalLinkFragment = graphql(`
 `);
 
 export type ExternalLinkFragmentType = FragmentOf<typeof ExternalLinkFragment>;
+
+export const DownloadLinkFragment = graphql(`
+  fragment DownloadLinkFragment on DownloadLinkRecord @_unmask {
+    id
+    label
+    description
+    doc {
+      size
+      format
+      url
+      filename
+    }
+  }
+`);
+
+export type DownloadLinkFragmentType = FragmentOf<typeof DownloadLinkFragment>;
 
 export const AdditionalContentFragment = graphql(`
   fragment AdditionalContentFragment on AdditionalContentRecord @_unmask {
@@ -703,3 +723,32 @@ export const RelatedArticleFragment = graphql(
 export type RelatedArticleFragmentType = FragmentOf<
   typeof RelatedArticleFragment
 >;
+
+export const ResourceFragment = graphql(
+  `
+    fragment ResourceFragment on ResourceRecord @_unmask {
+      id
+      macroTopic {
+        label
+      }
+      category {
+        label
+      }
+      resource {
+        ... on RecordInterface {
+          id
+          componentName: __typename
+        }
+        ... on ExternalLinkRecord {
+          ...ExternalLinkFragment
+        }
+        ... on DownloadLinkRecord {
+          ...DownloadLinkFragment
+        }
+      }
+    }
+  `,
+  [ExternalLinkFragment, DownloadLinkFragment],
+);
+
+export type ResourceFragmentType = FragmentOf<typeof ResourceFragment>;

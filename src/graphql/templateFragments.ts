@@ -256,9 +256,9 @@ export const AllInsightsFragment = graphql(
 
 export type AllInsightsFragmentType = FragmentOf<typeof AllInsightsFragment>;
 
-export const NewsPageContentFragment = graphql(
+export const CatalogueContentFragment = graphql(
   `
-    fragment NewsPageContentFragment on NewsPageModelContentField @_unmask {
+    fragment CatalogueContentFragment on CatalogueModelContentField @_unmask {
       ... on RecordInterface {
         id
         componentName: __typename
@@ -274,8 +274,8 @@ export const NewsPageContentFragment = graphql(
   [HeroFragment, NewsPageFeedFragment],
 );
 
-export type NewsPageContentFragmentType = FragmentOf<
-  typeof NewsPageContentFragment
+export type CatalogueContentFragmentType = FragmentOf<
+  typeof CatalogueContentFragment
 >;
 
 export const StoryContentFragment = graphql(
