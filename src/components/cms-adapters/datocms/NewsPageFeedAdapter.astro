@@ -12,10 +12,11 @@ const { block } = Astro.props;
 <NewsPageFeed
   id={block.id}
   tabs={block.tabs.map((tab) => ({
-    title: tab.title!,
-    paragraph: tab.paragraph!,
-    filterTitle: tab.filterTitle!,
-    labelForAll: tab.labelForAll!,
-    newsPageTabType: tab.newsPageTabType!,
+    title: tab.title,
+    paragraph: tab.paragraph,
+    filterTitle: tab.filterTitle,
+    labelForAll: tab.labelForAll,
+    newsPageTabType: tab.newsPageTabType,
+    elementPerPage: tab.elementPerPage || undefined,
   }))}
 />
