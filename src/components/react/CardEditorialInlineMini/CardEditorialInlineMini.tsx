@@ -10,6 +10,7 @@ export type CardEditorialInlineMiniProps = {
   linkTo: string;
   category?: string | null;
   dateTime?: string | null;
+  lang: string;
 };
 
 export function CardEditorialInlineMini({
@@ -19,6 +20,7 @@ export function CardEditorialInlineMini({
   linkTo,
   category,
   dateTime,
+  lang,
 }: CardEditorialInlineMiniProps) {
   const shouldShowFooter = !!category || !!dateTime;
 
@@ -40,7 +42,9 @@ export function CardEditorialInlineMini({
                 <Chip label={category} visuallyHidden="" />
               </div>
             )}
-            {dateTime && <DateTime className="it-card-date" value={dateTime} />}
+            {dateTime && (
+              <DateTime className="it-card-date" value={dateTime} lang={lang} />
+            )}
           </footer>
         )}
       </div>
