@@ -75,7 +75,7 @@ export function PaginatedCollection({
   };
 
   return (
-    <div className="container py-80">
+    <div className="container">
       <div className="row justify-content-between align-items-center">
         <div className="col-lg-5 col-12">
           <div className={`text-container mb-4 mb-lg-0`}>
