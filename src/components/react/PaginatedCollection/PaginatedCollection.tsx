@@ -17,7 +17,6 @@ type PaginatedCollectionCommonProps = {
   filterTitle: string;
   labelForAll: string;
   perPage?: number;
-  lang: string;
 };
 
 type PaginatedCollectionProps =
@@ -46,7 +45,6 @@ export function PaginatedCollection({
   filterTitle,
   labelForAll,
   newsPageTabType,
-  lang,
 }: PaginatedCollectionProps) {
   const [page, setPage] = useState(1);
   const [selectedCategory, setSelectedCategory] = useState(labelForAll);
@@ -104,26 +102,19 @@ export function PaginatedCollection({
           <>
             {newsPageTabType === "news" && (
               <li className="col-12 col-lg-4 mb-3" key={n.title}>
-                <CardEditorialNews
-                  {...(n as CardEditorialNewsProps)}
-                  lang={lang}
-                />
+                <CardEditorialNews {...(n as CardEditorialNewsProps)} />
               </li>
             )}
             {newsPageTabType === "story" && (
               <li className="col-12 col-lg-6 mb-3" key={n.title}>
                 <CardEditorialInlineMini
                   {...(n as CardEditorialInlineMiniProps)}
-                  lang={lang}
                 />
               </li>
             )}
             {newsPageTabType === "webinar" && (
               <li className="col-12 col-lg-4 mb-3" key={n.title}>
-                <CardEditorialNews
-                  {...(n as CardEditorialNewsProps)}
-                  lang={lang}
-                />
+                <CardEditorialNews {...(n as CardEditorialNewsProps)} />
               </li>
             )}
             {newsPageTabType === "resource" && (

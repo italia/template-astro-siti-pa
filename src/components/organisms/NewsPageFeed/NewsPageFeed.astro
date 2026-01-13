@@ -54,7 +54,7 @@ const collectionMap: Record<
   ElementType,
   (ResourceProps | CardEditorialNewsProps | CardEditorialInlineMiniProps)[]
 > = {
-  news: news.map((n) => mapNewsToCardEditorialNewsProps(n.data)),
+  news: news.map((n) => mapNewsToCardEditorialNewsProps(n.data, lang)),
   story: stories.map((s) =>
     mapStoryToCardEditorialInlineMiniProps(s.data, lang),
   ),
@@ -82,7 +82,6 @@ function getCollectionItems(type: string) {
           return (
             <TabContent tab={tabsItems[index]}>
               <PaginatedCollection
-                lang={lang}
                 client:load
                 {...tab}
                 items={items as any}
