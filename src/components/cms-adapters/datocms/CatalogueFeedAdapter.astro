@@ -1,22 +1,21 @@
 ---
 import type { CatalogueFeedFragmentType } from "@graphql/sectionFragments";
 import { CatalogueFeed } from "@components/organisms/CatalogueFeed";
+import type { PageNewsTab } from "@components/organisms/CatalogueFeed/types";
 
 type Props = {
   block: CatalogueFeedFragmentType;
 };
 
 const { block } = Astro.props;
+const tabs: PageNewsTab[] = block.tabs.map((tab) => ({
+  title: tab.title,
+  paragraph: tab.paragraph,
+  filterTitle: tab.filterTitle,
+  labelForAll: tab.labelForAll,
+  newsPageTabType: tab.newsPageTabType,
+  perPage: tab.elementPerPage || undefined,
+}));
 ---
 
-<CatalogueFeed
-  id={block.id}
-  tabs={block.tabs.map((tab) => ({
-    title: tab.title,
-    paragraph: tab.paragraph,
-    filterTitle: tab.filterTitle,
-    labelForAll: tab.labelForAll,
-    newsPageTabType: tab.newsPageTabType,
-    elementPerPage: tab.elementPerPage || undefined,
-  }))}
-/>
+<CatalogueFeed id={block.id} tabs={tabs} />

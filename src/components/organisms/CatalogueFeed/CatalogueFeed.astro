@@ -12,20 +12,7 @@ import { PaginatedCollection } from "@components/react/PaginatedCollection/Pagin
 import type { CardEditorialNewsProps } from "@components/react/CardEditorialNews";
 import type { ResourceProps } from "@components/react/Resource";
 import type { CardEditorialInlineMiniProps } from "@components/react/CardEditorialInlineMini/CardEditorialInlineMini";
-
-type PageNewsTab = {
-  title: string;
-  paragraph: string;
-  filterTitle: string;
-  labelForAll: string;
-  newsPageTabType: string;
-  elementPerPage?: number;
-};
-
-type UpdateTabSectionProps = {
-  id: string;
-  tabs: PageNewsTab[];
-};
+import type { ElementType, UpdateTabSectionProps } from "./types";
 
 type Props = UpdateTabSectionProps;
 
@@ -43,7 +30,6 @@ const stories = await getCollection("stories");
 const webinars = await getCollection("webinars");
 const resources = await getCollection("resources");
 
-type ElementType = "news" | "story" | "webinar" | "resource";
 function isValidTabType(val: string): val is ElementType {
   return (
     val === "news" || val === "story" || val === "webinar" || val === "resource"
