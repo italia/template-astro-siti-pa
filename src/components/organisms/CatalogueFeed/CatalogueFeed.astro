@@ -7,12 +7,18 @@ import {
   mapWebinarToCardEditorialNewsProps,
   mapResourceToResourceProps,
 } from "@utils/mappers";
-import { getCollection } from "astro:content";
 import { PaginatedCollection } from "@components/react/PaginatedCollection/PaginatedCollection";
 import type { CardEditorialNewsProps } from "@components/react/CardEditorialNews";
 import type { ResourceProps } from "@components/react/Resource";
 import type { CardEditorialInlineMiniProps } from "@components/react/CardEditorialInlineMini/CardEditorialInlineMini";
 import type { ElementType, UpdateTabSectionProps } from "./types";
+import {
+  getNews,
+  getResources,
+  getStories,
+  getWebinars,
+} from "@lib/dataFetcher";
+import { isDraftModeEnabled } from "@lib/draftMode";
 
 type Props = UpdateTabSectionProps;
 
@@ -25,10 +31,12 @@ const tabsItems = tabs.map((tab, index) => ({
   active: index === 0,
 }));
 
-const news = await getCollection("news");
-const stories = await getCollection("stories");
-const webinars = await getCollection("webinars");
-const resources = await getCollection("resources");
+const isPreview = isDraftModeEnabled(Astro.cookies);
+
+const news = await getNews(isPreview);
+const stories = await getStories(isPreview);
+const webinars = await getWebinars(isPreview);
+const resources = await getResources(isPreview);
 
 function isValidTabType(val: string): val is ElementType {
   return (
