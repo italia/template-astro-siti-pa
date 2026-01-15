@@ -1,0 +1,101 @@
+---
+import Layout from "@layouts/Layout.astro";
+import { executeQuery } from "@lib/datocms";
+import {
+  HomepageQuery,
+  PageByIdQuery,
+  CatalogueByIdQuery,
+  ArticleByIdQuery,
+  SidebarQuery,
+  WebinarByIdQuery,
+  InsightByIdQuery,
+  StoryItemByIdQuery,
+} from "@utils/query";
+import type { SiteLocale } from "@graphql/types";
+
+import PageAdapter from "@components/cms-adapters/datocms/PageAdapter.astro";
+import DraftModeQueryListener from "@components/DraftModeQueryListener.astro";
+import SidebarLayoutAdapter from "@components/cms-adapters/datocms/SidebarLayoutAdapter.astro";
+import type { SidebarFragmentType } from "@graphql/commonFragments";
+import type { TypedDocumentNode } from "@datocms/cda-client";
+
+type QueryConfig<T = any, V = any> = {
+  query: TypedDocumentNode<T, V>;
+  key: string;
+};
+export const prerender = false;
+
+const { slug: raw = "" } = Astro.params;
+const slugs = raw.split("/");
+
+const lang = slugs[0];
+Astro.locals.lang = lang;
+
+const slug = slugs[1];
+
+const url = new URL(Astro.request.url);
+const type = url.searchParams.get("type");
+const id = url.searchParams.get("id");
+
+if (!id || !type) {
+  return Astro.redirect("/404");
+}
+
+const queryMap: Record<string, QueryConfig> = {
+  homepage: { query: HomepageQuery, key: "homepage" },
+  page: { query: PageByIdQuery, key: "page" },
+  catalogue: { query: CatalogueByIdQuery, key: "catalogue" },
+  article: { query: ArticleByIdQuery, key: "article" },
+  webinar_item: { query: WebinarByIdQuery, key: "webinarItem" },
+  insight: { query: InsightByIdQuery, key: "insight" },
+  story_item: { query: StoryItemByIdQuery, key: "storyItem" },
+};
+
+const config = queryMap[type];
+if (!config) return Astro.redirect("/404");
+const currentVariables = { id, locale: lang as SiteLocale };
+
+const response = await executeQuery(config.query, {
+  variables: currentVariables,
+  includeDrafts: true,
+});
+
+const dataRecord = response[config.key];
+if (!dataRecord) return Astro.redirect("/404");
+
+let sidebarData: SidebarFragmentType | null = null;
+if (type === "article") {
+  const { sidebarForArticle } = await executeQuery(SidebarQuery, {
+    variables: { locale: lang as SiteLocale },
+  });
+  sidebarData = sidebarForArticle;
+}
+
+if (dataRecord) {
+  Astro.locals.recordId = dataRecord?.id;
+}
+
+const content = dataRecord.content;
+
+const redirectUrl =
+  typeof lang === "string" && typeof slug === "string"
+    ? `/${lang}/${slug}`
+    : "/";
+---
+
+{
+  type === "article" ? (
+    <Layout redirectUrl={redirectUrl} pageSeo={dataRecord?.seo}>
+      <SidebarLayoutAdapter sidebar={sidebarData!} content={content as any} />
+    </Layout>
+  ) : (
+    <Layout redirectUrl={redirectUrl} pageSeo={dataRecord?.seo}>
+      <PageAdapter content={content as any} />
+    </Layout>
+  )
+}
+
+<DraftModeQueryListener
+  query={config.query as any}
+  variables={currentVariables as any}
+/>
