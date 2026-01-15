@@ -10,6 +10,7 @@ import {
   WebinarByIdQuery,
   InsightByIdQuery,
   StoryItemByIdQuery,
+  LayoutQuery,
 } from "@utils/query";
 import type { SiteLocale } from "@graphql/types";
 import { linkResolver } from "@utils/linkResolver";
@@ -18,6 +19,7 @@ import DraftModeQueryListener from "@components/DraftModeQueryListener.astro";
 import SidebarLayoutAdapter from "@components/cms-adapters/datocms/SidebarLayoutAdapter.astro";
 import type { SidebarFragmentType } from "@graphql/commonFragments";
 import type { TypedDocumentNode } from "@datocms/cda-client";
+import SidebarAdapter from "@components/cms-adapters/datocms/SidebarAdapter.astro";
 
 type QueryConfig<T = any, V = any> = {
   query: TypedDocumentNode<T, V>;
@@ -47,6 +49,8 @@ const queryMap: Record<string, QueryConfig> = {
   webinar_item: { query: WebinarByIdQuery, key: "webinarItem" },
   insight: { query: InsightByIdQuery, key: "insight" },
   story_item: { query: StoryItemByIdQuery, key: "storyItem" },
+  layout: { query: LayoutQuery, key: "layout" },
+  sidebar_for_article: { query: SidebarQuery, key: "sidebarForArticle" },
 };
 
 const config = queryMap[type];
@@ -62,11 +66,16 @@ const dataRecord = response[config.key];
 if (!dataRecord) return Astro.redirect("/404");
 
 let sidebarData: SidebarFragmentType | null = null;
-if (type === "article") {
-  const { sidebarForArticle } = await executeQuery(SidebarQuery, {
-    variables: { locale: lang as SiteLocale },
-  });
+if (type === "article" || type === "sidebar_for_article") {
+  const { sidebarForArticle } = await executeQuery(
+    queryMap.sidebar_for_article.query,
+    {
+      variables: { locale: lang as SiteLocale },
+      includeDrafts: true,
+    },
+  );
   sidebarData = sidebarForArticle;
+  if (!sidebarData) return Astro.redirect("/404");
 }
 
 if (dataRecord) {
@@ -83,11 +92,46 @@ if (slugProduction !== "#") {
 ---
 
 {
-  type === "article" ? (
-    <Layout redirectUrl={redirectUrl} pageSeo={dataRecord?.seo}>
-      <SidebarLayoutAdapter sidebar={sidebarData!} content={content as any} />
+  type === "layout" && (
+    <Layout redirectUrl={redirectUrl}>
+      <div class="container">
+        <div class="row">
+          <div class="col">CONTENT PAGE</div>
+        </div>
+      </div>
     </Layout>
-  ) : (
+  )
+}
+
+{
+  type === "sidebar_for_article" && sidebarData && (
+    <Layout redirectUrl={redirectUrl}>
+      <div class="container">
+        <div class="row">
+          <div class="col-12 col-lg-4 px-lg-0 pb-lg-5 border-end position-sticky">
+            <SidebarAdapter sidebar={sidebarData} />
+          </div>
+          <div class="col-12 col-lg-7 px-lg-0" />
+        </div>
+      </div>
+    </Layout>
+  )
+}
+
+{
+  type === "article" && sidebarData && (
+    <Layout redirectUrl={redirectUrl} pageSeo={dataRecord?.seo}>
+      <SidebarLayoutAdapter sidebar={sidebarData} content={content as any} />
+    </Layout>
+  )
+}
+
+{
+  (type === "page" ||
+    type === "webinar_item" ||
+    type === "story_item" ||
+    type === "insight" ||
+    type === "catalogue") && (
     <Layout redirectUrl={redirectUrl} pageSeo={dataRecord?.seo}>
       <PageAdapter content={content as any} />
     </Layout>
