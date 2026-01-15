@@ -18,14 +18,18 @@ type Props = {
   redirectUrl?: string;
 };
 
+const isPreview = isDraftModeEnabled(Astro.cookies);
 const { pageSeo = [], redirectUrl } = Astro.props;
 
 const { lang } = Astro.locals;
 
-const result = await executeQuery(SiteMetaTagsQuery);
+const result = await executeQuery(SiteMetaTagsQuery, {
+  includeDrafts: isPreview,
+});
 
 const { layout, homepage } = await executeQuery(LayoutQuery, {
   variables: { locale: lang },
+  includeDrafts: isPreview,
 });
 
 if (!layout) return;
@@ -50,7 +54,7 @@ const footerLayout: FooterFragmentType = {
   smallPrint: layout.smallPrint,
 };
 
-const isShowingPreviewBar = isDraftModeEnabled(Astro.cookies) && redirectUrl;
+const isShowingPreviewBar = isPreview && redirectUrl;
 ---
 
 <html lang={lang}>
