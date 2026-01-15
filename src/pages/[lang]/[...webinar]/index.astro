@@ -1,12 +1,15 @@
 ---
-import PageAdapter from "@components/cms-adapters/datocms/PageAdapter.astro";
-import type { TagFragmentType } from "@graphql/commonFragments";
-import type { WebinarContentFragmentType } from "@graphql/templateFragments";
-import type { SiteLocale } from "@graphql/types";
 import Layout from "@layouts/Layout.astro";
 import { executeQuery } from "@lib/datocms";
-import { resolveRoutePath } from "@utils/pathHelper";
-import { AllWebinarItemsQuery } from "@utils/query";
+import type { SiteLocale } from "@graphql/types";
+import PageAdapter from "@components/cms-adapters/datocms/PageAdapter.astro";
+import type { TagFragmentType } from "@graphql/commonFragments";
+import { linkResolver } from "@utils/linkResolver";
+import {
+  AllWebinarsContentQuery,
+  WebinarSeoQuery,
+} from "@graphql/query/webinar";
+import type { WebinarContentFragmentType } from "@graphql/templateFragments";
 
 export async function getStaticPaths() {
   type PathItem = {
@@ -21,31 +24,43 @@ export async function getStaticPaths() {
     };
   };
 
-  const response = await executeQuery(AllWebinarItemsQuery);
-  if (!response.allWebinarItems) {
-    return [];
-  }
+  const response = await executeQuery(AllWebinarsContentQuery);
 
-  return response.allWebinarItems
-    ?.flatMap((webinar) =>
-      webinar.locales.map((lang) => ({
-        params: {
-          webinar: resolveRoutePath(webinar, lang).fullPath,
-          lang: lang,
-        },
-        props: {
-          id: webinar.id,
-          content: webinar.allContentLocales?.find(
-            (contentLocale) => contentLocale.locale === lang,
-          )?.value,
-        },
-      })),
-    )
-    .filter((path): path is PathItem => !!path.params.lang);
+  const pathsPromises =
+    response.allWebinarItems?.flatMap((page) =>
+      page.locales.map(async (lang) => {
+        const seoRes = await executeQuery(WebinarSeoQuery, {
+          variables: { id: page.id, locale: lang },
+        });
+
+        const fullPath = linkResolver(page.id, lang);
+
+        const slug = fullPath
+          .replace(new RegExp(`^/${lang}/?`), "")
+          .replace(/\/$/, "");
+
+        return {
+          params: {
+            webinar: slug,
+            lang: lang,
+          },
+          props: {
+            seo: seoRes.webinarItem?.seo || [],
+            id: page.id,
+            content: page.allContentLocales?.find(
+              (contentLocale) => contentLocale.locale === lang,
+            )?.value,
+          },
+        };
+      }),
+    ) || [];
+
+  const paths = await Promise.all(pathsPromises);
+
+  return paths.filter((path): path is PathItem => !!path.params.lang);
 }
 
-const { lang } = Astro.params;
-const { seo, content, id } = Astro.props;
+const { id, content, seo } = Astro.props;
 
 Astro.locals.recordId = id;
 ---

@@ -1,42 +1,36 @@
 ---
-import SidebarLayoutAdapter from "@components/cms-adapters/datocms/SidebarLayoutAdapter.astro";
-import type {
-  SidebarFragmentType,
-  TagFragmentType,
-} from "@graphql/commonFragments";
-import { ArticleSeoQuery } from "@graphql/query/article";
-import type { ArticleContentFragmentType } from "@graphql/templateFragments";
-import type { SiteLocale } from "@graphql/types";
 import Layout from "@layouts/Layout.astro";
 import { executeQuery } from "@lib/datocms";
+import type { SiteLocale } from "@graphql/types";
+import type { CatalogueContentFragmentType } from "@graphql/templateFragments";
+import PageAdapter from "@components/cms-adapters/datocms/PageAdapter.astro";
+import type { TagFragmentType } from "@graphql/commonFragments";
 import { linkResolver } from "@utils/linkResolver";
-import { AllArticlesQuery, SidebarQuery } from "@utils/query";
+import {
+  AllCataloguesContentQuery,
+  CatalogueSeoQuery,
+} from "@graphql/query/catalogue";
 
 export async function getStaticPaths() {
   type PathItem = {
     params: {
-      article: string;
+      catalogue: string;
       lang: SiteLocale;
     };
     props: {
       seo: TagFragmentType[];
-      content: ArticleContentFragmentType;
+      content: CatalogueContentFragmentType[];
       id: string;
-      sidebar: SidebarFragmentType;
     };
   };
 
-  const response = await executeQuery(AllArticlesQuery);
+  const response = await executeQuery(AllCataloguesContentQuery);
 
   const pathsPromises =
-    response.allArticles?.flatMap((page) =>
+    response.allCatalogues?.flatMap((page) =>
       page.locales.map(async (lang) => {
-        const seoRes = await executeQuery(ArticleSeoQuery, {
+        const seoRes = await executeQuery(CatalogueSeoQuery, {
           variables: { id: page.id, locale: lang },
-        });
-
-        const { sidebarForArticle } = await executeQuery(SidebarQuery, {
-          variables: { locale: lang },
         });
 
         const fullPath = linkResolver(page.id, lang);
@@ -47,13 +41,12 @@ export async function getStaticPaths() {
 
         return {
           params: {
-            article: slug,
+            catalogue: slug,
             lang: lang,
           },
           props: {
-            seo: seoRes.article?.seo || [],
+            seo: seoRes.catalogue?.seo || [],
             id: page.id,
-            sidebar: sidebarForArticle,
             content: page.allContentLocales?.find(
               (contentLocale) => contentLocale.locale === lang,
             )?.value,
@@ -67,11 +60,11 @@ export async function getStaticPaths() {
   return paths.filter((path): path is PathItem => !!path.params.lang);
 }
 
-const { seo, content, id, sidebar } = Astro.props;
+const { id, content, seo } = Astro.props;
 
 Astro.locals.recordId = id;
 ---
 
 <Layout pageSeo={seo}>
-  <SidebarLayoutAdapter sidebar={sidebar} content={content} />
+  <PageAdapter content={content} />
 </Layout>
