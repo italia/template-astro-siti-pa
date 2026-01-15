@@ -1,4 +1,5 @@
 import rawLinkMap from "@data/linkMap.json";
+import rawLinkMapPreview from "@data/linkMapPreview.json";
 import type { SiteLocale } from "@graphql/types";
 
 export type BreadcrumbStep = {
@@ -15,21 +16,27 @@ export type SiteMap = Record<
   string,
   Partial<Record<SiteLocale, PageRouteInfo>>
 >;
+
 const linkMap = rawLinkMap as SiteMap;
+const linkMapPreview = rawLinkMapPreview as SiteMap;
 
-export type LinkMap = typeof linkMap;
-export type RecordId = keyof LinkMap;
+export function linkResolver(
+  id: string | undefined,
+  locale: string,
+  isPreview: boolean = false,
+): string {
+  const map = isPreview ? linkMapPreview : linkMap;
 
-export function linkResolver(id: string | undefined, locale: string): string {
-  if (!id || !(id in linkMap)) {
+  if (!id || !(id in map)) {
     return "#";
   }
-  return linkMap[id as RecordId][locale as SiteLocale]?.path || "#";
+
+  return map[id][locale as SiteLocale]?.path || "#";
 }
 
 export function getBreadcrumbs(id: string | undefined, locale: string) {
   if (!id || !(id in linkMap)) {
     return [];
   }
-  return linkMap[id as RecordId][locale as SiteLocale]?.breadcrumb || [];
+  return linkMap[id][locale as SiteLocale]?.breadcrumb || [];
 }

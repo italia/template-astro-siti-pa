@@ -6,8 +6,6 @@ import { AllLinkQuery } from "@utils/query";
 import fs from "fs";
 import path from "path";
 
-const OUTPUT_PATH = "src/data/linkMap.json";
-
 type HasTitles = {
   allTitleLocales:
     | {
@@ -68,12 +66,14 @@ const processItems = <T extends RoutableRecord>(
   });
 };
 
-async function run() {
-  console.log("Link map generation...");
-  const data = await executeQuery(AllLinkQuery);
+async function generateLinkMap(isPreview: boolean) {
+  const label = isPreview ? "PREVIEW" : "PRODUCTION";
+  const outputPath = `src/data/linkMap${isPreview ? "Preview" : ""}.json`;
 
+  console.log(`Generating ${label} link map...`);
+
+  const data = await executeQuery(AllLinkQuery, { includeDrafts: isPreview });
   const linkMap: SiteMap = {};
-
   const home = data.homepage;
 
   if (home) {
@@ -86,19 +86,34 @@ async function run() {
     });
   }
 
-  processItems(data.allPages, linkMap, home);
-  processItems(data.allArticles, linkMap, home);
-  processItems(data.allInsights, linkMap, home);
-  processItems(data.allStoryItems, linkMap, home);
-  processItems(data.allWebinarItems, linkMap, home);
-  processItems(data.allCatalogues, linkMap, home);
+  const collections = [
+    data.allPages,
+    data.allArticles,
+    data.allInsights,
+    data.allStoryItems,
+    data.allWebinarItems,
+    data.allCatalogues,
+  ];
 
-  const fullOutputPath = path.resolve(OUTPUT_PATH);
-  if (!fs.existsSync(path.dirname(fullOutputPath)))
+  collections.forEach((collection) => processItems(collection, linkMap, home));
+
+  const fullOutputPath = path.resolve(outputPath);
+  if (!fs.existsSync(path.dirname(fullOutputPath))) {
     fs.mkdirSync(path.dirname(fullOutputPath), { recursive: true });
+  }
 
   fs.writeFileSync(fullOutputPath, JSON.stringify(linkMap, null, 2));
-  console.log(`Link Map successfully generated at: ${OUTPUT_PATH}`);
+  console.log(`${label} Map successfully generated at: ${outputPath}`);
+}
+
+async function run() {
+  try {
+    await Promise.all([generateLinkMap(false), generateLinkMap(true)]);
+    console.log("All link maps generated successfully.");
+  } catch (error) {
+    console.error("Error generating link maps:", error);
+    process.exit(1);
+  }
 }
 
 run();
