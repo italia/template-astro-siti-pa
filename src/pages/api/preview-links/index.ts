@@ -5,7 +5,7 @@ import {
   json,
   withCORS,
 } from "@utils/apiUtils";
-import { generateWebsiteUrl } from "@utils/generateWebsiteUrl";
+import { linkResolver } from "@utils/linkResolver";
 
 export const prerender = false;
 
@@ -24,6 +24,11 @@ type WebPreviewsResponse = {
 };
 
 export const POST: APIRoute = async ({ url, request }) => {
+  const body = await request.json();
+  const { item, itemType, locale } = body;
+  const type = itemType?.attributes?.api_key;
+  const id = item?.id;
+
   try {
     const token = url.searchParams.get("token");
 
@@ -31,8 +36,7 @@ export const POST: APIRoute = async ({ url, request }) => {
       return invalidRequestResponse("Invalid token", 401);
     }
 
-    const { item, locale } = await request.json();
-    const recordUrl = generateWebsiteUrl(item, locale);
+    const recordUrl = linkResolver(id, locale, true);
 
     const response: WebPreviewsResponse = { previewLinks: [] };
 
@@ -41,7 +45,7 @@ export const POST: APIRoute = async ({ url, request }) => {
         response.previewLinks.push({
           label: "Draft version",
           url: new URL(
-            `/api/draft-mode/enable?url=${recordUrl}&token=${token}`,
+            `/api/draft-mode/enable?url=${recordUrl}&token=${token}&type=${type}&id=${id}`,
             request.url,
           ).toString(),
         });
@@ -51,7 +55,7 @@ export const POST: APIRoute = async ({ url, request }) => {
         response.previewLinks.push({
           label: "Published version",
           url: new URL(
-            `/api/draft-mode/disable?url=${recordUrl}`,
+            `/api/draft-mode/disable?url=${recordUrl}&type=${type}&id=${id}`,
             request.url,
           ).toString(),
         });

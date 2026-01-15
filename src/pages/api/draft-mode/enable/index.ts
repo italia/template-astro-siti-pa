@@ -13,6 +13,8 @@ export const GET: APIRoute = (event) => {
 
   const token = url.searchParams.get("token");
   const redirectUrl = url.searchParams.get("url") || "/";
+  const type = url.searchParams.get("type");
+  const id = url.searchParams.get("id");
 
   try {
     if (token !== import.meta.env.SECRET_API_TOKEN) {
@@ -28,5 +30,5 @@ export const GET: APIRoute = (event) => {
     return handleUnexpectedError(error);
   }
 
-  return event.redirect(`${redirectUrl}/preview`, 307);
+  return event.redirect(`/preview${redirectUrl}?type=${type}&id=${id}`, 307);
 };

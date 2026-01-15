@@ -22,5 +22,5 @@ export const GET: APIRoute = (event) => {
     return handleUnexpectedError(error);
   }
 
-  return event.redirect(redirectUrl, 307);
+  return event.redirect(`${redirectUrl}`, 307);
 };
