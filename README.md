@@ -38,10 +38,24 @@ All commands are run from the root of the project, from a terminal:
 | :-------------------- | :----------------------------------------------- |
 | `bun install`         | Installs dependencies                            |
 | `bun dev`             | Starts local dev server at `localhost:4321`      |
+| `bun dev:staging`     | Starts dev server using `--mode staging`         |
 | `bun build`           | Build your production site to `./dist/`          |
+| `bun build:staging`   | Build using `--mode staging`                     |
 | `bun preview`         | Preview your build locally, before deploying     |
+| `bun preview:staging` | Preview a staging build locally                  |
 | `bun astro ...`       | Run CLI commands like `astro add`, `astro check` |
 | `bun astro -- --help` | Get help using the Astro CLI                     |
+
+## 🌱 Environment files
+
+Astro (via Vite) loads environment files in this order:
+
+- `./.env` base defaults
+- `./.env.local` local overrides (not committed)
+- `./.env.<mode>` mode-specific values (for example `./.env.staging`, `./.env.production`)
+- `./.env.<mode>.local` local mode-specific overrides
+
+Use `bun dev:staging` or `bun build:staging` to activate `--mode staging`.
 
 ## 👀 Want to learn more?
 
