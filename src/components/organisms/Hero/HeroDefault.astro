@@ -45,14 +45,10 @@ const backgroundColorClassNames: Record<SectionBackground, string> = {
   <div class="container">
     <div class="row">
       <div class="col-12">
-        <div class="it-hero-text-wrapper">
+        <div class="it-hero-text-wrapper px-0">
           {showBreadcrumb && <slot name="breadcrumb" />}
           <h1>{title}</h1>
-          {
-            paragraph && (
-              <p class="d-none d-lg-block font-sans-serif">{paragraph}</p>
-            )
-          }
+          {paragraph && <p class="font-sans-serif">{paragraph}</p>}
         </div>
       </div>
     </div>
