@@ -1,9 +1,6 @@
 import { TagFragment } from "@graphql/commonFragments";
 import { graphql } from "@graphql/graphql";
-import {
-  StoryContentFragment,
-  WebinarContentFragment,
-} from "@graphql/templateFragments";
+import { StoryContentFragment } from "@graphql/templateFragments";
 
 export const AllStoriesContentQuery = graphql(
   `

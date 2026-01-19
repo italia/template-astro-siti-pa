@@ -1,9 +1,6 @@
 import { TagFragment } from "@graphql/commonFragments";
 import { graphql } from "@graphql/graphql";
-import {
-  CatalogueContentFragment,
-  PageContentFragment,
-} from "@graphql/templateFragments";
+import { CatalogueContentFragment } from "@graphql/templateFragments";
 
 export const AllCataloguesContentQuery = graphql(
   `
