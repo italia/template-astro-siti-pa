@@ -22,8 +22,8 @@ export const AllInsightsContentQuery = graphql(
 
 export const InsightSeoQuery = graphql(
   `
-    query StorySeoQuery($id: ItemId!, $locale: SiteLocale!) {
-      storyItem(filter: { id: { eq: $id } }, locale: $locale) {
+    query InsightSeoQuery($id: ItemId!, $locale: SiteLocale!) {
+      insight(filter: { id: { eq: $id } }, locale: $locale) {
         seo: _seoMetaTags {
           ...TagFragment
         }

@@ -5,10 +5,7 @@ import type { SiteLocale } from "@graphql/types";
 import PageAdapter from "@components/cms-adapters/datocms/PageAdapter.astro";
 import type { TagFragmentType } from "@graphql/commonFragments";
 import { linkResolver } from "@utils/linkResolver";
-import type {
-  InsightContentFragmentType,
-  StoryContentFragmentType,
-} from "@graphql/templateFragments";
+import type { InsightContentFragmentType } from "@graphql/templateFragments";
 import {
   AllInsightsContentQuery,
   InsightSeoQuery,
@@ -47,7 +44,7 @@ export async function getStaticPaths() {
             lang: lang,
           },
           props: {
-            seo: seoRes.storyItem?.seo || [],
+            seo: seoRes.insight?.seo || [],
             id: page.id,
             content: page.allContentLocales?.find(
               (contentLocale) => contentLocale.locale === lang,
