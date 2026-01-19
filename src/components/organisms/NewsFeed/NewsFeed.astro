@@ -51,7 +51,38 @@ const tabsItems = tabs.map((tab, index) => ({
       {
         tabs.map((tab, index) => (
           <TabContent tab={tabsItems[index]}>
-            <ul class="it-card-list row pt-5" aria-label={tab.title}>
+            <div
+              class="it-carousel-wrapper it-carousel-landscape-abstract splide d-block d-lg-none"
+              data-bs-carousel-splide
+              data-splide='{"gap":".5rem", "breakpoints":{"768":{"gap":".5rem"}, "992":{"gap":".5rem"}}}'
+            >
+              <div class="splide__track ps-lg-3 pe-lg-3">
+                <ul class="splide__list it-carousel-all">
+                  {tab.componentName === "CardEditorialNews" &&
+                    tab.news.map((n) => (
+                      <li class="splide__slide">
+                        <div class="it-single-slide-wrapper h-100 p-2">
+                          <CardEditorialNews {...n} />
+                        </div>
+                      </li>
+                    ))}
+
+                  {tab.componentName === "CardEditorialInlineMini" &&
+                    tab.news.map((n) => (
+                      <li class="splide__slide">
+                        <div class="it-single-slide-wrapper h-100 p-2">
+                          <CardEditorialInlineMini {...n} />
+                        </div>
+                      </li>
+                    ))}
+                </ul>
+              </div>
+            </div>
+
+            <ul
+              class="it-card-list row pt-5 d-none d-lg-block"
+              aria-label={tab.title}
+            >
               {tab.componentName === "CardEditorialNews" &&
                 tab.news.map((n) => (
                   <li class="col-12 col-lg-4 mb-3">
@@ -72,3 +103,25 @@ const tabsItems = tabs.map((tab, index) => ({
     </Tabs>
   </div>
 </SplitContent>
+
+<script>
+  const refreshTabCarousels = () => {
+    const carousels = document.querySelectorAll(".splide");
+    carousels.forEach((carousel) => {
+      // @ts-ignore - Se l'istanza è presente, facciamo refresh
+      if (carousel.splide) {
+        // @ts-ignore - Se l'istanza è presente, facciamo refresh
+        carousel.splide.refresh();
+      } else {
+        window.dispatchEvent(new Event("resize"));
+      }
+    });
+  };
+
+  document.addEventListener("shown.bs.tab", refreshTabCarousels);
+</script>
+<style is:global>
+  .splide__pagination__page.is-active {
+    background-color: white !important;
+  }
+</style>
