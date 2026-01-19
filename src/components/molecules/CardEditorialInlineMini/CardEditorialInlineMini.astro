@@ -1,5 +1,5 @@
 ---
-import { Chip } from "@components/atoms/Chip";
+import { ChipLink } from "@components/atoms/Chip";
 import { DateTime } from "@components/atoms/DateTime";
 import { Image } from "@components/atoms/Image";
 import type { ImageProps } from "@components/atoms/Image/types";
@@ -21,7 +21,7 @@ const shouldShowFooter = category || dateTime;
 ---
 
 <article
-  class="it-card it-card-inline it-card-inline-mini it-card-image rounded shadow-sm border"
+  class="it-card it-card-inline it-card-height-full it-card-inline-mini it-card-image rounded shadow-sm border"
 >
   <div class="it-card-inline-content">
     <h3 class="it-card-title h4">
@@ -39,7 +39,12 @@ const shouldShowFooter = category || dateTime;
         <footer class="it-card-related it-card-footer">
           {category && (
             <div class="it-card-taxonomy">
-              <Chip label={category} visuallyHidden="" disabled />
+              <ChipLink
+                linkTo={""}
+                label={category}
+                visuallyHidden=""
+                disabled
+              />
             </div>
           )}
           {dateTime && <DateTime className="it-card-date" value={dateTime} />}
