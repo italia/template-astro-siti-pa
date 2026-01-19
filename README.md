@@ -42,7 +42,6 @@ All commands are run from the root of the project, from a terminal:
 | `bun build`           | Build your production site to `./dist/`          |
 | `bun build:staging`   | Build using `--mode staging`                     |
 | `bun preview`         | Preview your build locally, before deploying     |
-| `bun preview:staging` | Preview a staging build locally                  |
 | `bun astro ...`       | Run CLI commands like `astro add`, `astro check` |
 | `bun astro -- --help` | Get help using the Astro CLI                     |
 
