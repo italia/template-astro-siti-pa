@@ -6,4 +6,5 @@ export type SplitContentProps = {
   rightColumns?: number;
   alignItems?: SectionAlignItems;
   background?: SectionBackground;
+  classSecondColumn?: string;
 };

@@ -9,6 +9,7 @@ const {
   rightColumns = 6,
   alignItems = "center",
   background = "default",
+  classSecondColumn = "",
 } = Astro.props;
 
 const backgroundColorClassNames: Record<SectionBackground, string> = {
@@ -24,7 +25,9 @@ const backgroundColorClassNames: Record<SectionBackground, string> = {
     <div class=`col-lg-${leftColumns} col-12`>
       <slot name="left" />
     </div>
-    <div class=`col-lg-${rightColumns} col-12`>
+    <div
+      class=`col-lg-${rightColumns} col-12 mt-4 mt-lg-0 ${classSecondColumn}`
+    >
       <slot name="right" />
     </div>
   </div>
