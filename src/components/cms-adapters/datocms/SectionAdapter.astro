@@ -37,6 +37,8 @@ const variantAdditionalContent =
     : undefined;
 
 const additionalContent = block.additionalContent;
+const isRightBlockImage = rightBlock?.componentName === "ImageBlockRecord";
+const className = isRightBlockImage ? "px-0" : "";
 ---
 
 <SplitContent
@@ -44,6 +46,7 @@ const additionalContent = block.additionalContent;
   rightColumns={block.columnRightSize}
   alignItems={block.alignItems as SectionAlignItems}
   background={block.background as SectionBackground}
+  classSecondColumn={className}
 >
   <Fragment slot="left">
     {
