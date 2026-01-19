@@ -15,13 +15,19 @@ body {
   background-color: hsla(0, 0%, 100%, 0.25);
 }
 
-.py-80 {
-  padding-top: 80px !important;
-  padding-bottom: 80px !important;
+@media (min-width: 992px) {
+  .py-lg-80 {
+    padding-top: 80px !important;
+    padding-bottom: 80px !important;
+  }
 }
 
-.it-hero-wrapper .it-hero-text-wrapper p {
-  font-family: "Titillium Web", Geneva, Tahoma, sans-serif !important;
+.it-hero-wrapper {
+  align-items: center !important;
+
+  .it-hero-text-wrapper p {
+    font-family: "Titillium Web", Geneva, Tahoma, sans-serif !important;
+  }
 }
 
 .structured-text-container .container > * + :is(h1, h2, h3, h4, h5, h6) {
