@@ -13,6 +13,7 @@ const { lang } = Astro.locals;
 
 const useCases: UseCaseCardProps[] = block.useCases.map((useCase) => {
   return {
+    id: useCase.id,
     title: useCase.title,
     paragraph: useCase.paragraph || "",
     linkTo: linkResolver(useCase.id, lang),
