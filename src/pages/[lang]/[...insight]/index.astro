@@ -13,6 +13,7 @@ import {
   AllInsightsContentQuery,
   InsightSeoQuery,
 } from "@graphql/query/insight";
+import { removeLang } from "@utils/pathHelper";
 
 export async function getStaticPaths() {
   type PathItem = {
@@ -38,9 +39,7 @@ export async function getStaticPaths() {
 
         const fullPath = linkResolver(page.id, lang);
 
-        const slug = fullPath
-          .replace(new RegExp(`^/${lang}/?`), "")
-          .replace(/\/$/, "");
+        const slug = removeLang(fullPath, lang);
 
         return {
           params: {

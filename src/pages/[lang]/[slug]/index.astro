@@ -8,6 +8,7 @@ import PageAdapter from "@components/cms-adapters/datocms/PageAdapter.astro";
 import { AllPagesContentQuery, PageSeoQuery } from "@graphql/query/page";
 import type { TagFragmentType } from "@graphql/commonFragments";
 import { linkResolver } from "@utils/linkResolver";
+import { removeLang } from "@utils/pathHelper";
 
 export async function getStaticPaths() {
   type PathItem = {
@@ -33,9 +34,7 @@ export async function getStaticPaths() {
 
         const fullPath = linkResolver(page.id, lang);
 
-        const slug = fullPath
-          .replace(new RegExp(`^/${lang}/?`), "")
-          .replace(/\/$/, "");
+        const slug = removeLang(fullPath, lang);
 
         return {
           params: {
