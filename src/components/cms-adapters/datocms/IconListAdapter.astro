@@ -1,5 +1,6 @@
 ---
-import { Icon } from "@components/atoms/Icon";
+import { ListWithIcon } from "@components/molecules/ListWithIcon";
+import type { ListWithIconItemProps } from "@components/molecules/ListWithIcon/types";
 import type { IconListBlockFragmentType } from "@graphql/commonFragments";
 
 type Props = {
@@ -8,22 +9,10 @@ type Props = {
 
 const { block } = Astro.props;
 
-const items = block.items?.items;
+const items: ListWithIconItemProps[] =
+  block.items?.items.map((item) => {
+    return { icon: item.icon.url, label: item.label };
+  }) || [];
 ---
 
-<p class="fw-semibold fs-6 text-uppercase">{block.title}</p>
-
-<div class="it-list-wrapper">
-  <ul class="it-list">
-    {
-      items?.map((item) => (
-        <li class="mb-3">
-          <div class={`list-item border-0`}>
-            <Icon icon={item.icon.url} className="text-primary me-3" />
-            <div class={`col-10 h6 fw-normal`}>{item.label}</div>
-          </div>
-        </li>
-      ))
-    }
-  </ul>
-</div>
+<ListWithIcon title={block.title || undefined} items={items} />

@@ -1,0 +1,24 @@
+---
+import { Icon } from "@components/atoms/Icon";
+import type { ListWithIconProps } from "./types";
+
+type Props = ListWithIconProps;
+const { title, items } = Astro.props;
+---
+
+{title && <p class="fw-semibold fs-6 text-uppercase">{title}</p>}
+
+<div class="it-list-wrapper">
+  <ul class="it-list">
+    {
+      items?.map((item) => (
+        <li class="mb-3">
+          <div class={`list-item border-0`}>
+            <Icon icon={item.icon} className="text-primary me-3" />
+            <div class={`col-10 h6 fw-normal`}>{item.label}</div>
+          </div>
+        </li>
+      ))
+    }
+  </ul>
+</div>

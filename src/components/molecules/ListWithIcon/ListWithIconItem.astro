@@ -1,0 +1,15 @@
+---
+import { Icon } from "@components/atoms/Icon";
+import type { ListWithIconItemProps } from "./types";
+
+type Props = ListWithIconItemProps;
+
+const { icon, label } = Astro.props;
+---
+
+<li class="mb-3">
+  <div class={`list-item border-0`}>
+    <Icon icon={icon} className="text-primary me-3" />
+    <div class={`col-10 h6 fw-normal`}>{label}</div>
+  </div>
+</li>
