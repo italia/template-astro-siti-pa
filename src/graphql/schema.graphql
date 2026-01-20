@@ -1614,7 +1614,7 @@ type HighlightRecord implements RecordInterface {
   title: String!
 }
 
-union HomepageModelContentField = HeroRecord | NewsFeedRecord | SectionRecord | SupportChannelsSectionRecord
+union HomepageModelContentField = HeroRecord | NewsFeedRecord | SectionRecord | SupportChannelsSectionRecord | TextImageRecord | TextStatisticRecord | TextUseCaseRecord
 
 type HomepageModelContentFieldListListNonNullMultiLocaleField {
   locale: SiteLocale
@@ -1735,7 +1735,7 @@ type IconListItemRecord implements RecordInterface {
   _status: ItemStatus!
   _unpublishingScheduledAt: DateTime
   _updatedAt: DateTime!
-  icon: String!
+  icon: FileField!
   id: ItemId!
   label: String!
 }
@@ -4062,6 +4062,31 @@ type InternalLinkRecord implements RecordInterface {
   titleicon: String
 }
 
+"""Block of type Intro article (intro_article)"""
+type IntroArticleRecord implements RecordInterface {
+  _createdAt: DateTime!
+
+  """Editing URL"""
+  _editingUrl: String
+  _firstPublishedAt: DateTime!
+  _isValid: BooleanType!
+  _modelApiKey: String!
+  _publicationScheduledAt: DateTime
+  _publishedAt: DateTime!
+
+  """Generates SEO and Social card meta tags to be used in your frontend"""
+  _seoMetaTags(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+  ): [Tag!]!
+  _status: ItemStatus!
+  _unpublishingScheduledAt: DateTime
+  _updatedAt: DateTime!
+  id: ItemId!
+  list: IconListBlockRecord!
+  text: TextBlockRecord!
+}
+
 scalar ItemId
 
 """Specifies how to filter by ID"""
@@ -5269,7 +5294,7 @@ type PageLegacyRecord implements RecordInterface {
   ): String!
 }
 
-union PageModelContentField = DataSectionRecord | FaqSectionRecord | HeroRecord | NewsFeedRecord | SectionRecord | StructuredTextRecord | SupportChannelsSectionRecord | SupportCtaSectionRecord | TopicFilterRecord | UseCaseContainerRecord
+union PageModelContentField = DataSectionRecord | FaqSectionRecord | HeroRecord | NewsFeedRecord | SectionRecord | StructuredTextRecord | SupportChannelsSectionRecord | SupportCtaSectionRecord | TextAccordionRecord | TextImageRecord | TopicFilterRecord | UseCaseContainerRecord
 
 type PageModelContentFieldListListNonNullMultiLocaleField {
   locale: SiteLocale
@@ -6951,6 +6976,31 @@ input SlugFilter {
   notIn: [String]
 }
 
+"""Block of type Speaker (speaker)"""
+type SpeakerRecord implements RecordInterface {
+  _createdAt: DateTime!
+
+  """Editing URL"""
+  _editingUrl: String
+  _firstPublishedAt: DateTime!
+  _isValid: BooleanType!
+  _modelApiKey: String!
+  _publicationScheduledAt: DateTime
+  _publishedAt: DateTime!
+
+  """Generates SEO and Social card meta tags to be used in your frontend"""
+  _seoMetaTags(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+  ): [Tag!]!
+  _status: ItemStatus!
+  _unpublishingScheduledAt: DateTime
+  _updatedAt: DateTime!
+  id: ItemId!
+  list: AuthorListRecord!
+  text: TextBlockRecord!
+}
+
 """Block of type Statistic block (statistic_block)"""
 type StatisticBlockRecord implements RecordInterface {
   _createdAt: DateTime!
@@ -7015,7 +7065,7 @@ input StatusFilter {
   notIn: [ItemStatus]
 }
 
-union StoryItemModelContentField = HeroRecord | SectionRecord | StructuredTextRecord | SupportCtaSectionRecord
+union StoryItemModelContentField = HeroRecord | IntroArticleRecord | SectionRecord | StructuredTextRecord | SupportCtaSectionRecord
 
 type StoryItemModelContentFieldListListNonNullMultiLocaleField {
   locale: SiteLocale
@@ -7444,6 +7494,7 @@ type SupportChannelsSectionRecord implements RecordInterface {
   _status: ItemStatus!
   _unpublishingScheduledAt: DateTime
   _updatedAt: DateTime!
+  backgroundColor: String
   channels: [ChannelRecord!]!
   id: ItemId!
   paragraph(
@@ -7451,7 +7502,6 @@ type SupportChannelsSectionRecord implements RecordInterface {
     markdown: Boolean
   ): String!
   title: String!
-  variant: String
 }
 
 union SupportCtaSectionModelCtaField = ExternalLinkRecord | InternalLinkRecord
@@ -7476,7 +7526,7 @@ type SupportCtaSectionRecord implements RecordInterface {
   _status: ItemStatus!
   _unpublishingScheduledAt: DateTime
   _updatedAt: DateTime!
-  background: String
+  backgroundColor: String
   cta: SupportCtaSectionModelCtaField
   id: ItemId!
   image: FileField!
@@ -7490,6 +7540,33 @@ type Tag {
   content: String
   tag: String!
 }
+
+"""Block of type Text + accordion (text_accordion)"""
+type TextAccordionRecord implements RecordInterface {
+  _createdAt: DateTime!
+
+  """Editing URL"""
+  _editingUrl: String
+  _firstPublishedAt: DateTime!
+  _isValid: BooleanType!
+  _modelApiKey: String!
+  _publicationScheduledAt: DateTime
+  _publishedAt: DateTime!
+
+  """Generates SEO and Social card meta tags to be used in your frontend"""
+  _seoMetaTags(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+  ): [Tag!]!
+  _status: ItemStatus!
+  _unpublishingScheduledAt: DateTime
+  _updatedAt: DateTime!
+  accordion: AccordionBlockRecord!
+  id: ItemId!
+  text: TextBlockRecord!
+}
+
+union TextBlockModelCtaLinkField = ExternalLinkRecord | InternalLinkRecord
 
 """Block of type 📋 Text block (text_block)"""
 type TextBlockRecord implements RecordInterface {
@@ -7511,7 +7588,7 @@ type TextBlockRecord implements RecordInterface {
   _status: ItemStatus!
   _unpublishingScheduledAt: DateTime
   _updatedAt: DateTime!
-  cta: InternalLinkRecord
+  ctaLink: TextBlockModelCtaLinkField
   id: ItemId!
   paragraph(
     """Process content as markdown"""
@@ -7542,6 +7619,84 @@ input TextFilter {
   Filter records with the specified field defined (i.e. with any value) or not [DEPRECATED]
   """
   exists: BooleanType
+}
+
+"""Block of type Text + image (text_image)"""
+type TextImageRecord implements RecordInterface {
+  _createdAt: DateTime!
+
+  """Editing URL"""
+  _editingUrl: String
+  _firstPublishedAt: DateTime!
+  _isValid: BooleanType!
+  _modelApiKey: String!
+  _publicationScheduledAt: DateTime
+  _publishedAt: DateTime!
+
+  """Generates SEO and Social card meta tags to be used in your frontend"""
+  _seoMetaTags(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+  ): [Tag!]!
+  _status: ItemStatus!
+  _unpublishingScheduledAt: DateTime
+  _updatedAt: DateTime!
+  additionalContent: AdditionalContentRecord
+  backgroundColor: String!
+  id: ItemId!
+  image: FileField!
+  text: TextBlockRecord!
+  variant: String!
+}
+
+"""Block of type Text + statistic (text_statistic)"""
+type TextStatisticRecord implements RecordInterface {
+  _createdAt: DateTime!
+
+  """Editing URL"""
+  _editingUrl: String
+  _firstPublishedAt: DateTime!
+  _isValid: BooleanType!
+  _modelApiKey: String!
+  _publicationScheduledAt: DateTime
+  _publishedAt: DateTime!
+
+  """Generates SEO and Social card meta tags to be used in your frontend"""
+  _seoMetaTags(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+  ): [Tag!]!
+  _status: ItemStatus!
+  _unpublishingScheduledAt: DateTime
+  _updatedAt: DateTime!
+  id: ItemId!
+  statistics: StatisticBlockRecord!
+  text: TextBlockRecord!
+}
+
+"""Block of type Text + use case (text_use_case)"""
+type TextUseCaseRecord implements RecordInterface {
+  _createdAt: DateTime!
+
+  """Editing URL"""
+  _editingUrl: String
+  _firstPublishedAt: DateTime!
+  _isValid: BooleanType!
+  _modelApiKey: String!
+  _publicationScheduledAt: DateTime
+  _publishedAt: DateTime!
+
+  """Generates SEO and Social card meta tags to be used in your frontend"""
+  _seoMetaTags(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+  ): [Tag!]!
+  _status: ItemStatus!
+  _unpublishingScheduledAt: DateTime
+  _updatedAt: DateTime!
+  id: ItemId!
+  text: TextBlockRecord!
+  useCases: UseCaseBlockRecord!
 }
 
 """Block of type 🔖 Topic filter (topic_filter)"""
@@ -8294,7 +8449,33 @@ type WebinarAuthorRecord implements RecordInterface {
   ): String
 }
 
-union WebinarItemModelContentField = ActionCardRecord | HeroRecord | SectionRecord
+"""Block of type Webinar description (webinar_description)"""
+type WebinarDescriptionRecord implements RecordInterface {
+  _createdAt: DateTime!
+
+  """Editing URL"""
+  _editingUrl: String
+  _firstPublishedAt: DateTime!
+  _isValid: BooleanType!
+  _modelApiKey: String!
+  _publicationScheduledAt: DateTime
+  _publishedAt: DateTime!
+
+  """Generates SEO and Social card meta tags to be used in your frontend"""
+  _seoMetaTags(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+  ): [Tag!]!
+  _status: ItemStatus!
+  _unpublishingScheduledAt: DateTime
+  _updatedAt: DateTime!
+  id: ItemId!
+  resourses: QuickLinkCardRecord!
+  subjects: FeatureListBlockRecord!
+  text: TextBlockRecord!
+}
+
+union WebinarItemModelContentField = ActionCardRecord | HeroRecord | SectionRecord | SpeakerRecord | WebinarDescriptionRecord
 
 type WebinarItemModelContentFieldListListNonNullMultiLocaleField {
   locale: SiteLocale

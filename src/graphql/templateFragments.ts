@@ -1,18 +1,3 @@
-import { graphql, type FragmentOf } from "@graphql/graphql";
-import {
-  DataSectionRecordFragment,
-  FaqSectionRecordFragment,
-  HeroFragment,
-  NewsFeedFragment,
-  CatalogueFeedFragment,
-  SectionFragment,
-  SupportChannelsSectionFragment,
-  TopicFilterFragment,
-  UseCaseContainerFragment,
-  SupportCTASectionFragment,
-  StructuredTextFragment,
-  ActionCardFragment,
-} from "@graphql/sectionFragments";
 import {
   CalloutFragment,
   ExternalLinkFragment,
@@ -26,6 +11,28 @@ import {
   TagFragment,
   TopicsBlockFragment,
 } from "@graphql/commonFragments";
+import { graphql, type FragmentOf } from "@graphql/graphql";
+import {
+  ActionCardFragment,
+  CatalogueFeedFragment,
+  DataSectionRecordFragment,
+  FaqSectionRecordFragment,
+  HeroFragment,
+  IntroArticleFragment,
+  NewsFeedFragment,
+  SectionFragment,
+  SpeakerFragment,
+  StructuredTextFragment,
+  SupportChannelsSectionFragment,
+  SupportCTASectionFragment,
+  TextAndAccordionFragment,
+  TextAndImageFragment,
+  TextAndStatisticsFragment,
+  TextAndUseCasesFragment,
+  TopicFilterFragment,
+  UseCaseContainerFragment,
+  WebinarDescriptionFragment,
+} from "@graphql/sectionFragments";
 import {
   AllArticlesSlugFragment,
   AllInsightsSlugFragment,
@@ -53,6 +60,15 @@ export const HomepageModelContentFragment = graphql(
       ... on SupportChannelsSectionRecord {
         ...SupportChannelsSectionFragment
       }
+      ... on TextUseCaseRecord {
+        ...TextAndUseCasesFragment
+      }
+      ... on TextStatisticRecord {
+        ...TextAndStatisticsFragment
+      }
+      ... on TextImageRecord {
+        ...TextAndImageFragment
+      }
     }
   `,
   [
@@ -60,6 +76,9 @@ export const HomepageModelContentFragment = graphql(
     NewsFeedFragment,
     SectionFragment,
     SupportChannelsSectionFragment,
+    TextAndImageFragment,
+    TextAndStatisticsFragment,
+    TextAndUseCasesFragment,
   ],
 );
 
@@ -106,6 +125,12 @@ export const PageContentFragment = graphql(
           ...StructuredTextFragment
         }
       }
+      ... on TextImageRecord {
+        ...TextAndImageFragment
+      }
+      ... on TextAccordionRecord {
+        ...TextAndAccordionFragment
+      }
     }
   `,
   [
@@ -119,6 +144,8 @@ export const PageContentFragment = graphql(
     TopicFilterFragment,
     SupportCTASectionFragment,
     StructuredTextFragment,
+    TextAndImageFragment,
+    TextAndAccordionFragment,
   ],
 );
 
@@ -305,6 +332,9 @@ export const StoryContentFragment = graphql(
       ... on SupportCtaSectionRecord {
         ...SupportCTASectionFragment
       }
+      ... on IntroArticleRecord {
+        ...IntroArticleFragment
+      }
     }
   `,
   [
@@ -313,6 +343,7 @@ export const StoryContentFragment = graphql(
     StructuredTextFragment,
     SectionFragment,
     SupportCTASectionFragment,
+    IntroArticleFragment,
   ],
 );
 
@@ -357,9 +388,21 @@ export const WebinarContentFragment = graphql(
       ... on ActionCardRecord {
         ...ActionCardFragment
       }
+      ... on SpeakerRecord {
+        ...SpeakerFragment
+      }
+      ... on WebinarDescriptionRecord {
+        ...WebinarDescriptionFragment
+      }
     }
   `,
-  [HeroFragment, SectionFragment, ActionCardFragment],
+  [
+    HeroFragment,
+    SectionFragment,
+    ActionCardFragment,
+    SpeakerFragment,
+    WebinarDescriptionFragment,
+  ],
 );
 
 export type WebinarContentFragmentType = FragmentOf<

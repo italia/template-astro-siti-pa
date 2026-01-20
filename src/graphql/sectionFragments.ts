@@ -84,7 +84,7 @@ export const SupportChannelsSectionFragment = graphql(
       channels {
         ...ChannelFragment
       }
-      variant
+      backgroundColor
     }
   `,
   [ChannelFragment],
@@ -326,7 +326,7 @@ export const SupportCTASectionFragment = graphql(
       id
       title
       paragraph
-      background
+      backgroundColor
       size
       image {
         ...ImageFragment
@@ -463,3 +463,136 @@ export const ActionCardFragment = graphql(
 );
 
 export type ActionCardFragmentType = FragmentOf<typeof ActionCardFragment>;
+
+export const SpeakerFragment = graphql(
+  `
+    fragment SpeakerFragment on SpeakerRecord @_unmask {
+      id
+      text {
+        ...TextBlockFragment
+      }
+      list {
+        ...AuthorListFragment
+      }
+    }
+  `,
+  [TextBlockFragment, AuthorListFragment],
+);
+
+export type SpeakerFragmentType = FragmentOf<typeof SpeakerFragment>;
+
+export const WebinarDescriptionFragment = graphql(
+  `
+    fragment WebinarDescriptionFragment on WebinarDescriptionRecord @_unmask {
+      id
+      text {
+        ...TextBlockFragment
+      }
+      subjects {
+        ...FeatureListBlockFragment
+      }
+      resourses {
+        ...QuickLinkCardFragment
+      }
+    }
+  `,
+  [TextBlockFragment, FeatureListBlockFragment, QuickLinkCardFragment],
+);
+
+export type WebinarDescriptionFragmentType = FragmentOf<
+  typeof WebinarDescriptionFragment
+>;
+WebinarDescriptionFragment;
+
+export const IntroArticleFragment = graphql(
+  `
+    fragment IntroArticleFragment on IntroArticleRecord @_unmask {
+      id
+      text {
+        ...TextBlockFragment
+      }
+      list {
+        ...IconListBlockFragment
+      }
+    }
+  `,
+  [TextBlockFragment, IconListBlockFragment],
+);
+
+export type IntroArticleFragmentType = FragmentOf<typeof IntroArticleFragment>;
+WebinarDescriptionFragment;
+
+export const TextAndImageFragment = graphql(
+  `
+    fragment TextAndImageFragment on TextImageRecord @_unmask {
+      text {
+        ...TextBlockFragment
+      }
+      image {
+        ...ImageFragment
+      }
+      variant
+      backgroundColor
+      additionalContent {
+        ...AdditionalContentFragment
+      }
+    }
+  `,
+  [TextBlockFragment, ImageFragment, AdditionalContentFragment],
+);
+
+export type TextAndImageFragmentType = FragmentOf<typeof TextAndImageFragment>;
+
+export const TextAndStatisticsFragment = graphql(
+  `
+    fragment TextAndStatisticsFragment on TextStatisticRecord @_unmask {
+      text {
+        ...TextBlockFragment
+      }
+      statistics {
+        ...StatisticBlockFragment
+      }
+    }
+  `,
+  [TextBlockFragment, StatisticBlockFragment],
+);
+
+export type TextAndStatisticsFragmentType = FragmentOf<
+  typeof TextAndStatisticsFragment
+>;
+
+export const TextAndUseCasesFragment = graphql(
+  `
+    fragment TextAndUseCasesFragment on TextUseCaseRecord @_unmask {
+      text {
+        ...TextBlockFragment
+      }
+      useCases {
+        ...UseCaseBlockFragment
+      }
+    }
+  `,
+  [TextBlockFragment, UseCaseBlockFragment],
+);
+
+export type TextAndUseCasesFragmentType = FragmentOf<
+  typeof TextAndUseCasesFragment
+>;
+
+export const TextAndAccordionFragment = graphql(
+  `
+    fragment TextAndAccordionFragment on TextAccordionRecord @_unmask {
+      text {
+        ...TextBlockFragment
+      }
+      accordion {
+        ...AccordionBlockFragment
+      }
+    }
+  `,
+  [TextBlockFragment, AccordionBlockFragment],
+);
+
+export type TextAndAccordionFragmentType = FragmentOf<
+  typeof TextAndAccordionFragment
+>;

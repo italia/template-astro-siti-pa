@@ -257,7 +257,7 @@ export const TextBlockFragment = graphql(
       id
       title
       paragraph(markdown: true)
-      cta {
+      ctaLink {
         ...InternalLinkFragment
       }
     }
@@ -639,7 +639,9 @@ export const IconListBlockFragment = graphql(`
     items {
       id
       items {
-        icon
+        icon {
+          url
+        }
         label
       }
     }
