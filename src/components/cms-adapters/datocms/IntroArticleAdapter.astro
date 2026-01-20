@@ -1,0 +1,24 @@
+---
+import IconListAdapter from "@components/cms-adapters/datocms/IconListAdapter.astro";
+import TextContainerAdapter from "@components/cms-adapters/datocms/TextContainerAdapter.astro";
+import { SplitContent } from "@components/layout/SplitContent";
+import type { IntroArticleFragmentType } from "@graphql/sectionFragments";
+
+type Props = {
+  block: IntroArticleFragmentType;
+};
+
+const { block } = Astro.props;
+---
+
+<SplitContent
+  rightColumns={6}
+  leftColumns={5}
+  alignItems="center"
+  background="lighter"
+>
+  <Fragment slot="left">
+    <TextContainerAdapter block={block.text} variant="light" />
+  </Fragment>
+  <Fragment slot="right"><IconListAdapter block={block.list} /> </Fragment>
+</SplitContent>

@@ -1,0 +1,26 @@
+---
+import AuthorListAdapter from "@components/cms-adapters/datocms/AuthorListAdapter.astro";
+import TextContainerAdapter from "@components/cms-adapters/datocms/TextContainerAdapter.astro";
+import { SplitContent } from "@components/layout/SplitContent";
+import type { SpeakerFragmentType } from "@graphql/sectionFragments";
+
+type Props = {
+  block: SpeakerFragmentType;
+};
+
+const { block } = Astro.props;
+---
+
+<SplitContent
+  rightColumns={5}
+  leftColumns={5}
+  alignItems="top"
+  background="lighter"
+>
+  <Fragment slot="left">
+    <TextContainerAdapter block={block.text} variant="light" />
+  </Fragment>
+  <Fragment slot="right">
+    <AuthorListAdapter block={block.list} />
+  </Fragment>
+</SplitContent>

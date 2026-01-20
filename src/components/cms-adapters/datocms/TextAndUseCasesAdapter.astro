@@ -1,0 +1,21 @@
+---
+import TextContainerAdapter from "@components/cms-adapters/datocms/TextContainerAdapter.astro";
+import UseCasesAdapter from "@components/cms-adapters/datocms/UseCasesAdapter.astro";
+import { SplitContent } from "@components/layout/SplitContent";
+import type { TextAndUseCasesFragmentType } from "@graphql/sectionFragments";
+
+type Props = {
+  block: TextAndUseCasesFragmentType;
+};
+
+const { block } = Astro.props;
+---
+
+<SplitContent rightColumns={6} leftColumns={5} alignItems="top">
+  <Fragment slot="left">
+    <TextContainerAdapter block={block.text} variant="light" />
+  </Fragment>
+  <Fragment slot="right">
+    <UseCasesAdapter block={block.useCases} />
+  </Fragment>
+</SplitContent>

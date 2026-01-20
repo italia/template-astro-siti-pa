@@ -1,0 +1,28 @@
+---
+import FeatureListAdapter from "@components/cms-adapters/datocms/FeatureListAdapter.astro";
+import QuickLinkCardAdapter from "@components/cms-adapters/datocms/QuickLinkCardAdapter.astro";
+import TextContainerAdapter from "@components/cms-adapters/datocms/TextContainerAdapter.astro";
+import { SplitContent } from "@components/layout/SplitContent";
+import type { WebinarDescriptionFragmentType } from "@graphql/sectionFragments";
+
+type Props = {
+  block: WebinarDescriptionFragmentType;
+};
+
+const { block } = Astro.props;
+---
+
+<SplitContent rightColumns={5} leftColumns={5} alignItems="center">
+  <Fragment slot="left">
+    <TextContainerAdapter block={block.text} variant="light" />
+  </Fragment>
+
+  <div class="row justify-content-between align-items-top">
+    <div class="col-12 col-lg-6">
+      <FeatureListAdapter block={block.subjects} />
+    </div>
+    <div class="col-12 col-lg-5">
+      <QuickLinkCardAdapter block={block.resourses} />
+    </div>
+  </div>
+</SplitContent>
