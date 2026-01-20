@@ -6,9 +6,9 @@ export type SupportCTASectionProps = {
   labelButton?: string;
   linkTo?: string;
   image: ImageProps;
-  variant?: SupportCTASectionVariantProps;
+  background?: SupportCTASectionBackgroundProps;
   size?: SupportCTASectionSizeProps;
 };
 
-export type SupportCTASectionVariantProps = "lighter" | "default";
+export type SupportCTASectionBackgroundProps = "lighter" | "default";
 export type SupportCTASectionSizeProps = "default" | "small";

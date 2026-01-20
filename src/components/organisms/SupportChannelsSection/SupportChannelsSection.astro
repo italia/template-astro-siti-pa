@@ -1,15 +1,15 @@
 ---
+import { SplitContent } from "@components/layout/SplitContent";
 import { CardPresentationBanner } from "@components/molecules/CardPresentationBanner";
 import TextContainer from "@components/molecules/TextContainer/TextContainer.astro";
-import { SplitContent } from "@components/layout/SplitContent";
 import type { SupportChannelSectionProps } from "./types";
 
 type Props = SupportChannelSectionProps;
 
-const { title, paragraph, channels, variant = "default" } = Astro.props;
+const { title, paragraph, channels, background = "default" } = Astro.props;
 ---
 
-<SplitContent background={variant} leftColumns={5} alignItems="top">
+<SplitContent background={background} leftColumns={5} alignItems="top">
   <TextContainer slot="left" title={title} paragraph={paragraph} />
   <div class="row pt-4">
     {

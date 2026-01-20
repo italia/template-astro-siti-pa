@@ -4,7 +4,7 @@ export type SupportChannelSectionProps = {
   title: string;
   paragraph: string;
   channels: CardPresentationBannerProps[];
-  variant?: SupportChannelSectionVariantProps;
+  background?: SupportChannelSectionBackgroundProps;
 };
 
-export type SupportChannelSectionVariantProps = "default" | "lighter";
+export type SupportChannelSectionBackgroundProps = "default" | "lighter";

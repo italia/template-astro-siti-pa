@@ -1,7 +1,10 @@
 ---
-import TextContainer from "@components/molecules/TextContainer/TextContainer.astro";
 import { Image } from "@components/atoms/Image";
-import type { SupportCTASectionProps } from "./types";
+import TextContainer from "@components/molecules/TextContainer/TextContainer.astro";
+import type {
+  SupportCTASectionBackgroundProps,
+  SupportCTASectionProps,
+} from "./types";
 
 type Props = SupportCTASectionProps;
 
@@ -11,16 +14,16 @@ const {
   labelButton,
   linkTo,
   image,
-  variant = "lighter",
+  background = "lighter",
   size = "default",
 } = Astro.props;
 
-const backgroundColor = {
+const backgroundColor: Record<SupportCTASectionBackgroundProps, string> = {
   lighter: "lightgrey-bg-a3",
   default: "",
 };
 
-const backgroundColorClass = backgroundColor[variant];
+const backgroundColorClass = backgroundColor[background];
 ---
 
 <section
