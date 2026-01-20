@@ -1,12 +1,16 @@
 ---
 import { DataContainer } from "@components/molecules/DataContainer";
-import type { DataContainerProps } from "@components/molecules/DataContainer/types";
+import type {
+  DataContainerProps,
+  VariantTextDataContainerProps,
+} from "@components/molecules/DataContainer/types";
 
 type Props = {
   items: DataContainerProps[];
+  variant?: VariantTextDataContainerProps;
 };
 
-const { items } = Astro.props;
+const { items, variant = "light" } = Astro.props;
 ---
 
 <style>
@@ -14,5 +18,5 @@ const { items } = Astro.props;
 </style>
 
 <div class="statistics-container">
-  {items.map((item) => <DataContainer {...item} />)}
+  {items.map((item) => <DataContainer {...item} variant={variant} />)}
 </div>

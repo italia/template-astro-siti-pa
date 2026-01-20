@@ -3,3 +3,5 @@ export type DataContainerProps = {
   title: string;
   contentIcon: string;
 };
+
+export type VariantTextDataContainerProps = "dark" | "light";
