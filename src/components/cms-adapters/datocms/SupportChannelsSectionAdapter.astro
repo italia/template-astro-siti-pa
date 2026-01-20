@@ -1,7 +1,7 @@
 ---
-import type { SupportChannelsSectionFragmentType } from "@graphql/sectionFragments";
 import { SupportChannelsSection } from "@components/organisms/SupportChannelsSection";
-import type { SupportChannelSectionVariantProps } from "@components/organisms/SupportChannelsSection/types";
+import type { SupportChannelSectionBackgroundProps } from "@components/organisms/SupportChannelsSection/types";
+import type { SupportChannelsSectionFragmentType } from "@graphql/sectionFragments";
 
 type Props = {
   block: SupportChannelsSectionFragmentType;
@@ -23,5 +23,5 @@ const channelItems = block.channels.map((channel) => {
   title={block.title}
   paragraph={block.paragraph}
   channels={channelItems}
-  variant={block.variant as SupportChannelSectionVariantProps}
+  background={block.backgroundColor as SupportChannelSectionBackgroundProps}
 />

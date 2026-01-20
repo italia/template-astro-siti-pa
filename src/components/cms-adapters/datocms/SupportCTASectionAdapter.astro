@@ -1,11 +1,11 @@
 ---
-import type { SupportCTASectionFragmentType } from "@graphql/sectionFragments";
-import { SupportCTASection } from "../../organisms/SupportCTASection";
 import type {
+  SupportCTASectionBackgroundProps,
   SupportCTASectionSizeProps,
-  SupportCTASectionVariantProps,
 } from "@components/organisms/SupportCTASection/types";
+import type { SupportCTASectionFragmentType } from "@graphql/sectionFragments";
 import { linkResolver } from "@utils/linkResolver";
+import { SupportCTASection } from "../../organisms/SupportCTASection";
 
 type DatoRecord = SupportCTASectionFragmentType & {
   __typename: string;
@@ -51,7 +51,7 @@ const { labelButton, linkTo } = getCtaFields();
   paragraph={block.paragraph}
   image={block.image}
   size={block.size as SupportCTASectionSizeProps}
-  variant={block.background as SupportCTASectionVariantProps}
+  background={block.backgroundColor as SupportCTASectionBackgroundProps}
   labelButton={labelButton}
   linkTo={linkTo}
 />
