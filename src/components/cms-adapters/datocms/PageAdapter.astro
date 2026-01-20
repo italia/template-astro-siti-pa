@@ -1,25 +1,32 @@
 ---
-import HeroAdapter from "@components/cms-adapters/datocms/HeroAdapter.astro";
-import NewsFeedAdapter from "@components/cms-adapters/datocms/NewsFeedAdapter.astro";
-import SectionAdapter from "@components/cms-adapters/datocms/SectionAdapter.astro";
-import SupportChannelsSectionAdapter from "@components/cms-adapters/datocms/SupportChannelsSectionAdapter.astro";
+import ActionCardAdapter from "@components/cms-adapters/datocms/ActionCardAdapter.astro";
+import CatalogueFeedAdapter from "@components/cms-adapters/datocms/CatalogueFeedAdapter.astro";
 import DataSectionAdapter from "@components/cms-adapters/datocms/DataSectionAdapter.astro";
 import FAQSectionAdapter from "@components/cms-adapters/datocms/FAQSectionAdapter.astro";
+import HeroAdapter from "@components/cms-adapters/datocms/HeroAdapter.astro";
+import IntroArticleAdapter from "@components/cms-adapters/datocms/IntroArticleAdapter.astro";
+import ListCollectionAdapter from "@components/cms-adapters/datocms/ListCollectionAdapter.astro";
+import NewsFeedAdapter from "@components/cms-adapters/datocms/NewsFeedAdapter.astro";
+import SectionAdapter from "@components/cms-adapters/datocms/SectionAdapter.astro";
+import SpeakerAdapter from "@components/cms-adapters/datocms/SpeakerAdapter.astro";
+import StructuredTextBlockAdapter from "@components/cms-adapters/datocms/StructuredTextBlockAdapter.astro";
+import SupportChannelsSectionAdapter from "@components/cms-adapters/datocms/SupportChannelsSectionAdapter.astro";
+import SupportCTASectionAdapter from "@components/cms-adapters/datocms/SupportCTASectionAdapter.astro";
+import TextAndAccordionAdapter from "@components/cms-adapters/datocms/TextAndAccordionAdapter.astro";
+import TextAndImageAdapter from "@components/cms-adapters/datocms/TextAndImageAdapter.astro";
+import TextAndStatisticsAdapter from "@components/cms-adapters/datocms/TextAndStatisticsAdapter.astro";
+import TextAndUseCasesAdapter from "@components/cms-adapters/datocms/TextAndUseCasesAdapter.astro";
+import TopicFilterAdapter from "@components/cms-adapters/datocms/TopicFilterAdapter.astro";
+import UseCaseContainerAdapter from "@components/cms-adapters/datocms/UseCaseContainerAdapter.astro";
+import WebinarDescriptionAdapter from "@components/cms-adapters/datocms/WebinarDescriptionAdapter.astro";
 import type {
+  CatalogueContentFragmentType,
   HomepageModelContentFragmentType,
   InsightContentFragmentType,
-  CatalogueContentFragmentType,
   PageContentFragmentType,
   StoryContentFragmentType,
   WebinarContentFragmentType,
 } from "@graphql/templateFragments";
-import UseCaseContainerAdapter from "@components/cms-adapters/datocms/UseCaseContainerAdapter.astro";
-import TopicFilterAdapter from "@components/cms-adapters/datocms/TopicFilterAdapter.astro";
-import SupportCTASectionAdapter from "@components/cms-adapters/datocms/SupportCTASectionAdapter.astro";
-import StructuredTextBlockAdapter from "@components/cms-adapters/datocms/StructuredTextBlockAdapter.astro";
-import ListCollectionAdapter from "@components/cms-adapters/datocms/ListCollectionAdapter.astro";
-import CatalogueFeedAdapter from "@components/cms-adapters/datocms/CatalogueFeedAdapter.astro";
-import ActionCardAdapter from "@components/cms-adapters/datocms/ActionCardAdapter.astro";
 
 type ContentType =
   | HomepageModelContentFragmentType
@@ -65,6 +72,20 @@ const { content } = Astro.props;
         return <CatalogueFeedAdapter block={block} />;
       case "ActionCardRecord":
         return <ActionCardAdapter block={block} />;
+      case "TextImageRecord":
+        return <TextAndImageAdapter block={block} />;
+      case "TextStatisticRecord":
+        return <TextAndStatisticsAdapter block={block} />;
+      case "TextUseCaseRecord":
+        return <TextAndUseCasesAdapter block={block} />;
+      case "TextAccordionRecord":
+        return <TextAndAccordionAdapter block={block} />;
+      case "WebinarDescriptionRecord":
+        return <WebinarDescriptionAdapter block={block} />;
+      case "SpeakerRecord":
+        return <SpeakerAdapter block={block} />;
+      case "IntroArticleRecord":
+        return <IntroArticleAdapter block={block} />;
       default:
         return null;
     }
