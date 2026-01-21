@@ -498,7 +498,6 @@ export const WebinarDescriptionFragment = graphql(
 export type WebinarDescriptionFragmentType = FragmentOf<
   typeof WebinarDescriptionFragment
 >;
-WebinarDescriptionFragment;
 
 export const IntroArticleFragment = graphql(
   `
@@ -516,7 +515,6 @@ export const IntroArticleFragment = graphql(
 );
 
 export type IntroArticleFragmentType = FragmentOf<typeof IntroArticleFragment>;
-WebinarDescriptionFragment;
 
 export const TextAndImageFragment = graphql(
   `
