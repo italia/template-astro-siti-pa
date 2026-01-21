@@ -152,7 +152,6 @@ export const SectionFragment = graphql(
     AccordionBlockFragment,
     IconListBlockFragment,
     QuickLinkCardFragment,
-    FeatureListBlockFragment,
     AuthorListFragment,
   ],
 );
