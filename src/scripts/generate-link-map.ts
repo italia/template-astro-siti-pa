@@ -85,6 +85,28 @@ async function generateLinkMap() {
     });
   }
 
+  const search = data.search;
+
+  if (search) {
+    linkMap[search.id] = {} as LocaleMap;
+    search.locales.forEach((locale) => {
+      linkMap[search.id][locale] = {
+        path: `/${locale}/${search.allSlugLocales?.find((t) => t.locale === locale)?.value}`,
+        breadcrumb: [],
+      };
+      if (home) {
+        linkMap[search.id][locale].breadcrumb.push({
+          title: getTitle(home, locale),
+          id: home.id,
+        });
+      }
+      linkMap[search.id][locale].breadcrumb.push({
+        title: getTitle(search, locale),
+        id: search.id,
+      });
+    });
+  }
+
   const collections = [
     data.allPages,
     data.allArticles,
