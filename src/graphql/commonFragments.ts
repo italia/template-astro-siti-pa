@@ -257,7 +257,7 @@ export const TextBlockFragment = graphql(
       id
       title
       paragraph(markdown: true)
-      ctaLink {
+      cta {
         ...InternalLinkFragment
       }
     }
