@@ -1,13 +1,13 @@
+import { LocaleFragment } from "@graphql/commonFragments";
 import { graphql, type FragmentOf } from "@graphql/graphql";
 import {
   ArticleLocalesFragment,
-  InsightLocalesFragment,
   CatalogueLocalesFragment,
+  InsightLocalesFragment,
   PageLocalesFragment,
   StoryItemLocalesFragment,
   WebinarItemLocalesFragment,
 } from "@graphql/metaFragments";
-import { LocaleFragment } from "@graphql/commonFragments";
 
 export const AllArticlesSlugFragment = graphql(
   `
@@ -159,3 +159,21 @@ export const HomepageFragment = graphql(
 );
 
 export type HomepageFragmentType = FragmentOf<typeof HomepageFragment>;
+
+export const SearchFragment = graphql(
+  `
+    fragment SearchFragment on SearchRecord @_unmask {
+      id
+      locales: _locales
+      allSlugLocales: _allSlugLocales {
+        ...LocaleFragment
+      }
+      allTitleLocales: _allTitleLocales {
+        ...LocaleFragment
+      }
+    }
+  `,
+  [LocaleFragment],
+);
+
+export type SearchFragmentType = FragmentOf<typeof SearchFragment>;
