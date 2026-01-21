@@ -21,13 +21,30 @@ export const initFilters = () => {
 
       sections.forEach((section) => {
         const sectionTopic = section.getAttribute("data-topic");
+        const desktopView = section.querySelector(".content-desktop");
+        const mobileView = section.querySelector(".content-mobile");
 
-        if (filterSlug === labelForAll || sectionTopic === filterSlug) {
+        if (filterSlug === labelForAll) {
+          desktopView?.classList.add("d-none", "d-lg-block");
+          desktopView?.classList.remove("d-block");
+
+          mobileView?.classList.add("d-block", "d-lg-none");
+          mobileView?.classList.remove("d-none");
+
           section.classList.remove("d-none");
-          section.classList.add("d-flex");
+          section.classList.add("d-block");
+        } else if (sectionTopic === filterSlug) {
+          desktopView?.classList.remove("d-none", "d-lg-block");
+          desktopView?.classList.add("d-block");
+
+          mobileView?.classList.remove("d-block", "d-lg-none");
+          mobileView?.classList.add("d-none");
+
+          section.classList.remove("d-none");
+          section.classList.add("d-block");
         } else {
           section.classList.add("d-none");
-          section.classList.remove("d-flex");
+          section.classList.remove("d-block");
         }
       });
 

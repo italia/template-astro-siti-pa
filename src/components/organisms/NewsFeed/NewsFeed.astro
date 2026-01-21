@@ -79,24 +79,23 @@ const tabsItems = tabs.map((tab, index) => ({
               </div>
             </div>
 
-            <ul
-              class="it-card-list row pt-5 d-none d-lg-block"
-              aria-label={tab.title}
-            >
-              {tab.componentName === "CardEditorialNews" &&
-                tab.news.map((n) => (
-                  <li class="col-12 col-lg-4 mb-3">
-                    <CardEditorialNews {...n} />
-                  </li>
-                ))}
+            <div class="d-none d-lg-block">
+              <ul class="it-card-list row pt-5" aria-label={tab.title}>
+                {tab.componentName === "CardEditorialNews" &&
+                  tab.news.map((n) => (
+                    <li class="col-12 col-lg-4 mb-3">
+                      <CardEditorialNews {...n} />
+                    </li>
+                  ))}
 
-              {tab.componentName === "CardEditorialInlineMini" &&
-                tab.news.map((n) => (
-                  <li class="col-12 col-lg-6 mb-3">
-                    <CardEditorialInlineMini {...n} />
-                  </li>
-                ))}
-            </ul>
+                {tab.componentName === "CardEditorialInlineMini" &&
+                  tab.news.map((n) => (
+                    <li class="col-12 col-lg-6 mb-3">
+                      <CardEditorialInlineMini {...n} />
+                    </li>
+                  ))}
+              </ul>
+            </div>
           </TabContent>
         ))
       }
