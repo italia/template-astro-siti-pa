@@ -113,9 +113,6 @@ export const SectionFragment = graphql(
         ... on TextBlockRecord {
           ...TextBlockFragment
         }
-        ... on FeatureListBlockRecord {
-          ...FeatureListBlockFragment
-        }
       }
       right {
         ... on RecordInterface {
