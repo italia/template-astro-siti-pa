@@ -652,19 +652,17 @@ export type IconListBlockFragmentType = FragmentOf<
   typeof IconListBlockFragment
 >;
 
-export const FeatureListBlockFragment = graphql(`
-  fragment FeatureListBlockFragment on FeatureListBlockRecord @_unmask {
-    id
-    title
-    items {
+export const FeatureListBlockFragment = graphql(
+  `
+    fragment FeatureListBlockFragment on FeatureListRecord @_unmask {
+      id
       items {
-        title
-        paragraph
-        id
+        ...ListItemFragment
       }
     }
-  }
-`);
+  `,
+  [ListItemFragment],
+);
 
 export type FeatureListBlockFragmentType = FragmentOf<
   typeof FeatureListBlockFragment
