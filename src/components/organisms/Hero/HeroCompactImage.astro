@@ -1,7 +1,7 @@
 ---
+import { Image } from "@components/atoms/Image";
 import type { SectionBackground } from "@components/layout/SplitContent/types";
 import type { HeroProps } from "./types";
-import { Image } from "@components/atoms/Image";
 type Props = HeroProps;
 
 const {
@@ -13,7 +13,7 @@ const {
 } = Astro.props;
 
 const backgroundColorClassNames: Record<SectionBackground, string> = {
-  default: "",
+  default: "bg-white dark",
   primary: "bg-primary",
   dark: "primary-bg-a10",
   lighter: "lightgrey-bg-a3 dark",
