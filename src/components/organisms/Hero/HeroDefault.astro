@@ -28,7 +28,7 @@ const backgroundColorClassNames: Record<SectionBackground, string> = {
 </style>
 
 <section
-  class={`it-hero-wrapper ${sizeClass} ${backgroundColorClassNames[backgroundColor]}`}
+  class={`it-hero-wrapper ${sizeClass} ${image ? backgroundColorClassNames["primary"] : backgroundColorClassNames[backgroundColor]}`}
 >
   {
     image && (
