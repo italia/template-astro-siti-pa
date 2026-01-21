@@ -7669,6 +7669,11 @@ type TextAccordionRecord implements RecordInterface {
   text: TextBlockRecord!
 }
 
+<<<<<<< HEAD
+=======
+union TextBlockModelCtaLinkField = ExternalLinkRecord | InternalLinkRecord
+
+>>>>>>> bdbe781 (fix: update schema)
 """Block of type 📋 Text block (text_block)"""
 type TextBlockRecord implements RecordInterface {
   _createdAt: DateTime!
@@ -7689,7 +7694,7 @@ type TextBlockRecord implements RecordInterface {
   _status: ItemStatus!
   _unpublishingScheduledAt: DateTime
   _updatedAt: DateTime!
-  cta: InternalLinkRecord
+  ctaLink: TextBlockModelCtaLinkField
   id: ItemId!
   paragraph(
     """Process content as markdown"""
