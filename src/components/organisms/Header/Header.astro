@@ -13,12 +13,18 @@ const {
   menuItems,
   linkBackHome,
   logo,
+  search,
 } = Astro.props;
 ---
 
 <header class="it-header-wrapper shadow-sm">
-  <HeaderSlim slimContent={slimContent} linkTo={"#"} locales={locales} />
+  <HeaderSlim
+    slimContent={slimContent}
+    linkBackHome={linkBackHome}
+    locales={locales}
+  />
   <HeaderCentral
+    search={search}
     brandTitle={brandTitle}
     brandTagLine={brandTagLine}
     menuItems={menuItems}

@@ -5,7 +5,8 @@ import type { HeaderCentralProps } from "./types";
 
 type Props = HeaderCentralProps;
 
-const { brandTitle, brandTagLine, menuItems, linkBackHome, logo } = Astro.props;
+const { brandTitle, brandTagLine, menuItems, linkBackHome, logo, search } =
+  Astro.props;
 ---
 
 <div class="it-nav-wrapper">
@@ -25,6 +26,24 @@ const { brandTitle, brandTagLine, menuItems, linkBackHome, logo } = Astro.props;
                 </div>
               </a>
             </div>
+            {
+              search?.isEnabled && (
+                <div class="it-right-zone">
+                  <div class="it-search-wrapper">
+                    <span class="d-none d-md-block">{search.label}</span>
+                    <a
+                      class="search-link rounded-icon"
+                      aria-label="Cerca nel sito"
+                      href={search.url}
+                    >
+                      <svg class="icon">
+                        <use href="/bsi-svg/sprites.svg#it-search" />
+                      </svg>
+                    </a>
+                  </div>
+                </div>
+              )
+            }
           </div>
         </div>
       </div>

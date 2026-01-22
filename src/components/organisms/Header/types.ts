@@ -1,11 +1,26 @@
-export type HeaderProps = {
-  slimContent: string;
+type HeaderBase = {
+  linkBackHome: string;
+};
+
+export type HeaderCentralProps = HeaderBase & {
   brandTitle: string;
   brandTagLine: string;
-  locales: string[];
   menuItems: HeaderNavbarProps;
-  linkBackHome: string;
   logo: string;
+  search?: SearchConfig;
+};
+
+export type HeaderSlimProps = HeaderBase & {
+  slimContent: string;
+  locales: string[];
+};
+
+export type HeaderProps = HeaderCentralProps & HeaderSlimProps;
+
+export type SearchConfig = {
+  isEnabled: boolean;
+  label: string;
+  url: string;
 };
 
 export type MenuItemProps = {
@@ -18,12 +33,4 @@ export type MenuItemProps = {
 export type HeaderNavbarProps = {
   left: MenuItemProps[];
   right?: MenuItemProps[];
-};
-
-export type HeaderCentralProps = {
-  brandTitle: string;
-  brandTagLine: string;
-  menuItems: HeaderNavbarProps;
-  linkBackHome: string;
-  logo: string;
 };

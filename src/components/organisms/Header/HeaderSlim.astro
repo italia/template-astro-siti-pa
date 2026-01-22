@@ -1,13 +1,10 @@
 ---
 import LanguageSelector from "./LanguageSelector.astro";
+import type { HeaderSlimProps } from "./types";
 
-type Props = {
-  slimContent: string;
-  linkTo: string;
-  locales: string[];
-};
+type Props = HeaderSlimProps;
 
-const { slimContent, linkTo, locales } = Astro.props;
+const { slimContent, linkBackHome, locales } = Astro.props;
 ---
 
 <div class="it-header-slim-wrapper theme-light">
@@ -15,26 +12,7 @@ const { slimContent, linkTo, locales } = Astro.props;
     <div class="row">
       <div class="col-12">
         <div class="it-header-slim-wrapper-content">
-          <a class="d-none d-lg-block navbar-brand" href={linkTo}
-            >{slimContent}</a
-          >
-          <div class="nav-mobile">
-            <nav aria-label="Navigazione secondaria">
-              <a
-                class="it-opener d-lg-none"
-                data-bs-toggle="collapse"
-                href="#menuC2"
-                role="button"
-                aria-expanded="false"
-                aria-controls="menuC2"
-              >
-                <span>{slimContent}</span>
-                <svg class="icon" aria-hidden="true"
-                  ><use href="/bsi-svg/sprites.svg#it-expand"></use></svg
-                >
-              </a>
-            </nav>
-          </div>
+          <a class="navbar-brand" href={linkBackHome}>{slimContent}</a>
           <div class="it-header-slim-right-zone">
             <LanguageSelector locales={locales} />
           </div>

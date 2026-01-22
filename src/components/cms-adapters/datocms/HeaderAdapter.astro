@@ -1,11 +1,15 @@
 ---
-import type { HeaderFragmentType } from "@graphql/sectionFragments";
-import { createMenu } from "@utils/createMenuHelper";
 import { Header } from "@components/organisms/Header";
+import type {
+  HeaderFragmentType,
+  SearchMenuFragmentType,
+} from "@graphql/sectionFragments";
+import { createMenu } from "@utils/createMenuHelper";
 import { linkResolver } from "@utils/linkResolver";
 
 type Props = HeaderFragmentType & {
   homeRecordId?: string;
+  search?: SearchMenuFragmentType;
 };
 
 const {
@@ -17,6 +21,7 @@ const {
   locales,
   homeRecordId,
   logo,
+  search,
 } = Astro.props;
 
 const { lang } = Astro.locals;
@@ -37,5 +42,10 @@ const menuItems = createMenu(
   menuItems={menuItems}
   locales={locales}
   logo={logo.url}
+  search={search && {
+    isSearchEnabled: search.isSearchEnabled,
+    searchLabel: search.searchLabel,
+    linkToSearch: linkResolver(search.id, lang),
+  }}
   linkBackHome={linkResolver(homeRecordId, lang)}
 />
