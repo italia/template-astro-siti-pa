@@ -1,7 +1,7 @@
 import { AllDocumentsQuery } from "@graphql/query/indexing";
 import type { SiteLocale } from "@graphql/types";
 import { executeQuery } from "@lib/datocms";
-import * as Mappers from "@utils/indexing-mappers";
+import * as Mappers from "@utils/indexing/indexingMappers";
 import { LocalesQuery } from "@utils/query";
 import type { APIRoute } from "astro";
 
