@@ -43,9 +43,9 @@ const menuItems = createMenu(
   locales={locales}
   logo={logo.url}
   search={search && {
-    isSearchEnabled: search.isSearchEnabled,
-    searchLabel: search.searchLabel,
-    linkToSearch: linkResolver(search.id, lang),
+    isEnabled: search.isSearchEnabled,
+    label: search.searchLabel,
+    url: linkResolver(search.id, lang),
   }}
   linkBackHome={linkResolver(homeRecordId, lang)}
 />
