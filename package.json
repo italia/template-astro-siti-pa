@@ -3,7 +3,7 @@
   "type": "module",
   "version": "0.0.1",
   "scripts": {
-    "staging": "bun ./scripts/run-env.ts staging dev",
+    "staging": "NODE_TLS_REJECT_UNAUTHORIZED=0 bun ./scripts/run-env.ts staging dev",
     "production": "bun ./scripts/run-env.ts production dev",
     "build:staging": "bun ./scripts/run-env.ts staging build",
     "build:production": "bun ./scripts/run-env.ts production build",
@@ -13,7 +13,8 @@
     "tada-doctor": "gql-tada doctor",
     "tada-check": "gql-tada check",
     "prepare": "husky",
-    "format": "prettier . --write --ignore-unknown"
+    "format": "prettier . --write --ignore-unknown",
+    "index:opensearch": "dotenv -c -- bash -c 'NODE_TLS_REJECT_UNAUTHORIZED=0 bun run ./scripts/index-opensearch.ts'"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.6",
@@ -24,11 +25,13 @@
     "@datocms/astro": "^0.6.2",
     "@datocms/cda-client": "^0.2.7",
     "@datocms/cma-client": "^5.0.1",
+    "@opensearch-project/opensearch": "^3.5.1",
     "@types/react": "^19.1.13",
     "@types/react-dom": "^19.1.9",
     "astro": "^5.12.3",
     "bootstrap-italia": "^2.16.0",
     "dataviz-components": "^0.2.0",
+    "datocms-structured-text-to-plain-text": "^5.1.7",
     "dotenv": "^16.6.1",
     "gql.tada": "^1.8.12",
     "jsonwebtoken": "^9.0.2",
