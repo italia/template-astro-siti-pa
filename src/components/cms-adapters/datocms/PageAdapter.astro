@@ -7,11 +7,10 @@ import HeroAdapter from "@components/cms-adapters/datocms/HeroAdapter.astro";
 import IntroArticleAdapter from "@components/cms-adapters/datocms/IntroArticleAdapter.astro";
 import ListCollectionAdapter from "@components/cms-adapters/datocms/ListCollectionAdapter.astro";
 import NewsFeedAdapter from "@components/cms-adapters/datocms/NewsFeedAdapter.astro";
+import SearchBarAdapter from "@components/cms-adapters/datocms/SearchBarAdapter.astro";
 import SectionAdapter from "@components/cms-adapters/datocms/SectionAdapter.astro";
 import SpeakerAdapter from "@components/cms-adapters/datocms/SpeakerAdapter.astro";
-import StructuredTextBlockAdapter from "@components/cms-adapters/datocms/StructuredTextBlockAdapter.astro";
 import SupportChannelsSectionAdapter from "@components/cms-adapters/datocms/SupportChannelsSectionAdapter.astro";
-import SupportCTASectionAdapter from "@components/cms-adapters/datocms/SupportCTASectionAdapter.astro";
 import TextAndAccordionAdapter from "@components/cms-adapters/datocms/TextAndAccordionAdapter.astro";
 import TextAndImageAdapter from "@components/cms-adapters/datocms/TextAndImageAdapter.astro";
 import TextAndStatisticsAdapter from "@components/cms-adapters/datocms/TextAndStatisticsAdapter.astro";
@@ -19,6 +18,7 @@ import TextAndUseCasesAdapter from "@components/cms-adapters/datocms/TextAndUseC
 import TopicFilterAdapter from "@components/cms-adapters/datocms/TopicFilterAdapter.astro";
 import UseCaseContainerAdapter from "@components/cms-adapters/datocms/UseCaseContainerAdapter.astro";
 import WebinarDescriptionAdapter from "@components/cms-adapters/datocms/WebinarDescriptionAdapter.astro";
+import type { SearchPageContentFragmentType } from "@graphql/query/search";
 import type {
   CatalogueContentFragmentType,
   HomepageModelContentFragmentType,
@@ -34,7 +34,8 @@ type ContentType =
   | InsightContentFragmentType
   | CatalogueContentFragmentType
   | StoryContentFragmentType
-  | WebinarContentFragmentType;
+  | WebinarContentFragmentType
+  | SearchPageContentFragmentType;
 
 type Props = {
   content: ContentType[];
@@ -72,6 +73,8 @@ const { content } = Astro.props;
         return <CatalogueFeedAdapter block={block} />;
       case "ActionCardRecord":
         return <ActionCardAdapter block={block} />;
+      case "SearchBarRecord":
+        return <SearchBarAdapter block={block} />;
       case "TextImageRecord":
         return <TextAndImageAdapter block={block} />;
       case "TextStatisticRecord":
