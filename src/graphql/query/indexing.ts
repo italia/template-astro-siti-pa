@@ -20,6 +20,7 @@ import {
   ArticleContentFragment,
   InsightContentFragment,
   StoryContentFragment,
+  WebinarContentFragment,
 } from "@graphql/templateFragments";
 
 export const ArticleIndexingFragment = graphql(
@@ -130,12 +131,17 @@ export const WebinarIndexingFragment = graphql(
       allContentLocales: _allContentLocales {
         locale
         value {
-          ...StoryContentFragment
+          ...WebinarContentFragment
         }
       }
     }
   `,
-  [AllWebinarItemsSlugFragment, LocaleFragment, WebinarItemLocalesFragment],
+  [
+    AllWebinarItemsSlugFragment,
+    WebinarContentFragment,
+    LocaleFragment,
+    WebinarItemLocalesFragment,
+  ],
 );
 
 export type WebinarIndexingFragmentType = FragmentOf<

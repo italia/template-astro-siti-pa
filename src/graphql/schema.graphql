@@ -6756,6 +6756,12 @@ type SearchRecord implements RecordInterface {
     """
     fallbackLocales: [SiteLocale!]
   ): [SearchModelContentFieldListListNonNullMultiLocaleField!]
+  _allSearchLabelLocales(
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+  ): [StringNonNullMultiLocaleField!]
   _allSeoLocales(
     """
     If you want to fallback to a default translation when a translation has not been found
@@ -6803,6 +6809,16 @@ type SearchRecord implements RecordInterface {
     fallbackLocales: [SiteLocale!]
   ): [SearchModelContentField!]!
   id: ItemId!
+  isSearchEnabled: BooleanType!
+  searchLabel(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+  ): String!
   seo(
     """The locale to use to fetch the field's content"""
     locale: SiteLocale
@@ -7669,7 +7685,6 @@ type TextAccordionRecord implements RecordInterface {
   text: TextBlockRecord!
 }
 
->>>>>>> bdbe781 (fix: update schema)
 """Block of type 📋 Text block (text_block)"""
 type TextBlockRecord implements RecordInterface {
   _createdAt: DateTime!

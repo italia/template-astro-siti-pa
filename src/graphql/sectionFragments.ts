@@ -590,3 +590,13 @@ export const TextAndAccordionFragment = graphql(
 export type TextAndAccordionFragmentType = FragmentOf<
   typeof TextAndAccordionFragment
 >;
+
+export const SearchMenuFragment = graphql(`
+  fragment SearchMenuFragment on SearchRecord @_unmask {
+    id
+    searchLabel
+    isSearchEnabled
+  }
+`);
+
+export type SearchMenuFragmentType = FragmentOf<typeof SearchMenuFragment>;

@@ -8,7 +8,11 @@ import {
   WebinarItemFragment,
 } from "@graphql/commonFragments";
 import { graphql } from "@graphql/graphql";
-import { FooterFragment, HeaderFragment } from "@graphql/sectionFragments";
+import {
+  FooterFragment,
+  HeaderFragment,
+  SearchMenuFragment,
+} from "@graphql/sectionFragments";
 import {
   AllArticlesSlugFragment,
   AllCataloguesSlugFragment,
@@ -72,9 +76,12 @@ export const LayoutQuery = graphql(
       homepage(locale: $locale) {
         id
       }
+      search(locale: $locale) {
+        ...SearchMenuFragment
+      }
     }
   `,
-  [FooterFragment, HeaderFragment],
+  [FooterFragment, HeaderFragment, SearchMenuFragment],
 );
 
 export const HomepageQuery = graphql(
