@@ -1,7 +1,8 @@
 ---
 import { ActionCard } from "@components/molecules/ActionCard";
-import type { ActionCardFragmentType } from "@graphql/sectionFragments";
 import { SectionContainer } from "@components/organisms/SectionContainer";
+import type { ActionCardFragmentType } from "@graphql/sectionFragments";
+import { createDownloadUrl } from "@utils/createDownloadUrl";
 import { formatAssetInfo } from "@utils/formatAssetInfo";
 
 type Props = {
@@ -10,9 +11,7 @@ type Props = {
 
 const { block } = Astro.props;
 
-const downloadUrl = block.cta.doc
-  ? `${block.cta.doc.url}?dl=${block.cta.doc.filename}.${block.cta.doc.format}`
-  : "#";
+const downloadUrl = createDownloadUrl(block.cta.doc);
 
 const cta = {
   label: `${block.cta.label} ${formatAssetInfo(block.cta.doc.size, block.cta.doc.format)}`,
