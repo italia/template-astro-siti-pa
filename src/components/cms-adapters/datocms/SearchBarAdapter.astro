@@ -22,10 +22,12 @@ const { lang } = Astro.locals;
         <h2 id="searchHomeTitle" class="mb-5">{block.title}</h2>
 
         <FullTextSearch
-          client:load
+          client:only="react"
           locale={lang}
           labelButton={block.labelButton}
           inputPlaceholder={block.inputPlaceholder}
+          labelForAllResult={block.labelForAllResult}
+          labelForNoResult={block.labelForNoResult}
         />
       </div>
     </div>
