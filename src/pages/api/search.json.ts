@@ -1,0 +1,85 @@
+import type { SearchResult } from "@graphql/types";
+import { Client } from "@opensearch-project/opensearch";
+import type { Search_RequestBody } from "@opensearch-project/opensearch/api/index.js";
+import type { APIRoute } from "astro";
+import * as https from "https";
+
+export const prerender = false;
+
+const HOST = import.meta.env.OPENSEARCH_HOST;
+const USERNAME = import.meta.env.OPENSEARCH_USERNAME;
+const PASSWORD = import.meta.env.OPENSEARCH_PASSWORD;
+const INDEX_NAME_PREFIX = import.meta.env.OPENSEARCH_INDEX_NAME;
+
+if (!HOST || !USERNAME || !PASSWORD || !INDEX_NAME_PREFIX) {
+  throw new Error(
+    "Missing OpenSearch environment variables (HOST, USERNAME, PASSWORD, INDEX_NAME_PREFIX).",
+  );
+}
+
+const client = new Client({
+  node: HOST,
+  auth: {
+    username: USERNAME,
+    password: PASSWORD,
+  },
+  agent: new https.Agent({ rejectUnauthorized: false }),
+});
+
+export const GET: APIRoute = async ({ url }) => {
+  const query = url.searchParams.get("query");
+  const lang = url.searchParams.get("lang");
+  const INDEX_NAME = INDEX_NAME_PREFIX + lang;
+
+  if (!query || query.trim().length < 2) {
+    return new Response(JSON.stringify([]), { status: 200 });
+  }
+  const searchBody: Search_RequestBody = {
+    query: {
+      multi_match: {
+        query: query,
+        fields: ["title^3", "description^2", "content"],
+        type: "best_fields",
+      },
+    },
+  };
+
+  try {
+    const response = await client.search({
+      index: INDEX_NAME,
+      body: searchBody,
+    });
+
+    const results: SearchResult[] = response.body.hits.hits.map((hit: any) => ({
+      title: hit._source.title,
+      description: hit._source.description,
+      url: hit._source.url,
+      slug: hit._source.slug,
+      id: hit._id,
+    }));
+
+    return new Response(JSON.stringify(results), {
+      status: 200,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+  } catch (error) {
+    console.error(
+      `Error during search on OpenSearch (Index ${INDEX_NAME}):`,
+      (error as Error).message,
+    );
+
+    return new Response(
+      JSON.stringify({
+        error: "Internal server error during search.",
+      }),
+      {
+        status: 500,
+        headers: {
+          "Content-Type": "application/json",
+        },
+      },
+    );
+  }
+};
