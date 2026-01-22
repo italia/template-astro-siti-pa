@@ -51,11 +51,14 @@ export const GET: APIRoute = async ({ url }) => {
     });
 
     const results: SearchResult[] = response.body.hits.hits.map((hit: any) => ({
+      id: hit._id,
       title: hit._source.title,
       description: hit._source.description,
-      url: hit._source.url,
-      slug: hit._source.slug,
-      id: hit._id,
+      internalLink: hit._source.internalLink,
+      externalLink: hit._source.externalLink,
+      downloadLink: hit._source.downloadLink,
+      type: hit._source.type,
+      category: hit._source.category,
     }));
 
     return new Response(JSON.stringify(results), {

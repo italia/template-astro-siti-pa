@@ -4,18 +4,22 @@ export type SiteLocale = introspection_types["SiteLocale"]["enumValues"];
 
 /* TODO */
 export type Document = {
-  slug: string;
   title: string;
   description: string;
+  internalLink?: string;
   content: string;
-  url: string;
+  externalLink?: string;
+  downloadLink?: string;
   [key: string]: any;
 };
 
 export type SearchResult = {
+  id: string;
+  type: string;
+  category: string;
   title: string;
   description: string;
-  url: string;
-  slug: string;
-  id: string;
+  internalLink?: string;
+  externalLink?: string;
+  downloadLink?: string;
 };
