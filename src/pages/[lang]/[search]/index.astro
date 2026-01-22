@@ -65,6 +65,6 @@ const { id, content, seo } = Astro.props;
 Astro.locals.recordId = id;
 ---
 
-<Layout pageSeo={seo}>
+<Layout pageSeo={seo} noIndex={true}>
   <PageAdapter content={content} />
 </Layout>

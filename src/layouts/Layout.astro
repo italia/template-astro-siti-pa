@@ -1,25 +1,26 @@
 ---
-import "../styles/global.scss";
-import bsi from "bootstrap-italia/dist/js/bootstrap-italia.bundle.min.js?url";
-import { Seo, type TitleMetaLinkTag } from "@datocms/astro";
-import { LayoutQuery, SiteMetaTagsQuery } from "@utils/query";
-import { executeQuery } from "@lib/datocms";
-import { isDraftModeEnabled } from "@lib/draftMode";
 import PreviewBar from "@components/PreviewBar.astro";
-import HeaderAdapter from "@components/cms-adapters/datocms/HeaderAdapter.astro";
 import FooterAdapter from "@components/cms-adapters/datocms/FooterAdapter.astro";
+import HeaderAdapter from "@components/cms-adapters/datocms/HeaderAdapter.astro";
+import { Seo, type TitleMetaLinkTag } from "@datocms/astro";
 import type {
   FooterFragmentType,
   HeaderFragmentType,
 } from "@graphql/sectionFragments";
+import { executeQuery } from "@lib/datocms";
+import { isDraftModeEnabled } from "@lib/draftMode";
+import { LayoutQuery, SiteMetaTagsQuery } from "@utils/query";
+import bsi from "bootstrap-italia/dist/js/bootstrap-italia.bundle.min.js?url";
+import "../styles/global.scss";
 
 type Props = {
   pageSeo?: TitleMetaLinkTag[];
   redirectUrl?: string;
+  noIndex?: boolean;
 };
 
 const isPreview = isDraftModeEnabled(Astro.cookies);
-const { pageSeo = [], redirectUrl } = Astro.props;
+const { pageSeo = [], redirectUrl, noIndex = false } = Astro.props;
 
 const { lang } = Astro.locals;
 
@@ -27,7 +28,7 @@ const result = await executeQuery(SiteMetaTagsQuery, {
   includeDrafts: isPreview,
 });
 
-const { layout, homepage } = await executeQuery(LayoutQuery, {
+const { layout, homepage, search } = await executeQuery(LayoutQuery, {
   variables: { locale: lang },
   includeDrafts: isPreview,
 });
@@ -64,6 +65,7 @@ const isShowingPreviewBar = isPreview && redirectUrl;
       name="viewport"
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
+    {noIndex && <meta name="robots" content="noindex, nofollow" />}
     <Seo data={[...result.site.faviconMetaTags, ...pageSeo]} />
     <link
       href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300;400;600;700&display=swap"
@@ -76,7 +78,11 @@ const isShowingPreviewBar = isPreview && redirectUrl;
   </head>
   <body>
     {isShowingPreviewBar && <PreviewBar redirectUrl={redirectUrl} />}
-    <HeaderAdapter {...headerLayout} homeRecordId={homepage?.id} />
+    <HeaderAdapter
+      {...headerLayout}
+      homeRecordId={homepage?.id}
+      search={search || undefined}
+    />
     <main>
       <slot />
     </main>
