@@ -15,6 +15,19 @@ const { block } = Astro.props;
 const { recordId, lang } = Astro.locals;
 
 const itemsBreadcrumb = createBreadcrumb(recordId, lang);
+
+const variantTextColorBreadcrumb = () => {
+  const variantOnBackgroundColor =
+    block.backgroundColor === "lighter" || block.backgroundColor === "default"
+      ? "light"
+      : "dark";
+
+  if (block.variant === "default" || block.variant === "small") {
+    return block.backgroundImage ? "dark" : variantOnBackgroundColor;
+  }
+
+  return variantOnBackgroundColor;
+};
 ---
 
 <Hero
@@ -29,9 +42,6 @@ const itemsBreadcrumb = createBreadcrumb(recordId, lang);
     ariaLabel="Breadbrumb"
     items={itemsBreadcrumb}
     slot="breadcrumb"
-    variant={block.backgroundColor === "lighter" ||
-    block.backgroundColor === "default"
-      ? "light"
-      : "dark"}
+    variant={variantTextColorBreadcrumb()}
   />
 </Hero>
