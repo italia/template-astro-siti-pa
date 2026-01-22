@@ -5,34 +5,30 @@ type SearchResultItemProps = {
 };
 
 export const SearchResultItem = ({ result }: SearchResultItemProps) => {
+  const url = result.internalLink || result.externalLink || result.downloadLink;
+  const icon = result.downloadLink
+    ? "it-download"
+    : result.externalLink
+      ? "it-external-link"
+      : "it-arrow-right";
   return (
-    <div
-      key={result.id}
-      role="listitem"
-      className="row border-bottom m-0 p-0 py-2 w-100"
-      data-content-type="news"
-    >
-      <div className="col ps-0">
-        <a
-          className="d-flex justify-content-between align-items-center text-decoration-none"
-          title="Nasce PA digitale 2026, il punto di accesso alle risorse per la transizione digitale della PA"
-          target="_self"
-          aria-label="Nasce PA digitale 2026, il punto di accesso alle risorse per la transizione digitale della PA, tipo: Notizie"
-          href={result.url}
-        >
-          <div>
-            <h3 className="fw-bold text-decoration-underline mb-1 lh-base">
-              {result.title}
-            </h3>
-            <div className="text-muted">{result.description}</div>
-          </div>
-          <div className="d-flex align-items-center">
-            <svg className="icon icon-sm align-top">
-              <use xlinkHref="/bsi-svg/sprites.svg#it-chevron-right"></use>
-            </svg>
-          </div>
-        </a>
-      </div>
+    <div className="p-2">
+      <a
+        className={`d-inline-flex align-items-center h6 gap-2`}
+        href={url}
+        target="_blank"
+        rel="noopener noreferrer"
+        download={!!result.downloadLink}
+      >
+        <span className="fw-semibold">{result.title}</span>
+        <svg className="icon icon-sm icon-primary">
+          <use href={`/bsi-svg/sprites.svg#${icon}`} />
+        </svg>
+      </a>
+      <span className={`ms-3 badge bg-secondary text-uppercase`}>
+        {result.type}
+      </span>
+      <p className="fs-6">{result.description}</p>
     </div>
   );
 };

@@ -10,13 +10,18 @@ type FullTextSearchProps = {
   locale: SiteLocale;
   labelButton: string;
   inputPlaceholder: string;
+  labelForAllResult: string;
+  labelForNoResult: string;
 };
 export const FullTextSearch = ({
   locale,
   labelButton,
   inputPlaceholder,
+  labelForAllResult,
+  labelForNoResult,
 }: FullTextSearchProps) => {
   const [value, setValue] = useState<string>("");
+  const [confirmedQuery, setConfirmedQuery] = useState<string>("");
   const [results, setResults] = useState<SearchResult[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -30,12 +35,14 @@ export const FullTextSearch = ({
   const handleSearch = async (searchQuery: string) => {
     if (!searchQuery.trim()) {
       setResults([]);
+      setConfirmedQuery("");
       return;
     }
 
     setLoading(true);
     setError(null);
 
+    setConfirmedQuery(searchQuery);
     const url = `${SEARCH_API_ENDPOINT}?query=${encodeURIComponent(searchQuery)}&lang=${locale}`;
 
     try {
@@ -68,8 +75,13 @@ export const FullTextSearch = ({
         inputPlaceholder={inputPlaceholder}
       />
       {loading && <div>Loading...</div>}
-      {!loading && results.length > 0 && (
-        <SearchResultList results={results} value={value} />
+      {!loading && confirmedQuery && (
+        <SearchResultList
+          results={results}
+          value={confirmedQuery}
+          labelForAllResult={labelForAllResult}
+          labelForNoResult={labelForNoResult}
+        />
       )}
     </div>
   );
