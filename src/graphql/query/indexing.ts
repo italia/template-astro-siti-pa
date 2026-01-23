@@ -197,6 +197,23 @@ export const AllDocumentsQuery = graphql(
       allResources {
         ...ResourseIndexingFragment
       }
+      allCatalogues {
+        allTitleLocales: _allTitleLocales {
+          locale
+          value
+        }
+        content {
+          ... on RecordInterface {
+            id
+            componentName: __typename
+          }
+          ... on CatalogueFeedRecord {
+            tabs {
+              newsPageTabType
+            }
+          }
+        }
+      }
     }
   `,
   [

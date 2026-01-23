@@ -26,7 +26,7 @@ export const SearchResultItem = ({ result }: SearchResultItemProps) => {
         </svg>
       </a>
       <span className={`ms-3 badge bg-secondary text-uppercase`}>
-        {result.type}
+        {result.category}
       </span>
       <p className="fs-6">{result.description}</p>
     </div>

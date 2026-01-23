@@ -7,6 +7,7 @@ import type {
   WebinarIndexingFragmentType,
 } from "@graphql/query/indexing";
 import type { SiteLocale } from "@graphql/types";
+import { createDownloadUrl } from "@utils/createDownloadUrl";
 import {
   flattenBlocks,
   getSearchRenderOptions,
@@ -18,6 +19,7 @@ import { render } from "datocms-structured-text-to-plain-text";
 export const getMapArticle = (
   article: ArticleIndexingFragmentType,
   lang: SiteLocale,
+  category: string,
 ) => {
   const structuredText = article.allContentLocales?.find(
     (t) => t.locale === lang,
@@ -28,9 +30,7 @@ export const getMapArticle = (
   return {
     type: "article",
     id: article.id,
-    category: article.parentPage?.allTitleLocales?.find(
-      (t) => t.locale === lang,
-    )?.value /* TODO da risolvere questa category risalendo l'albero */,
+    category,
     internalLink: linkResolver(article.id, lang),
     title: article.allTitleLocales?.find((t) => t.locale === lang)?.value,
     description: article.allParagraphLocales?.find((t) => t.locale === lang)
@@ -42,6 +42,7 @@ export const getMapArticle = (
 export const getMapInsight = (
   insight: InsightIndexingFragmentType,
   lang: SiteLocale,
+  category: string,
 ) => {
   const contentData = insight.allContentLocales?.find(
     (t) => t.locale === lang,
@@ -51,9 +52,7 @@ export const getMapInsight = (
   return {
     type: "insight",
     id: insight.id,
-    category: insight.parentPage?.allTitleLocales?.find(
-      (t) => t.locale === lang,
-    )?.value,
+    category,
     internalLink: linkResolver(insight.id, lang),
     title: insight.allTitleLocales?.find((t) => t.locale === lang)?.value,
     description: insight.allAbstractLocales?.find((t) => t.locale === lang)
@@ -65,6 +64,7 @@ export const getMapInsight = (
 export const getMapStory = (
   story: StoryIndexingFragmentType,
   lang: SiteLocale,
+  category: string,
 ) => {
   const contentData = story.allContentLocales?.find(
     (t) => t.locale === lang,
@@ -75,8 +75,7 @@ export const getMapStory = (
   return {
     type: "story",
     id: story.id,
-    category: story.parentPage?.allTitleLocales?.find((t) => t.locale === lang)
-      ?.value,
+    category,
     internalLink: linkResolver(story.id, lang),
     title: story.allTitleLocales?.find((t) => t.locale === lang)?.value,
     description: "",
@@ -87,6 +86,7 @@ export const getMapStory = (
 export const getMapWebinar = (
   webinar: WebinarIndexingFragmentType,
   lang: SiteLocale,
+  category: string,
 ) => {
   const contentData = webinar.allContentLocales?.find(
     (t) => t.locale === lang,
@@ -97,7 +97,7 @@ export const getMapWebinar = (
   return {
     type: "webinar",
     id: webinar.id,
-    category: "",
+    category,
     internalLink: linkResolver(webinar.id, lang),
     title: webinar.allTitleLocales?.find((t) => t.locale === lang)?.value,
     description: webinar.allParagraphLocales?.find((t) => t.locale === lang)
@@ -109,11 +109,12 @@ export const getMapWebinar = (
 export const getMapNews = (
   news: NewsIndexingFragmentType,
   lang: SiteLocale,
+  category: string,
 ) => {
   return {
     type: "news",
     id: news.id,
-    category: "",
+    category,
     externalLink: "",
     title: news.allTitleLocales?.find((t) => t.locale === lang)?.value,
     description: news.allParagraphLocales?.find((t) => t.locale === lang)
@@ -125,6 +126,7 @@ export const getMapNews = (
 export const getMapResourse = (
   resourse: ResourseIndexingFragmentType,
   lang: SiteLocale,
+  category: string,
 ) => {
   const block = resourse.allResourseLocales?.find(
     (t) => t.locale === lang,
@@ -137,7 +139,7 @@ export const getMapResourse = (
       return {
         type: "resourse",
         id: resourse.id,
-        category: "",
+        category,
         externalLink: block.url,
         title: block.label,
         description: block.description,
@@ -147,8 +149,8 @@ export const getMapResourse = (
       return {
         type: "resourse",
         id: resourse.id,
-        category: "",
-        downloadLink: block.doc.url,
+        category,
+        downloadLink: createDownloadUrl(block.doc),
         title: block.label,
         description: block.description,
         content: block.description,
