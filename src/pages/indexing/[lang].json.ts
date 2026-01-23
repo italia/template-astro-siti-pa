@@ -1,9 +1,12 @@
-import {
-  AllDocumentsQuery,
-  type ArticleIndexingFragmentType,
-} from "@graphql/query/indexing";
+import { AllDocumentsQuery } from "@graphql/query/indexing";
 import type { SiteLocale } from "@graphql/types";
 import { executeQuery } from "@lib/datocms";
+import {
+  getCataloguesMapCategory,
+  getCategoryName,
+  getTitleByType,
+  resolveArticleCategory,
+} from "@utils/indexing/getCategory";
 import * as Mappers from "@utils/indexing/indexingMappers";
 import { LocalesQuery } from "@utils/query";
 import type { APIRoute } from "astro";
@@ -21,34 +24,6 @@ export async function getStaticPaths() {
 
 export const prerender = true;
 
-const getCategoryName = (page: any, lang: SiteLocale): string => {
-  return (
-    page?.allTitleLocales?.find((t: any) => t.locale === lang)?.value || ""
-  );
-};
-
-const resolveArticleCategory = (
-  items: ArticleIndexingFragmentType[],
-  lang: SiteLocale,
-): string => {
-  const firstValidParent = items.find((item) => item.parentPage)?.parentPage;
-
-  if (!firstValidParent) return "";
-
-  return (
-    firstValidParent.allTitleLocales?.find((t: any) => t.locale === lang)
-      ?.value || ""
-  );
-};
-
-function getTitleByType(
-  catalogues: { type: string[]; title?: string }[],
-  searchType: string,
-): string | undefined {
-  const result = catalogues.find((item) => item.type.includes(searchType));
-  return result?.title;
-}
-
 export const GET: APIRoute = async ({ params }) => {
   const lang = params.lang as SiteLocale;
 
@@ -63,30 +38,18 @@ export const GET: APIRoute = async ({ params }) => {
   const newsItems = response.allNewsItems;
   const webinars = response.allWebinarItems;
   const resourses = response.allResources;
-  const catalogues = response.allCatalogues.map((catalogue) => {
-    const title = catalogue?.allTitleLocales?.find(
-      (t: any) => t.locale === lang,
-    )?.value;
-    const feedRecord = catalogue.content.find(
-      (item) => item.componentName === "CatalogueFeedRecord",
-    );
-    let tabTypes: string[] = [];
-    if (feedRecord && "tabs" in feedRecord) {
-      tabTypes = feedRecord.tabs?.map((item) => item.newsPageTabType) || [];
-    }
-
-    return {
-      type: tabTypes,
-      title,
-    };
-  });
+  const cataloguesMapCategory = getCataloguesMapCategory(
+    response.allCatalogues,
+    lang,
+  );
 
   const articleCategory = resolveArticleCategory(articles, lang);
   const insightCategory = getCategoryName(insights[0]?.parentPage, lang);
   const storyCategory = getCategoryName(stories[0]?.parentPage, lang);
-  const newsCategory = getTitleByType(catalogues, "news") || "";
+  const newsCategory = getTitleByType(cataloguesMapCategory, "news") || "";
   const webinarCategory = getCategoryName(webinars[0]?.parentPage, lang);
-  const resourseCategory = getTitleByType(catalogues, "resource") || "";
+  const resourseCategory =
+    getTitleByType(cataloguesMapCategory, "resource") || "";
 
   return new Response(
     JSON.stringify([

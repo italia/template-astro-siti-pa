@@ -1,4 +1,4 @@
-import { graphql } from "@graphql/graphql";
+import { graphql, type FragmentOf } from "@graphql/graphql";
 import { LocaleFragment, TagFragment } from "./commonFragments";
 
 export const SeoMetaFragment = graphql(
@@ -26,6 +26,8 @@ export const PageLocalesFragment = graphql(
   [LocaleFragment],
 );
 
+export type PageLocalesFragmentType = FragmentOf<typeof PageLocalesFragment>;
+
 export const CatalogueLocalesFragment = graphql(
   `
     fragment CatalogueLocalesFragment on CatalogueRecord @_unmask {
@@ -39,6 +41,10 @@ export const CatalogueLocalesFragment = graphql(
   `,
   [LocaleFragment],
 );
+
+export type CatalogueLocalesFragmentType = FragmentOf<
+  typeof CatalogueLocalesFragment
+>;
 
 export const ArticleLocalesFragment = graphql(
   `

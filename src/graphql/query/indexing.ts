@@ -176,6 +176,29 @@ export type ResourseIndexingFragmentType = FragmentOf<
   typeof ResourseIndexingFragment
 >;
 
+export const CatalogueIndexingFragment = graphql(`
+  fragment CatalogueIndexingFragment on CatalogueRecord @_unmask {
+    allTitleLocales: _allTitleLocales {
+      locale
+      value
+    }
+    content {
+      ... on RecordInterface {
+        id
+        componentName: __typename
+      }
+      ... on CatalogueFeedRecord {
+        tabs {
+          newsPageTabType
+        }
+      }
+    }
+  }
+`);
+
+export type CatalogueIndexingFragmentType = FragmentOf<
+  typeof CatalogueIndexingFragment
+>;
 export const AllDocumentsQuery = graphql(
   `
     query AllDocuments {
@@ -198,21 +221,7 @@ export const AllDocumentsQuery = graphql(
         ...ResourseIndexingFragment
       }
       allCatalogues {
-        allTitleLocales: _allTitleLocales {
-          locale
-          value
-        }
-        content {
-          ... on RecordInterface {
-            id
-            componentName: __typename
-          }
-          ... on CatalogueFeedRecord {
-            tabs {
-              newsPageTabType
-            }
-          }
-        }
+        ...CatalogueIndexingFragment
       }
     }
   `,
@@ -223,6 +232,7 @@ export const AllDocumentsQuery = graphql(
     ArticleIndexingFragment,
     WebinarIndexingFragment,
     ResourseIndexingFragment,
+    CatalogueIndexingFragment,
   ],
 );
 
