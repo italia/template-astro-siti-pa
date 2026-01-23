@@ -3,8 +3,7 @@ name: Richiesta di funzionalità
 about: Suggerisci un'idea per il progetto
 title: "[Funzionalità]"
 labels: feature
-assignees: ''
-
+assignees: ""
 ---
 
 **La tua richiesta di funzionalità è collegata a un problema? Descrivilo.**

@@ -3,8 +3,7 @@ name: Contenuto
 about: Proponi nuovi contenuti o modifiche ai contenuti esistenti
 title: "[Contenuto]"
 labels: content
-assignees: ''
-
+assignees: ""
 ---
 
 **La tua richiesta di funzionalità è collegata a un problema? Descrivilo.**
