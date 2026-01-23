@@ -1,7 +1,7 @@
 ---
-import type { UseCaseCardProps } from "./types";
 import { Image } from "@components/atoms/Image";
 import { Topics } from "@components/molecules/Topics";
+import type { UseCaseCardProps } from "./types";
 
 type Props = UseCaseCardProps;
 const {
@@ -96,11 +96,11 @@ const {
 
       {
         (descriptionTitle || description) && (
-          <div class="accordion" id={id}>
-            <div class="accordion-item">
+          <div class="accordion border-0" id={id}>
+            <div class="accordion-item rounded-2 px-4">
               <h2 class="accordion-header" id={`heading-${id}`}>
                 <button
-                  class="accordion-button"
+                  class="accordion-button border-0 border-bottom"
                   type="button"
                   data-bs-toggle="collapse"
                   data-bs-target={`#collapse-${id}`}
@@ -117,7 +117,7 @@ const {
                 role="region"
                 aria-labelledby={`heading-${id}`}
               >
-                <div class="accordion-body" set:html={description} />
+                <div class="py-3" set:html={description} />
               </div>
             </div>
           </div>

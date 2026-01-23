@@ -1,17 +1,30 @@
 ---
 import type { AccordionItemProps } from "./types";
-type Props = AccordionItemProps & { fullWidth?: boolean };
-const { header, body, id, fullWidth = true } = Astro.props;
+type Props = AccordionItemProps & {
+  fullWidth?: boolean;
+  index: number;
+  allOpen?: boolean;
+};
+const {
+  header,
+  body,
+  id,
+  fullWidth = true,
+  index,
+  allOpen = true,
+} = Astro.props;
+
+const isFirst = allOpen || index === 0;
 ---
 
 <div class="accordion-item">
   <h2 class="accordion-header" id={`heading-${id}`}>
     <button
-      class="accordion-button"
+      class:list={["accordion-button", { collapsed: !isFirst }]}
       type="button"
       data-bs-toggle="collapse"
       data-bs-target={`#collapse-${id}`}
-      aria-expanded="true"
+      aria-expanded={isFirst ? "true" : "false"}
       aria-controls={`collapse-${id}`}
     >
       {header}
@@ -19,20 +32,12 @@ const { header, body, id, fullWidth = true } = Astro.props;
   </h2>
   <div
     id={`collapse-${id}`}
-    class="accordion-collapse collapse show"
+    class:list={["accordion-collapse collapse", { show: isFirst || false }]}
     role="region"
     aria-labelledby={`heading-${id}`}
   >
     <div class="accordion-body">
-      {
-        fullWidth ? (
-          body
-        ) : (
-          <div class="row">
-            <div class="col-7">{body}</div>
-          </div>
-        )
-      }
+      {fullWidth ? body : <div class="col-12 col-lg-7">{body}</div>}
     </div>
   </div>
 </div>
