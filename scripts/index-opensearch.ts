@@ -2,9 +2,28 @@ import { LocaleLabelsQuery } from "@graphql/query/indexing";
 import type { Document, SiteLocale } from "@graphql/types";
 import { executeQuery } from "@lib/datocms";
 import { Client } from "@opensearch-project/opensearch";
-
 import * as fs from "fs";
+import { existsSync } from "node:fs";
 import * as path from "path";
+
+import dotenv from "dotenv";
+
+const mode = process.argv[2];
+
+if (!mode) {
+  console.error(
+    "Usage: bun run ./scripts/index-opensearch.ts <staging|production>",
+    process.argv,
+  );
+  process.exit(1);
+}
+
+const envFile = `.env.${mode}`;
+if (!existsSync(envFile)) {
+  console.error(`Missing env file: ${envFile}`);
+}
+
+dotenv.config({ path: envFile, override: true });
 
 const HOST = import.meta.env.OPENSEARCH_HOST;
 const USERNAME = import.meta.env.OPENSEARCH_USERNAME;
