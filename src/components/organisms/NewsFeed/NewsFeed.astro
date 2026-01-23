@@ -37,6 +37,8 @@ const tabsItems = tabs.map((tab, index) => ({
   label: tab.title,
   active: index === 0,
 }));
+
+const hasMultipleTabs = tabsItems.length > 1;
 ---
 
 <SplitContent leftColumns={5} background="primary" alignItems="top">
@@ -46,7 +48,7 @@ const tabsItems = tabs.map((tab, index) => ({
     paragraph={paragraph}
     variant="primary"
   />
-  <div class="row pt-5">
+  <div class="row pt-lg-5">
     <Tabs id={id} variant="dark" items={tabsItems}>
       {
         tabs.map((tab, index) => (
@@ -80,7 +82,10 @@ const tabsItems = tabs.map((tab, index) => ({
             </div>
 
             <div class="d-none d-lg-block">
-              <ul class="it-card-list row pt-5" aria-label={tab.title}>
+              <ul
+                class={`it-card-list row ${hasMultipleTabs ? "pt-5" : ""}`}
+                aria-label={tab.title}
+              >
                 {tab.componentName === "CardEditorialNews" &&
                   tab.news.map((n) => (
                     <li class="col-12 col-lg-4 mb-3">

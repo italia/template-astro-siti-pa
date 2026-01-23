@@ -3,13 +3,15 @@ import TabsItem from "./TabsItem.astro";
 import type { TabsProps } from "./types";
 type Props = TabsProps;
 const { id, items, variant = "light" } = Astro.props;
+
+const hasMultipleTabs = items.length > 1;
 ---
 
 <style>
   @import "./style.scss";
 </style>
 {
-  items.length > 1 && (
+  hasMultipleTabs && (
     <ul
       class={`nav nav-tabs mb-5 ${variant === "dark" ? "bg-primary" : ""}`}
       id={`tabs-${id}`}
@@ -21,6 +23,10 @@ const { id, items, variant = "light" } = Astro.props;
     </ul>
   )
 }
-<div class="tab-content" id=`tabs-${id}-content`>
+<div
+  class="tab-content"
+  id=`tabs-${id}-content`
+  role={hasMultipleTabs ? "presentation" : undefined}
+>
   <slot />
 </div>
