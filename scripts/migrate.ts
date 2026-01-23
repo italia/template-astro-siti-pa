@@ -86,7 +86,7 @@ const localeSchemaMigrationsFiles = (): string[] =>
   try {
     if (datoCmsSchemaMigrationsCount !== localeSchemaMigrationsFiles().length) {
       console.log(`DATOCMS NEEDS MIGRATIONS`);
-      if (process.env.DATOCMS_ENVIRONMENT) {
+      if (!!process.env.DATOCMS_ENVIRONMENT) {
         console.log(`MIGRATION - MANUAL MIGRATION NEEDED`);
         throw new Error();
       }
