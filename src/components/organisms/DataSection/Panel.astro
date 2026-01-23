@@ -1,8 +1,8 @@
 ---
+import { Link } from "@components/atoms/Link";
 import { Chart } from "@components/charts/Chart";
 import Loader from "@components/Loader.astro";
 import type { PanelProps } from "./types";
-import { Link } from "@components/atoms/Link";
 
 type Props = PanelProps;
 
@@ -29,7 +29,7 @@ const { title, paragraph, chart, externalLink } = Astro.props;
         <Link
           label={externalLink.label}
           titleIcon={externalLink.titleIcon}
-          icon={externalLink.icon}
+          icon={"it-external-link"}
           linkTo={externalLink.linkTo}
           openInNewTab={true}
         />
