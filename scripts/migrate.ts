@@ -56,7 +56,7 @@ const runCommand = (command: string, returnOutput = false): string => {
 const localeSchemaMigrationsFiles = (): string[] =>
   fs
     .readdirSync(MIGRATION_FOLDER)
-    .filter((file) => path.extname(file).toLowerCase() === ".js");
+    .filter((file) => path.extname(file).toLowerCase() === ".ts");
 
 (async () => {
   const token = process.env.DATOCMS_MANAGEMENT_API_TOKEN;
