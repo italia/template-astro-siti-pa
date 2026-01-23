@@ -1,6 +1,6 @@
 ---
-import type { ListItemProps, VariantListProps } from "./types";
 import { NumberContainer } from "@components/atoms/NumberContainer";
+import type { ListItemProps, VariantListProps } from "./types";
 
 type Props = ListItemProps & {
   index: string;
@@ -9,7 +9,7 @@ type Props = ListItemProps & {
 const { title, paragraph, index, variant } = Astro.props;
 
 const titleClass = variant === "small" ? "h4 fs-4 m-0" : "h3";
-const textClass = variant === "small" ? "text-primary" : "";
+const textClass = variant === "small" ? "text-secondary" : "";
 ---
 
 <style>
