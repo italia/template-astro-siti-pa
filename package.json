@@ -7,6 +7,7 @@
     "production": "bun ./scripts/run-env.ts production dev",
     "build:staging": "bun ./scripts/run-env.ts staging build",
     "build:production": "bun ./scripts/run-env.ts production build",
+    "migrate": "bun ./scripts/migrate.ts",
     "astro": "dotenv -c -- bash -c 'astro'",
     "generate-output": "gql.tada generate output",
     "tada-doctor": "gql-tada doctor",
@@ -35,6 +36,7 @@
     "react-dom": "^19.1.1"
   },
   "devDependencies": {
+    "@datocms/cli": "^3.1.16",
     "@types/jsonwebtoken": "^9.0.10",
     "@typescript-eslint/eslint-plugin": "^8.53.0",
     "@typescript-eslint/parser": "^8.53.0",

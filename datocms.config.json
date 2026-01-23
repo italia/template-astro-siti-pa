@@ -1,0 +1,13 @@
+{
+  "profiles": {
+    "default": {
+      "logLevel": "BODY_AND_HEADERS",
+      "migrations": {
+        "directory": "./migrations",
+        "modelApiKey": "schema_migration",
+        "template": "",
+        "tsconfig": ""
+      }
+    }
+  }
+}
