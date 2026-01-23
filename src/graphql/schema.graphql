@@ -5091,184 +5091,6 @@ input OrientationFilter {
   neq: UploadOrientation
 }
 
-input PageLegacyModelFilter {
-  _createdAt: CreatedAtFilter
-  id: ItemIdFilter
-  _firstPublishedAt: PublishedAtFilter
-  _publicationScheduledAt: PublishedAtFilter
-  _unpublishingScheduledAt: PublishedAtFilter
-  _publishedAt: PublishedAtFilter
-  _status: StatusFilter
-  _updatedAt: UpdatedAtFilter
-  _isValid: BooleanFilter
-  content: TextFilter
-  description: StringFilter
-  seo: SeoFilter
-  slug: SlugFilter
-  title: StringFilter
-  OR: [PageLegacyModelFilter]
-  AND: [PageLegacyModelFilter]
-}
-
-enum PageLegacyModelOrderBy {
-  _createdAt_ASC
-  _createdAt_DESC
-  id_ASC
-  id_DESC
-  _firstPublishedAt_ASC
-  _firstPublishedAt_DESC
-  _publicationScheduledAt_ASC
-  _publicationScheduledAt_DESC
-  _unpublishingScheduledAt_ASC
-  _unpublishingScheduledAt_DESC
-  _publishedAt_ASC
-  _publishedAt_DESC
-  _status_ASC
-  _status_DESC
-  _updatedAt_ASC
-  _updatedAt_DESC
-  _isValid_ASC
-  _isValid_DESC
-  description_ASC
-  description_DESC
-  title_ASC
-  title_DESC
-}
-
-"""Record of type 📃 Page (legacy) (page_legacy)"""
-type PageLegacyRecord implements RecordInterface {
-  _allChartLocales(
-    """
-    If you want to fallback to a default translation when a translation has not been found
-    """
-    fallbackLocales: [SiteLocale!]
-  ): [SettingsChartRecordMultiLocaleField!]
-  _allContentLocales(
-    """Process content as markdown"""
-    markdown: Boolean
-
-    """
-    If you want to fallback to a default translation when a translation has not been found
-    """
-    fallbackLocales: [SiteLocale!]
-  ): [StringNonNullMultiLocaleField!]
-  _allDescriptionLocales(
-    """
-    If you want to fallback to a default translation when a translation has not been found
-    """
-    fallbackLocales: [SiteLocale!]
-  ): [StringNonNullMultiLocaleField!]
-  _allKpiLocales(
-    """
-    If you want to fallback to a default translation when a translation has not been found
-    """
-    fallbackLocales: [SiteLocale!]
-  ): [SettingsKpiRecordMultiLocaleField!]
-  _allSeoLocales(
-    """
-    If you want to fallback to a default translation when a translation has not been found
-    """
-    fallbackLocales: [SiteLocale!]
-  ): [SeoFieldMultiLocaleField!]
-  _allSlugLocales(
-    """
-    If you want to fallback to a default translation when a translation has not been found
-    """
-    fallbackLocales: [SiteLocale!]
-  ): [StringNonNullMultiLocaleField!]
-  _allTitleLocales(
-    """
-    If you want to fallback to a default translation when a translation has not been found
-    """
-    fallbackLocales: [SiteLocale!]
-  ): [StringNonNullMultiLocaleField!]
-  _createdAt: DateTime!
-
-  """Editing URL"""
-  _editingUrl: String
-  _firstPublishedAt: DateTime!
-  _isValid: BooleanType!
-  _modelApiKey: String!
-  _publicationScheduledAt: DateTime
-  _publishedAt: DateTime!
-
-  """Generates SEO and Social card meta tags to be used in your frontend"""
-  _seoMetaTags(
-    """The locale to use to fetch the field's content"""
-    locale: SiteLocale
-  ): [Tag!]!
-  _status: ItemStatus!
-  _unpublishingScheduledAt: DateTime
-  _updatedAt: DateTime!
-  chart(
-    """The locale to use to fetch the field's content"""
-    locale: SiteLocale
-
-    """
-    If you want to fallback to a default translation when a translation has not been found
-    """
-    fallbackLocales: [SiteLocale!]
-  ): SettingsChartRecord
-  content(
-    """Process content as markdown"""
-    markdown: Boolean
-
-    """The locale to use to fetch the field's content"""
-    locale: SiteLocale
-
-    """
-    If you want to fallback to a default translation when a translation has not been found
-    """
-    fallbackLocales: [SiteLocale!]
-  ): String!
-  description(
-    """The locale to use to fetch the field's content"""
-    locale: SiteLocale
-
-    """
-    If you want to fallback to a default translation when a translation has not been found
-    """
-    fallbackLocales: [SiteLocale!]
-  ): String!
-  id: ItemId!
-  kpi(
-    """The locale to use to fetch the field's content"""
-    locale: SiteLocale
-
-    """
-    If you want to fallback to a default translation when a translation has not been found
-    """
-    fallbackLocales: [SiteLocale!]
-  ): SettingsKpiRecord
-  seo(
-    """The locale to use to fetch the field's content"""
-    locale: SiteLocale
-
-    """
-    If you want to fallback to a default translation when a translation has not been found
-    """
-    fallbackLocales: [SiteLocale!]
-  ): SeoField
-  slug(
-    """The locale to use to fetch the field's content"""
-    locale: SiteLocale
-
-    """
-    If you want to fallback to a default translation when a translation has not been found
-    """
-    fallbackLocales: [SiteLocale!]
-  ): String!
-  title(
-    """The locale to use to fetch the field's content"""
-    locale: SiteLocale
-
-    """
-    If you want to fallback to a default translation when a translation has not been found
-    """
-    fallbackLocales: [SiteLocale!]
-  ): String!
-}
-
 union PageModelContentField = DataSectionRecord | FaqSectionRecord | HeroRecord | NewsFeedRecord | SectionRecord | StructuredTextRecord | SupportChannelsSectionRecord | SupportCtaSectionRecord | TextAccordionRecord | TextImageRecord | TopicFilterRecord | UseCaseContainerRecord
 
 type PageModelContentFieldListListNonNullMultiLocaleField {
@@ -5592,13 +5414,6 @@ type Query {
   ): CollectionMetadata!
 
   """Returns meta information regarding a record collection"""
-  _allPageLegaciesMeta(
-    """The locale to use to fetch the field's content"""
-    locale: SiteLocale
-    filter: PageLegacyModelFilter
-  ): CollectionMetadata!
-
-  """Returns meta information regarding a record collection"""
   _allPagesMeta(
     """The locale to use to fetch the field's content"""
     locale: SiteLocale
@@ -5861,25 +5676,6 @@ type Query {
     filter: NewsTopicModelFilter
     orderBy: [NewsTopicModelOrderBy] = [_updatedAt_DESC]
   ): [NewsTopicRecord!]!
-
-  """Returns a collection of records"""
-  allPageLegacies(
-    """The locale to use to fetch the field's content"""
-    locale: SiteLocale
-
-    """
-    If you want to fallback to a default translation when a translation has not been found
-    """
-    fallbackLocales: [SiteLocale!]
-
-    """Skip the first results"""
-    skip: IntType
-
-    """Limit the number of results"""
-    first: IntType = 20
-    filter: PageLegacyModelFilter
-    orderBy: [PageLegacyModelOrderBy] = [_updatedAt_DESC]
-  ): [PageLegacyRecord!]!
 
   """Returns a collection of records"""
   allPages(
@@ -6238,19 +6034,6 @@ type Query {
     filter: PageModelFilter
     orderBy: [PageModelOrderBy] = [position_ASC]
   ): PageRecord
-
-  """Returns a specific record"""
-  pageLegacy(
-    """The locale to use to fetch the field's content"""
-    locale: SiteLocale
-
-    """
-    If you want to fallback to a default translation when a translation has not been found
-    """
-    fallbackLocales: [SiteLocale!]
-    filter: PageLegacyModelFilter
-    orderBy: [PageLegacyModelOrderBy] = [_updatedAt_DESC]
-  ): PageLegacyRecord
 
   """Returns a specific record"""
   resource(
@@ -6936,11 +6719,6 @@ type SettingsChartRecord implements RecordInterface {
   title: String
 }
 
-type SettingsChartRecordMultiLocaleField {
-  locale: SiteLocale
-  value: SettingsChartRecord
-}
-
 """Block of type 🟰 Impostazioni Kpi (settings_kpi)"""
 type SettingsKpiRecord implements RecordInterface {
   _createdAt: DateTime!
@@ -6965,11 +6743,6 @@ type SettingsKpiRecord implements RecordInterface {
   selectKpi: [KpiElementRecord!]!
   subtitle: String
   title: String
-}
-
-type SettingsKpiRecordMultiLocaleField {
-  locale: SiteLocale
-  value: SettingsKpiRecord
 }
 
 """Record of type 🪾 Sidebar for articles (sidebar_for_article)"""
