@@ -2,6 +2,7 @@ import type {
   ArticleIndexingFragmentType,
   InsightIndexingFragmentType,
   NewsIndexingFragmentType,
+  PageIndexingFragmentType,
   ResourseIndexingFragmentType,
   StoryIndexingFragmentType,
   WebinarIndexingFragmentType,
@@ -15,7 +16,6 @@ import {
 import { linkResolver } from "@utils/linkResolver";
 import { render } from "datocms-structured-text-to-plain-text";
 
-/* per la categoria devo prenderlo dal catalogo */
 export const getMapArticle = (
   article: ArticleIndexingFragmentType,
   lang: SiteLocale,
@@ -158,4 +158,24 @@ export const getMapResourse = (
     default:
       return null;
   }
+};
+
+export const getMapPages = (
+  page: PageIndexingFragmentType,
+  lang: SiteLocale,
+) => {
+  const contentData = page.allContentLocales?.find(
+    (t) => t.locale === lang,
+  )?.value;
+
+  const content = flattenBlocks(contentData ?? []);
+  return {
+    type: "page",
+    id: page.id,
+    category: "",
+    internalLink: linkResolver(page.id, lang),
+    title: page.allTitleLocales?.find((t) => t.locale === lang)?.value,
+    description: "",
+    content: content,
+  };
 };

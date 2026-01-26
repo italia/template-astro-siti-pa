@@ -2,6 +2,7 @@ import type { StructuredTextFragmentType } from "@graphql/sectionFragments";
 import type {
   ArticleContentFragmentType,
   InsightContentFragmentType,
+  PageContentFragmentType,
   StoryContentFragmentType,
   WebinarContentFragmentType,
 } from "@graphql/templateFragments";
@@ -55,7 +56,8 @@ export const getSearchRenderOptions = () => ({
 type BlockType =
   | InsightContentFragmentType
   | StoryContentFragmentType
-  | WebinarContentFragmentType;
+  | WebinarContentFragmentType
+  | PageContentFragmentType;
 export const flattenBlocks = (blocks: BlockType[] | undefined | null) => {
   if (!blocks) return "";
   const stOptions = getSearchRenderOptions();

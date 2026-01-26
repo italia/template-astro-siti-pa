@@ -38,6 +38,8 @@ export const GET: APIRoute = async ({ params }) => {
   const newsItems = response.allNewsItems;
   const webinars = response.allWebinarItems;
   const resourses = response.allResources;
+  const pages = response.allPages;
+
   const cataloguesMapCategory = getCataloguesMapCategory(
     response.allCatalogues,
     lang,
@@ -53,8 +55,9 @@ export const GET: APIRoute = async ({ params }) => {
 
   return new Response(
     JSON.stringify([
+      ...pages.map((item) => Mappers.getMapPages(item, lang)),
       ...newsItems.map((item) => Mappers.getMapNews(item, lang, newsCategory)),
-      ...articles.map((item) =>
+      ...articles.flatMap((item) =>
         Mappers.getMapArticle(item, lang, articleCategory),
       ),
       ...insights.map((item) =>

@@ -7,18 +7,22 @@ import { graphql, type FragmentOf } from "@graphql/graphql";
 import {
   ArticleLocalesFragment,
   InsightLocalesFragment,
+  PageLocalesFragment,
   StoryItemLocalesFragment,
   WebinarItemLocalesFragment,
 } from "@graphql/metaFragments";
 import {
   AllArticlesSlugFragment,
   AllInsightsSlugFragment,
+  AllPagesSlugFragment,
   AllStoryItemsSlugFragment,
   AllWebinarItemsSlugFragment,
 } from "@graphql/slugFragments";
 import {
   ArticleContentFragment,
+  HomepageModelContentFragment,
   InsightContentFragment,
+  PageContentFragment,
   StoryContentFragment,
   WebinarContentFragment,
 } from "@graphql/templateFragments";
@@ -199,6 +203,48 @@ export const CatalogueIndexingFragment = graphql(`
 export type CatalogueIndexingFragmentType = FragmentOf<
   typeof CatalogueIndexingFragment
 >;
+
+export const PageIndexingFragment = graphql(
+  `
+    fragment PageIndexingFragment on PageRecord @_unmask {
+      id
+      ...AllPagesSlugFragment
+      ...PageLocalesFragment
+      allContentLocales: _allContentLocales {
+        locale
+        value {
+          ...PageContentFragment
+        }
+      }
+    }
+  `,
+  [AllPagesSlugFragment, PageLocalesFragment, PageContentFragment],
+);
+
+export type PageIndexingFragmentType = FragmentOf<typeof PageIndexingFragment>;
+
+export const HomepageIndexingFragment = graphql(
+  `
+    fragment HomepageIndexingFragment on HomepageRecord @_unmask {
+      id
+      allTitleLocales: _allTitleLocales {
+        ...LocaleFragment
+      }
+      allContentLocales: _allContentLocales {
+        locale
+        value {
+          ...HomepageModelContentFragment
+        }
+      }
+    }
+  `,
+  [HomepageModelContentFragment],
+);
+
+export type HomepageIndexingFragmentType = FragmentOf<
+  typeof HomepageIndexingFragment
+>;
+
 export const AllDocumentsQuery = graphql(
   `
     query AllDocuments {
@@ -223,6 +269,9 @@ export const AllDocumentsQuery = graphql(
       allCatalogues {
         ...CatalogueIndexingFragment
       }
+      allPages {
+        ...PageIndexingFragment
+      }
     }
   `,
   [
@@ -233,6 +282,7 @@ export const AllDocumentsQuery = graphql(
     WebinarIndexingFragment,
     ResourseIndexingFragment,
     CatalogueIndexingFragment,
+    PageIndexingFragment,
   ],
 );
 
