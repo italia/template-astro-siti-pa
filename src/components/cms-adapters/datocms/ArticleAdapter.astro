@@ -1,9 +1,9 @@
 ---
+import StructuredTextAdapter from "@components/cms-adapters/datocms/StructuredTextAdapter.astro";
+import { Breadcrumb } from "@components/molecules/Breadcrumb";
 import { SectionContainer } from "@components/organisms/SectionContainer";
 import type { ArticleContentFragmentType } from "@graphql/templateFragments";
-import { Breadcrumb } from "@components/molecules/Breadcrumb";
 import { createBreadcrumb } from "@utils/createBreadcrumb";
-import StructuredTextAdapter from "@components/cms-adapters/datocms/StructuredTextAdapter.astro";
 
 type Props = {
   content: ArticleContentFragmentType;
@@ -14,7 +14,7 @@ const { recordId, lang } = Astro.locals;
 const breadcrumbItems = createBreadcrumb(recordId, lang);
 ---
 
-<SectionContainer className="ps-5 structured-text-container">
+<SectionContainer className="ps-lg-5 structured-text-container">
   <Breadcrumb items={breadcrumbItems} ariaLabel="Breadbrumb" />
   <StructuredTextAdapter block={content} />
 </SectionContainer>
