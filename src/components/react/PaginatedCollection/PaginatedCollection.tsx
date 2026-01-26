@@ -1,10 +1,10 @@
-import { useState } from "react";
-import { Pagination } from "@components/react/Pagination";
 import {
   CardEditorialNews,
   type CardEditorialNewsProps,
 } from "@components/react/CardEditorialNews";
 import { Chip } from "@components/react/Chip";
+import { Pagination } from "@components/react/Pagination";
+import { useState } from "react";
 import {
   CardEditorialInlineMini,
   type CardEditorialInlineMiniProps,
@@ -118,7 +118,7 @@ export function PaginatedCollection({
               </li>
             )}
             {newsPageTabType === "story" && (
-              <li className="col-12 col-lg-6 mb-3" key={n.title}>
+              <li className="col-12 col-lg-4 mb-3" key={n.title}>
                 <CardEditorialInlineMini
                   {...(n as CardEditorialInlineMiniProps)}
                 />

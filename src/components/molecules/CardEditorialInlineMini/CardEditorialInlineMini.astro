@@ -20,46 +20,6 @@ const { title, description, image, linkTo, category, dateTime } = Astro.props;
 const shouldShowFooter = category || dateTime;
 ---
 
-<!-- <article
-  class="it-card it-card-inline it-card-height-full it-card-inline-mini it-card-image rounded shadow-sm border"
->
-  <div class="it-card-inline-content">
-    <h3 class="it-card-title h4">
-      <a href={linkTo}>{title}</a>
-    </h3>
-    {
-      description && (
-        <div class="it-card-body">
-          <p class="it-card-text">{description}</p>
-        </div>
-      )
-    }
-    {
-      shouldShowFooter && (
-        <footer class="it-card-related it-card-footer">
-          {category && (
-            <div class="it-card-taxonomy">
-              <ChipLink
-                linkTo={""}
-                label={category}
-                visuallyHidden=""
-                disabled
-              />
-            </div>
-          )}
-          {dateTime && <DateTime className="it-card-date" value={dateTime} />}
-        </footer>
-      )
-    }
-  </div>
-  <div class="it-card-image-wrapper">
-    <div class="ratio ratio-1x1">
-      <figure class="figure img-full">
-        <Image {...image} />
-      </figure>
-    </div>
-  </div>
-</article> -->
 <article
   class="it-card it-card-image it-card-height-full rounded shadow-sm border"
 >
