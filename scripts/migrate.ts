@@ -71,76 +71,63 @@ const localeSchemaMigrationsFiles = (): string[] =>
   try {
     datoCmsSchemaMigrations = await getAllSchemaMigrations(cmaClient);
     datoCmsSchemaMigrationsCount = datoCmsSchemaMigrations.length;
-    if (datoCmsSchemaMigrationsCount > 0) {
-      console.log("DATOCMS SCHEMA MIGRATIONS:");
-      datoCmsSchemaMigrations.forEach((migration) => {
-        const name = migration.name ?? "unnamed";
-        console.log(`- ${migration.id} (${name})`);
+    try {
+      if (
+        datoCmsSchemaMigrationsCount !== localeSchemaMigrationsFiles().length
+      ) {
+        console.log(`DATOCMS NEEDS MIGRATIONS`);
+        if (!process.env.DATOCMS_ENVIRONMENT) {
+          console.log(`MIGRATION - MANUAL MIGRATION NEEDED`);
+          throw new Error();
+        }
+
+        //GET Primary Environment
+        const env = (await cmaClient.environments.list()).find(
+          (env) => env.meta.primary,
+        )?.id;
+        if (!env) {
+          throw new Error("DATOCMS PRIMARY ENVIRONMENT NOT FOUND");
+        }
+        const backupEnv = `${env}-bkp-${Date.now()}`;
+
+        await cmaClient.maintenanceMode.activate();
+        // backup
+        await cmaClient.environments.fork(env, { id: backupEnv });
+        await cmaClient.environments.promote(backupEnv);
+
+        console.log(`DATOCMS BACKUP DONE`);
+
+        // Migration: Here use datocms CLI because cmaClient doesn't support migrations
+        runCommand(
+          `bunx datocms migrations:run --source=${env} --in-place --api-token=${token}`,
+        );
+
+        await cmaClient.environments.promote(env);
+        await cmaClient.maintenanceMode.deactivate();
+        console.log(`DATOCMS MIGRATION DONE`);
+
+        // purge
+        console.log(`DATOCMS PURGE BACKUP ENVIRONMENTS`);
+        const BKP_ENV_TO_MAINTAIN = 2;
+        const environments = await cmaClient.environments.list();
+        const bkpEvnvironments = environments
+          .map((env) => env.id)
+          .filter((envId) => envId.indexOf(`${env}-bkp-`) === 0)
+          .sort()
+          .reverse();
+        bkpEvnvironments.splice(0, BKP_ENV_TO_MAINTAIN);
+        bkpEvnvironments.forEach(
+          async (envId) => await cmaClient.environments.destroy(envId),
+        );
+        console.log(`DATOCMS PURGE BACKUP ENVIRONMENTS DONE`);
+        process.exit(0);
+      }
+    } catch (error) {
+      throw new Error(`MIGRATION - ERROR DURING MIGRATION STEPS`, {
+        cause: error,
       });
-    } else {
-      console.log("DATOCMS SCHEMA MIGRATIONS: none");
     }
   } catch (error) {
-    console.log(`DATOCMS WARNING READING AllSchemaMigrations`, error);
-  }
-  try {
-    if (datoCmsSchemaMigrationsCount !== localeSchemaMigrationsFiles().length) {
-      console.log(`DATOCMS NEEDS MIGRATIONS`);
-      if (!!process.env.DATOCMS_ENVIRONMENT) {
-        console.log(`MIGRATION - MANUAL MIGRATION NEEDED`);
-        throw new Error();
-      }
-
-      //GET Primary Environment
-      const env = (await cmaClient.environments.list()).find(
-        (env) => env.meta.primary,
-      )?.id;
-      if (!env) {
-        throw new Error("DATOCMS PRIMARY ENVIRONMENT NOT FOUND");
-      }
-      const backupEnv = `${env}-bkp-${Date.now()}`;
-
-      await cmaClient.maintenanceMode.activate();
-      //runCommand(`dato maintenance on --token=${token}`);
-      console.log("bkp", backupEnv);
-      //   // backup
-      //   cmaClient.environments.fork(env, {id: backupEnv});
-      //   cmaClient.environments.promote(backupEnv);
-      //   //runCommand(`dato environment fork ${env} ${backupEnv} --token=${token}`);
-      //   //runCommand(`dato environment promote ${backupEnv} --token=${token}`);
-
-      //   console.log(`DATOCMS BACKUP DONE`);
-
-      //   // Migration: Here use datocms CLI because cmaClient doesn't support migrations
-      //   runCommand(`bunx datocms migrations:run --source=${env} --in-place --api-token=${token}`);
-
-      //   cmaClient.environments.promote(env);
-      //   //runCommand(`dato environment promote ${env} --token=${token}`);
-
-      //   cmaClient.maintenanceMode.deactivate()
-      //   //runCommand(`dato maintenance off --token=${token}`);
-      //   console.log(`DATOCMS MIGRATION DONE`);
-
-      // purge
-      //   console.log(`DATOCMS PURGE BACKUP ENVIRONMENTS`);
-      //   const BKP_ENV_TO_MAINTAIN = 2;
-      //   const environments = await cmaClient.environments.list();
-      //   const bkpEvnvironments = environments
-      //     .map((env) => env.id)
-      //     .filter((envId) => envId.indexOf(`${env}-bkp-`) === 0)
-      //     .sort()
-      //     .reverse();
-      //   bkpEvnvironments.splice(0, BKP_ENV_TO_MAINTAIN);
-      //   bkpEvnvironments.forEach((envId) =>
-      //     // runCommand(`dato environment destroy ${envId} --token=${token}`)
-      //     cmaClient.environments.destroy(envId)
-      //   );
-      //   console.log(`DATOCMS PURGE BACKUP ENVIRONMENTS DONE`);
-      //   process.exit(0);
-    }
-  } catch (error) {
-    throw new Error(`MIGRATION - ERROR DURING MIGRATION STEPS`, {
-      cause: error,
-    });
+    console.error(`DATOCMS WARNING READING AllSchemaMigrations`, error);
   }
 })();
