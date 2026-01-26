@@ -17,21 +17,27 @@ export function Resource({
 
   return (
     <>
-      <a
-        className={`d-inline-flex align-items-center gap-2`}
-        href={url}
-        target="_blank"
-        rel="noopener noreferrer"
-        download={download}
-      >
-        <span className="fw-semibold">{title}</span>
-        <svg className="icon icon-sm icon-primary">
-          <use href={`/bsi-svg/sprites.svg#${icon}`} />
-        </svg>
-      </a>
-      <span className={`ms-3 badge bg-secondary text-uppercase`}>
-        {category}
-      </span>
+      <div className="d-md-flex">
+        <a
+          className={`d-inline-flex align-items-center gap-2`}
+          href={url}
+          target="_blank"
+          rel="noopener noreferrer"
+          download={download}
+        >
+          <span className="fw-semibold">{title}</span>
+          <svg className="icon icon-sm icon-primary">
+            <use href={`/bsi-svg/sprites.svg#${icon}`} />
+          </svg>
+        </a>
+        <div>
+          <div
+            className={`mb-2 mb-md-0 mt-2 mt-md-0 ms-lg-3 badge bg-secondary text-uppercase`}
+          >
+            {category}
+          </div>
+        </div>
+      </div>
       <p>{description}</p>
     </>
   );
