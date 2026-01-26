@@ -20,13 +20,13 @@ const { title, paragraph, category, cta, labelButton } = Astro.props;
   @import "./style.scss";
 </style>
 
-<article class="it-card rounded shadow border p-5">
+<article class="it-card rounded shadow border p-3 p-lg-5">
   <div class="row justify-content-between align-items-top mb-5">
-    <div class="col-6">
+    <div class="col-12 col-lg-6">
       <h2>{title}</h2>
       {category && <Badge variant="primary" label={category} />}
     </div>
-    <div class="col-6 text-end">
+    <div class="col-12 col-lg-6 text-center text-lg-end mt-3 mt-lg-0">
       <ButtonLink
         download
         linkTo={cta.url}
