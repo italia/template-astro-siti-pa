@@ -25,9 +25,11 @@ export const SearchResultItem = ({ result }: SearchResultItemProps) => {
           <use href={`/bsi-svg/sprites.svg#${icon}`} />
         </svg>
       </a>
-      <span className={`ms-3 badge bg-secondary text-uppercase`}>
-        {result.category}
-      </span>
+      {result.category && (
+        <span className={`ms-3 badge bg-secondary text-uppercase`}>
+          {result.category}
+        </span>
+      )}
       <p className="fs-6">{result.description}</p>
     </div>
   );

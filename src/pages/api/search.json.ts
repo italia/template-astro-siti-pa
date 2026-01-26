@@ -42,6 +42,16 @@ export const GET: APIRoute = async ({ url }) => {
         type: "best_fields",
       },
     },
+    highlight: {
+      fields: {
+        content: {
+          fragment_size: 150,
+          number_of_fragments: 1,
+          pre_tags: [""],
+          post_tags: [""],
+        },
+      },
+    },
   };
 
   try {
@@ -50,16 +60,20 @@ export const GET: APIRoute = async ({ url }) => {
       body: searchBody,
     });
 
-    const results: SearchResult[] = response.body.hits.hits.map((hit: any) => ({
-      id: hit._id,
-      title: hit._source.title,
-      description: hit._source.description,
-      internalLink: hit._source.internalLink,
-      externalLink: hit._source.externalLink,
-      downloadLink: hit._source.downloadLink,
-      type: hit._source.type,
-      category: hit._source.category,
-    }));
+    const results: SearchResult[] = response.body.hits.hits.map((hit: any) => {
+      const highlightSnippet = hit.highlight?.content?.[0];
+      return {
+        id: hit._id,
+        title: hit._source.title,
+        description: highlightSnippet || hit._source.description,
+        internalLink: hit._source.internalLink,
+        externalLink: hit._source.externalLink,
+        downloadLink: hit._source.downloadLink,
+        type: hit._source.type,
+        category: hit._source.category,
+        isHighlighted: !!highlightSnippet,
+      };
+    });
 
     return new Response(JSON.stringify(results), {
       status: 200,
