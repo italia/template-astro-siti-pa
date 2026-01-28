@@ -37,14 +37,6 @@ if (!HOST || !USERNAME || !PASSWORD || !CONTENT_PATH || !INDEX_NAME_PREFIX) {
   );
 }
 
-const client = new Client({
-  node: HOST,
-  auth: {
-    username: USERNAME,
-    password: PASSWORD,
-  },
-});
-
 function getBulkBody(documents: Document[], INDEX_NAME: string) {
   return documents.flatMap((doc) => [
     { index: { _index: INDEX_NAME, _id: doc.slug } },
@@ -52,7 +44,74 @@ function getBulkBody(documents: Document[], INDEX_NAME: string) {
   ]);
 }
 
+const deleteIndex = async (client: Client, index: string) => {
+  try {
+    console.log(`OPENSEARCH: DELETING INDEX ${index}`);
+    await client.indices.delete({ index, ignore_unavailable: true });
+  } catch (error: any) {
+    console.error(`Error deleting index ${index}:`, error.message);
+  }
+};
+
+const createIndex = async (
+  client: Client,
+  index: string,
+  analyzerLang: string = "standard",
+) => {
+  console.log(`OPENSEARCH: CREATING INDEX ${index} (Lang: ${analyzerLang})`);
+  await client.indices.create({
+    index,
+    body: {
+      settings: {
+        number_of_shards: 1,
+        number_of_replicas: 0,
+      },
+      mappings: {
+        properties: {
+          title: {
+            type: "text",
+            analyzer: analyzerLang,
+          },
+          content: {
+            type: "text",
+            analyzer: analyzerLang,
+          },
+          url: { type: "keyword" },
+        },
+      },
+    },
+  });
+};
+
+const loadDocumentsIntoIndex = async (
+  client: Client,
+  index: string,
+  documents: Document[],
+) => {
+  console.log(`OPENSEARCH: LOADING ${documents.length} DOCUMENTS`);
+  const body = getBulkBody(documents, index);
+
+  const { body: bulkResponse } = await client.bulk({ body, refresh: true });
+
+  if (bulkResponse.errors) {
+    console.error(`Errors during BULK indexing for ${index}`);
+  }
+};
+
+const refreshIndex = async (client: Client, index: string) => {
+  console.log(`ELASTIC: REFRESH INDEX ${index}`);
+  await client.indices.refresh({ index });
+};
+
 async function runIndexing() {
+  const client = new Client({
+    node: HOST,
+    auth: {
+      username: USERNAME,
+      password: PASSWORD,
+    },
+  });
+
   if (!fs.existsSync(CONTENT_PATH)) {
     console.error(
       `Error: Content file not found at ${CONTENT_PATH}. Please make sure to run 'astro build'.`,
@@ -67,6 +126,7 @@ async function runIndexing() {
     const mappingLanguage = await executeQuery(LocaleLabelsQuery, {
       variables: { locale: lang },
     });
+    const analyzer = mappingLanguage?.lang?.analyzer || "standard";
 
     const INDEX_NAME = INDEX_NAME_PREFIX + lang;
 
@@ -81,75 +141,14 @@ async function runIndexing() {
     }
 
     try {
-      await client.indices.delete({
-        index: INDEX_NAME,
-        ignore_unavailable: true,
-      });
-      console.log(`Index '${INDEX_NAME}' deleted (if existed).`);
+      await deleteIndex(client, INDEX_NAME);
+      await createIndex(client, INDEX_NAME, analyzer);
+      await loadDocumentsIntoIndex(client, INDEX_NAME, documents);
+      await refreshIndex(client, INDEX_NAME);
 
-      await client.indices.create({
-        index: INDEX_NAME,
-        body: {
-          settings: {
-            number_of_shards: 1,
-            number_of_replicas: 0,
-          },
-          mappings: {
-            properties: {
-              title: {
-                type: "text",
-                analyzer: mappingLanguage?.lang?.analyzer,
-              },
-              content: {
-                type: "text",
-                analyzer: mappingLanguage?.lang?.analyzer,
-              },
-              url: { type: "keyword" },
-            },
-          },
-        },
-      });
-      console.log(`Index '${INDEX_NAME}' created.`);
+      console.log(`SUCCESS: Indexing completed for ${INDEX_NAME}`);
     } catch (error) {
-      let errorMessage = "Unknown error";
-      if (error instanceof Error) {
-        errorMessage = error.message;
-      } else if (
-        typeof error === "object" &&
-        error !== null &&
-        "message" in error
-      ) {
-        errorMessage = (error as { message: string }).message;
-      }
-      console.error("Error creating/deleting index:", errorMessage);
-    }
-
-    try {
-      const bulkResponse = await client.bulk({
-        body: getBulkBody(documents, INDEX_NAME),
-      });
-
-      if (bulkResponse.body.errors) {
-        console.error(
-          "Error during BULK indexing. Some documents may not have been indexed.",
-        );
-      } else {
-        console.log(
-          `Indexing completed! ${documents.length} documents indexed.`,
-        );
-      }
-    } catch (error) {
-      let errorMessage = "Unknown error";
-      if (error instanceof Error) {
-        errorMessage = error.message;
-      } else if (
-        typeof error === "object" &&
-        error !== null &&
-        "message" in error
-      ) {
-        errorMessage = (error as { message: string }).message;
-      }
-      console.error("Error during BULK operation:", errorMessage);
+      console.error(`FAILED: Indexing error for ${INDEX_NAME}:`, error);
     }
   }
 }
