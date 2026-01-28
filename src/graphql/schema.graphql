@@ -1,4 +1,4 @@
-"""Block of type 🪗 Accordion block (accordion_block)"""
+"""Block of type Accordion block (accordion_block)"""
 type AccordionBlockRecord implements RecordInterface {
   _createdAt: DateTime!
 
@@ -23,7 +23,7 @@ type AccordionBlockRecord implements RecordInterface {
   title: String
 }
 
-"""Block of type 🪗 Accordion item (accordion_item)"""
+"""Block of type Accordion item (accordion_item)"""
 type AccordionItemRecord implements RecordInterface {
   _createdAt: DateTime!
 
@@ -81,7 +81,7 @@ type AccordionMenuRecordListListNonNullMultiLocaleField {
   value: [AccordionMenuRecord!]!
 }
 
-"""Block of type 🪗 Accordion (accordion)"""
+"""Block of type Accordion (accordion)"""
 type AccordionRecord implements RecordInterface {
   _createdAt: DateTime!
 
@@ -280,7 +280,7 @@ type ArticleNavigationRecord implements RecordInterface {
   previousLabel: String
 }
 
-"""Record of type 🗞️ Article (article)"""
+"""Record of type Article (article)"""
 type ArticleRecord implements RecordInterface {
   _allContentLocales(
     """
@@ -508,7 +508,7 @@ enum ArticleTopicModelOrderBy {
   label_DESC
 }
 
-"""Record of type 🏷️ Article topic (article_topic)"""
+"""Record of type Article topic (article_topic)"""
 type ArticleTopicRecord implements RecordInterface {
   _allLabelLocales(
     """
@@ -572,7 +572,7 @@ type AuthorListRecord implements RecordInterface {
   title: String
 }
 
-"""Block of type 🗨️ Blockquote (blockquote)"""
+"""Block of type Blockquote (blockquote)"""
 type BlockquoteRecord implements RecordInterface {
   _createdAt: DateTime!
 
@@ -609,7 +609,7 @@ input BooleanFilter {
 """Represents `true` or `false` values."""
 scalar BooleanType
 
-"""Block of type 🏢 Brand (brand)"""
+"""Block of type Brand (brand)"""
 type BrandRecord implements RecordInterface {
   _createdAt: DateTime!
 
@@ -635,7 +635,7 @@ type BrandRecord implements RecordInterface {
   url: String!
 }
 
-"""Block of type ⚠️ Callout (callout)"""
+"""Block of type Note (callout)"""
 type CalloutRecord implements RecordInterface {
   _createdAt: DateTime!
 
@@ -664,7 +664,7 @@ type CalloutRecord implements RecordInterface {
   visuallyHidden: String
 }
 
-"""Block of type 💳 Card editorial with icon (card_editorial_with_icon)"""
+"""Block of type Card editorial with icon (card_editorial_with_icon)"""
 type CardEditorialWithIconRecord implements RecordInterface {
   _createdAt: DateTime!
 
@@ -693,7 +693,7 @@ type CardEditorialWithIconRecord implements RecordInterface {
   title: String!
 }
 
-"""Block of type Catalogue feed (catalogue_feed)"""
+"""Block of type Cards hub with filter (catalogue_feed)"""
 type CatalogueFeedRecord implements RecordInterface {
   _createdAt: DateTime!
 
@@ -765,7 +765,7 @@ enum CatalogueModelOrderBy {
   title_DESC
 }
 
-"""Record of type 📰 Catalogue (catalogue)"""
+"""Record of type Catalogue (catalogue)"""
 type CatalogueRecord implements RecordInterface {
   _allContentLocales(
     """
@@ -881,7 +881,7 @@ type CatalogueTabRecord implements RecordInterface {
   title: String!
 }
 
-"""Block of type 📺 Card presentation banner (channel)"""
+"""Block of type Card presentation banner (channel)"""
 type ChannelRecord implements RecordInterface {
   _createdAt: DateTime!
 
@@ -946,7 +946,7 @@ enum ChartElementModelOrderBy {
   title_DESC
 }
 
-"""Record of type 📈 Chart element (chart_element)"""
+"""Record of type Chart element (chart_element)"""
 type ChartElementRecord implements RecordInterface {
   _createdAt: DateTime!
 
@@ -1039,7 +1039,7 @@ input CreatedAtFilter {
 
 scalar CustomData
 
-"""Block of type 📊 Data container (data_container)"""
+"""Block of type Data container (data_container)"""
 type DataContainerRecord implements RecordInterface {
   _createdAt: DateTime!
 
@@ -1065,7 +1065,7 @@ type DataContainerRecord implements RecordInterface {
   title: String!
 }
 
-"""Block of type 🗂️ Data section (data_section)"""
+"""Block of type Data section (data_section)"""
 type DataSectionRecord implements RecordInterface {
   _createdAt: DateTime!
 
@@ -1160,7 +1160,7 @@ type DownloadLinkRecord implements RecordInterface {
   label: String!
 }
 
-"""Block of type 🔗 External link (external_link)"""
+"""Block of type External link (external_link)"""
 type ExternalLinkRecord implements RecordInterface {
   _createdAt: DateTime!
 
@@ -1188,7 +1188,7 @@ type ExternalLinkRecord implements RecordInterface {
   url: String!
 }
 
-"""Block of type ❓ FAQ section (faq_section)"""
+"""Block of type FAQ section (faq_section)"""
 type FaqSectionRecord implements RecordInterface {
   _createdAt: DateTime!
 
@@ -1488,7 +1488,7 @@ type GlobalSeoField {
   twitterAccount: String
 }
 
-"""Record of type ⚙️ Global setting (global_setting)"""
+"""Record of type Global setting (global_setting)"""
 type GlobalSettingRecord implements RecordInterface {
   _allSiteNameLocales(
     """
@@ -1527,7 +1527,7 @@ type GlobalSettingRecord implements RecordInterface {
   ): String!
 }
 
-"""Block of type 🦸 Hero (hero)"""
+"""Block of type Hero (hero)"""
 type HeroRecord implements RecordInterface {
   _createdAt: DateTime!
 
@@ -1559,7 +1559,7 @@ type HeroRecord implements RecordInterface {
   variant: String
 }
 
-"""Block of type ✨ Highlight (highlight)"""
+"""Block of type Highlight (highlight)"""
 type HighlightRecord implements RecordInterface {
   _createdAt: DateTime!
 
@@ -1596,7 +1596,7 @@ type HomepageModelContentFieldListListNonNullMultiLocaleField {
   value: [HomepageModelContentField!]!
 }
 
-"""Record of type 🏠 Homepage (homepage)"""
+"""Record of type Homepage (homepage)"""
 type HomepageRecord implements RecordInterface {
   _allContentLocales(
     """
@@ -1739,7 +1739,7 @@ type IconListRecord implements RecordInterface {
   items: [IconListItemRecord!]!
 }
 
-"""Block of type 🖼️ Image block (image_block)"""
+"""Block of type Image block (image_block)"""
 type ImageBlockRecord implements RecordInterface {
   _createdAt: DateTime!
 
@@ -3788,7 +3788,7 @@ enum InsightModelOrderBy {
   title_DESC
 }
 
-"""Record of type 👁️ Insight (insight)"""
+"""Record of type Insight (insight)"""
 type InsightRecord implements RecordInterface {
   _allAbstractLocales(
     """Process content as markdown"""
@@ -3976,7 +3976,7 @@ enum InsightTopicModelOrderBy {
   label_DESC
 }
 
-"""Record of type 🏷️ Insight topic (insight_topic)"""
+"""Record of type Insight topic (insight_topic)"""
 type InsightTopicRecord implements RecordInterface {
   _createdAt: DateTime!
 
@@ -4010,7 +4010,7 @@ Represents non-fractional signed whole numeric values. Int can represent values 
 """
 scalar IntType
 
-"""Block of type 🔗 Internal link (internal_link)"""
+"""Block of type Internal link (internal_link)"""
 type InternalLinkRecord implements RecordInterface {
   _createdAt: DateTime!
 
@@ -4163,7 +4163,7 @@ enum KpiElementModelOrderBy {
   valueSuffix_DESC
 }
 
-"""Record of type 🟰 Kpi element (kpi_element)"""
+"""Record of type Kpi element (kpi_element)"""
 type KpiElementRecord implements RecordInterface {
   _createdAt: DateTime!
 
@@ -4197,7 +4197,7 @@ type KpiElementRecord implements RecordInterface {
   valueSuffix: String
 }
 
-"""Record of type 🔤 Lang (lang)"""
+"""Record of type Lang (lang)"""
 type LangRecord implements RecordInterface {
   _allAnalyzerLocales(
     """
@@ -4268,7 +4268,7 @@ type LangRecord implements RecordInterface {
 
 union LayoutModelSmallPrintField = ExternalLinkRecord | InternalLinkRecord
 
-"""Record of type 🔲 Layout (layout)"""
+"""Record of type Layout (layout)"""
 type LayoutRecord implements RecordInterface {
   _allHeadingLocales(
     """Process content as markdown"""
@@ -4472,7 +4472,7 @@ type ListBlockquoteRecord implements RecordInterface {
 }
 
 """
-Block of type 🗃️ List card editorial with icon (list_card_editorial_with_icon)
+Block of type List card editorial with icon (list_card_editorial_with_icon)
 """
 type ListCardEditorialWithIconRecord implements RecordInterface {
   _createdAt: DateTime!
@@ -4550,7 +4550,7 @@ type ListCollectionRecord implements RecordInterface {
   title: String!
 }
 
-"""Block of type 🖇️ List internal link (list_internal_link)"""
+"""Block of type List internal link (list_internal_link)"""
 type ListInternalLinkRecord implements RecordInterface {
   _createdAt: DateTime!
 
@@ -4574,7 +4574,7 @@ type ListInternalLinkRecord implements RecordInterface {
   links: [InternalLinkRecord!]!
 }
 
-"""Block of type 🔳 List item (list_item)"""
+"""Block of type List item (list_item)"""
 type ListItemRecord implements RecordInterface {
   _createdAt: DateTime!
 
@@ -4655,7 +4655,7 @@ enum MacroTopicModelOrderBy {
   label_DESC
 }
 
-"""Record of type 🏷️ Macro topic (macro_topic)"""
+"""Record of type Macro topic (macro_topic)"""
 type MacroTopicRecord implements RecordInterface {
   _allLabelLocales(
     """
@@ -4726,7 +4726,7 @@ type MenuArticleItemRecord implements RecordInterface {
 
 union MenuItemModelPointsToField = CatalogueRecord | PageRecord
 
-"""Block of type ➡️ Menu Item (menu_item)"""
+"""Block of type Menu item (menu_item)"""
 type MenuItemRecord implements RecordInterface {
   _createdAt: DateTime!
 
@@ -4766,7 +4766,7 @@ enum MuxThumbnailFormatType {
 
 union NewsFeedModelTabsField = NewsTabRecord | StoryTabRecord
 
-"""Block of type 📑 News feed (news_feed)"""
+"""Block of type Cards section with tab (news_feed)"""
 type NewsFeedRecord implements RecordInterface {
   _createdAt: DateTime!
 
@@ -4843,7 +4843,7 @@ enum NewsItemModelOrderBy {
   title_DESC
 }
 
-"""Record of type 📰 News Item (news_item)"""
+"""Record of type News item (news_item)"""
 type NewsItemRecord implements RecordInterface {
   _allDateOfPublicationLocales(
     """
@@ -5014,7 +5014,7 @@ enum NewsTopicModelOrderBy {
   label_DESC
 }
 
-"""Record of type 🏷️ News topic (news_topic)"""
+"""Record of type News topic (news_topic)"""
 type NewsTopicRecord implements RecordInterface {
   _allLabelLocales(
     """
@@ -5058,7 +5058,7 @@ type NewsTopicRecordNonNullMultiLocaleField {
   value: NewsTopicRecord!
 }
 
-"""Block of type 🍢 Ordered list (ordered_list)"""
+"""Block of type Ordered list (ordered_list)"""
 type OrderedListRecord implements RecordInterface {
   _createdAt: DateTime!
 
@@ -5143,7 +5143,7 @@ enum PageModelOrderBy {
   title_DESC
 }
 
-"""Record of type 📰 Page (page)"""
+"""Record of type Page (page)"""
 type PageRecord implements RecordInterface {
   _allContentLocales(
     """
@@ -5235,7 +5235,7 @@ type PageRecordMultiLocaleField {
   value: PageRecord
 }
 
-"""Block of type 📉 Panel (panel)"""
+"""Block of type Panel (panel)"""
 type PanelRecord implements RecordInterface {
   _createdAt: DateTime!
 
@@ -5432,6 +5432,13 @@ type Query {
     """The locale to use to fetch the field's content"""
     locale: SiteLocale
     filter: ResourceModelFilter
+  ): CollectionMetadata!
+
+  """Returns meta information regarding a record collection"""
+  _allSchemaMigrationsMeta(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+    filter: SchemaMigrationModelFilter
   ): CollectionMetadata!
 
   """Returns meta information regarding a record collection"""
@@ -5733,6 +5740,25 @@ type Query {
     filter: ResourceModelFilter
     orderBy: [ResourceModelOrderBy] = [_updatedAt_DESC]
   ): [ResourceRecord!]!
+
+  """Returns a collection of records"""
+  allSchemaMigrations(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+
+    """Skip the first results"""
+    skip: IntType
+
+    """Limit the number of results"""
+    first: IntType = 20
+    filter: SchemaMigrationModelFilter
+    orderBy: [SchemaMigrationModelOrderBy] = [_updatedAt_DESC]
+  ): [SchemaMigrationRecord!]!
 
   """Returns a collection of records"""
   allStoryItems(
@@ -6061,6 +6087,19 @@ type Query {
     orderBy: [ResourceTopicModelOrderBy] = [_updatedAt_DESC]
   ): ResourceTopicRecord
 
+  """Returns a specific record"""
+  schemaMigration(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+    filter: SchemaMigrationModelFilter
+    orderBy: [SchemaMigrationModelOrderBy] = [_updatedAt_DESC]
+  ): SchemaMigrationRecord
+
   """Returns the single instance record"""
   search(
     """The locale to use to fetch the field's content"""
@@ -6162,7 +6201,7 @@ type Query {
   ): WebinarTopicRecord
 }
 
-"""Block of type 🔗 Quick link card (quick_link_card)"""
+"""Block of type Quick link card (quick_link_card)"""
 type QuickLinkCardRecord implements RecordInterface {
   _createdAt: DateTime!
 
@@ -6302,7 +6341,7 @@ type ResourceModelResourceFieldNonNullMultiLocaleField {
   value: ResourceModelResourceField!
 }
 
-"""Record of type ℹ️ Resource (resource)"""
+"""Record of type Resource (resource)"""
 type ResourceRecord implements RecordInterface {
   _allCategoryLocales(
     """
@@ -6410,7 +6449,7 @@ enum ResourceTopicModelOrderBy {
   label_DESC
 }
 
-"""Record of type 🏷️ Resource topic (resource_topic)"""
+"""Record of type Resource topic (resource_topic)"""
 type ResourceTopicRecord implements RecordInterface {
   _allLabelLocales(
     """
@@ -6468,7 +6507,7 @@ type ResponsiveImage {
   width: IntType!
 }
 
-"""Block of type ➰ Result (result)"""
+"""Block of type Result (result)"""
 type ResultRecord implements RecordInterface {
   _createdAt: DateTime!
 
@@ -6496,7 +6535,69 @@ type ResultRecord implements RecordInterface {
   useCases: [ArticleRecord!]!
 }
 
-"""Block of type 🔍 Search bar (search_bar)"""
+input SchemaMigrationModelFilter {
+  _createdAt: CreatedAtFilter
+  id: ItemIdFilter
+  _firstPublishedAt: PublishedAtFilter
+  _publicationScheduledAt: PublishedAtFilter
+  _unpublishingScheduledAt: PublishedAtFilter
+  _publishedAt: PublishedAtFilter
+  _status: StatusFilter
+  _updatedAt: UpdatedAtFilter
+  _isValid: BooleanFilter
+  name: StringFilter
+  OR: [SchemaMigrationModelFilter]
+  AND: [SchemaMigrationModelFilter]
+}
+
+enum SchemaMigrationModelOrderBy {
+  _createdAt_ASC
+  _createdAt_DESC
+  id_ASC
+  id_DESC
+  _firstPublishedAt_ASC
+  _firstPublishedAt_DESC
+  _publicationScheduledAt_ASC
+  _publicationScheduledAt_DESC
+  _unpublishingScheduledAt_ASC
+  _unpublishingScheduledAt_DESC
+  _publishedAt_ASC
+  _publishedAt_DESC
+  _status_ASC
+  _status_DESC
+  _updatedAt_ASC
+  _updatedAt_DESC
+  _isValid_ASC
+  _isValid_DESC
+  name_ASC
+  name_DESC
+}
+
+"""Record of type Schema migration (schema_migration)"""
+type SchemaMigrationRecord implements RecordInterface {
+  _createdAt: DateTime!
+
+  """Editing URL"""
+  _editingUrl: String
+  _firstPublishedAt: DateTime!
+  _isValid: BooleanType!
+  _modelApiKey: String!
+  _publicationScheduledAt: DateTime
+  _publishedAt: DateTime!
+
+  """Generates SEO and Social card meta tags to be used in your frontend"""
+  _seoMetaTags(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+  ): [Tag!]!
+  _status: ItemStatus!
+  _unpublishingScheduledAt: DateTime
+  _updatedAt: DateTime!
+  id: ItemId!
+  name: String!
+}
+
+"""Block of type Search bar (search_bar)"""
 type SearchBarRecord implements RecordInterface {
   _createdAt: DateTime!
 
@@ -6531,7 +6632,7 @@ type SearchModelContentFieldListListNonNullMultiLocaleField {
   value: [SearchModelContentField!]!
 }
 
-"""Record of type 🔍 Search (search)"""
+"""Record of type Search (search)"""
 type SearchRecord implements RecordInterface {
   _allContentLocales(
     """
@@ -6545,12 +6646,6 @@ type SearchRecord implements RecordInterface {
     """
     fallbackLocales: [SiteLocale!]
   ): [StringNonNullMultiLocaleField!]
-  _allSeoLocales(
-    """
-    If you want to fallback to a default translation when a translation has not been found
-    """
-    fallbackLocales: [SiteLocale!]
-  ): [SeoFieldMultiLocaleField!]
   _allSlugLocales(
     """
     If you want to fallback to a default translation when a translation has not been found
@@ -6602,15 +6697,6 @@ type SearchRecord implements RecordInterface {
     """
     fallbackLocales: [SiteLocale!]
   ): String!
-  seo(
-    """The locale to use to fetch the field's content"""
-    locale: SiteLocale
-
-    """
-    If you want to fallback to a default translation when a translation has not been found
-    """
-    fallbackLocales: [SiteLocale!]
-  ): SeoField
   slug(
     """The locale to use to fetch the field's content"""
     locale: SiteLocale
@@ -6633,7 +6719,7 @@ type SearchRecord implements RecordInterface {
 
 union SectionModelRightField = AccordionBlockRecord | AuthorListRecord | IconListBlockRecord | ImageBlockRecord | QuickLinkCardRecord | StatisticBlockRecord | UseCaseBlockRecord
 
-"""Block of type 📋 Section (section)"""
+"""Block of type Section (section)"""
 type SectionRecord implements RecordInterface {
   _createdAt: DateTime!
 
@@ -6685,7 +6771,7 @@ input SeoFilter {
   exists: BooleanType
 }
 
-"""Block of type 📊 Impostazioni Grafico (settings_chart)"""
+"""Block of type Impostazioni grafico (settings_chart)"""
 type SettingsChartRecord implements RecordInterface {
   _createdAt: DateTime!
 
@@ -6719,7 +6805,7 @@ type SettingsChartRecord implements RecordInterface {
   title: String
 }
 
-"""Block of type 🟰 Impostazioni Kpi (settings_kpi)"""
+"""Block of type Impostazioni Kpi (settings_kpi)"""
 type SettingsKpiRecord implements RecordInterface {
   _createdAt: DateTime!
 
@@ -6745,7 +6831,7 @@ type SettingsKpiRecord implements RecordInterface {
   title: String
 }
 
-"""Record of type 🪾 Sidebar for articles (sidebar_for_article)"""
+"""Record of type Sidebar for articles (sidebar_for_article)"""
 type SidebarForArticleRecord implements RecordInterface {
   _allCloseLabelLocales(
     """
@@ -6868,7 +6954,7 @@ input SlugFilter {
   notIn: [String]
 }
 
-"""Block of type Speaker (speaker)"""
+"""Block of type Text + speakers (speaker)"""
 type SpeakerRecord implements RecordInterface {
   _createdAt: DateTime!
 
@@ -6917,7 +7003,7 @@ type StatisticBlockRecord implements RecordInterface {
   statistics: [DataContainerRecord!]!
 }
 
-"""Block of type 📉 Statistics box (statistics_box)"""
+"""Block of type Statistics box (statistics_box)"""
 type StatisticsBoxRecord implements RecordInterface {
   _createdAt: DateTime!
 
@@ -7018,7 +7104,7 @@ type StoryItemModelParentPageFieldMultiLocaleField {
   value: StoryItemModelParentPageField
 }
 
-"""Record of type 📓 Story item (story_item)"""
+"""Record of type Story item (story_item)"""
 type StoryItemRecord implements RecordInterface {
   _allContentLocales(
     """
@@ -7213,7 +7299,7 @@ enum StoryTopicModelOrderBy {
   label_DESC
 }
 
-"""Record of type 🏷️ Story topic (story_topic)"""
+"""Record of type Story topic (story_topic)"""
 type StoryTopicRecord implements RecordInterface {
   _allLabelLocales(
     """
@@ -7342,7 +7428,7 @@ type StructuredTextModelContentField {
   value: JsonField!
 }
 
-"""Block of type 📝 Structured text (structured_text)"""
+"""Block of type Article structured text (structured_text)"""
 type StructuredTextRecord implements RecordInterface {
   _createdAt: DateTime!
 
@@ -7366,7 +7452,7 @@ type StructuredTextRecord implements RecordInterface {
   id: ItemId!
 }
 
-"""Block of type ⌨️ Support channels section (support_channels_section)"""
+"""Block of type Support channels section (support_channels_section)"""
 type SupportChannelsSectionRecord implements RecordInterface {
   _createdAt: DateTime!
 
@@ -7398,7 +7484,7 @@ type SupportChannelsSectionRecord implements RecordInterface {
 
 union SupportCtaSectionModelCtaField = ExternalLinkRecord | InternalLinkRecord
 
-"""Block of type 💁 Support CTA section (support_cta_section)"""
+"""Block of type Support CTA section (support_cta_section)"""
 type SupportCtaSectionRecord implements RecordInterface {
   _createdAt: DateTime!
 
@@ -7458,7 +7544,7 @@ type TextAccordionRecord implements RecordInterface {
   text: TextBlockRecord!
 }
 
-"""Block of type 📋 Text block (text_block)"""
+"""Block of type Text block (text_block)"""
 type TextBlockRecord implements RecordInterface {
   _createdAt: DateTime!
 
@@ -7564,7 +7650,7 @@ type TextStatisticRecord implements RecordInterface {
   text: TextBlockRecord!
 }
 
-"""Block of type Text + use case (text_use_case)"""
+"""Block of type Text + cards (text_use_case)"""
 type TextUseCaseRecord implements RecordInterface {
   _createdAt: DateTime!
 
@@ -7589,7 +7675,7 @@ type TextUseCaseRecord implements RecordInterface {
   useCases: UseCaseBlockRecord!
 }
 
-"""Block of type 🔖 Topic filter (topic_filter)"""
+"""Block of type Topic filter (topic_filter)"""
 type TopicFilterRecord implements RecordInterface {
   _createdAt: DateTime!
 
@@ -7620,7 +7706,7 @@ type TopicFilterRecord implements RecordInterface {
   titleFilter: String!
 }
 
-"""Block of type 🏷️ Topic (topic)"""
+"""Block of type Topic (topic)"""
 type TopicRecord implements RecordInterface {
   _createdAt: DateTime!
 
@@ -7644,7 +7730,7 @@ type TopicRecord implements RecordInterface {
   label: String!
 }
 
-"""Block of type 📕 Topics Block (topics_block)"""
+"""Block of type Topics block (topics_block)"""
 type TopicsBlockRecord implements RecordInterface {
   _createdAt: DateTime!
 
@@ -8225,7 +8311,7 @@ type UseCaseBlockRecord implements RecordInterface {
   useCases: [ArticleRecord!]!
 }
 
-"""Block of type 🗂️ Use case container (use_case_container)"""
+"""Block of type Cards container (use_case_container)"""
 type UseCaseContainerRecord implements RecordInterface {
   _createdAt: DateTime!
 
@@ -8298,7 +8384,7 @@ enum WebinarAuthorModelOrderBy {
   role_DESC
 }
 
-"""Record of type 🧑‍🎨 Webinar author (webinar_author)"""
+"""Record of type Webinar author (webinar_author)"""
 type WebinarAuthorRecord implements RecordInterface {
   _allRoleLocales(
     """
@@ -8427,7 +8513,7 @@ type WebinarItemModelParentPageFieldMultiLocaleField {
   value: WebinarItemModelParentPageField
 }
 
-"""Record of type 🎤 Webinar Item (webinar_item)"""
+"""Record of type Webinar item (webinar_item)"""
 type WebinarItemRecord implements RecordInterface {
   _allContentLocales(
     """
@@ -8617,7 +8703,7 @@ enum WebinarTopicModelOrderBy {
   label_DESC
 }
 
-"""Record of type 🏷️ Webinar topic (webinar_topic)"""
+"""Record of type Webinar topic (webinar_topic)"""
 type WebinarTopicRecord implements RecordInterface {
   _allLabelLocales(
     """
