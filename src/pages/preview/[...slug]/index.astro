@@ -1,25 +1,26 @@
 ---
+import PageAdapter from "@components/cms-adapters/datocms/PageAdapter.astro";
+import SidebarAdapter from "@components/cms-adapters/datocms/SidebarAdapter.astro";
+import SidebarLayoutAdapter from "@components/cms-adapters/datocms/SidebarLayoutAdapter.astro";
+import DraftModeQueryListener from "@components/DraftModeQueryListener.astro";
+import type { TypedDocumentNode } from "@datocms/cda-client";
+import type { SidebarFragmentType } from "@graphql/commonFragments";
+import { SearchPageContentQuery } from "@graphql/query/search";
+import type { SiteLocale } from "@graphql/types";
 import Layout from "@layouts/Layout.astro";
 import { executeQuery } from "@lib/datocms";
-import {
-  HomepageQuery,
-  PageByIdQuery,
-  CatalogueByIdQuery,
-  ArticleByIdQuery,
-  SidebarQuery,
-  WebinarByIdQuery,
-  InsightByIdQuery,
-  StoryItemByIdQuery,
-  LayoutQuery,
-} from "@utils/query";
-import type { SiteLocale } from "@graphql/types";
 import { linkResolver } from "@utils/linkResolver";
-import PageAdapter from "@components/cms-adapters/datocms/PageAdapter.astro";
-import DraftModeQueryListener from "@components/DraftModeQueryListener.astro";
-import SidebarLayoutAdapter from "@components/cms-adapters/datocms/SidebarLayoutAdapter.astro";
-import type { SidebarFragmentType } from "@graphql/commonFragments";
-import type { TypedDocumentNode } from "@datocms/cda-client";
-import SidebarAdapter from "@components/cms-adapters/datocms/SidebarAdapter.astro";
+import {
+  ArticleByIdQuery,
+  CatalogueByIdQuery,
+  HomepageQuery,
+  InsightByIdQuery,
+  LayoutQuery,
+  PageByIdQuery,
+  SidebarQuery,
+  StoryItemByIdQuery,
+  WebinarByIdQuery,
+} from "@utils/query";
 
 type QueryConfig<T = any, V = any> = {
   query: TypedDocumentNode<T, V>;
@@ -43,6 +44,7 @@ if (!id || !type) {
 
 const queryMap: Record<string, QueryConfig> = {
   homepage: { query: HomepageQuery, key: "homepage" },
+  search: { query: SearchPageContentQuery, key: "search" },
   page: { query: PageByIdQuery, key: "page" },
   catalogue: { query: CatalogueByIdQuery, key: "catalogue" },
   article: { query: ArticleByIdQuery, key: "article" },
@@ -62,7 +64,15 @@ const response = await executeQuery(config.query, {
   includeDrafts: true,
 });
 
-const dataRecord = response[config.key];
+let dataRecord = response[config.key];
+if (type === "search" && dataRecord?.allContentLocales) {
+  const localizedContent = dataRecord.allContentLocales.find(
+    (item: any) => item.locale === lang,
+  );
+
+  dataRecord = localizedContent ? localizedContent.value : null;
+}
+
 if (!dataRecord) return Astro.redirect("/404");
 
 let sidebarData: SidebarFragmentType | null = null;
@@ -128,6 +138,7 @@ if (slugProduction !== "#") {
 
 {
   (type === "page" ||
+    type === "search" ||
     type === "webinar_item" ||
     type === "story_item" ||
     type === "insight" ||
