@@ -115,7 +115,7 @@ export const getMapNews = (
     type: "news",
     id: news.id,
     category,
-    externalLink: "",
+    externalLink: news.allLinkLocales?.find((t) => t.locale === lang)?.value,
     title: news.allTitleLocales?.find((t) => t.locale === lang)?.value,
     description: news.allParagraphLocales?.find((t) => t.locale === lang)
       ?.value,
