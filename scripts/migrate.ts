@@ -121,6 +121,9 @@ const localeSchemaMigrationsFiles = (): string[] =>
         );
         console.log(`DATOCMS PURGE BACKUP ENVIRONMENTS DONE`);
         process.exit(0);
+      } else {
+        console.log(`DATOCMS NO MIGRATION NEEDED`);
+        process.exit(0);
       }
     } catch (error) {
       throw new Error(`MIGRATION - ERROR DURING MIGRATION STEPS`, {
