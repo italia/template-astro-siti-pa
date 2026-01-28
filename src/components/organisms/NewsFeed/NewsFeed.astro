@@ -6,6 +6,7 @@ import { CardEditorialNews } from "@components/molecules/CardEditorialNews";
 import type { CardEditorialNewsProps } from "@components/molecules/CardEditorialNews/types";
 import { TabContent, Tabs } from "@components/molecules/Tabs";
 import TextContainer from "@components/molecules/TextContainer/TextContainer.astro";
+import { Carousel, CarouselItem } from "@components/molecules/Carousel";
 
 type NewsTab = {
   title: string;
@@ -53,33 +54,21 @@ const hasMultipleTabs = tabsItems.length > 1;
       {
         tabs.map((tab, index) => (
           <TabContent tab={tabsItems[index]}>
-            <div
-              class="it-carousel-wrapper it-carousel-landscape-abstract splide d-block d-lg-none"
-              data-bs-carousel-splide
-              data-splide='{"gap":".5rem", "breakpoints":{"768":{"gap":".5rem"}, "992":{"gap":".5rem"}}}'
-            >
-              <div class="splide__track ps-lg-3 pe-lg-3">
-                <ul class="splide__list it-carousel-all">
-                  {tab.componentName === "CardEditorialNews" &&
-                    tab.news.map((n) => (
-                      <li class="splide__slide">
-                        <div class="it-single-slide-wrapper h-100 p-2">
-                          <CardEditorialNews {...n} />
-                        </div>
-                      </li>
-                    ))}
+            <Carousel>
+              {tab.componentName === "CardEditorialNews" &&
+                tab.news.map((n) => (
+                  <CarouselItem>
+                    <CardEditorialNews {...n} />
+                  </CarouselItem>
+                ))}
 
-                  {tab.componentName === "CardEditorialInlineMini" &&
-                    tab.news.map((n) => (
-                      <li class="splide__slide">
-                        <div class="it-single-slide-wrapper h-100 p-2">
-                          <CardEditorialInlineMini {...n} />
-                        </div>
-                      </li>
-                    ))}
-                </ul>
-              </div>
-            </div>
+              {tab.componentName === "CardEditorialInlineMini" &&
+                tab.news.map((n) => (
+                  <CarouselItem>
+                    <CardEditorialInlineMini {...n} />
+                  </CarouselItem>
+                ))}
+            </Carousel>
 
             <div class="d-none d-lg-block">
               <ul

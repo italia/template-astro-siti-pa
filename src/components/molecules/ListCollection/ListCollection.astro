@@ -1,5 +1,6 @@
 ---
 import { CardEditorialNews } from "@components/molecules/CardEditorialNews";
+import { Carousel, CarouselItem } from "@components/molecules/Carousel";
 import { SectionContainer } from "@components/organisms/SectionContainer";
 import type { ListCollectionProps } from "./types";
 
@@ -28,24 +29,14 @@ const { title, items } = Astro.props;
       </ul>
     </div>
 
-    <div
-      class="it-carousel-wrapper it-carousel-landscape-abstract splide d-block d-lg-none"
-      data-bs-carousel-splide
-      data-splide='{"gap":".5rem", "breakpoints":{"768":{"gap":".5rem"}, "992":{"gap":".5rem"}}}'
-    >
-      <div class="splide__track ps-lg-3 pe-lg-3">
-        <ul class="splide__list it-carousel-all">
-          {
-            items.map((item) => (
-              <li class="splide__slide">
-                <div class="it-single-slide-wrapper h-100 p-2">
-                  <CardEditorialNews {...item} />
-                </div>
-              </li>
-            ))
-          }
-        </ul>
-      </div>
-    </div>
+    <Carousel>
+      {
+        items.map((item) => (
+          <CarouselItem>
+            <CardEditorialNews {...item} />
+          </CarouselItem>
+        ))
+      }
+    </Carousel>
   </div>
 </SectionContainer>
