@@ -4,10 +4,8 @@ import Layout from "@layouts/Layout.astro";
 import { executeQuery } from "@lib/datocms";
 
 import PageAdapter from "@components/cms-adapters/datocms/PageAdapter.astro";
-import type { TagFragmentType } from "@graphql/commonFragments";
 import {
   SearchPageContentQuery,
-  SearchPageSeoQuery,
   type SearchPageContentFragmentType,
 } from "@graphql/query/search";
 import { linkResolver } from "@utils/linkResolver";
@@ -20,7 +18,6 @@ export async function getStaticPaths() {
       lang: SiteLocale;
     };
     props: {
-      seo: TagFragmentType[];
       content: SearchPageContentFragmentType[];
       id: string;
     };
@@ -32,10 +29,6 @@ export async function getStaticPaths() {
 
   const pathsPromises =
     page?.locales.map(async (lang) => {
-      const seoRes = await executeQuery(SearchPageSeoQuery, {
-        variables: { locale: lang },
-      });
-
       const fullPath = linkResolver(page.id, lang);
 
       const slug = removeLang(fullPath, lang);
@@ -46,7 +39,6 @@ export async function getStaticPaths() {
           lang: lang,
         },
         props: {
-          seo: seoRes.search?.seo || [],
           id: page.id,
           content: page.allContentLocales?.find(
             (contentLocale) => contentLocale.locale === lang,
@@ -60,11 +52,11 @@ export async function getStaticPaths() {
   return paths.filter((path): path is PathItem => !!path.params.lang);
 }
 
-const { id, content, seo } = Astro.props;
+const { id, content } = Astro.props;
 
 Astro.locals.recordId = id;
 ---
 
-<Layout pageSeo={seo} noIndex={true}>
+<Layout noIndex={true}>
   <PageAdapter content={content} />
 </Layout>

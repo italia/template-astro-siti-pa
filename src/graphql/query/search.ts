@@ -1,4 +1,3 @@
-import { TagFragment } from "@graphql/commonFragments";
 import { graphql, type FragmentOf } from "@graphql/graphql";
 import { HeroFragment } from "@graphql/sectionFragments";
 
@@ -52,17 +51,4 @@ export const SearchPageContentQuery = graphql(
     }
   `,
   [SearchPageContentFragment],
-);
-
-export const SearchPageSeoQuery = graphql(
-  `
-    query SearchPageSeoQuery($locale: SiteLocale!) {
-      search(locale: $locale) {
-        seo: _seoMetaTags {
-          ...TagFragment
-        }
-      }
-    }
-  `,
-  [TagFragment],
 );
