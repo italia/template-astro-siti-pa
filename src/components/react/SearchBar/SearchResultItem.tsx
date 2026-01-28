@@ -25,11 +25,18 @@ export const SearchResultItem = ({ result }: SearchResultItemProps) => {
           <use href={`/bsi-svg/sprites.svg#${icon}`} />
         </svg>
       </a>
-      {result.category && (
-        <span className={`ms-3 badge bg-secondary text-uppercase`}>
-          {result.category}
-        </span>
-      )}
+      {result.category &&
+        result.category.split(",").map((cat, index) => {
+          const trimmedCat = cat.trim();
+          return trimmedCat ? (
+            <span
+              key={index}
+              className="ms-3 badge bg-secondary text-uppercase"
+            >
+              {trimmedCat}
+            </span>
+          ) : null;
+        })}
       <p className="fs-6">{result.description}</p>
     </div>
   );

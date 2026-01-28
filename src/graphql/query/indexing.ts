@@ -194,6 +194,7 @@ export const CatalogueIndexingFragment = graphql(`
       ... on CatalogueFeedRecord {
         tabs {
           newsPageTabType
+          title
         }
       }
     }

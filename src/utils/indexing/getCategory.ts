@@ -8,7 +8,8 @@ import type {
 } from "@graphql/query/indexing";
 import type { SiteLocale } from "@graphql/types";
 
-type catalogueMapCategory = { type: string[]; title?: string };
+type tabType = { type: string; title: string };
+type catalogueMapCategory = { type: tabType[]; title?: string };
 export const getCategoryName = (
   page: PageLocalesFragmentType | CatalogueLocalesFragmentType | null,
   lang: SiteLocale,
@@ -32,12 +33,28 @@ export const resolveArticleCategory = (
   );
 };
 
-export const getTitleByType = (
+export const getTitleByTypeNews = (
   catalogues: catalogueMapCategory[],
   searchType: string,
 ): string | undefined => {
-  const result = catalogues.find((item) => item.type.includes(searchType));
-  return result?.title;
+  const catalogueMatch = catalogues.find((item) =>
+    item.type.some((t) => t.type === searchType),
+  );
+  if (!catalogueMatch) return undefined;
+
+  const specificType = catalogueMatch.type.find((t) => t.type === searchType);
+  return `${catalogueMatch?.title}, ${specificType?.title}`;
+};
+
+export const getTitleByTypeResourse = (
+  catalogues: catalogueMapCategory[],
+  searchType: string,
+): string | undefined => {
+  const catalogueMatch = catalogues.find((item) =>
+    item.type.some((t) => t.type === searchType),
+  );
+
+  return catalogueMatch?.title;
 };
 
 export const getCataloguesMapCategory = (
@@ -51,9 +68,12 @@ export const getCataloguesMapCategory = (
     const feedRecord = catalogue.content.find(
       (item) => item.componentName === "CatalogueFeedRecord",
     );
-    let tabTypes: string[] = [];
+    let tabTypes: tabType[] = [];
     if (feedRecord && "tabs" in feedRecord) {
-      tabTypes = feedRecord.tabs?.map((item) => item.newsPageTabType) || [];
+      tabTypes =
+        feedRecord.tabs?.map((item) => {
+          return { type: item.newsPageTabType, title: item.title };
+        }) || [];
     }
 
     return {

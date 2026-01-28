@@ -4,7 +4,8 @@ import { executeQuery } from "@lib/datocms";
 import {
   getCataloguesMapCategory,
   getCategoryName,
-  getTitleByType,
+  getTitleByTypeNews,
+  getTitleByTypeResourse,
   resolveArticleCategory,
 } from "@utils/indexing/getCategory";
 import * as Mappers from "@utils/indexing/indexingMappers";
@@ -47,11 +48,13 @@ export const GET: APIRoute = async ({ params }) => {
 
   const articleCategory = resolveArticleCategory(articles, lang);
   const insightCategory = getCategoryName(insights[0]?.parentPage, lang);
-  const storyCategory = getCategoryName(stories[0]?.parentPage, lang);
-  const newsCategory = getTitleByType(cataloguesMapCategory, "news") || "";
-  const webinarCategory = getCategoryName(webinars[0]?.parentPage, lang);
+  const storyCategory =
+    getTitleByTypeNews(cataloguesMapCategory, "story") || "";
+  const newsCategory = getTitleByTypeNews(cataloguesMapCategory, "news") || "";
+  const webinarCategory =
+    getTitleByTypeNews(cataloguesMapCategory, "webinar") || "";
   const resourseCategory =
-    getTitleByType(cataloguesMapCategory, "resource") || "";
+    getTitleByTypeResourse(cataloguesMapCategory, "resource") || "";
 
   return new Response(
     JSON.stringify([
