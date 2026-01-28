@@ -8,8 +8,8 @@ type Props = ListItemProps & {
 };
 const { title, paragraph, index, variant } = Astro.props;
 
-const titleClass = variant === "small" ? "h4 fs-4 m-0" : "h3";
-const textClass = variant === "small" ? "text-secondary" : "";
+const titleClass = variant === "small" ? "fs-4 m-0" : "fs-3";
+const textClass = variant === "small" ? "text-secondary" : "font-serif";
 ---
 
 <style>
@@ -23,7 +23,7 @@ const textClass = variant === "small" ? "text-secondary" : "";
     </div>
     <div class="item-text">
       <div>
-        <h4 class=`${titleClass} text-dark`>{title}</h4>
+        <h3 class=`${titleClass} text-dark`>{title}</h3>
         <p class=`${textClass} m-0`>{paragraph}</p>
       </div>
     </div>

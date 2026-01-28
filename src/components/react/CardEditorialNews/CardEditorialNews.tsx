@@ -1,5 +1,5 @@
-import { DateTime } from "@components/react/DateTime";
 import type { ImageProps } from "@components/atoms/Image/types";
+import { DateTime } from "@components/react/DateTime";
 import { Image } from "@components/react/Image";
 
 export type CardEditorialNewsProps = {
@@ -48,10 +48,7 @@ export function CardEditorialNews({
         <footer className="it-card-related it-card-footer">
           {category && (
             <div className="it-card-taxonomy">
-              <a href="#" className="it-card-category it-card-link">
-                <span className="visually-hidden">Categoria correlata: </span>
-                {category}
-              </a>
+              <p className="it-card-category">{category}</p>
             </div>
           )}
           {dateTime && (

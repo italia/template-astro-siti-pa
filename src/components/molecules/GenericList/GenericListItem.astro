@@ -1,8 +1,8 @@
 ---
 import type {
   GenericListItemProps,
-  GenericListVariantProps,
   GenericListSizeProps,
+  GenericListVariantProps,
 } from "./types";
 
 type Props = GenericListItemProps & {
@@ -52,7 +52,7 @@ const RightZoneTag = linkTo ? "a" : "div";
       {
         subtext ? (
           <div>
-            <h4 class="text m-0">{text}</h4>
+            <p class="text text-secondary m-0">{text}</p>
             <p class="small m-0">{subtext}</p>
           </div>
         ) : (

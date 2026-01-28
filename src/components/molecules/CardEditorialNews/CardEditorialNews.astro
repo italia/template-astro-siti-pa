@@ -1,6 +1,6 @@
 ---
-import { Image } from "@components/atoms/Image";
 import { DateTime } from "@components/atoms/DateTime";
+import { Image } from "@components/atoms/Image";
 import type { CardEditorialNewsProps } from "./types";
 
 type Props = CardEditorialNewsProps;
@@ -44,10 +44,7 @@ const shouldShowFooter = category || dateTime;
       <footer class="it-card-related it-card-footer">
         {category && (
           <div class="it-card-taxonomy">
-            <a href="#" class="it-card-category it-card-link">
-              <span class="visually-hidden">Categoria correlata: </span>
-              {category}
-            </a>
+            <p class="it-card-category">{category}</p>
           </div>
         )}
         {dateTime && <DateTime className="it-card-date" value={dateTime} />}

@@ -30,14 +30,20 @@ body {
   }
 }
 
-.structured-text-container .container > * + :is(h1, h2, h3, h4, h5, h6) {
+.structured-text-container .container>p,
+.structured-text-container .container>ul>li>p {
+  font-family: "Lora, serif" !important;
+}
+
+.structured-text-container .container>*+ :is(h2, h3, h4, h5, h6) {
   margin-top: 3rem !important;
   margin-bottom: 1rem !important;
 }
 
-.structured-text-container .container > section {
+.structured-text-container .container>section {
   margin-top: 3rem !important;
   margin-bottom: 3rem !important;
+
 }
 
 .dynamic-icon {
@@ -51,3 +57,7 @@ body {
   mask-size: contain;
   mask-position: center;
 }
+
+/* ul>li {
+  list-style-type: square;
+} */

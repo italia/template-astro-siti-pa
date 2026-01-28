@@ -13,7 +13,7 @@ export function Pagination({
 
   return (
     <nav aria-label="Pagination">
-      <ul className="pagination justify-content-center">
+      <ul className="pagination justify-content-center pt-5">
         <li className="page-item">
           <button
             onClick={() => onPageChange(currentPage - 1)}

@@ -1,14 +1,14 @@
 ---
+import { Image } from "@components/atoms/Image";
 import { StatisticsBox } from "@components/molecules/StatisticsBox";
 import { TextContainer } from "@components/molecules/TextContainer";
 import type { HighlightsProps } from "./types";
-import { Image } from "@components/atoms/Image";
 
 type Props = HighlightsProps;
 const { title, paragraph, image, cards } = Astro.props;
 ---
 
-<div class="row align-items-top justify-content-between">
+<div class="row align-items-center justify-content-between">
   <div class="col-lg-6 col-12">
     <TextContainer title={title} paragraph={paragraph} variant="light" />
   </div>

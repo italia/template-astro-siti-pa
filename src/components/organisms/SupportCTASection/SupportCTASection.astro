@@ -1,6 +1,6 @@
 ---
+import { ButtonLink } from "@components/atoms/Button";
 import { Image } from "@components/atoms/Image";
-import TextContainer from "@components/molecules/TextContainer/TextContainer.astro";
 import type {
   SupportCTASectionBackgroundProps,
   SupportCTASectionProps,
@@ -31,15 +31,22 @@ const backgroundColorClass = backgroundColor[background];
 >
   <div class={`container py-5  ${size === "small" ? "px-5" : ""}`}>
     <div class={`row align-items-center justify-content-between `}>
-      <div class={`${size === "small" ? "col-lg-9" : "col-lg-7"} col-12`}>
-        <TextContainer
-          title={title}
-          paragraph={paragraph}
-          labelButton={labelButton}
-          linkTo={linkTo}
-        />
+      <div class="col-lg-6 col-12">
+        <div class=`text-container mb-4 mb-lg-0`>
+          <h3 class="mb-3">
+            {title}
+          </h3>
+          <div class="mb-4" set:html={paragraph} />
+          {
+            labelButton && linkTo && (
+              <div class="mt-5">
+                <ButtonLink size="small" label={labelButton} linkTo={linkTo} />
+              </div>
+            )
+          }
+        </div>
       </div>
-      <div class={`${size === "small" ? "col-lg-3" : "col-lg-5"} col-12`}>
+      <div class={`${size === "small" ? "col-lg-5" : "col-lg-5"} col-12`}>
         <div class="img-container">
           <div class={`ratio ${size === "small" ? "ratio-1x1" : "ratio-16x9"}`}>
             <Image {...image} />

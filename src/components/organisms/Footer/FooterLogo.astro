@@ -7,7 +7,12 @@ type Props = FooterLogoProps;
 const { icon, label, linkTo } = Astro.props;
 ---
 
-<a href={linkTo} target="_blank" rel="noreferrer" class="d-block">
-  {icon && <Icon icon={icon} className="text-white me-3" />}
+<a
+  href={linkTo}
+  target="_blank"
+  rel="noreferrer"
+  class="d-block h6 fw-semibold text-decoration-none"
+>
+  {icon && <Icon icon={icon} className="text-white me-3 icon-lg" />}
   {label}
 </a>

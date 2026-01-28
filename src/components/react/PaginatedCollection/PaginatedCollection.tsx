@@ -85,7 +85,7 @@ export function PaginatedCollection({
         </div>
         <div className="col-lg-5 col-12">
           <div className="it-list-wrapper d-flex flex-column">
-            <span className="text-uppercase text-dark fw-semibold mt-1 me-3 fs-6">
+            <span className="text-uppercase text-dark fw-semibold mt-1 fs-6">
               {filterTitle}
             </span>
             <ul
@@ -113,19 +113,19 @@ export function PaginatedCollection({
         {paginatedItems.map((n) => (
           <>
             {newsPageTabType === "news" && (
-              <li className="col-12 col-lg-4 mb-3" key={n.title}>
+              <li className="col-12 col-lg-4 mb-5" key={n.title}>
                 <CardEditorialNews {...(n as CardEditorialNewsProps)} />
               </li>
             )}
             {newsPageTabType === "story" && (
-              <li className="col-12 col-lg-4 mb-3" key={n.title}>
+              <li className="col-12 col-lg-4 mb-5" key={n.title}>
                 <CardEditorialInlineMini
                   {...(n as CardEditorialInlineMiniProps)}
                 />
               </li>
             )}
             {newsPageTabType === "webinar" && (
-              <li className="col-12 col-lg-4 mb-3" key={n.title}>
+              <li className="col-12 col-lg-4 mb-5" key={n.title}>
                 <CardEditorialNews {...(n as CardEditorialNewsProps)} />
               </li>
             )}

@@ -21,12 +21,12 @@ const {
   @import "./style.scss";
 </style>
 <article
-  class=`it-card it-card-profile ${variant==="big" && "it-card-big"}  rounded shadow-sm border lightgrey-bg-a3 d-none d-lg-block`
+  class=`it-card it-card-profile ${variant==="big" && "it-card-big"} p-4 rounded shadow-sm border lightgrey-bg-a3 d-none d-lg-block`
 >
-  <div class="it-card-profile-header align-items-end">
+  <div class="it-card-profile-header align-items-end p-0 m-0">
     {
       image && (
-        <div class="it-card-profile-image rounded-2 overflow-hidden  ratio ratio-1x1">
+        <div class="it-card-profile-image rounded-2 overflow-hidden ratio ratio-1x1">
           <figure class="figure img-full">
             <Image {...image} />
           </figure>
@@ -34,12 +34,12 @@ const {
       )
     }
 
-    <div class="it-card-profile it-card-body">
+    <div class="it-card-profile it-card-body m-0">
       <div>
-        <h4 class="it-card-profile-name">
+        <h3 class="it-card-profile-name">
           <a href={linkTo}>{title}</a>
-        </h4>
-        <p class="it-card-text">
+        </h3>
+        <p>
           {paragraph}
         </p>
       </div>
@@ -62,7 +62,7 @@ const {
                 {descriptionTitle}
               </h4>
             )}
-            <div class="it-card-text" set:html={description} />
+            <div set:html={description} />
           </div>
         </div>
       )
