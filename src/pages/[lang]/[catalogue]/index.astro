@@ -9,6 +9,7 @@ import type { CatalogueContentFragmentType } from "@graphql/templateFragments";
 import type { SiteLocale } from "@graphql/types";
 import Layout from "@layouts/Layout.astro";
 import { executeQuery } from "@lib/datocms";
+import { getLastUpdateCollection } from "@utils/getLastUpdateCollection";
 import { linkResolver } from "@utils/linkResolver";
 import { removeLang } from "@utils/pathHelper";
 
@@ -42,16 +43,7 @@ export async function getStaticPaths() {
           (contentLocale) => contentLocale.locale === lang,
         )?.value;
 
-        const feedRecord = content?.find(
-          (c) => c.componentName === "CatalogueFeedRecord",
-        );
-
-        let finalUpdateDate = null;
-
-        if (feedRecord && feedRecord.tabs) {
-          const type = feedRecord.tabs[0].newsPageTabType;
-          finalUpdateDate = datesRegistry[type as keyof typeof datesRegistry];
-        }
+        const finalUpdateDate = getLastUpdateCollection(content, datesRegistry);
 
         const seoRes = await executeQuery(CatalogueSeoQuery, {
           variables: { id: page.id, locale: lang },
