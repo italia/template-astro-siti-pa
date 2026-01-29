@@ -24,6 +24,7 @@ export async function getStaticPaths() {
       content: ArticleContentFragmentType;
       id: string;
       sidebar: SidebarFragmentType;
+      publishedAt: string;
     };
   };
 
@@ -56,6 +57,7 @@ export async function getStaticPaths() {
             content: page.allContentLocales?.find(
               (contentLocale) => contentLocale.locale === lang,
             )?.value,
+            publishedAt: page.publishedAt,
           },
         };
       }),
@@ -66,11 +68,11 @@ export async function getStaticPaths() {
   return paths.filter((path): path is PathItem => !!path.params.lang);
 }
 
-const { seo, content, id, sidebar } = Astro.props;
+const { seo, content, id, sidebar, publishedAt } = Astro.props;
 
 Astro.locals.recordId = id;
 ---
 
-<Layout pageSeo={seo}>
+<Layout pageSeo={seo} datePublished={publishedAt}>
   <SidebarLayoutAdapter sidebar={sidebar} content={content} />
 </Layout>

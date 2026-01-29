@@ -2,6 +2,7 @@
 import PreviewBar from "@components/PreviewBar.astro";
 import FooterAdapter from "@components/cms-adapters/datocms/FooterAdapter.astro";
 import HeaderAdapter from "@components/cms-adapters/datocms/HeaderAdapter.astro";
+import { LastUpdate } from "@components/molecules/LastUpdate";
 import { Seo, type TitleMetaLinkTag } from "@datocms/astro";
 import type {
   FooterFragmentType,
@@ -9,7 +10,11 @@ import type {
 } from "@graphql/sectionFragments";
 import { executeQuery } from "@lib/datocms";
 import { isDraftModeEnabled } from "@lib/draftMode";
-import { LayoutQuery, SiteMetaTagsQuery } from "@utils/query";
+import {
+  GlobalSettingsQuery,
+  LayoutQuery,
+  SiteMetaTagsQuery,
+} from "@utils/query";
 import bsi from "bootstrap-italia/dist/js/bootstrap-italia.bundle.min.js?url";
 import "../styles/global.scss";
 
@@ -17,10 +22,16 @@ type Props = {
   pageSeo?: TitleMetaLinkTag[];
   redirectUrl?: string;
   noIndex?: boolean;
+  datePublished?: string;
 };
 
 const isPreview = isDraftModeEnabled(Astro.cookies);
-const { pageSeo = [], redirectUrl, noIndex = false } = Astro.props;
+const {
+  pageSeo = [],
+  redirectUrl,
+  noIndex = false,
+  datePublished,
+} = Astro.props;
 
 const { lang } = Astro.locals;
 
@@ -29,6 +40,11 @@ const result = await executeQuery(SiteMetaTagsQuery, {
 });
 
 const { layout, homepage, search } = await executeQuery(LayoutQuery, {
+  variables: { locale: lang },
+  includeDrafts: isPreview,
+});
+
+const { globalSetting } = await executeQuery(GlobalSettingsQuery, {
   variables: { locale: lang },
   includeDrafts: isPreview,
 });
@@ -86,6 +102,14 @@ const isShowingPreviewBar = isPreview && redirectUrl;
     <main>
       <slot />
     </main>
+    {
+      datePublished && globalSetting && (
+        <LastUpdate
+          label={globalSetting.lastUpdateLabel}
+          date={datePublished}
+        />
+      )
+    }
     <FooterAdapter {...footerLayout} />
   </body>
 </html>

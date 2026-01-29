@@ -1,12 +1,12 @@
 ---
+import type { SiteLocale } from "@graphql/types";
 import Layout from "@layouts/Layout.astro";
 import { executeQuery } from "@lib/datocms";
-import type { SiteLocale } from "@graphql/types";
 
-import type { PageContentFragmentType } from "@graphql/templateFragments";
 import PageAdapter from "@components/cms-adapters/datocms/PageAdapter.astro";
-import { AllPagesContentQuery, PageSeoQuery } from "@graphql/query/page";
 import type { TagFragmentType } from "@graphql/commonFragments";
+import { AllPagesContentQuery, PageSeoQuery } from "@graphql/query/page";
+import type { PageContentFragmentType } from "@graphql/templateFragments";
 import { linkResolver } from "@utils/linkResolver";
 import { removeLang } from "@utils/pathHelper";
 
@@ -19,6 +19,7 @@ export async function getStaticPaths() {
     props: {
       seo: TagFragmentType[];
       content: PageContentFragmentType[];
+      publishedAt: string;
       id: string;
     };
   };
@@ -44,6 +45,7 @@ export async function getStaticPaths() {
           props: {
             seo: seoRes.page?.seo || [],
             id: page.id,
+            publishedAt: page.publishedAt,
             content: page.allContentLocales?.find(
               (contentLocale) => contentLocale.locale === lang,
             )?.value,
@@ -57,11 +59,11 @@ export async function getStaticPaths() {
   return paths.filter((path): path is PathItem => !!path.params.lang);
 }
 
-const { id, content, seo } = Astro.props;
+const { id, content, seo, publishedAt } = Astro.props;
 
 Astro.locals.recordId = id;
 ---
 
-<Layout pageSeo={seo}>
+<Layout pageSeo={seo} datePublished={publishedAt}>
   <PageAdapter content={content} />
 </Layout>
