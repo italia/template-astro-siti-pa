@@ -1,0 +1,17 @@
+---
+import { DateTime } from "@components/atoms/DateTime";
+
+type Props = {
+  label: string;
+  date: string;
+};
+
+const { label, date } = Astro.props;
+---
+
+<section class="border-top">
+  <div class="container py-4">
+    <span class="fw-semibold">{label}:</span>
+    <DateTime value={date} />
+  </div>
+</section>
