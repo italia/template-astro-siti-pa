@@ -1,0 +1,23 @@
+---
+
+---
+
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Redirecting...</title>
+    <script is:inline>
+      const userLang = navigator.language || navigator.userLanguage;
+      const lang = userLang.startsWith("it") ? "it" : "en";
+      window.location.href = `/${lang}/404/`;
+    </script>
+  </head>
+  <body>
+    <p>
+      Page not found. Redirecting to <a href="/it/404/">Italian</a> or <a
+        href="/en/404/">English</a
+      > version.
+    </p>
+  </body>
+</html>

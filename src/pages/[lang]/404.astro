@@ -1,0 +1,39 @@
+---
+import { ButtonLink } from "@components/atoms/Button";
+import { SplitContent } from "@components/layout/SplitContent";
+import Layout from "@layouts/Layout.astro";
+import { executeQuery } from "@lib/datocms";
+import { LocalesQuery } from "@utils/query";
+
+export async function getStaticPaths() {
+  const {
+    site: { locales },
+  } = await executeQuery(LocalesQuery);
+  return locales.map((lang) => ({
+    params: {
+      lang,
+    },
+  }));
+}
+
+const { lang } = Astro.params;
+---
+
+<Layout>
+  <SplitContent>
+    <div slot="left" class=`text-container mb-4 mb-lg-0`>
+      <h1 class="mb-3">Un imprevisto può capitare</h1>
+      <p class="mb-4">Non abbiamo trovato la pagina che cercavi.</p>
+      <p class="mb-4">
+        Verifica che lìindirizzo sia correto oppure torna all'inizio per
+        esplorare altri contenuti.
+      </p>
+      <div class="mt-5">
+        <ButtonLink size="small" label="Vai all'inizio" linkTo={`/${lang}`} />
+      </div>
+    </div>
+    <div class="ratio ratio-4x3" slot="right">
+      <img src="/not-found.png" alt="Pagina non trovata" />
+    </div>
+  </SplitContent>
+</Layout>
