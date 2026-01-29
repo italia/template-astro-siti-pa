@@ -14,7 +14,7 @@ const channelItems = block.channels.map((channel) => {
     title: channel.title,
     description: channel.description,
     icon: channel.icon.url,
-    linkTo: "#",
+    linkTo: channel.linkTo || "#",
   };
 });
 ---

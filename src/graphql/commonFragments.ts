@@ -246,6 +246,7 @@ export const ChannelFragment = graphql(`
       url
     }
     description
+    linkTo
   }
 `);
 

@@ -904,6 +904,7 @@ type ChannelRecord implements RecordInterface {
   description: String!
   icon: FileField!
   id: ItemId!
+  linkTo: String!
   title: String!
 }
 
