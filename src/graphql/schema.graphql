@@ -106,7 +106,7 @@ type AccordionRecord implements RecordInterface {
   variant: String!
 }
 
-"""Block of type Action card (action_card)"""
+"""Block of type Webinar transcript (action_card)"""
 type ActionCardRecord implements RecordInterface {
   _createdAt: DateTime!
 
@@ -1490,6 +1490,12 @@ type GlobalSeoField {
 
 """Record of type Global setting (global_setting)"""
 type GlobalSettingRecord implements RecordInterface {
+  _allLastUpdateLabelLocales(
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+  ): [StringNonNullMultiLocaleField!]
   _allSiteNameLocales(
     """
     If you want to fallback to a default translation when a translation has not been found
@@ -1516,6 +1522,15 @@ type GlobalSettingRecord implements RecordInterface {
   _unpublishingScheduledAt: DateTime
   _updatedAt: DateTime!
   id: ItemId!
+  lastUpdateLabel(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+  ): String!
   siteName(
     """The locale to use to fetch the field's content"""
     locale: SiteLocale
@@ -7675,7 +7690,7 @@ type TextUseCaseRecord implements RecordInterface {
   useCases: UseCaseBlockRecord!
 }
 
-"""Block of type Topic filter (topic_filter)"""
+"""Block of type Cards container with filter (topic_filter)"""
 type TopicFilterRecord implements RecordInterface {
   _createdAt: DateTime!
 
@@ -7730,7 +7745,7 @@ type TopicRecord implements RecordInterface {
   label: String!
 }
 
-"""Block of type Topics block (topics_block)"""
+"""Block of type Tags (topics_block)"""
 type TopicsBlockRecord implements RecordInterface {
   _createdAt: DateTime!
 
