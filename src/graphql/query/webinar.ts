@@ -8,6 +8,7 @@ export const AllWebinarsContentQuery = graphql(
       allWebinarItems {
         id
         locales: _locales
+        publishedAt: _publishedAt
         allContentLocales: _allContentLocales {
           locale
           value {

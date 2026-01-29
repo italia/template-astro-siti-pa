@@ -62,6 +62,7 @@ export const GlobalSettingsQuery = graphql(`
   query GlobalSettings($locale: SiteLocale!) {
     globalSetting(locale: $locale) {
       siteName
+      lastUpdateLabel
     }
   }
 `);
@@ -139,6 +140,7 @@ export const AllArticlesQuery = graphql(
     query AllArticles {
       allArticles {
         ...AllArticlesFragment
+        publishedAt: _publishedAt
       }
     }
   `,

@@ -8,6 +8,7 @@ export const AllPagesContentQuery = graphql(
       allPages {
         id
         locales: _locales
+        publishedAt: _publishedAt
         allContentLocales: _allContentLocales {
           locale
           value {

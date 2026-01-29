@@ -8,6 +8,7 @@ export const AllInsightsContentQuery = graphql(
       allInsights {
         id
         locales: _locales
+        publishedAt: _publishedAt
         allContentLocales: _allContentLocales {
           locale
           value {
