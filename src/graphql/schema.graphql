@@ -1181,10 +1181,8 @@ type ExternalLinkRecord implements RecordInterface {
   _unpublishingScheduledAt: DateTime
   _updatedAt: DateTime!
   description: String
-  icon: String
   id: ItemId!
   label: String!
-  titleIcon: String
   url: String!
 }
 
@@ -4045,11 +4043,9 @@ type InternalLinkRecord implements RecordInterface {
   _status: ItemStatus!
   _unpublishingScheduledAt: DateTime
   _updatedAt: DateTime!
-  icon: String
   id: ItemId!
   label: String!
   linkTo: PageRecord!
-  titleicon: String
 }
 
 """Block of type Intro article (intro_article)"""

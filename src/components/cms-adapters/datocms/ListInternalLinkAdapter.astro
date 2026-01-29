@@ -17,7 +17,6 @@ const { lang } = Astro.locals;
 const links = block.links.map((link) => ({
   linkTo: linkResolver(link.linkTo.id, lang),
   label: link.label,
-  icon: link.icon || undefined,
 }));
 ---
 

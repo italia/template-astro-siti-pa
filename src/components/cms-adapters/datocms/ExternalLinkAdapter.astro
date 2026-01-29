@@ -13,7 +13,7 @@ type Props = {
 
 const { block } = Astro.props;
 
-if (!block.description || !block.icon || !block.label || !block.url) {
+if (!block.description || !block.label || !block.url) {
   return null;
 }
 ---
@@ -21,6 +21,5 @@ if (!block.description || !block.icon || !block.label || !block.url) {
 <CardInfoAndService
   title={block.label}
   linkTo={block.url}
-  icon={block.icon}
   description={block.description}
 />

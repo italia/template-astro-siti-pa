@@ -15,18 +15,27 @@ const TitleTag = linkTo ? "a" : "span";
       {
         icon && (
           <div class="it-card-title-icon-wrapper">
-            <svg class="icon icon-primary" role="img">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="34"
+              height="34"
+              viewBox="0 0 34 34"
+              fill="none"
+            >
+              <path
+                d="M16 4C16.5478 4.01064 16.9894 4.45218 17 5C17 5.55228 16.5523 6 16 6H6C3.79086 6 2 7.79086 2 10V28C2 30.2091 3.79086 32 6 32H24.0195C26.2287 32 28.0195 30.2091 28.0195 28V17C28.0195 16.4479 28.4675 16.0003 29.0195 16C29.5563 16.0106 29.9894 16.4437 30 16.9805V28C30 31.3137 27.3137 34 24 34H6C2.68629 34 0 31.3137 0 28V10C0 6.68629 2.68629 4 6 4H16ZM32 0C33.1046 0 34 0.89543 34 2V13C34 13.5523 33.5523 14 33 14C32.4477 14 32 13.5523 32 13V3.22754L14.7217 20.5059C14.5264 20.7008 14.2098 20.701 14.0146 20.5059L13.3076 19.7988C13.1125 19.6037 13.1127 19.2871 13.3076 19.0918L30.3994 2H21C20.4477 2 20 1.55228 20 1C20 0.447715 20.4477 0 21 0H32Z"
+                fill="#0066CC"
+              />
               {titleIcon && <title>{titleIcon}</title>}
-              <use href={`/bsi-svg/sprites.svg#${icon}`} />
             </svg>
           </div>
         )
       }
     </TitleTag>
   </h3>
-  <div class="it-card-body">
-    <p class="it-card-text">
-      {description}
-    </p>
-  </div>
 </article>
+<div class="it-card-body">
+  <p class="it-card-text">
+    {description}
+  </p>
+</div>

@@ -1,6 +1,6 @@
 ---
-import type { FooterFragmentType } from "@graphql/sectionFragments";
 import { Footer } from "@components/organisms/Footer";
+import type { FooterFragmentType } from "@graphql/sectionFragments";
 import { linkResolver } from "@utils/linkResolver";
 
 type Props = FooterFragmentType;
@@ -43,24 +43,12 @@ const utilities = utility.map((util) => {
 });
 
 const smallPrints = smallPrint.map((link) => {
-  let url = "#";
-
-  switch (link.componentName) {
-    case "ExternalLinkRecord":
-      url = link.url;
-      break;
-
-    case "InternalLinkRecord":
-      url = linkResolver(link.linkTo?.id, lang);
-      break;
-
-    default:
-      break;
-  }
+  const isExternal = link.componentName === "ExternalLinkRecord";
+  const url = isExternal ? link.url : linkResolver(link.linkTo?.id, lang);
 
   return {
     label: link.label,
-    linkTo: url,
+    [isExternal ? "url" : "linkTo"]: url,
   };
 });
 ---

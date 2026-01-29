@@ -15,7 +15,7 @@ const { labelVisualHidden, links } = Astro.props;
     >
       {
         links.map((link) => (
-          <li class="list-inline-item">
+          <li class="list-inline-item d-flex align-items-center gap-2">
             <Link {...link} openInNewTab={true} />
           </li>
         ))
