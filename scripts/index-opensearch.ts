@@ -136,7 +136,7 @@ async function runIndexing() {
     const documents = JSON.parse(rawContent);
 
     if (documents.length === 0) {
-      console.log("No documents to index. Skipping operation.");
+      console.log("No documents to index. Abort operation.");
       return;
     }
 
