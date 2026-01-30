@@ -10,30 +10,29 @@ const { title, description, icon, linkTo } = Astro.props;
 const isExternal = linkTo?.startsWith("http");
 ---
 
-<article
-  class="it-card it-card-banner it-card-height-full rounded shadow-sm border"
->
+<article class="it-card it-card-height-full rounded shadow-sm border">
   <div class="it-card-body">
-    <h3 class="it-card-title">
-      <a
-        href={linkTo}
-        target={isExternal ? "_blank" : undefined}
-        rel={isExternal ? "noopener noreferrer" : undefined}
-      >
-        {title}
-      </a>
-    </h3>
+    <div class="d-flex justify-content-between align-items-center mb-2">
+      <h3 class="mb-0">
+        <a
+          href={linkTo}
+          class="text-primary fw-bold"
+          target={isExternal ? "_blank" : undefined}
+          rel={isExternal ? "noopener noreferrer" : undefined}
+        >
+          {title}
+        </a>
+      </h3>
+      {
+        icon ? (
+          <Icon icon={icon} className="text-primary icon-xl" />
+        ) : (
+          <ItExternalLink color="primary" size="xl" />
+        )
+      }
+    </div>
     <p class="it-card-text">
       {description}
     </p>
-  </div>
-  <div class="it-card-banner-icon-wrapper">
-    {
-      icon ? (
-        <Icon icon={icon} className="text-primary icon-xl" />
-      ) : (
-        <ItExternalLink color="primary" size="xl" />
-      )
-    }
   </div>
 </article>

@@ -431,6 +431,7 @@ export const CardInfoAndServiceFragment = graphql(`
     id
     description
     linkTo
+    title
   }
 `);
 

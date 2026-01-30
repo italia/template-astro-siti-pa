@@ -15,7 +15,7 @@ const { block } = Astro.props;
 ---
 
 <CardInfoAndService
-  title={""}
+  title={block.title}
   description={block.description ?? ""}
   linkTo={block.linkTo}
 />
