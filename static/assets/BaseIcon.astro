@@ -1,0 +1,26 @@
+---
+import type { Props as BaseProps } from "./type";
+
+interface Props extends BaseProps {
+  name: string;
+}
+
+const { name, size, padded, color, class: className, title } = Astro.props;
+---
+
+<svg
+  class:list={[
+    "icon",
+    size && `icon-${size}`,
+    color && `icon-${color}`,
+    padded && "icon-padded",
+    className,
+  ]}
+  aria-hidden={!title ? "true" : undefined}
+  role={title ? "img" : undefined}
+>
+  {title && <title>{title}</title>}
+  <use
+    href={`/bsi-svg/sprites.svg#${name}`}
+    xlink:href={`/bsi-svg/sprites.svg#${name}`}></use>
+</svg>

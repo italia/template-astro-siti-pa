@@ -1,4 +1,5 @@
 ---
+import ItExpand from "static/assets/itExpand.astro";
 import SidebarItemSecondLevel from "./SidebarItemSecondLevel.astro";
 import type { SidebarItemFirstLevelProps } from "./types";
 
@@ -18,9 +19,7 @@ const { idAccordion, label, items, isOpen } = Astro.props;
   >
     <span class="list-item-title-icon-wrapper text-uppercase">
       <span>{label}</span>
-      <svg class="icon icon-xs icon-primary right"
-        ><use href="/bsi-svg/sprites.svg#it-expand"></use></svg
-      >
+      <ItExpand size="xs" color="primary" class="right" />
     </span>
   </a>
   <ul

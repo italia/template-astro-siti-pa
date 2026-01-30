@@ -1,4 +1,5 @@
 ---
+import ItIcon from "static/assets/ItIcon.astro";
 import type {
   GenericListItemProps,
   GenericListSizeProps,
@@ -41,9 +42,7 @@ const RightZoneTag = linkTo ? "a" : "div";
     {
       !avatar && icon && (
         <div class="it-rounded-icon">
-          <svg class={`icon ${iconClassName}`}>
-            <use href={`/bsi-svg/sprites.svg#${icon}`} />
-          </svg>
+          <ItIcon name={icon} class={iconClassName} />
         </div>
       )
     }
@@ -59,13 +58,7 @@ const RightZoneTag = linkTo ? "a" : "div";
           <div class={`${textClassName} m-0 col-10`}>{text}</div>
         )
       }
-      {
-        iconRight && (
-          <svg class={`icon  ${iconClassName}`}>
-            <use href={`/bsi-svg/sprites.svg#${iconRight}`} />
-          </svg>
-        )
-      }
+      {iconRight && <ItIcon name={iconRight} class={iconClassName} />}
     </RightZoneTag>
   </div>
 </li>

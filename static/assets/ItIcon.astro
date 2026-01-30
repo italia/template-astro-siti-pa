@@ -1,0 +1,12 @@
+---
+import BaseIcon from "./BaseIcon.astro";
+import type { Props as BaseProps } from "./type";
+
+interface Props extends BaseProps {
+  name: string;
+}
+
+const { name, ...props } = Astro.props;
+---
+
+<BaseIcon name={name} {...props} />

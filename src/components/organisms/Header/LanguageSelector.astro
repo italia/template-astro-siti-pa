@@ -1,5 +1,6 @@
 ---
 import { linkResolver } from "@utils/linkResolver";
+import ItExpand from "static/assets/itExpand.astro";
 
 type Props = {
   locales: string[];
@@ -26,9 +27,7 @@ const getTranslatedHref = (targetLocale: string) => {
   >
     <span class="visually-hidden">Selezione lingua: lingua selezionata</span>
     <span>{currentLocale}</span>
-    <svg class="icon d-none d-lg-block"
-      ><use href="/bsi-svg/sprites.svg#it-expand"></use></svg
-    >
+    <ItExpand class="d-none d-lg-block" />
   </a>
   <div class="dropdown-menu">
     <div class="row">

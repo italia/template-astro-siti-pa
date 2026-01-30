@@ -1,4 +1,6 @@
 ---
+import ItChevronLeft from "static/assets/itChevronLeft.astro";
+import ItChevronRight from "static/assets/itChevronRight.astro";
 import SidebarItemFirstLevel from "./SidebarItemFirstLevel.astro";
 import type { SidebarProps } from "./types";
 
@@ -20,9 +22,7 @@ const { id, header, openLabel, closeLabel, ariaLabel, items } = Astro.props;
     data-bs-target="#navbarNav"
   >
     <span class="it-list"></span>
-    <svg role="img" class="icon icon-sm icon-primary align-middle">
-      <use href="/bsi-svg/sprites.svg#it-chevron-right"></use>
-    </svg>{openLabel}
+    <ItChevronRight size="sm" color="primary" class="align-middle" />{openLabel}
   </button>
   <div class="navbar-collapsable" id="navbarNav" tabindex="-1">
     <div class="close-div visually-hidden">
@@ -32,11 +32,7 @@ const { id, header, openLabel, closeLabel, ariaLabel, items } = Astro.props;
     </div>
     <div class="inline-menu menu-wrapper py-5 py-lg-80" tabindex="-1">
       <button type="button" class="it-back-button btn w-100 text-start">
-        <svg class="icon icon-sm icon-primary align-top">
-          <use
-            href="/bsi-svg/sprites.svg#it-chevron-left"
-            xlink:href="/bsi-svg/sprites.svg#it-chevron-left"></use>
-        </svg>
+        <ItChevronLeft size="sm" color="primary" class="align-top" />
         <span>{closeLabel}</span>
       </button>
       <div class="link-list-wrapper">
