@@ -1,6 +1,5 @@
 import {
   CalloutFragment,
-  CardInfoAndServiceFragment,
   ExternalLinkFragment,
   ImageBlockFragment,
   ListCardEditorialWithIconFragment,
@@ -173,9 +172,6 @@ export const ArticleContentFragment = graphql(
         ... on CalloutRecord {
           ...CalloutFragment
         }
-        ... on CardInfoAndServiceRecord {
-          ...CardInfoAndServiceFragment
-        }
         ... on QuickLinkCardRecord {
           ...QuickLinkCardFragment
         }
@@ -202,7 +198,6 @@ export const ArticleContentFragment = graphql(
     ExternalLinkFragment,
     OrderedListFragment,
     CalloutFragment,
-    CardInfoAndServiceFragment,
     QuickLinkCardFragment,
     SupportCTASectionFragment,
     ListInternalLinkFragment,
