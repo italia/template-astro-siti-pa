@@ -5,11 +5,14 @@ import type { StructuredTextFragmentType } from "@graphql/sectionFragments";
 
 type Props = {
   block: StructuredTextFragmentType;
+  isFontSerif?: boolean;
 };
 
-const { block } = Astro.props;
+const { block, isFontSerif = false } = Astro.props;
 ---
 
-<SectionContainer className="col-12 col-lg-8 structured-text-container m-auto">
+<SectionContainer
+  className=`col-12 col-lg-8 structured-text-container ${isFontSerif ? "font-serif-p" : ""} m-auto`
+>
   <StructuredTextAdapter block={block} />
 </SectionContainer>

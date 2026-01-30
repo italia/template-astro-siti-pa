@@ -20,7 +20,8 @@ import TextAndUseCasesAdapter from "@components/cms-adapters/datocms/TextAndUseC
 import TopicFilterAdapter from "@components/cms-adapters/datocms/TopicFilterAdapter.astro";
 import UseCaseContainerAdapter from "@components/cms-adapters/datocms/UseCaseContainerAdapter.astro";
 import WebinarDescriptionAdapter from "@components/cms-adapters/datocms/WebinarDescriptionAdapter.astro";
-import type { SearchPageContentFragmentType } from "@graphql/query/search";
+import type { SearchPageContentFragmentType } from "@graphql/fragment/search";
+
 import type {
   CatalogueContentFragmentType,
   HomepageModelContentFragmentType,
@@ -41,9 +42,10 @@ type ContentType =
 
 type Props = {
   content: ContentType[];
+  isFontSerif?: boolean;
 };
 
-const { content } = Astro.props;
+const { content, isFontSerif = false } = Astro.props;
 ---
 
 {
@@ -68,7 +70,12 @@ const { content } = Astro.props;
       case "SupportCtaSectionRecord":
         return <SupportCTASectionAdapter block={block} />;
       case "StructuredTextRecord":
-        return <StructuredTextBlockAdapter block={block.textContent} />;
+        return (
+          <StructuredTextBlockAdapter
+            block={block.textContent}
+            isFontSerif={isFontSerif}
+          />
+        );
       case "ListCollectionRecord":
         return <ListCollectionAdapter block={block} />;
       case "CatalogueFeedRecord":
