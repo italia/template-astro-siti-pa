@@ -426,6 +426,18 @@ export const DownloadLinkFragment = graphql(`
 
 export type DownloadLinkFragmentType = FragmentOf<typeof DownloadLinkFragment>;
 
+export const CardInfoAndServiceFragment = graphql(`
+  fragment CardInfoAndServiceFragment on CardInfoAndServiceRecord @_unmask {
+    id
+    description
+    linkTo
+  }
+`);
+
+export type CardInfoAndServiceFragmentType = FragmentOf<
+  typeof CardInfoAndServiceFragment
+>;
+
 export const CardEditorialWithIconFragment = graphql(`
   fragment CardEditorialWithIconFragment on CardEditorialWithIconRecord
   @_unmask {

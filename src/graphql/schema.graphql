@@ -186,7 +186,7 @@ type ArticleListRecord implements RecordInterface {
   relatedArticles: [MenuArticleItemRecord!]!
 }
 
-union ArticleModelContentBlocksField = CalloutRecord | ExternalLinkRecord | ImageBlockRecord | ListCardEditorialWithIconRecord | ListInternalLinkRecord | OrderedListRecord | QuickLinkCardRecord | RelatedArticleRecord | SupportCtaSectionRecord | TopicsBlockRecord
+union ArticleModelContentBlocksField = CalloutRecord | CardInfoAndServiceRecord | ExternalLinkRecord | ImageBlockRecord | ListCardEditorialWithIconRecord | ListInternalLinkRecord | OrderedListRecord | QuickLinkCardRecord | RelatedArticleRecord | SupportCtaSectionRecord | TopicsBlockRecord
 
 type ArticleModelContentField {
   blocks: [ArticleModelContentBlocksField!]!
@@ -690,6 +690,32 @@ type CardEditorialWithIconRecord implements RecordInterface {
   ): String!
   icon: FileField!
   id: ItemId!
+  title: String!
+}
+
+"""Block of type Card info and service (card_info_and_service)"""
+type CardInfoAndServiceRecord implements RecordInterface {
+  _createdAt: DateTime!
+
+  """Editing URL"""
+  _editingUrl: String
+  _firstPublishedAt: DateTime!
+  _isValid: BooleanType!
+  _modelApiKey: String!
+  _publicationScheduledAt: DateTime
+  _publishedAt: DateTime!
+
+  """Generates SEO and Social card meta tags to be used in your frontend"""
+  _seoMetaTags(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+  ): [Tag!]!
+  _status: ItemStatus!
+  _unpublishingScheduledAt: DateTime
+  _updatedAt: DateTime!
+  description: String
+  id: ItemId!
+  linkTo: String!
   title: String!
 }
 

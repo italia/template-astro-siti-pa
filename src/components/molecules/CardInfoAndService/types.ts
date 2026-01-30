@@ -3,5 +3,4 @@ export type CardInfoAndServiceProps = {
   description: string;
   linkTo?: string;
   icon?: string;
-  titleIcon?: string;
 };

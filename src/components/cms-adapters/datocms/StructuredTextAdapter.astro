@@ -1,18 +1,19 @@
 ---
-import { StructuredText } from "@datocms/astro";
-import ListCardEditorialWithIconAdapter from "@components/cms-adapters/datocms/ListCardEditorialWithIconAdapter.astro";
-import OrderedListAdapter from "@components/cms-adapters/datocms/OrderedListAdapter.astro";
-import ExternalLinkAdapter from "@components/cms-adapters/datocms/ExternalLinkAdapter.astro";
 import CalloutAdapter from "@components/cms-adapters/datocms/CalloutAdapter.astro";
-import QuickLinkCardAdapter from "@components/cms-adapters/datocms/QuickLinkCardAdapter.astro";
-import SupportCTASectionAdapter from "@components/cms-adapters/datocms/SupportCTASectionAdapter.astro";
-import ListInternalLinkAdapter from "@components/cms-adapters/datocms/ListInternalLinkAdapter.astro";
-import TopicsAdapter from "@components/cms-adapters/datocms/TopicsAdapter.astro";
-import ListCardInfoAdapter from "@components/cms-adapters/datocms/ListCardInfoAdapter.astro";
-import ListBlockquoteAdapter from "@components/cms-adapters/datocms/ListBlockquoteAdapter.astro";
-import type { StructuredTextFragmentType } from "@graphql/sectionFragments";
+import CardInfoAndServiceAdapter from "@components/cms-adapters/datocms/CardInfoAndServiceAdapter.astro";
+import ExternalLinkAdapter from "@components/cms-adapters/datocms/ExternalLinkAdapter.astro";
 import ImageContainerAdapter from "@components/cms-adapters/datocms/ImageContainerAdapter.astro";
+import ListBlockquoteAdapter from "@components/cms-adapters/datocms/ListBlockquoteAdapter.astro";
+import ListCardEditorialWithIconAdapter from "@components/cms-adapters/datocms/ListCardEditorialWithIconAdapter.astro";
+import ListCardInfoAdapter from "@components/cms-adapters/datocms/ListCardInfoAdapter.astro";
+import ListInternalLinkAdapter from "@components/cms-adapters/datocms/ListInternalLinkAdapter.astro";
+import OrderedListAdapter from "@components/cms-adapters/datocms/OrderedListAdapter.astro";
+import QuickLinkCardAdapter from "@components/cms-adapters/datocms/QuickLinkCardAdapter.astro";
 import RelatedArticleAdapter from "@components/cms-adapters/datocms/RelatedArticleAdapter.astro";
+import SupportCTASectionAdapter from "@components/cms-adapters/datocms/SupportCTASectionAdapter.astro";
+import TopicsAdapter from "@components/cms-adapters/datocms/TopicsAdapter.astro";
+import { StructuredText } from "@datocms/astro";
+import type { StructuredTextFragmentType } from "@graphql/sectionFragments";
 import type { ArticleContentFragmentType } from "@graphql/templateFragments";
 
 type Props = {
@@ -37,5 +38,6 @@ const { block } = Astro.props;
     ListBlockquoteRecord: ListBlockquoteAdapter,
     RelatedArticleRecord: RelatedArticleAdapter,
     ImageBlockRecord: ImageContainerAdapter,
+    CardInfoAndServiceRecord: CardInfoAndServiceAdapter,
   }}
 />

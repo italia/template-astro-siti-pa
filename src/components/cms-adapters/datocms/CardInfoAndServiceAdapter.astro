@@ -1,0 +1,21 @@
+---
+import { CardInfoAndService } from "@components/molecules/CardInfoAndService";
+import type { CardInfoAndServiceFragmentType } from "@graphql/commonFragments";
+
+type DatoRecord = CardInfoAndServiceFragmentType & {
+  __typename: string;
+  id: string;
+};
+
+type Props = {
+  block: DatoRecord;
+};
+
+const { block } = Astro.props;
+---
+
+<CardInfoAndService
+  title={""}
+  description={block.description ?? ""}
+  linkTo={block.linkTo}
+/>

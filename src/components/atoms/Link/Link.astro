@@ -1,4 +1,5 @@
 ---
+import ItExternalLink from "static/assets/itExternalLink.astro";
 import type { LinkProps } from "./types";
 
 type Props = LinkProps;
@@ -27,21 +28,5 @@ const rel = openInNewTab ? "noopener noreferrer" : "";
   class={`d-inline-flex align-items-center gap-2 ${iconPosition === "left" ? "flex-row-reverse" : ""}`}
 >
   <span class="fw-semibold">{label}</span>
-  {
-    url && (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="17"
-        height="17"
-        viewBox="0 0 17 17"
-        fill="none"
-      >
-        <path
-          d="M8 2C8.27391 2.00532 8.49468 2.22609 8.5 2.5C8.5 2.77614 8.27614 3 8 3H3C1.89543 3 1 3.89543 1 5V14C1 15.1046 1.89543 16 3 16H12.0098C13.1143 16 14.0098 15.1046 14.0098 14V8.5C14.0098 8.22394 14.2337 8.00013 14.5098 8C14.7782 8.00532 14.9947 8.22185 15 8.49023V14C15 15.6569 13.6569 17 12 17H3C1.34315 17 0 15.6569 0 14V5C0 3.34315 1.34315 2 3 2H8ZM16 0C16.5523 0 17 0.447715 17 1V6.5C17 6.77614 16.7761 7 16.5 7C16.2239 7 16 6.77614 16 6.5V1.61426L7.53809 10.0762C7.3429 10.2714 7.02634 10.2712 6.83105 10.0762C6.63579 9.88091 6.63579 9.5644 6.83105 9.36914L15.2002 1H10.5C10.2239 1 10 0.776142 10 0.5C10 0.223858 10.2239 0 10.5 0H16Z"
-          fill="white"
-        />
-        {titleIcon && <title>{titleIcon}</title>}
-      </svg>
-    )
-  }
+  {url && <ItExternalLink color="white" size="sm" title={titleIcon} />}
 </a>
