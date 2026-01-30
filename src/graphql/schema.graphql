@@ -4371,7 +4371,7 @@ type LayoutRecord implements RecordInterface {
   ): String!
   id: ItemId!
   logo: FileField!
-  logoSelect: String
+  logoSelect: String!
   navigationBar(
     """The locale to use to fetch the field's content"""
     locale: SiteLocale
