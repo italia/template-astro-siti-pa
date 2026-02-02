@@ -140,6 +140,33 @@ export default async function (client: Client) {
     default_value: null,
   });
 
+  console.log("Destroy fields in existing models/block models");
+
+  console.log(
+    'Delete Single asset field "Icon" (`icon`) in block model "Data container" (`data_container`)',
+  );
+  await client.fields.destroy("G38hRnwNSoiYiDjNKEMpLw");
+
+  console.log(
+    'Delete Single asset field "Icon" (`icon`) in block model "Card presentation banner" (`channel`)',
+  );
+  await client.fields.destroy("V2JYHJVbRlelMcXlZSi0Xw");
+
+  console.log(
+    'Delete Single asset field "Icon" (`icon`) in block model "Card editorial with icon" (`card_editorial_with_icon`)',
+  );
+  await client.fields.destroy("H4Se7cI3SrGMXUK9HHfshg");
+
+  console.log(
+    'Delete Single asset field "Icon" (`icon`) in block model "Icon list item" (`icon_list_item`)',
+  );
+  await client.fields.destroy("DdX7axynThuH_gtnKDiS5A");
+
+  console.log(
+    'Delete Single asset field "Icon" (`icon`) in block model "Brand" (`brand`)',
+  );
+  await client.fields.destroy("a5n-O4INRAGIA-nV3Z8Ksg");
+
   console.log("Update existing fields/fieldsets");
 
   console.log(
@@ -148,12 +175,66 @@ export default async function (client: Client) {
   await client.fields.update("P1S4SHnNRNGg03b_iy8REQ", { position: 1 });
 
   console.log(
+    'Update Single-line string field "Icon select" (`icon_select`) in block model "Data container" (`data_container`)',
+  );
+  await client.fields.update("JKIoZOqmQ_GT6b9CSO37gw", { position: 3 });
+
+  console.log(
+    'Update Single-line string field "info" (`info`) in block model "Data container" (`data_container`)',
+  );
+  await client.fields.update("cxW7IrvSSLaIOjucR-s65Q", { position: 2 });
+
+  console.log(
+    'Update Single-line string field "Icon select" (`icon_select`) in block model "Card presentation banner" (`channel`)',
+  );
+  await client.fields.update("W61GtI6uRzeG7wY197Jy1A", { position: 3 });
+
+  console.log(
+    'Update Single-line string field "Icon select" (`icon_select`) in block model "Card editorial with icon" (`card_editorial_with_icon`)',
+  );
+  await client.fields.update("N7G4Z3McTKC9PnSinJ0-hw", { position: 3 });
+
+  console.log(
+    'Update Multiple-paragraph text field "Description" (`description`) in block model "Card editorial with icon" (`card_editorial_with_icon`)',
+  );
+  await client.fields.update("Hk5jayHTQBSen-TARZXeIg", { position: 2 });
+
+  console.log(
     'Update Single-line string field "Icon select" (`icon_select`) in block model "Icon list item" (`icon_list_item`)',
   );
-  await client.fields.update("I-_hKDgDSY65k2gvpr16Ew", { position: 2 });
+  await client.fields.update("I-_hKDgDSY65k2gvpr16Ew", { position: 1 });
 
   console.log(
     'Update Single-line string field "Icon select" (`icon_select`) in block model "Brand" (`brand`)',
   );
-  await client.fields.update("WE54rogWRVSH6cZ2F1VxNg", { position: 3 });
+  await client.fields.update("WE54rogWRVSH6cZ2F1VxNg", { position: 2 });
+
+  console.log("Finalize models/block models");
+
+  console.log('Update block model "Data container" (`data_container`)');
+  await client.itemTypes.update("b6Qg1zeoSA-2m00XNDSM4Q", {
+    presentation_image_field: null,
+  });
+
+  console.log('Update block model "Card presentation banner" (`channel`)');
+  await client.itemTypes.update("boYJ_9tCSI6ARMr6HycKkA", {
+    presentation_image_field: null,
+  });
+
+  console.log(
+    'Update block model "Card editorial with icon" (`card_editorial_with_icon`)',
+  );
+  await client.itemTypes.update("P2lZlFmYQQKAy4hJdlrI8g", {
+    presentation_image_field: null,
+  });
+
+  console.log('Update block model "Icon list item" (`icon_list_item`)');
+  await client.itemTypes.update("bxrAaQn0SDyrMe0MpXlpYA", {
+    presentation_image_field: null,
+  });
+
+  console.log('Update block model "Brand" (`brand`)');
+  await client.itemTypes.update("CTrt_dG9RcuokSxQmsa5TQ", {
+    presentation_image_field: null,
+  });
 }
