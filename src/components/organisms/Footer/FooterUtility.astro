@@ -1,19 +1,19 @@
 ---
 import { Icon } from "@components/atoms/Icon";
-import type { FooterLogoProps } from "./types";
+import type { LinkProps } from "@components/atoms/Link/types";
 
-type Props = FooterLogoProps;
+type Props = LinkProps;
 
-const { icon, label, linkTo, ariaLabel = "" } = Astro.props;
+const { icon, label, url } = Astro.props;
 ---
 
 <a
-  href={linkTo}
+  href={url}
   class="list-item left-icon"
-  aria-label={ariaLabel}
+  aria-label=""
   target="_blank"
   rel="noreferrer"
 >
-  {icon && <Icon icon={icon} className="icon-sm text-white me-3" />}
+  {icon && <Icon icon={icon} className="icon-sm text-white me-2" />}
   <span>{label}</span>
 </a>
