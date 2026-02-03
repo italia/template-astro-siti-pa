@@ -6268,6 +6268,8 @@ type Query {
   ): WebinarTopicRecord
 }
 
+union QuickLinkCardModelLinksField = ArticleRecord | ResourceRecord
+
 """Block of type Quick link card (quick_link_card)"""
 type QuickLinkCardRecord implements RecordInterface {
   _createdAt: DateTime!
@@ -6289,7 +6291,7 @@ type QuickLinkCardRecord implements RecordInterface {
   _unpublishingScheduledAt: DateTime
   _updatedAt: DateTime!
   id: ItemId!
-  links: [ExternalLinkRecord!]!
+  links: [QuickLinkCardModelLinksField!]!
   title: String!
 }
 

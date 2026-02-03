@@ -528,23 +528,6 @@ export const CalloutFragment = graphql(`
 
 export type CalloutFragmentType = FragmentOf<typeof CalloutFragment>;
 
-export const QuickLinkCardFragment = graphql(
-  `
-    fragment QuickLinkCardFragment on QuickLinkCardRecord @_unmask {
-      id
-      title
-      links {
-        ...ExternalLinkFragment
-      }
-    }
-  `,
-  [ExternalLinkFragment],
-);
-
-export type QuickLinkCardFragmentType = FragmentOf<
-  typeof QuickLinkCardFragment
->;
-
 export const ListInternalLinkFragment = graphql(`
   fragment ListInternalLinkFragment on ListInternalLinkRecord @_unmask {
     id
@@ -775,3 +758,30 @@ export const ResourceFragment = graphql(
 );
 
 export type ResourceFragmentType = FragmentOf<typeof ResourceFragment>;
+
+export const QuickLinkCardFragment = graphql(
+  `
+    fragment QuickLinkCardFragment on QuickLinkCardRecord @_unmask {
+      id
+      title
+      links {
+        ... on RecordInterface {
+          id
+          componentName: __typename
+        }
+        ... on ResourceRecord {
+          ...ResourceFragment
+        }
+        ... on ArticleRecord {
+          title
+          id
+        }
+      }
+    }
+  `,
+  [ExternalLinkFragment, ResourceFragment],
+);
+
+export type QuickLinkCardFragmentType = FragmentOf<
+  typeof QuickLinkCardFragment
+>;
