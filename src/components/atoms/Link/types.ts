@@ -8,4 +8,5 @@ export type LinkProps = {
   active?: boolean;
   disabled?: boolean;
   iconPosition?: "left" | "right";
+  isFooter?: boolean;
 };

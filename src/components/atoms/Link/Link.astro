@@ -1,6 +1,7 @@
 ---
 import ItExternalLink from "@static/assets/ItExternalLink.astro";
 import type { LinkProps } from "./types";
+import ItArrowRight from "@static/assets/ItArrowRight.astro";
 
 type Props = LinkProps;
 
@@ -12,6 +13,7 @@ const {
   disabled,
   openInNewTab = false,
   iconPosition = "right",
+  isFooter = false,
 } = Astro.props;
 
 const finalHref = url || linkTo || "#";
@@ -29,4 +31,9 @@ const rel = openInNewTab ? "noopener noreferrer" : "";
 >
   <span class="fw-semibold">{label}</span>
   {url && <ItExternalLink color="white" size="sm" title={titleIcon} />}
+  {
+    !isFooter && linkTo && (
+      <ItArrowRight color="white" size="sm" title={titleIcon} />
+    )
+  }
 </a>
