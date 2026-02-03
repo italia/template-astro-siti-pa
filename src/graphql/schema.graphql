@@ -4729,7 +4729,7 @@ type MacroTopicRecord implements RecordInterface {
     If you want to fallback to a default translation when a translation has not been found
     """
     fallbackLocales: [SiteLocale!]
-  ): [StringMultiLocaleField!]
+  ): [StringNonNullMultiLocaleField!]
   _createdAt: DateTime!
 
   """Editing URL"""
@@ -4758,7 +4758,7 @@ type MacroTopicRecord implements RecordInterface {
     If you want to fallback to a default translation when a translation has not been found
     """
     fallbackLocales: [SiteLocale!]
-  ): String
+  ): String!
 }
 
 type MacroTopicRecordNonNullMultiLocaleField {
@@ -6377,7 +6377,7 @@ input ResourceModelFilter {
   _isValid: BooleanFilter
   _locales: LocalesFilter
   category: LinkFilter
-  macroTopic: LinkFilter
+  typeResource: LinkFilter
   OR: [ResourceModelFilter]
   AND: [ResourceModelFilter]
 }
@@ -6417,12 +6417,6 @@ type ResourceRecord implements RecordInterface {
     If you want to fallback to a default translation when a translation has not been found
     """
     fallbackLocales: [SiteLocale!]
-  ): [ResourceTopicRecordNonNullMultiLocaleField!]
-  _allMacroTopicLocales(
-    """
-    If you want to fallback to a default translation when a translation has not been found
-    """
-    fallbackLocales: [SiteLocale!]
   ): [MacroTopicRecordNonNullMultiLocaleField!]
   _allResourceLocales(
     """
@@ -6430,6 +6424,12 @@ type ResourceRecord implements RecordInterface {
     """
     fallbackLocales: [SiteLocale!]
   ): [ResourceModelResourceFieldNonNullMultiLocaleField!]
+  _allTypeResourceLocales(
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+  ): [ResourceTopicRecordNonNullMultiLocaleField!]
   _createdAt: DateTime!
 
   """Editing URL"""
@@ -6457,17 +6457,8 @@ type ResourceRecord implements RecordInterface {
     If you want to fallback to a default translation when a translation has not been found
     """
     fallbackLocales: [SiteLocale!]
-  ): ResourceTopicRecord!
-  id: ItemId!
-  macroTopic(
-    """The locale to use to fetch the field's content"""
-    locale: SiteLocale
-
-    """
-    If you want to fallback to a default translation when a translation has not been found
-    """
-    fallbackLocales: [SiteLocale!]
   ): MacroTopicRecord!
+  id: ItemId!
   resource(
     """The locale to use to fetch the field's content"""
     locale: SiteLocale
@@ -6477,6 +6468,15 @@ type ResourceRecord implements RecordInterface {
     """
     fallbackLocales: [SiteLocale!]
   ): ResourceModelResourceField!
+  typeResource(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+  ): ResourceTopicRecord!
 }
 
 input ResourceTopicModelFilter {

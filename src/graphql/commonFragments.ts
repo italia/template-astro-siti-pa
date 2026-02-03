@@ -734,7 +734,7 @@ export const ResourceFragment = graphql(
   `
     fragment ResourceFragment on ResourceRecord @_unmask {
       id
-      macroTopic {
+      typeResource {
         label
       }
       category {
