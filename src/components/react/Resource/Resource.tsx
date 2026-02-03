@@ -2,16 +2,17 @@ export type ResourceProps = {
   category: string;
   title: string;
   description: string;
+  type: string;
   url: string;
   download?: boolean;
 };
 
 export function Resource({
   title,
-  category,
   description,
   url,
   download,
+  type,
 }: ResourceProps) {
   const icon = download ? "it-download" : "it-external-link";
 
@@ -34,7 +35,7 @@ export function Resource({
           <div
             className={`mb-2 mb-md-0 mt-2 mt-md-0 ms-lg-3 badge bg-secondary text-uppercase`}
           >
-            {category}
+            {type}
           </div>
         </div>
       </div>

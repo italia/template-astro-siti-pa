@@ -1,5 +1,6 @@
-import type { CardEditorialNewsProps } from "@components/react/CardEditorialNews";
 import type { CardEditorialInlineMiniProps } from "@components/react/CardEditorialInlineMini/CardEditorialInlineMini";
+import type { CardEditorialNewsProps } from "@components/react/CardEditorialNews";
+import type { ResourceProps } from "@components/react/Resource";
 import type {
   NewsItemFragmentType,
   ResourceFragmentType,
@@ -7,7 +8,6 @@ import type {
   WebinarItemFragmentType,
 } from "@graphql/commonFragments";
 import { linkResolver } from "@utils/linkResolver";
-import type { ResourceProps } from "@components/react/Resource";
 
 export const mapNewsToCardEditorialNewsProps = (
   news: NewsItemFragmentType,
@@ -70,5 +70,6 @@ export const mapResourceToResourceProps = (
     description: resource.resource.description || "",
     url: url,
     download: isDownload,
+    type: resource.typeResource.label,
   };
 };
