@@ -187,7 +187,7 @@ type ArticleListRecord implements RecordInterface {
   relatedArticles: [MenuArticleItemRecord!]!
 }
 
-union ArticleModelContentBlocksField = CalloutRecord | ExternalLinkRecord | ImageBlockRecord | ListCardEditorialWithIconRecord | ListInternalLinkRecord | OrderedListRecord | QuickLinkCardRecord | RelatedArticleRecord | SupportCtaSectionRecord | TopicsBlockRecord
+union ArticleModelContentBlocksField = CalloutRecord | ExternalLinkRecord | ImageBlockRecord | ListBlockquoteRecord | ListCardEditorialWithIconRecord | ListCardInfoRecord | ListInternalLinkRecord | OrderedListRecord | QuickLinkCardRecord | RelatedArticleRecord | SupportCtaSectionRecord | TopicsBlockRecord
 
 type ArticleModelContentField {
   blocks: [ArticleModelContentBlocksField!]!
@@ -7519,7 +7519,7 @@ input StructuredTextFilter {
   exists: BooleanType
 }
 
-union StructuredTextModelContentBlocksField = CalloutRecord | ListBlockquoteRecord | ListCardInfoRecord | OrderedListRecord
+union StructuredTextModelContentBlocksField = CalloutRecord | ExternalLinkRecord | ImageBlockRecord | ListBlockquoteRecord | ListCardEditorialWithIconRecord | ListCardInfoRecord | ListInternalLinkRecord | OrderedListRecord | QuickLinkCardRecord | SupportCtaSectionRecord | TopicsBlockRecord
 
 type StructuredTextModelContentField {
   blocks: [StructuredTextModelContentBlocksField!]!

@@ -16,8 +16,10 @@ import {
   ImageFragment,
   InternalLinkFragment,
   ListBlockquoteFragment,
+  ListCardEditorialWithIconFragment,
   ListCardInfoFragment,
   ListCollectionFragment,
+  ListInternalLinkFragment,
   ListItemFragment,
   MenuItemFragment,
   NewsTabFragment,
@@ -28,6 +30,7 @@ import {
   StoryTabFragment,
   SupportingBrandFragment,
   TextBlockFragment,
+  TopicsBlockFragment,
   UseCaseBlockFragment,
 } from "@graphql/commonFragments";
 import { graphql, type FragmentOf } from "@graphql/graphql";
@@ -420,14 +423,42 @@ export const StructuredTextFragment = graphql(
         ... on ListCardInfoRecord {
           ...ListCardInfoFragment
         }
+        ... on ListCardEditorialWithIconRecord {
+          ...ListCardEditorialWithIconFragment
+        }
+        ... on ExternalLinkRecord {
+          ...ExternalLinkFragment
+        }
+        ... on QuickLinkCardRecord {
+          ...QuickLinkCardFragment
+        }
+        ... on SupportCtaSectionRecord {
+          ...SupportCTASectionFragment
+        }
+        ... on ListInternalLinkRecord {
+          ...ListInternalLinkFragment
+        }
+        ... on TopicsBlockRecord {
+          ...TopicsBlockFragment
+        }
+        ... on ImageBlockRecord {
+          ...ImageBlockFragment
+        }
       }
     }
   `,
   [
-    CalloutFragment,
+    ListCardEditorialWithIconFragment,
+    ExternalLinkFragment,
     OrderedListFragment,
-    ListCardInfoFragment,
+    CalloutFragment,
+    QuickLinkCardFragment,
+    SupportCTASectionFragment,
+    ListInternalLinkFragment,
+    TopicsBlockFragment,
+    ImageBlockFragment,
     ListBlockquoteFragment,
+    ListCardInfoFragment,
   ],
 );
 

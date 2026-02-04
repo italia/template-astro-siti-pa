@@ -2,7 +2,9 @@ import {
   CalloutFragment,
   ExternalLinkFragment,
   ImageBlockFragment,
+  ListBlockquoteFragment,
   ListCardEditorialWithIconFragment,
+  ListCardInfoFragment,
   ListCollectionFragment,
   ListInternalLinkFragment,
   OrderedListFragment,
@@ -191,6 +193,12 @@ export const ArticleContentFragment = graphql(
         ... on ImageBlockRecord {
           ...ImageBlockFragment
         }
+        ... on ListBlockquoteRecord {
+          ...ListBlockquoteFragment
+        }
+        ... on ListCardInfoRecord {
+          ...ListCardInfoFragment
+        }
       }
     }
   `,
@@ -205,6 +213,8 @@ export const ArticleContentFragment = graphql(
     TopicsBlockFragment,
     RelatedArticleFragment,
     ImageBlockFragment,
+    ListBlockquoteFragment,
+    ListCardInfoFragment,
   ],
 );
 
