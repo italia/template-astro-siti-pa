@@ -553,6 +553,7 @@ export type TextAndImageFragmentType = FragmentOf<typeof TextAndImageFragment>;
 export const TextAndStatisticsFragment = graphql(
   `
     fragment TextAndStatisticsFragment on TextStatisticRecord @_unmask {
+      backgroundColor
       text {
         ...TextBlockFragment
       }

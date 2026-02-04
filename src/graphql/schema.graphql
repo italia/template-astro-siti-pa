@@ -7740,6 +7740,7 @@ type TextStatisticRecord implements RecordInterface {
   _status: ItemStatus!
   _unpublishingScheduledAt: DateTime
   _updatedAt: DateTime!
+  backgroundColor: String!
   id: ItemId!
   statistics: StatisticBlockRecord!
   text: TextBlockRecord!
