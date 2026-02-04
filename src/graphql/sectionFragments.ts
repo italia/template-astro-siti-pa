@@ -63,6 +63,9 @@ export const NewsFeedFragment = graphql(
       id
       title
       paragraph
+      cta {
+        ...InternalLinkFragment
+      }
       tabs {
         ... on RecordInterface {
           componentName: __typename
@@ -76,7 +79,7 @@ export const NewsFeedFragment = graphql(
       }
     }
   `,
-  [StoryTabFragment, NewsTabFragment],
+  [StoryTabFragment, NewsTabFragment, InternalLinkFragment],
 );
 
 export type NewsFeedFragmentType = FragmentOf<typeof NewsFeedFragment>;
@@ -363,7 +366,12 @@ export const FooterFragment = graphql(
       topicLink {
         id
         linkTo {
-          id
+          ... on CatalogueRecord {
+            id
+          }
+          ... on PageRecord {
+            id
+          }
         }
         label
       }

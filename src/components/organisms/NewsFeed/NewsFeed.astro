@@ -7,6 +7,7 @@ import type { CardEditorialNewsProps } from "@components/molecules/CardEditorial
 import { TabContent, Tabs } from "@components/molecules/Tabs";
 import TextContainer from "@components/molecules/TextContainer/TextContainer.astro";
 import { Carousel, CarouselItem } from "@components/molecules/Carousel";
+import ButtonLink from "@components/atoms/Button/ButtonLink.astro";
 
 type NewsTab = {
   title: string;
@@ -27,11 +28,13 @@ type UpdateTabSectionProps = {
   title: string;
   paragraph: string;
   tabs: UpdateTabSectionTab[];
+  labelButton?: string;
+  linkTo?: string;
 };
 
 type Props = UpdateTabSectionProps;
 
-const { id, title, paragraph, tabs = [] } = Astro.props;
+const { id, title, paragraph, tabs = [], labelButton, linkTo } = Astro.props;
 
 const tabsItems = tabs.map((tab, index) => ({
   id: `tab-${id}-${index}`,
@@ -94,6 +97,18 @@ const hasMultipleTabs = tabsItems.length > 1;
         ))
       }
     </Tabs>
+    {
+      labelButton && linkTo && (
+        <div class="mt-5 d-flex justify-content-center">
+          <ButtonLink
+            size="small"
+            variant="outline-dark"
+            label={labelButton}
+            linkTo={linkTo}
+          />
+        </div>
+      )
+    }
   </div>
 </SplitContent>
 

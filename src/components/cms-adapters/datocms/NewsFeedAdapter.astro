@@ -1,6 +1,6 @@
 ---
-import type { NewsFeedFragmentType } from "@graphql/sectionFragments";
 import { NewsFeed } from "@components/organisms/NewsFeed";
+import type { NewsFeedFragmentType } from "@graphql/sectionFragments";
 import { linkResolver } from "@utils/linkResolver";
 
 type Props = {
@@ -9,12 +9,20 @@ type Props = {
 
 const { block } = Astro.props;
 const { lang } = Astro.locals;
+
+const buttonLink =
+  block.cta?.linkTo?.id !== undefined
+    ? linkResolver(block.cta.linkTo.id, lang)
+    : undefined;
+const buttonLabel = block.cta?.label;
 ---
 
 <NewsFeed
   id={block.id}
   title={block.title}
   paragraph={block.paragraph}
+  labelButton={buttonLabel}
+  linkTo={buttonLink}
   tabs={block.tabs.map((tab) => {
     switch (tab.componentName) {
       case "NewsTabRecord":

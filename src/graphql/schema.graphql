@@ -4109,6 +4109,8 @@ Represents non-fractional signed whole numeric values. Int can represent values 
 """
 scalar IntType
 
+union InternalLinkModelLinkToField = CatalogueRecord | PageRecord
+
 """Block of type Internal link (internal_link)"""
 type InternalLinkRecord implements RecordInterface {
   _createdAt: DateTime!
@@ -4131,7 +4133,7 @@ type InternalLinkRecord implements RecordInterface {
   _updatedAt: DateTime!
   id: ItemId!
   label: String!
-  linkTo: PageRecord!
+  linkTo: InternalLinkModelLinkToField!
 }
 
 """Block of type Intro article (intro_article)"""
@@ -4885,6 +4887,7 @@ type NewsFeedRecord implements RecordInterface {
   _status: ItemStatus!
   _unpublishingScheduledAt: DateTime
   _updatedAt: DateTime!
+  cta: InternalLinkRecord!
   id: ItemId!
   paragraph(
     """Process content as markdown"""
@@ -5068,7 +5071,6 @@ type NewsTabRecord implements RecordInterface {
   _status: ItemStatus!
   _unpublishingScheduledAt: DateTime
   _updatedAt: DateTime!
-  cta: InternalLinkRecord
   id: ItemId!
   news: [NewsItemRecord!]!
   title: String!
@@ -7355,7 +7357,6 @@ type StoryTabRecord implements RecordInterface {
   _status: ItemStatus!
   _unpublishingScheduledAt: DateTime
   _updatedAt: DateTime!
-  cta: InternalLinkRecord
   id: ItemId!
   news: [StoryItemRecord!]!
   title: String!

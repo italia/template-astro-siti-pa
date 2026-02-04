@@ -36,7 +36,12 @@ export const InternalLinkFragment = graphql(`
   fragment InternalLinkFragment on InternalLinkRecord @_unmask {
     label
     linkTo {
-      id
+      ... on CatalogueRecord {
+        id
+      }
+      ... on PageRecord {
+        id
+      }
     }
   }
 `);
@@ -195,9 +200,6 @@ export const NewsTabFragment = graphql(
       }
       id
       title
-      cta {
-        ...InternalLinkFragment
-      }
       news {
         ...NewsItemFragment
       }
@@ -236,9 +238,6 @@ export const StoryTabFragment = graphql(
       }
       id
       title
-      cta {
-        ...InternalLinkFragment
-      }
       news {
         ...StoryItemFragment
       }
@@ -534,7 +533,12 @@ export const ListInternalLinkFragment = graphql(`
     links {
       label
       linkTo {
-        id
+        ... on CatalogueRecord {
+          id
+        }
+        ... on PageRecord {
+          id
+        }
       }
     }
   }
