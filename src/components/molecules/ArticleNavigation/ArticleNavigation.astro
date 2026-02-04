@@ -1,5 +1,5 @@
 ---
-import { Link } from "@components/atoms/Link";
+import { NavigationLink } from "@components/molecules/NavigationLink";
 import type { ArticleNavigationProps } from "./types";
 
 type Props = ArticleNavigationProps;
@@ -11,12 +11,11 @@ const { previousArticle, previousLabel, nextArticle, nextLabel } = Astro.props;
   {
     previousArticle && (
       <div class="col-12 col-lg-5">
-        <p class="fw-semibold fs-6 text-uppercase">{previousLabel}</p>
-        <Link
+        <NavigationLink
+          label={previousLabel}
+          title={previousArticle.title}
           linkTo={previousArticle.url}
-          label={previousArticle.title}
-          icon="it-arrow-left"
-          iconPosition="left"
+          direction="previous"
         />
       </div>
     )
@@ -25,11 +24,11 @@ const { previousArticle, previousLabel, nextArticle, nextLabel } = Astro.props;
   {
     nextArticle && (
       <div class="col-12 col-lg-5">
-        <p class="fw-semibold fs-6 text-uppercase">{nextLabel}</p>
-        <Link
+        <NavigationLink
+          label={nextLabel}
+          title={nextArticle.title}
           linkTo={nextArticle.url}
-          label={nextArticle.title}
-          icon="it-arrow-right"
+          direction="next"
         />
       </div>
     )
