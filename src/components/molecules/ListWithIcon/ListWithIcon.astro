@@ -12,10 +12,10 @@ const { title, items } = Astro.props;
   <ul class="it-list">
     {
       items?.map((item) => (
-        <li class="mb-3">
+        <li class="py-3 px-2 mb-3">
           <div class={`list-item border-0`}>
-            <Icon icon={item.icon} className="text-primary me-3" />
-            <div class={`col-10 h6 fw-normal`}>{item.label}</div>
+            <Icon icon={item.icon} className="me-3" />
+            <div class={`col-10 h6 fw-normal m-0`}>{item.label}</div>
           </div>
         </li>
       ))

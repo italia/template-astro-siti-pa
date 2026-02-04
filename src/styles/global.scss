@@ -30,36 +30,32 @@ body {
   }
 }
 
-.structured-text-container.font-serif-p .container > p,
-.structured-text-container.font-serif-p .container > ul > li > p,
+.structured-text-container.font-serif-p .container>p,
+.structured-text-container.font-serif-p .container>ul>li>p,
 .structured-text-container.font-serif-p .container .it-list li .item-text p {
   font-family: "Lora", Georgia, serif !important;
 }
 
-.structured-text-container .container > * + :is(h2, h3, h4, h5, h6) {
+.structured-text-container .container>*+ :is(h2, h3, h4, h5, h6) {
   margin-top: 3rem !important;
   margin-bottom: 1rem !important;
 }
 
-.structured-text-container .container > * + :is(h1) {
+.structured-text-container .container>*+ :is(h1) {
   margin-bottom: 1rem !important;
 }
 
-.structured-text-container .container > section {
+.structured-text-container .container>section {
   margin-top: 3rem !important;
   margin-bottom: 3rem !important;
 }
 
 .dynamic-icon {
   display: inline-block;
-  background-color: currentColor;
-  -webkit-mask-image: var(--icon-url);
-  mask-image: var(--icon-url);
-  -webkit-mask-repeat: no-repeat;
-  mask-repeat: no-repeat;
-  -webkit-mask-size: contain;
-  mask-size: contain;
-  mask-position: center;
+  background-image: var(--icon-url);
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
 }
 
 @media (max-width: 991.98px) {
