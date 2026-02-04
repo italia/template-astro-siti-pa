@@ -614,3 +614,19 @@ export const SearchMenuFragment = graphql(`
 `);
 
 export type SearchMenuFragmentType = FragmentOf<typeof SearchMenuFragment>;
+
+export const CalloutLinkFragment = graphql(
+  `
+    fragment CalloutLinkFragment on CalloutLinkRecord @_unmask {
+      id
+      title
+      paragraph
+      link {
+        ...ExternalLinkFragment
+      }
+    }
+  `,
+  [ExternalLinkFragment],
+);
+
+export type CalloutLinkFragmentType = FragmentOf<typeof CalloutLinkFragment>;

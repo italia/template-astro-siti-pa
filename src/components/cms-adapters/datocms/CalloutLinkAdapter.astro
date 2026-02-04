@@ -1,0 +1,26 @@
+---
+import { Link } from "@components/atoms/Link";
+import type { CalloutLinkFragmentType } from "@graphql/sectionFragments";
+import ItFiles from "@static/assets/ItFiles.astro";
+
+type Props = {
+  block: CalloutLinkFragmentType;
+};
+
+const { block } = Astro.props;
+---
+
+<section class="lightgrey-bg-a3">
+  <div class="container">
+    <div class="callout note">
+      <div class="callout-inner">
+        <div class="callout-title">
+          <ItFiles />
+          <span class="text">{block.title}</span>
+        </div>
+        <p>{block.paragraph}</p>
+        <Link label={block.link.label} url={block.link.url} />
+      </div>
+    </div>
+  </div>
+</section>

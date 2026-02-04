@@ -14,6 +14,7 @@ import {
 import { graphql, type FragmentOf } from "@graphql/graphql";
 import {
   ActionCardFragment,
+  CalloutLinkFragment,
   CatalogueFeedFragment,
   DataSectionRecordFragment,
   FaqSectionRecordFragment,
@@ -302,9 +303,12 @@ export const CatalogueContentFragment = graphql(
       ... on CatalogueFeedRecord {
         ...CatalogueFeedFragment
       }
+      ... on CalloutLinkRecord {
+        ...CalloutLinkFragment
+      }
     }
   `,
-  [HeroFragment, CatalogueFeedFragment],
+  [HeroFragment, CatalogueFeedFragment, CalloutLinkFragment],
 );
 
 export type CatalogueContentFragmentType = FragmentOf<
