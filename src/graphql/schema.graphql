@@ -133,6 +133,7 @@ type ActionCardRecord implements RecordInterface {
     """Process content as markdown"""
     markdown: Boolean
   ): String!
+  readLessLabel: String!
   readMoreLabel: String!
   title: String!
 }
@@ -7608,7 +7609,6 @@ type SupportCtaSectionRecord implements RecordInterface {
   id: ItemId!
   image: FileField!
   paragraph: String!
-  size: String
   title: String!
 }
 
