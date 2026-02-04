@@ -1647,6 +1647,7 @@ type HeroRecord implements RecordInterface {
   _updatedAt: DateTime!
   backgroundColor: String
   backgroundImage: FileField
+  backgroundImageForMobile: FileField
   id: ItemId!
   paragraph(
     """Process content as markdown"""

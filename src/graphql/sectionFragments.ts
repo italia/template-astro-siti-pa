@@ -44,6 +44,9 @@ export const HeroFragment = graphql(
       backgroundImage {
         ...ImageFragment
       }
+      backgroundImageForMobile {
+        ...ImageFragment
+      }
       showBreadcrumb
       variant
       backgroundColor

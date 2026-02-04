@@ -9,6 +9,7 @@ const {
   title,
   paragraph,
   image,
+  imageMobile,
   showBreadcrumb = false,
   variant = "default",
   backgroundColor = "default",
@@ -32,10 +33,23 @@ const backgroundColorClassNames: Record<SectionBackground, string> = {
 >
   {
     image && (
-      <div class="img-responsive-wrapper">
+      <div
+        class={`img-responsive-wrapper ${imageMobile ? "d-none d-lg-block" : ""}`}
+      >
         <div class="img-responsive">
           <div class="img-wrapper">
             <Image {...image} />
+          </div>
+        </div>
+      </div>
+    )
+  }
+  {
+    imageMobile && (
+      <div class="img-responsive-wrapper d-block d-lg-none">
+        <div class="img-responsive">
+          <div class="img-wrapper">
+            <Image {...imageMobile} />
           </div>
         </div>
       </div>
