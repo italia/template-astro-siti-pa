@@ -322,7 +322,6 @@ export const SupportCTASectionFragment = graphql(
       title
       paragraph
       backgroundColor
-      size
       image {
         ...ImageFragment
       }
@@ -466,6 +465,7 @@ export const ActionCardFragment = graphql(
         ...DownloadLinkFragment
       }
       readMoreLabel
+      readLessLabel
     }
   `,
   [DownloadLinkFragment],

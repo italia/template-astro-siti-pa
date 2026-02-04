@@ -69,7 +69,7 @@ const { content, isFontSerif = false } = Astro.props;
       case "TopicFilterRecord":
         return <TopicFilterAdapter block={block} />;
       case "SupportCtaSectionRecord":
-        return <SupportCTASectionAdapter block={block} />;
+        return <SupportCTASectionAdapter block={block} size="default" />;
       case "StructuredTextRecord":
         return (
           <StructuredTextBlockAdapter
