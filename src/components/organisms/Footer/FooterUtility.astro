@@ -7,13 +7,7 @@ type Props = LinkProps;
 const { icon, label, url } = Astro.props;
 ---
 
-<a
-  href={url}
-  class="list-item left-icon"
-  aria-label=""
-  target="_blank"
-  rel="noreferrer"
->
+<a href={url} class="list-item left-icon" target="_blank" rel="noreferrer">
   {icon && <Icon icon={icon} className="icon-sm text-white me-2" />}
   <span>{label}</span>
 </a>
