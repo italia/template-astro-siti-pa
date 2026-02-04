@@ -37,7 +37,13 @@ const isFirst = allOpen || index === 0;
     aria-labelledby={`heading-${id}`}
   >
     <div class="accordion-body">
-      {fullWidth ? body : <div class="col-12 col-lg-7">{body}</div>}
+      {
+        fullWidth ? (
+          <div set:html={body} />
+        ) : (
+          <div class="col-12 col-lg-7" set:html={body} />
+        )
+      }
     </div>
   </div>
 </div>

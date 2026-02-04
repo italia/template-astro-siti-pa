@@ -340,7 +340,7 @@ export const AccordionFragment = graphql(`
     id
     items {
       id
-      body
+      body(markdown: true)
       header
     }
     variant
