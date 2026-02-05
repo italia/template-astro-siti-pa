@@ -13,6 +13,6 @@ const { visuallyHidden, title, paragraph } = Astro.props;
       {visuallyHidden && <span class="visually-hidden">{visuallyHidden}</span>}
       <span class="text">{title}</span>
     </div>
-    <p>{paragraph}</p>
+    <Fragment set:html={paragraph} />
   </div>
 </div>

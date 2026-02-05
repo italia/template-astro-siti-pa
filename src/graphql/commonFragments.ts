@@ -529,7 +529,7 @@ export const CalloutFragment = graphql(`
   fragment CalloutFragment on CalloutRecord @_unmask {
     id
     title
-    paragraph
+    paragraph(markdown: true)
     visuallyHidden
   }
 `);
