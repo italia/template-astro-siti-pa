@@ -2,6 +2,7 @@ export type LinkProps = {
   label: string;
   linkTo?: string;
   url?: string;
+  icon?: string;
   openInNewTab?: boolean;
   variant?: "dark" | "light";
   titleIcon?: string;
