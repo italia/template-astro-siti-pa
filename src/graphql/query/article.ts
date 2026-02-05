@@ -1,6 +1,7 @@
 import { TagFragment } from "@graphql/commonFragments";
 import { graphql } from "@graphql/graphql";
 import { ArticleContentFragment } from "@graphql/templateFragments";
+import { SeoFieldFragment } from "@graphql/seoFragments";
 
 export const AllArticlesContentQuery = graphql(
   `
@@ -8,6 +9,8 @@ export const AllArticlesContentQuery = graphql(
       allArticles {
         id
         locales: _locales
+        publishedAt: _publishedAt
+        updatedAt: _updatedAt
         allContentLocales: _allContentLocales {
           locale
           value {
@@ -24,11 +27,15 @@ export const ArticleSeoQuery = graphql(
   `
     query ArticleSeoQuery($id: ItemId!, $locale: SiteLocale!) {
       article(filter: { id: { eq: $id } }, locale: $locale) {
-        seo: _seoMetaTags {
+        metaTags: _seoMetaTags {
           ...TagFragment
         }
+        seo {
+          ...SeoFieldFragment
+        }
+        updatedAt: _updatedAt
       }
     }
   `,
-  [TagFragment],
+  [TagFragment, SeoFieldFragment],
 );

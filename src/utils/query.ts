@@ -37,6 +37,7 @@ import {
   StoryContentFragment,
   WebinarContentFragment,
 } from "@graphql/templateFragments";
+import { SeoFieldFragment } from "@graphql/seoFragments";
 
 export const LocalesQuery = graphql(`
   query Locales {
@@ -93,8 +94,12 @@ export const HomepageQuery = graphql(
         id
         title
         publishedAt: _publishedAt
-        seo: _seoMetaTags(locale: $locale) {
+        updatedAt: _updatedAt
+        metaTags: _seoMetaTags(locale: $locale) {
           ...TagFragment
+        }
+        seo {
+          ...SeoFieldFragment
         }
         content {
           ...HomepageModelContentFragment
@@ -102,7 +107,7 @@ export const HomepageQuery = graphql(
       }
     }
   `,
-  [HomepageModelContentFragment, TagFragment],
+  [HomepageModelContentFragment, SeoFieldFragment, TagFragment],
 );
 
 export const AllPagesSlugQuery = graphql(

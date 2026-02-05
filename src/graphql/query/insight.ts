@@ -1,6 +1,7 @@
 import { TagFragment } from "@graphql/commonFragments";
 import { graphql } from "@graphql/graphql";
 import { InsightContentFragment } from "@graphql/templateFragments";
+import { SeoFieldFragment } from "@graphql/seoFragments";
 
 export const AllInsightsContentQuery = graphql(
   `
@@ -9,6 +10,7 @@ export const AllInsightsContentQuery = graphql(
         id
         locales: _locales
         publishedAt: _publishedAt
+        updatedAt: _updatedAt
         allContentLocales: _allContentLocales {
           locale
           value {
@@ -25,11 +27,15 @@ export const InsightSeoQuery = graphql(
   `
     query InsightSeoQuery($id: ItemId!, $locale: SiteLocale!) {
       insight(filter: { id: { eq: $id } }, locale: $locale) {
-        seo: _seoMetaTags {
+        metaTags: _seoMetaTags {
           ...TagFragment
         }
+        seo {
+          ...SeoFieldFragment
+        }
+        updatedAt: _updatedAt
       }
     }
   `,
-  [TagFragment],
+  [TagFragment, SeoFieldFragment],
 );

@@ -6,12 +6,14 @@ import {
   CatalogueSeoQuery,
 } from "@graphql/query/catalogue";
 import type { CatalogueContentFragmentType } from "@graphql/templateFragments";
+import type { SeoFieldFragmentType } from "@graphql/seoFragments";
 import type { SiteLocale } from "@graphql/types";
 import Layout from "@layouts/Layout.astro";
 import { executeQuery } from "@lib/datocms";
 import { getLastUpdateCollection } from "@utils/getLastUpdateCollection";
 import { linkResolver } from "@utils/linkResolver";
 import { removeLang } from "@utils/pathHelper";
+import { extractFaqItems, type JsonLdPageData } from "@utils/seoJsonLd";
 
 export async function getStaticPaths() {
   type PathItem = {
@@ -20,10 +22,12 @@ export async function getStaticPaths() {
       lang: SiteLocale;
     };
     props: {
-      seo: TagFragmentType[];
+      seoMeta: TagFragmentType[];
+      seo: SeoFieldFragmentType | null;
       content: CatalogueContentFragmentType[];
       id: string;
       publishedAt: string;
+      updatedAt?: string | null;
     };
   };
 
@@ -59,10 +63,12 @@ export async function getStaticPaths() {
             lang: lang,
           },
           props: {
-            seo: seoRes.catalogue?.seo || [],
+            seoMeta: seoRes.catalogue?.metaTags || [],
+            seo: seoRes.catalogue?.seo || null,
             id: page.id,
             content: content,
             publishedAt: finalUpdateDate,
+            updatedAt: seoRes.catalogue?.updatedAt,
           },
         };
       }),
@@ -73,11 +79,20 @@ export async function getStaticPaths() {
   return paths.filter((path): path is PathItem => !!path.params.lang);
 }
 
-const { id, content, seo, publishedAt } = Astro.props;
+const { id, content, seo, seoMeta, publishedAt, updatedAt } = Astro.props;
+const { lang } = Astro.params;
 
+Astro.locals.lang = lang;
 Astro.locals.recordId = id;
+const jsonLd: JsonLdPageData = {
+  pageType: "collection",
+  seo,
+  publishedAt,
+  updatedAt,
+  faq: extractFaqItems(content ?? []),
+};
 ---
 
-<Layout pageSeo={seo} datePublished={publishedAt}>
+<Layout pageSeo={seoMeta} datePublished={publishedAt} jsonLd={jsonLd}>
   <PageAdapter content={content} />
 </Layout>

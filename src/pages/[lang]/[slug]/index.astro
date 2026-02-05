@@ -7,6 +7,8 @@ import PageAdapter from "@components/cms-adapters/datocms/PageAdapter.astro";
 import type { TagFragmentType } from "@graphql/commonFragments";
 import { AllPagesContentQuery, PageSeoQuery } from "@graphql/query/page";
 import type { PageContentFragmentType } from "@graphql/templateFragments";
+import type { SeoFieldFragmentType } from "@graphql/seoFragments";
+import { extractFaqItems, type JsonLdPageData } from "@utils/seoJsonLd";
 import { linkResolver } from "@utils/linkResolver";
 import { removeLang } from "@utils/pathHelper";
 
@@ -17,9 +19,11 @@ export async function getStaticPaths() {
       lang: SiteLocale;
     };
     props: {
-      seo: TagFragmentType[];
+      seoMeta: TagFragmentType[];
+      seo: SeoFieldFragmentType | null;
       content: PageContentFragmentType[];
       publishedAt: string;
+      updatedAt?: string | null;
       id: string;
     };
   };
@@ -43,9 +47,11 @@ export async function getStaticPaths() {
             lang: lang,
           },
           props: {
-            seo: seoRes.page?.seo || [],
+            seoMeta: seoRes.page?.metaTags || [],
+            seo: seoRes.page?.seo || null,
             id: page.id,
             publishedAt: page.publishedAt,
+            updatedAt: seoRes.page?.updatedAt,
             content: page.allContentLocales?.find(
               (contentLocale) => contentLocale.locale === lang,
             )?.value,
@@ -59,11 +65,21 @@ export async function getStaticPaths() {
   return paths.filter((path): path is PathItem => !!path.params.lang);
 }
 
-const { id, content, seo, publishedAt } = Astro.props;
+const { id, content, seo, seoMeta, publishedAt, updatedAt } = Astro.props;
+const { lang } = Astro.params;
 
+Astro.locals.lang = lang;
 Astro.locals.recordId = id;
+
+const jsonLd: JsonLdPageData = {
+  pageType: "collection",
+  seo,
+  publishedAt,
+  updatedAt,
+  faq: extractFaqItems(content ?? []),
+};
 ---
 
-<Layout pageSeo={seo} datePublished={publishedAt}>
+<Layout pageSeo={seoMeta} datePublished={publishedAt} jsonLd={jsonLd}>
   <PageAdapter content={content} />
 </Layout>

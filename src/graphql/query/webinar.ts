@@ -1,6 +1,7 @@
 import { TagFragment } from "@graphql/commonFragments";
 import { graphql } from "@graphql/graphql";
 import { WebinarContentFragment } from "@graphql/templateFragments";
+import { SeoFieldFragment } from "@graphql/seoFragments";
 
 export const AllWebinarsContentQuery = graphql(
   `
@@ -9,6 +10,7 @@ export const AllWebinarsContentQuery = graphql(
         id
         locales: _locales
         publishedAt: _publishedAt
+        updatedAt: _updatedAt
         allContentLocales: _allContentLocales {
           locale
           value {
@@ -25,11 +27,15 @@ export const WebinarSeoQuery = graphql(
   `
     query WebinarSeoQuery($id: ItemId!, $locale: SiteLocale!) {
       webinarItem(filter: { id: { eq: $id } }, locale: $locale) {
-        seo: _seoMetaTags {
+        metaTags: _seoMetaTags {
           ...TagFragment
         }
+        seo {
+          ...SeoFieldFragment
+        }
+        updatedAt: _updatedAt
       }
     }
   `,
-  [TagFragment],
+  [TagFragment, SeoFieldFragment],
 );

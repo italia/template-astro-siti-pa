@@ -51,7 +51,9 @@ export async function getStaticPaths() {
 }
 
 const { id, content } = Astro.props;
+const { lang } = Astro.params;
 
+Astro.locals.lang = lang;
 Astro.locals.recordId = id;
 ---
 

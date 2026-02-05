@@ -6,12 +6,14 @@ import type {
 } from "@graphql/commonFragments";
 import { ArticleSeoQuery } from "@graphql/query/article";
 import type { ArticleContentFragmentType } from "@graphql/templateFragments";
+import type { SeoFieldFragmentType } from "@graphql/seoFragments";
 import type { SiteLocale } from "@graphql/types";
 import Layout from "@layouts/Layout.astro";
 import { executeQuery } from "@lib/datocms";
 import { linkResolver } from "@utils/linkResolver";
 import { removeLang } from "@utils/pathHelper";
 import { AllArticlesQuery, SidebarQuery } from "@utils/query";
+import { extractFaqItems, type JsonLdPageData } from "@utils/seoJsonLd";
 
 export async function getStaticPaths() {
   type PathItem = {
@@ -20,11 +22,13 @@ export async function getStaticPaths() {
       lang: SiteLocale;
     };
     props: {
-      seo: TagFragmentType[];
+      seoMeta: TagFragmentType[];
+      seo: SeoFieldFragmentType | null;
       content: ArticleContentFragmentType;
       id: string;
       sidebar: SidebarFragmentType;
       publishedAt: string;
+      updatedAt?: string | null;
     };
   };
 
@@ -51,13 +55,15 @@ export async function getStaticPaths() {
             lang: lang,
           },
           props: {
-            seo: seoRes.article?.seo || [],
+            seoMeta: seoRes.article?.metaTags || [],
+            seo: seoRes.article?.seo ?? null,
             id: page.id,
             sidebar: sidebarForArticle,
             content: page.allContentLocales?.find(
               (contentLocale) => contentLocale.locale === lang,
             )?.value,
             publishedAt: page.publishedAt,
+            updatedAt: seoRes.article?.updatedAt,
           },
         };
       }),
@@ -68,11 +74,22 @@ export async function getStaticPaths() {
   return paths.filter((path): path is PathItem => !!path.params.lang);
 }
 
-const { seo, content, id, sidebar, publishedAt } = Astro.props;
+const { seo, seoMeta, content, id, sidebar, publishedAt, updatedAt } =
+  Astro.props;
+const { lang } = Astro.params;
 
+Astro.locals.lang = lang;
 Astro.locals.recordId = id;
+const jsonLd: JsonLdPageData = {
+  pageType: "content",
+  seo,
+  articleType: "TechArticle",
+  publishedAt,
+  updatedAt,
+  faq: extractFaqItems(content ?? []),
+};
 ---
 
-<Layout pageSeo={seo} datePublished={publishedAt}>
+<Layout pageSeo={seoMeta} datePublished={publishedAt} jsonLd={jsonLd}>
   <SidebarLayoutAdapter sidebar={sidebar} content={content} />
 </Layout>

@@ -6,11 +6,13 @@ import {
   WebinarSeoQuery,
 } from "@graphql/query/webinar";
 import type { WebinarContentFragmentType } from "@graphql/templateFragments";
+import type { SeoFieldFragmentType } from "@graphql/seoFragments";
 import type { SiteLocale } from "@graphql/types";
 import Layout from "@layouts/Layout.astro";
 import { executeQuery } from "@lib/datocms";
 import { linkResolver } from "@utils/linkResolver";
 import { removeLang } from "@utils/pathHelper";
+import { extractFaqItems, type JsonLdPageData } from "@utils/seoJsonLd";
 
 export async function getStaticPaths() {
   type PathItem = {
@@ -19,10 +21,12 @@ export async function getStaticPaths() {
       lang: SiteLocale;
     };
     props: {
-      seo: TagFragmentType[];
+      seoMeta: TagFragmentType[];
+      seo: SeoFieldFragmentType | null;
       content: WebinarContentFragmentType[];
       id: string;
       publishedAt: string;
+      updatedAt?: string | null;
     };
   };
 
@@ -45,12 +49,14 @@ export async function getStaticPaths() {
             lang: lang,
           },
           props: {
-            seo: seoRes.webinarItem?.seo || [],
+            seoMeta: seoRes.webinarItem?.metaTags || [],
+            seo: seoRes.webinarItem?.seo || null,
             id: page.id,
             content: page.allContentLocales?.find(
               (contentLocale) => contentLocale.locale === lang,
             )?.value,
             publishedAt: page.publishedAt,
+            updatedAt: seoRes.webinarItem?.updatedAt,
           },
         };
       }),
@@ -61,11 +67,22 @@ export async function getStaticPaths() {
   return paths.filter((path): path is PathItem => !!path.params.lang);
 }
 
-const { id, content, seo, publishedAt } = Astro.props;
+const { id, content, seo, seoMeta, publishedAt, updatedAt } = Astro.props;
+const { lang } = Astro.params;
 
+Astro.locals.lang = lang;
 Astro.locals.recordId = id;
+
+const jsonLd: JsonLdPageData = {
+  pageType: "content",
+  seo,
+  articleType: "Article",
+  publishedAt,
+  updatedAt,
+  faq: extractFaqItems(content ?? []),
+};
 ---
 
-<Layout pageSeo={seo} datePublished={publishedAt}>
+<Layout pageSeo={seoMeta} datePublished={publishedAt} jsonLd={jsonLd}>
   <PageAdapter content={content} />
 </Layout>

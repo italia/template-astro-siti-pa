@@ -15,6 +15,18 @@ import {
   LayoutQuery,
   SiteMetaTagsQuery,
 } from "@utils/query";
+import {
+  buildBreadcrumbJsonLd,
+  buildCollectionJsonLd,
+  buildCommonJsonLd,
+  buildContentJsonLd,
+  buildFaqJsonLd,
+  getArticleSection,
+  getChildListItems,
+  getPageTitle,
+  toSchemaLanguage,
+  type JsonLdPageData,
+} from "@utils/seoJsonLd";
 import bsi from "bootstrap-italia/dist/js/bootstrap-italia.bundle.min.js?url";
 import "../styles/global.scss";
 
@@ -23,6 +35,7 @@ type Props = {
   redirectUrl?: string;
   noIndex?: boolean;
   datePublished?: string;
+  jsonLd?: JsonLdPageData;
 };
 
 const isPreview = isDraftModeEnabled(Astro.cookies);
@@ -31,9 +44,75 @@ const {
   redirectUrl,
   noIndex = false,
   datePublished,
+  jsonLd,
 } = Astro.props;
 
 const { lang } = Astro.locals;
+
+const siteUrl = Astro.site || process.env.SITE_URL || "";
+const canonicalUrl = new URL(Astro.url.pathname, siteUrl).toString();
+const languageTag = toSchemaLanguage(lang || "it");
+const recordId = Astro.locals.recordId;
+
+const jsonLdScripts = (() => {
+  const scripts: Array<Record<string, any>> = [buildCommonJsonLd(siteUrl)];
+
+  if (!jsonLd) {
+    return scripts;
+  }
+
+  const pageName = getPageTitle(recordId, lang, jsonLd.seo);
+  const description = jsonLd.seo?.description;
+  const imageUrl = jsonLd.seo?.image?.url || null;
+
+  if (jsonLd.pageType === "collection") {
+    const items = getChildListItems(recordId, lang, siteUrl);
+    const collectionLd = buildCollectionJsonLd({
+      canonicalUrl,
+      siteUrl,
+      inLanguage: languageTag,
+      name: pageName,
+      description,
+      listItems: items,
+    });
+    if (collectionLd) scripts.push(collectionLd);
+  }
+
+  if (jsonLd.pageType === "content") {
+    const contentLd = buildContentJsonLd({
+      canonicalUrl,
+      siteUrl,
+      inLanguage: languageTag,
+      name: pageName,
+      description,
+      articleType: jsonLd.articleType,
+      articleSection: getArticleSection(recordId, lang),
+      publishedAt: jsonLd.publishedAt || undefined,
+      updatedAt: jsonLd.updatedAt || undefined,
+      imageUrl,
+    });
+    scripts.push(contentLd);
+  }
+
+  const breadcrumb = buildBreadcrumbJsonLd({
+    canonicalUrl,
+    recordId,
+    locale: lang,
+    siteUrl,
+  });
+  if (breadcrumb) scripts.push(breadcrumb);
+
+  if (jsonLd.faq?.length) {
+    const faqLd = buildFaqJsonLd({ canonicalUrl, faq: jsonLd.faq });
+    if (faqLd) scripts.push(faqLd);
+  }
+
+  return scripts;
+})();
+
+const serializedJsonLdScripts = jsonLdScripts.map((script) =>
+  JSON.stringify(script),
+);
 
 const result = await executeQuery(SiteMetaTagsQuery, {
   includeDrafts: isPreview,
@@ -83,6 +162,15 @@ const isShowingPreviewBar = isPreview && redirectUrl;
     />
     {noIndex && <meta name="robots" content="noindex, nofollow" />}
     <Seo data={[...result.site.faviconMetaTags, ...pageSeo]} />
+    {
+      serializedJsonLdScripts.map((payload, index) => (
+        <script
+          type="application/ld+json"
+          key={`jsonld-${index}`}
+          set:html={payload}
+        />
+      ))
+    }
     <link
       href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300;400;600;700&display=swap"
       rel="stylesheet"
