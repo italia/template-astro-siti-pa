@@ -13,6 +13,7 @@ const TitleTag = linkTo ? "a" : "span";
 <article class="it-card rounded shadow-sm border">
   <h3 class="it-card-title it-card-title-icon">
     <TitleTag
+      class={`${TitleTag === "span" ? "fs-3" : ""}`}
       href={linkTo}
       target={TitleTag === "a" && isExternal ? "_blank" : undefined}
       rel={TitleTag === "a" && isExternal ? "noopener noreferrer" : undefined}
@@ -20,7 +21,9 @@ const TitleTag = linkTo ? "a" : "span";
       {title}
       {
         linkTo && (
-          <div class="it-card-title-icon-wrapper">
+          <div
+            class={`it-card-title-icon-wrapper ${TitleTag === "span" ? "fs-6" : ""}`}
+          >
             <ItExternalLink color="primary" />
           </div>
         )
