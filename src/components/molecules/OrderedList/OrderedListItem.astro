@@ -8,7 +8,7 @@ type Props = ListItemProps & {
 };
 const { title, paragraph, index, variant } = Astro.props;
 
-const titleClass = variant === "small" ? "fs-4 m-0" : "fs-3";
+const titleClass = variant === "small" ? "fs-4 m-0 fw-semibold" : "fs-3";
 const textClass = variant === "small" ? "text-secondary" : "";
 ---
 
@@ -17,14 +17,14 @@ const textClass = variant === "small" ? "text-secondary" : "";
 </style>
 
 <li class="mb-4">
-  <div class="item-row">
+  <div class="item-row align-items-center">
     <div class="it-rounded-icon">
       <NumberContainer content={index.toString()} />
     </div>
     <div class="item-text">
       <div>
         <h3 class=`${titleClass} text-dark`>{title}</h3>
-        <p class=`${textClass} m-0`>{paragraph}</p>
+        <div class=`${textClass} m-0` set:html={paragraph} />
       </div>
     </div>
   </div>

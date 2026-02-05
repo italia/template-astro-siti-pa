@@ -518,7 +518,7 @@ export const OrderedListFragment = graphql(`
     id
     items {
       title
-      paragraph
+      paragraph(markdown: true)
     }
   }
 `);
