@@ -1,7 +1,7 @@
 ---
+import ItArrowRight from "@static/assets/ItArrowRight.astro";
 import ItExternalLink from "@static/assets/ItExternalLink.astro";
 import type { LinkProps } from "./types";
-import ItArrowRight from "@static/assets/ItArrowRight.astro";
 
 type Props = LinkProps;
 
@@ -14,12 +14,15 @@ const {
   openInNewTab = false,
   iconPosition = "right",
   isIcon = false,
+  variant = "light",
 } = Astro.props;
 
 const finalHref = url || linkTo || "#";
 const ariaDisabled = disabled ? "true" : "false";
 const target = openInNewTab ? "_blank" : "_self";
 const rel = openInNewTab ? "noopener noreferrer" : "";
+
+const colorIcon = variant === "dark" ? "white" : "primary";
 ---
 
 <a
@@ -30,10 +33,10 @@ const rel = openInNewTab ? "noopener noreferrer" : "";
   class={`d-inline-flex align-items-center gap-2 ${iconPosition === "left" ? "flex-row-reverse" : ""}`}
 >
   <span class="fw-semibold">{label}</span>
-  {url && <ItExternalLink color="white" size="sm" title={titleIcon} />}
+  {url && <ItExternalLink color={colorIcon} size="sm" title={titleIcon} />}
   {
     !isIcon && linkTo && (
-      <ItArrowRight color="white" size="sm" title={titleIcon} />
+      <ItArrowRight color={colorIcon} size="sm" title={titleIcon} />
     )
   }
 </a>

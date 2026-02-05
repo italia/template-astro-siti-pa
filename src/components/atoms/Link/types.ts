@@ -3,7 +3,7 @@ export type LinkProps = {
   linkTo?: string;
   url?: string;
   openInNewTab?: boolean;
-  icon?: string;
+  variant?: "dark" | "light";
   titleIcon?: string;
   active?: boolean;
   disabled?: boolean;
