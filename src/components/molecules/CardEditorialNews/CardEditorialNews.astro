@@ -54,7 +54,7 @@ const shouldShowFooter = category || dateTime;
   {
     action && (
       <div class="it-card-footer" aria-label="Link correlati:">
-        <a href="#" class="it-card-link">
+        <a href={new URL(linkTo).origin} class="it-card-link" target="_blank">
           {action}
         </a>
       </div>

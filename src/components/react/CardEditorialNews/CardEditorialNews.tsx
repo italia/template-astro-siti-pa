@@ -7,9 +7,9 @@ export type CardEditorialNewsProps = {
   description: string;
   image: ImageProps;
   linkTo: string;
-  category?: string | null;
-  dateTime?: string | null;
-  action?: string | null;
+  category?: string;
+  dateTime?: string;
+  action?: string;
   fullHeight?: boolean;
   lang: string;
 };
@@ -58,7 +58,11 @@ export function CardEditorialNews({
       )}
       {action && (
         <div className="it-card-footer" aria-label="Link correlati:">
-          <a href="#" className="it-card-link">
+          <a
+            href={new URL(linkTo).origin}
+            className="it-card-link"
+            target="_blank"
+          >
             {action}
           </a>
         </div>

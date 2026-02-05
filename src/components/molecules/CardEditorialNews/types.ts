@@ -5,8 +5,8 @@ export type CardEditorialNewsProps = {
   description: string;
   image?: ImageProps;
   linkTo: string;
-  category?: string | null;
-  dateTime?: string | null;
-  action?: string | null;
+  category?: string;
+  dateTime?: string;
+  action?: string;
   fullHeight?: boolean;
 };
