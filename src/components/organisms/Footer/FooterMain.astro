@@ -44,7 +44,7 @@ const { topics, utilities } = Astro.props;
                   </li>
                 ))}
                 <li
-                  class="d-none d-lg-block border-end border-white mx-2"
+                  class="d-none d-lg-block border-end border-white ms-2 me-4"
                   style={{ height: "24px", alignSelf: "center" }}
                 />
                 <li
@@ -52,7 +52,7 @@ const { topics, utilities } = Astro.props;
                   style={{ width: "100%", alignSelf: "center" }}
                 />
                 {utility.linkItems.map((item) => (
-                  <li class="list-inline-item ms-lg-4 me-4 mb-2">
+                  <li class="list-inline-item me-4 mb-2">
                     <Link variant="dark" {...item} />
                   </li>
                 ))}
