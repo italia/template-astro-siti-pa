@@ -13,7 +13,6 @@ export default async function (client: Client) {
     api_key: "cta",
     validators: {
       single_block_blocks: { item_types: ["Nwki1YZWRhqgFtIM3Hdgqw"] },
-      required: {},
     },
     appearance: {
       addons: [],
@@ -49,6 +48,17 @@ export default async function (client: Client) {
         item_types: ["MK1luhfjT5-vyrmLiB0Qeg", "c5DDst-qS8q_9mYv71XK9w"],
       },
       required: {},
+    },
+  });
+
+  console.log(
+    'Update Modular Content (Single block) field "CTA" (`cta`) in block model "Text block" (`text_block`)',
+  );
+  await client.fields.update("G6lCMaUNT36eQO7yTAyHuA", {
+    validators: {
+      single_block_blocks: {
+        item_types: ["Nwki1YZWRhqgFtIM3Hdgqw", "fhF1HPNNQlKNy5KNGfLtuw"],
+      },
     },
   });
 }
