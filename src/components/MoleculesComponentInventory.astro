@@ -1,4 +1,22 @@
 ---
+import { Accordion } from "@components/molecules/Accordion";
+import { ActionCard } from "@components/molecules/ActionCard";
+import { Breadcrumb } from "@components/molecules/Breadcrumb";
+import { Callout } from "@components/molecules/Callout";
+import { CardEditorialInlineMini } from "@components/molecules/CardEditorialInlineMini";
+import { CardEditorialNews } from "@components/molecules/CardEditorialNews";
+import { CardEditorialWithIcon } from "@components/molecules/CardEditorialWithIcon";
+import { CardInfoAndService } from "@components/molecules/CardInfoAndService";
+import { CardPresentationBanner } from "@components/molecules/CardPresentationBanner";
+import { DataContainer } from "@components/molecules/DataContainer";
+import { GenericList } from "@components/molecules/GenericList";
+import { OrderedList } from "@components/molecules/OrderedList";
+import { QuickLinkCard } from "@components/molecules/QuickLinkCard";
+import { StatisticsBox } from "@components/molecules/StatisticsBox";
+import { Tabs } from "@components/molecules/Tabs";
+import { TextContainer } from "@components/molecules/TextContainer";
+import { Topics } from "@components/molecules/Topics";
+import { UseCaseCard } from "@components/molecules/UseCaseCard";
 import {
   accordionItems,
   breadcrumbItems,
@@ -9,24 +27,6 @@ import {
   tabsItems,
   topicItems,
 } from "@utils/mock";
-import { Accordion } from "@components/molecules/Accordion";
-import { Breadcrumb } from "@components/molecules/Breadcrumb";
-import { Callout } from "@components/molecules/Callout";
-import { CardEditorialInlineMini } from "@components/molecules/CardEditorialInlineMini";
-import { CardEditorialNews } from "@components/molecules/CardEditorialNews";
-import { CardEditorialWithIcon } from "@components/molecules/CardEditorialWithIcon";
-import { CardInfoAndService } from "@components/molecules/CardInfoAndService";
-import { CardPresentationBanner } from "@components/molecules/CardPresentationBanner";
-import { DataContainer } from "@components/molecules/DataContainer";
-import { OrderedList } from "@components/molecules/OrderedList";
-import { QuickLinkCard } from "@components/molecules/QuickLinkCard";
-import { StatisticsBox } from "@components/molecules/StatisticsBox";
-import { Tabs } from "@components/molecules/Tabs";
-import { TextContainer } from "@components/molecules/TextContainer";
-import { Topics } from "@components/molecules/Topics";
-import { UseCaseCard } from "@components/molecules/UseCaseCard";
-import { GenericList } from "@components/molecules/GenericList";
-import { ActionCard } from "@components/molecules/ActionCard";
 ---
 
 <h2 class="mb-4">Molecules</h2>
@@ -51,7 +51,8 @@ In apertura, i relatori hanno delineato il contesto di riferimento: oltre il 70%
                 url: "#",
               }}
               category="Generato da IA"
-              labelButton="Leggi di più"
+              labelButtonMore="Leggi di più"
+              labelButtonLess="Leggi di meno"
             />
           </div>
         </div>
@@ -242,7 +243,6 @@ In apertura, i relatori hanno delineato il contesto di riferimento: oltre il 70%
               title="PA digitale 2026"
               linkTo="#"
               description="Accedi all’area riservata per iniziare la classificazione."
-              icon="it-external-link"
             />
           </div>
         </div>

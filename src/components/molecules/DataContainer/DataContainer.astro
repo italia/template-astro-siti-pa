@@ -5,7 +5,7 @@ import type {
   VariantTextDataContainerProps,
 } from "./types";
 
-type Props = DataContainerProps & { variant: VariantTextDataContainerProps };
+type Props = DataContainerProps & { variant?: VariantTextDataContainerProps };
 const { info, title, contentIcon, variant = "light" } = Astro.props;
 ---
 

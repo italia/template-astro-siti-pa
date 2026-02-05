@@ -1,12 +1,11 @@
-import type { APIRoute } from "astro";
 import {
   handleUnexpectedError,
   invalidRequestResponse,
   json,
   withCORS,
 } from "@utils/apiUtils";
-import { linkResolver } from "@utils/linkResolver";
 import { generateWebsiteUrl } from "@utils/generateWebsiteUrl";
+import type { APIRoute } from "astro";
 
 export const prerender = false;
 

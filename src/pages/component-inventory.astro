@@ -1,25 +1,24 @@
 ---
-import "@styles/global.scss";
-import bsi from "bootstrap-italia/dist/js/bootstrap-italia.bundle.min.js?url";
-import { Footer } from "@components/organisms/Footer";
-import { Hero } from "@components/organisms/Hero";
 import { TabContent, Tabs } from "@components/molecules/Tabs";
-import { TextAndImage } from "@components/organisms/TextAndImage";
-import { TextAndStatistics } from "@components/organisms/TextAndStatistics";
+import { DataSection } from "@components/organisms/DataSection";
+import { Hero } from "@components/organisms/Hero";
 import { NewsFeed } from "@components/organisms/NewsFeed";
 import { SupportChannelsSection } from "@components/organisms/SupportChannelsSection";
-import { DataSection } from "@components/organisms/DataSection";
+import { TextAndImage } from "@components/organisms/TextAndImage";
+import { TextAndStatistics } from "@components/organisms/TextAndStatistics";
+import "@styles/global.scss";
+import bsi from "bootstrap-italia/dist/js/bootstrap-italia.bundle.min.js?url";
 
-import {
-  image,
-  listItems,
-  channelItems,
-  dataStatisticsItems,
-} from "@utils/mock";
-import type { TabItemProps } from "@components/molecules/Tabs/types";
 import AtomsComponentInventory from "@components/AtomsComponentInventory.astro";
+import type { TabItemProps } from "@components/molecules/Tabs/types";
 import MoleculesComponentInventory from "@components/MoleculesComponentInventory.astro";
 import OrganismsComponentInventory from "@components/OrganismsComponentInventory.astro";
+import {
+  channelItems,
+  dataStatisticsItems,
+  image,
+  listItems,
+} from "@utils/mock";
 
 if (import.meta.env.PROD) {
   return new Response(null, {
@@ -178,70 +177,6 @@ const tabsComponentInventory: TabItemProps[] = [
                       "Al via un ecosistema collaborativo per accelerare la trasformazione digitale della Pubblica Amministrazione",
                     image: image,
                   },
-                ],
-              }}
-            />
-            <Footer
-              brand={{
-                heading: "Nome dipartimento",
-                logos: [
-                  {
-                    icon: "it-team-digitale",
-                    label: "Dipertimento di trasformazione digitale",
-                    linkTo: "#",
-                  },
-                  {
-                    icon: "it-team-digitale",
-                    label: "Dipertimento di trasformazione digitale",
-                    linkTo: "#",
-                  },
-                ],
-              }}
-              topics={{
-                title: "Parliamo di",
-                items: [
-                  {
-                    label: "Sviluppo interfaccia",
-                    visuallyHidden: "link",
-                    linkTo: "#",
-                  },
-                  {
-                    label: "Sviluppo interfaccia",
-                    visuallyHidden: "link",
-                    linkTo: "#",
-                  },
-                ],
-              }}
-              utilities={[
-                {
-                  title: "Community",
-                  items: [
-                    {
-                      label: "Forum italia",
-                      ariaLabel: "link",
-                      icon: "it-designers-italia",
-                      linkTo: "#",
-                    },
-                    {
-                      label: "Slack",
-                      ariaLabel: "link",
-                      icon: "it-slack",
-                      linkTo: "#",
-                    },
-                    {
-                      label: "Github",
-                      ariaLabel: "link",
-                      icon: "it-github",
-                      linkTo: "#",
-                    },
-                  ],
-                },
-              ]}
-              smallPrints={{
-                labelVisualHidden: "Sezione link utili",
-                links: [
-                  { label: "Media Policy", linkTo: "#" },
-                  { label: "Note legali", linkTo: "#" },
                 ],
               }}
             />

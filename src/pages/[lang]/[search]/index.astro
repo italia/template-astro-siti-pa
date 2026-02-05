@@ -4,10 +4,8 @@ import Layout from "@layouts/Layout.astro";
 import { executeQuery } from "@lib/datocms";
 
 import PageAdapter from "@components/cms-adapters/datocms/PageAdapter.astro";
-import {
-  SearchPageContentQuery,
-  type SearchPageContentFragmentType,
-} from "@graphql/query/search";
+import type { SearchPageContentFragmentType } from "@graphql/fragment/search";
+import { SearchPageContentQuery } from "@graphql/query/search";
 import { linkResolver } from "@utils/linkResolver";
 import { removeLang } from "@utils/pathHelper";
 
