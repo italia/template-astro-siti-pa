@@ -4887,7 +4887,7 @@ type NewsFeedRecord implements RecordInterface {
   _status: ItemStatus!
   _unpublishingScheduledAt: DateTime
   _updatedAt: DateTime!
-  cta: InternalLinkRecord!
+  cta: InternalLinkRecord
   id: ItemId!
   paragraph(
     """Process content as markdown"""
