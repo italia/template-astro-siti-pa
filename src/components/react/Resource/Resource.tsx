@@ -32,14 +32,12 @@ export function Resource({
           </svg>
         </a>
         <div>
-          <div
-            className={`mb-2 mb-md-0 mt-2 mt-md-0 ms-lg-3 badge bg-secondary text-uppercase`}
-          >
+          <div className="mb-2 mb-md-0 mt-2 mt-md-0 ms-lg-3 badge bg-secondary text-uppercase">
             {type}
           </div>
         </div>
       </div>
-      <p>{description}</p>
+      <p className="fs-6">{description}</p>
     </>
   );
 }

@@ -31,7 +31,7 @@ export const SearchResultItem = ({ result }: SearchResultItemProps) => {
           return trimmedCat ? (
             <span
               key={index}
-              className="ms-3 badge bg-secondary text-uppercase"
+              className="mb-2 mb-md-0 mt-2 mt-md-0 ms-lg-3 badge bg-secondary text-uppercase"
             >
               {trimmedCat}
             </span>
