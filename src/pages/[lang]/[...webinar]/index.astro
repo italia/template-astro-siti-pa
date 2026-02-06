@@ -5,14 +5,14 @@ import {
   AllWebinarsContentQuery,
   WebinarSeoQuery,
 } from "@graphql/query/webinar";
-import type { WebinarContentFragmentType } from "@graphql/templateFragments";
 import type { SeoFieldFragmentType } from "@graphql/seoFragments";
+import type { WebinarContentFragmentType } from "@graphql/templateFragments";
 import type { SiteLocale } from "@graphql/types";
 import Layout from "@layouts/Layout.astro";
 import { executeQuery } from "@lib/datocms";
+import { extractFaqItems, type JsonLdPageData } from "@utils/JsonLD/seoJsonLd";
 import { linkResolver } from "@utils/linkResolver";
 import { removeLang } from "@utils/pathHelper";
-import { extractFaqItems, type JsonLdPageData } from "@utils/seoJsonLd";
 
 export async function getStaticPaths() {
   type PathItem = {
@@ -26,7 +26,7 @@ export async function getStaticPaths() {
       content: WebinarContentFragmentType[];
       id: string;
       publishedAt: string;
-      updatedAt?: string | null;
+      updatedAt: string;
     };
   };
 
@@ -56,7 +56,7 @@ export async function getStaticPaths() {
               (contentLocale) => contentLocale.locale === lang,
             )?.value,
             publishedAt: page.publishedAt,
-            updatedAt: seoRes.webinarItem?.updatedAt,
+            updatedAt: seoRes.webinarItem?.updatedAt || page.updatedAt,
           },
         };
       }),
@@ -74,7 +74,7 @@ Astro.locals.lang = lang;
 Astro.locals.recordId = id;
 
 const jsonLd: JsonLdPageData = {
-  pageType: "content",
+  pageType: ["content"],
   seo,
   articleType: "Article",
   publishedAt,

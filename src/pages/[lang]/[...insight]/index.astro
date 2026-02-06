@@ -5,14 +5,14 @@ import {
   AllInsightsContentQuery,
   InsightSeoQuery,
 } from "@graphql/query/insight";
-import type { InsightContentFragmentType } from "@graphql/templateFragments";
 import type { SeoFieldFragmentType } from "@graphql/seoFragments";
+import type { InsightContentFragmentType } from "@graphql/templateFragments";
 import type { SiteLocale } from "@graphql/types";
 import Layout from "@layouts/Layout.astro";
 import { executeQuery } from "@lib/datocms";
+import { extractFaqItems, type JsonLdPageData } from "@utils/JsonLD/seoJsonLd";
 import { linkResolver } from "@utils/linkResolver";
 import { removeLang } from "@utils/pathHelper";
-import { extractFaqItems, type JsonLdPageData } from "@utils/seoJsonLd";
 
 export async function getStaticPaths() {
   type PathItem = {
@@ -26,7 +26,7 @@ export async function getStaticPaths() {
       content: InsightContentFragmentType[];
       id: string;
       publishedAt: string;
-      updatedAt?: string | null;
+      updatedAt: string;
     };
   };
 
@@ -53,7 +53,7 @@ export async function getStaticPaths() {
             seo: seoRes.insight?.seo ?? null,
             id: page.id,
             publishedAt: page.publishedAt,
-            updatedAt: seoRes.insight?.updatedAt,
+            updatedAt: seoRes.insight?.updatedAt || page.updatedAt,
             content: page.allContentLocales?.find(
               (contentLocale) => contentLocale.locale === lang,
             )?.value,
@@ -74,7 +74,7 @@ Astro.locals.lang = lang;
 Astro.locals.recordId = id;
 
 const jsonLd: JsonLdPageData = {
-  pageType: "content",
+  pageType: ["content"],
   seo,
   articleType: "Article",
   publishedAt,

@@ -6,9 +6,9 @@ import { executeQuery } from "@lib/datocms";
 import PageAdapter from "@components/cms-adapters/datocms/PageAdapter.astro";
 import type { TagFragmentType } from "@graphql/commonFragments";
 import { AllPagesContentQuery, PageSeoQuery } from "@graphql/query/page";
-import type { PageContentFragmentType } from "@graphql/templateFragments";
 import type { SeoFieldFragmentType } from "@graphql/seoFragments";
-import { extractFaqItems, type JsonLdPageData } from "@utils/seoJsonLd";
+import type { PageContentFragmentType } from "@graphql/templateFragments";
+import { extractFaqItems, type JsonLdPageData } from "@utils/JsonLD/seoJsonLd";
 import { linkResolver } from "@utils/linkResolver";
 import { removeLang } from "@utils/pathHelper";
 
@@ -23,7 +23,7 @@ export async function getStaticPaths() {
       seo: SeoFieldFragmentType | null;
       content: PageContentFragmentType[];
       publishedAt: string;
-      updatedAt?: string | null;
+      updatedAt: string;
       id: string;
     };
   };
@@ -51,7 +51,7 @@ export async function getStaticPaths() {
             seo: seoRes.page?.seo || null,
             id: page.id,
             publishedAt: page.publishedAt,
-            updatedAt: seoRes.page?.updatedAt,
+            updatedAt: seoRes.page?.updatedAt || page.updatedAt,
             content: page.allContentLocales?.find(
               (contentLocale) => contentLocale.locale === lang,
             )?.value,
@@ -72,7 +72,7 @@ Astro.locals.lang = lang;
 Astro.locals.recordId = id;
 
 const jsonLd: JsonLdPageData = {
-  pageType: "collection",
+  pageType: ["collection"],
   seo,
   publishedAt,
   updatedAt,

@@ -2,7 +2,6 @@
 import PageAdapter from "@components/cms-adapters/datocms/PageAdapter.astro";
 import Layout from "@layouts/Layout.astro";
 import { executeQuery } from "@lib/datocms";
-import { extractFaqItems, type JsonLdPageData } from "@utils/seoJsonLd";
 import { HomepageQuery, LocalesQuery } from "@utils/query";
 
 export async function getStaticPaths() {
@@ -27,19 +26,8 @@ if (!homepage) return;
 
 const content = homepage.content;
 Astro.locals.recordId = homepage.id;
-const jsonLd: JsonLdPageData = {
-  pageType: "collection",
-  seo: homepage.seo,
-  publishedAt: homepage.publishedAt,
-  updatedAt: homepage.updatedAt,
-  faq: extractFaqItems(content),
-};
 ---
 
-<Layout
-  pageSeo={homepage.metaTags}
-  datePublished={homepage.publishedAt}
-  jsonLd={jsonLd}
->
+<Layout pageSeo={homepage.metaTags} datePublished={homepage.publishedAt}>
   <PageAdapter content={content} />
 </Layout>

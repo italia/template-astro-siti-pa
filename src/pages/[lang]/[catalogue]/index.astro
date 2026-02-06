@@ -5,15 +5,19 @@ import {
   AllCataloguesContentQuery,
   CatalogueSeoQuery,
 } from "@graphql/query/catalogue";
-import type { CatalogueContentFragmentType } from "@graphql/templateFragments";
 import type { SeoFieldFragmentType } from "@graphql/seoFragments";
+import type { CatalogueContentFragmentType } from "@graphql/templateFragments";
 import type { SiteLocale } from "@graphql/types";
 import Layout from "@layouts/Layout.astro";
 import { executeQuery } from "@lib/datocms";
 import { getLastUpdateCollection } from "@utils/getLastUpdateCollection";
+import {
+  extractFaqItems,
+  extractListItems,
+  type JsonLdPageData,
+} from "@utils/JsonLD/seoJsonLd";
 import { linkResolver } from "@utils/linkResolver";
 import { removeLang } from "@utils/pathHelper";
-import { extractFaqItems, type JsonLdPageData } from "@utils/seoJsonLd";
 
 export async function getStaticPaths() {
   type PathItem = {
@@ -27,7 +31,7 @@ export async function getStaticPaths() {
       content: CatalogueContentFragmentType[];
       id: string;
       publishedAt: string;
-      updatedAt?: string | null;
+      updatedAt: string;
     };
   };
 
@@ -68,7 +72,7 @@ export async function getStaticPaths() {
             id: page.id,
             content: content,
             publishedAt: finalUpdateDate,
-            updatedAt: seoRes.catalogue?.updatedAt,
+            updatedAt: seoRes.catalogue?.updatedAt || page.updatedAt,
           },
         };
       }),
@@ -84,12 +88,14 @@ const { lang } = Astro.params;
 
 Astro.locals.lang = lang;
 Astro.locals.recordId = id;
+
 const jsonLd: JsonLdPageData = {
-  pageType: "collection",
+  pageType: ["collection", "list"],
   seo,
   publishedAt,
   updatedAt,
   faq: extractFaqItems(content ?? []),
+  listItems: extractListItems(content ?? [], "", lang),
 };
 ---
 
