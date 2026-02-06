@@ -1,9 +1,9 @@
 ---
+import { Blockquote } from "@components/atoms/Blockquote";
 import { Button } from "@components/atoms/Button";
 import { Chip, ChipLink } from "@components/atoms/Chip";
 import { IconContainer } from "@components/atoms/IconContainer";
 import { Link } from "@components/atoms/Link";
-import { Blockquote } from "@components/atoms/Blockquote";
 import Badge from "./atoms/Badge/Badge.astro";
 ---
 
@@ -271,12 +271,7 @@ import Badge from "./atoms/Badge/Badge.astro";
     <tr>
       <td class="p-3">Link with icon</td>
       <td class="p-3">
-        <Link
-          label="Link example"
-          linkTo="#"
-          icon="it-arrow-right"
-          titleIcon="Freccia destra"
-        />
+        <Link label="Link example" linkTo="#" titleIcon="Freccia destra" />
       </td>
     </tr>
   </tbody>
