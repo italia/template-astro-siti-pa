@@ -1,7 +1,10 @@
 ---
 import type { LinkProps } from "@components/atoms/Link/types";
 import { Footer } from "@components/organisms/Footer";
-import type { FooterLogoProps } from "@components/organisms/Footer/types";
+import type {
+  FooterLinkProps,
+  FooterLogoProps,
+} from "@components/organisms/Footer/types";
 import type { FooterFragmentType } from "@graphql/sectionFragments";
 import { linkResolver } from "@utils/linkResolver";
 
@@ -36,7 +39,7 @@ const topicItems = topicLink.map((link) => {
   };
 });
 
-const socialUtilities: LinkProps[] = utility
+const socialUtilities: FooterLinkProps[] = utility
   .filter((util) => util.componentName === "SupportingBrandRecord")
   .map((util) => ({
     label: util.label,
@@ -50,11 +53,10 @@ const linkUtilities: LinkProps[] = utility
   .map((util) => ({
     label: util.label,
     ariaLabel: "link",
-    icon: "it-external-link",
     url: util.url,
   }));
 
-const smallPrints = smallPrint.map((link) => {
+const smallPrints: LinkProps[] = smallPrint.map((link) => {
   const isExternal = link.componentName === "ExternalLinkRecord";
   const url = isExternal ? link.url : linkResolver(link.linkTo?.id, lang);
 

@@ -26,6 +26,12 @@ export type FooterTopicsProps = {
 
 export type FooterUtilityProps = {
   title: string;
-  socialItems: LinkProps[];
+  socialItems: FooterLinkProps[];
   linkItems: LinkProps[];
+};
+
+export type FooterLinkProps = {
+  icon?: string;
+  label: string;
+  url: string;
 };
