@@ -14,6 +14,7 @@ import {
   HeaderFragment,
   SearchMenuFragment,
 } from "@graphql/sectionFragments";
+import { SeoFieldFragment } from "@graphql/seoFragments";
 import {
   AllArticlesSlugFragment,
   AllCataloguesSlugFragment,
@@ -37,7 +38,6 @@ import {
   StoryContentFragment,
   WebinarContentFragment,
 } from "@graphql/templateFragments";
-import { SeoFieldFragment } from "@graphql/seoFragments";
 
 export const LocalesQuery = graphql(`
   query Locales {
@@ -148,6 +148,7 @@ export const AllArticlesQuery = graphql(
       allArticles {
         ...AllArticlesFragment
         publishedAt: _publishedAt
+        updatedAt: _updatedAt
       }
     }
   `,

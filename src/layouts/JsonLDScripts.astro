@@ -1,0 +1,33 @@
+---
+import { generateJsonLdScripts } from "@utils/JsonLD/generateScripts";
+import { type JsonLdPageData } from "@utils/JsonLD/seoJsonLd";
+
+type Props = {
+  jsonLd?: JsonLdPageData;
+};
+
+const { jsonLd } = Astro.props;
+
+const { lang, recordId } = Astro.locals;
+
+const siteUrl = Astro.site || process.env.SITE_URL || "";
+const canonicalUrl = new URL(Astro.url.pathname, siteUrl).toString();
+
+const jsonLdScripts = generateJsonLdScripts({
+  jsonLd,
+  lang,
+  siteUrl,
+  canonicalUrl,
+  recordId,
+});
+
+const serializedJsonLdScripts = jsonLdScripts.map((script) =>
+  JSON.stringify(script),
+);
+---
+
+{
+  serializedJsonLdScripts.map((payload) => (
+    <script is:inline type="application/ld+json" set:html={payload} />
+  ))
+}

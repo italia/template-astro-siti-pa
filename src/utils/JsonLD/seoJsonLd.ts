@@ -1,17 +1,12 @@
 import rawLinkMap from "@data/linkMap.json";
-import type { SiteLocale } from "@graphql/types";
 import type { SeoFieldFragmentType } from "@graphql/seoFragments";
-import { getBreadcrumbs, linkResolver } from "@utils/linkResolver";
-
-type BreadcrumbStep = { title: string; id: string };
-type RouteInfo = {
-  path: string;
-  breadcrumb: BreadcrumbStep[];
-};
-
-type LocaleMap = Record<SiteLocale, RouteInfo>;
-type SiteMap = Record<string, LocaleMap>;
-
+import type { SiteLocale } from "@graphql/types";
+import {
+  getBreadcrumbs,
+  linkResolver,
+  type SiteMap,
+} from "@utils/linkResolver";
+import { getCollection } from "astro:content";
 const linkMap = rawLinkMap as SiteMap;
 
 export type FaqItem = {
@@ -19,7 +14,15 @@ export type FaqItem = {
   answer: string;
 };
 
-export type JsonLdPageType = "collection" | "content";
+export type JsonLdListItem = {
+  "@type": string;
+  position: number;
+  name: string;
+  url: string;
+};
+
+export type JsonLdPageType = ("collection" | "content" | "list")[];
+export type JsonLdArticleType = "TechArticle" | "Article" | "NewsArticle";
 
 export type JsonLdPageData = {
   pageType: JsonLdPageType;
@@ -28,6 +31,7 @@ export type JsonLdPageData = {
   publishedAt?: string | null;
   updatedAt?: string | null;
   faq?: FaqItem[];
+  listItems?: JsonLdListItem[];
 };
 
 export function extractFaqItems(content: unknown): FaqItem[] {
@@ -208,12 +212,17 @@ export function getChildListItems(
 
   Object.entries(linkMap).forEach(([, locales]) => {
     const route = locales[locale];
-    if (!route) return;
+    if (!route || !route.breadcrumb) return;
 
     const parentIndex = route.breadcrumb.findIndex(
       (step) => step.id === parentId,
     );
-    if (parentIndex === -1 || parentIndex >= route.breadcrumb.length - 1) {
+
+    if (
+      !parentIndex ||
+      parentIndex === -1 ||
+      parentIndex >= route.breadcrumb.length - 1
+    ) {
       return;
     }
 
@@ -276,6 +285,53 @@ export function buildCollectionJsonLd({
     },
     about: {
       "@id": `${baseUrl}/#organization`,
+    },
+    mainEntity: {
+      "@type": "ItemList",
+      "@id": `${canonicalUrl}#list`,
+      name,
+      itemListElement: listItems,
+    },
+  };
+}
+
+export function buildListJsonLd({
+  canonicalUrl,
+  siteUrl,
+  inLanguage,
+  name,
+  description,
+  listItems,
+}: {
+  canonicalUrl: string;
+  siteUrl: string | URL;
+  inLanguage: string;
+  name: string;
+  description?: string | null;
+  listItems: JsonLdListItem[];
+}) {
+  if (!listItems.length) {
+    return null;
+  }
+
+  const baseUrl = normalizeSiteUrl(siteUrl);
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "@id": `${canonicalUrl}#webpage`,
+    url: canonicalUrl,
+    name,
+    description: description || undefined,
+    inLanguage,
+    isPartOf: {
+      "@id": `${baseUrl}/#website`,
+    },
+    about: {
+      "@id": `${baseUrl}/#organization`,
+    },
+    breadcrumb: {
+      "@id": `${canonicalUrl}#breadcrumb`,
     },
     mainEntity: {
       "@type": "ItemList",
@@ -399,4 +455,59 @@ export function buildFaqJsonLd({
       },
     })),
   };
+}
+
+export function extractListItems(
+  content: unknown,
+  siteUrl: string | URL,
+  lang: SiteLocale,
+): JsonLdListItem[] {
+  const items: JsonLdListItem[] = [];
+  const seen = new Set<unknown>();
+
+  const processCatalogueTabs = (tabs: any) => {
+    if (!tabs) return;
+    tabs.forEach(async (item: any) => {
+      const modelApiKey = item.newsPageTabType;
+      const collection = await getCollection("news"); /* TODO: MODELAPIKEY */
+      console.log(`Fetched collection for model ${modelApiKey}:`, collection);
+      collection.forEach((entry, index) => {
+        const title = entry.data.title?.trim() || `Item ${index + 1}`;
+        const path = linkResolver(entry.id, lang);
+        if (!path || path === "#") return null;
+        items.push({
+          "@type": "ListItem",
+          position: items.length + 1,
+          name: title,
+          url: toAbsoluteUrl(path, siteUrl),
+        });
+      });
+    });
+  };
+
+  const traverse = (node: unknown) => {
+    if (!node || seen.has(node)) return;
+    seen.add(node);
+
+    if (Array.isArray(node)) {
+      node.forEach(traverse);
+      return;
+    }
+
+    if (typeof node !== "object") {
+      return;
+    }
+
+    const candidate = node as Record<string, any>;
+    const componentName = candidate.componentName || candidate.__typename;
+
+    if (componentName === "CatalogueFeedRecord") {
+      processCatalogueTabs(candidate.tabs);
+    }
+
+    Object.values(candidate).forEach(traverse);
+  };
+
+  traverse(content);
+  return items;
 }
