@@ -1,2 +1,2 @@
-bun astro check
+npx astro check
 bun lint-staged
