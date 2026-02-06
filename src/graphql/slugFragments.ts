@@ -101,6 +101,7 @@ export const AllWebinarItemsSlugFragment = graphql(
     fragment AllWebinarItemsSlugFragment on WebinarItemRecord @_unmask {
       id
       locales: _locales
+      modelApiKey: _modelApiKey
       ...WebinarItemLocalesFragment
       parentPage {
         ... on RecordInterface {

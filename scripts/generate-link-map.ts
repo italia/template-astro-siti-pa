@@ -163,9 +163,8 @@ const processItemsTabPages = <
 
     item.locales.forEach((locale) => {
       const tabsCategory = getCataloguesMapCategory(allTabs, locale);
-
       const allCategory = tabsCategory.flatMap((cat) => cat.type);
-      const targetType = "story";
+      const targetType = item.modelApiKey;
 
       const category = allCategory.find(
         (item) => item.type === targetType,
