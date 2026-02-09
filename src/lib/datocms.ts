@@ -14,10 +14,12 @@ export async function executeQuery<Result, Variables>(
   const token = options?.includeDrafts
     ? getEnv("DATOCMS_DRAFT_API_TOKEN")
     : (getEnv("DATOCMS_MANAGEMENT_API_TOKEN") ?? getEnv("DATOCMS_API_TOKEN"));
+  const excludeInvalid =
+    options?.excludeInvalid ?? (options?.includeDrafts ? false : true);
 
   const result = await libExecuteQuery(query, {
     variables: options?.variables,
-    excludeInvalid: true,
+    excludeInvalid,
     includeDrafts: options?.includeDrafts,
     environment: getEnv("DATOCMS_ENVIRONMENT"),
     token,
@@ -29,4 +31,5 @@ export async function executeQuery<Result, Variables>(
 type ExecuteQueryOptions<Variables> = {
   variables?: Variables;
   includeDrafts?: boolean;
+  excludeInvalid?: boolean;
 };
