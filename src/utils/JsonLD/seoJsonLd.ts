@@ -408,7 +408,7 @@ export function buildFaqJsonLd({
 export function extractListItems(
   content: unknown,
   siteUrl: string | URL,
-  lang: SiteLocale,
+  locale: SiteLocale,
 ): JsonLdListItem[] {
   const items: JsonLdListItem[] = [];
   const seen = new Set<unknown>();
@@ -417,10 +417,15 @@ export function extractListItems(
     if (!tabs) return;
     tabs.forEach(async (item: any) => {
       const modelApiKey = item.newsPageTabType;
-      const collection = await getCollection("news"); /* TODO: MODELAPIKEY */
+      const allItems: { data: { title: string; link?: string; id: string } }[] =
+        await getCollection(modelApiKey);
+      const collection = allItems.filter(
+        (item: any) => item.data._locale === locale,
+      );
+
       collection.forEach((entry, index) => {
         const title = entry.data.title?.trim() || `Item ${index + 1}`;
-        const path = entry.data.link;
+        const path = entry.data.link || linkResolver(entry.data.id, locale);
 
         if (!path || path === "#") return null;
 
