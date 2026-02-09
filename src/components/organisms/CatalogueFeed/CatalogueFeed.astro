@@ -33,10 +33,10 @@ const tabsItems = tabs.map((tab, index) => ({
 
 const isPreview = isDraftModeEnabled(Astro.cookies);
 
-const news = await getNews(isPreview);
-const stories = await getStories(isPreview);
-const webinars = await getWebinars(isPreview);
-const resources = await getResources(isPreview);
+const news = await getNews(lang, isPreview);
+const stories = await getStories(lang, isPreview);
+const webinars = await getWebinars(lang, isPreview);
+const resources = await getResources(lang, isPreview);
 
 function isValidTabType(val: string): val is ElementType {
   return (

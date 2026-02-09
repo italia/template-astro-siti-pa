@@ -248,8 +248,8 @@ export const AllCataloguesQuery = graphql(
 
 export const AllNewsQuery = graphql(
   `
-    query AllNews {
-      allNewsItems {
+    query AllNews($locale: SiteLocale!) {
+      allNewsItems(locale: $locale) {
         ...NewsItemFragment
       }
     }
@@ -259,8 +259,8 @@ export const AllNewsQuery = graphql(
 
 export const AllStoryQuery = graphql(
   `
-    query AllStory {
-      allStoryItems {
+    query AllStory($locale: SiteLocale!) {
+      allStoryItems(locale: $locale) {
         ...StoryItemFragment
       }
     }
@@ -270,8 +270,8 @@ export const AllStoryQuery = graphql(
 
 export const AllWebinarQuery = graphql(
   `
-    query AllWebinar {
-      allWebinarItems {
+    query AllWebinar($locale: SiteLocale!) {
+      allWebinarItems(locale: $locale) {
         ...WebinarItemFragment
       }
     }
@@ -303,8 +303,8 @@ export const AllWebinarItemsQuery = graphql(
 
 export const AllResourcesQuery = graphql(
   `
-    query AllResources {
-      allResources {
+    query AllResources($locale: SiteLocale!) {
+      allResources(locale: $locale) {
         ...ResourceFragment
       }
     }

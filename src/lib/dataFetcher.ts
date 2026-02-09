@@ -1,42 +1,59 @@
-import { getCollection } from "astro:content";
+import type { SiteLocale } from "@graphql/types";
 import { executeQuery } from "@lib/datocms";
 import {
   AllNewsQuery,
+  AllResourcesQuery,
   AllStoryQuery,
   AllWebinarQuery,
-  AllResourcesQuery,
 } from "@utils/query";
+import { getCollection } from "astro:content";
 
 const wrap = (items: any[]) => items.map((item) => ({ data: item }));
 
-export const getNews = async (isPreview: boolean) => {
+export const getNews = async (lang: SiteLocale, isPreview: boolean) => {
   if (isPreview) {
-    const res = await executeQuery(AllNewsQuery, { includeDrafts: true });
+    const res = await executeQuery(AllNewsQuery, {
+      variables: { locale: lang },
+      includeDrafts: true,
+    });
     return wrap(res.allNewsItems);
   }
-  return await getCollection("news");
+  const items = await getCollection("news_item");
+  return items.filter((item: any) => item.data._locale === lang);
 };
 
-export const getStories = async (isPreview: boolean) => {
+export const getStories = async (lang: SiteLocale, isPreview: boolean) => {
   if (isPreview) {
-    const res = await executeQuery(AllStoryQuery, { includeDrafts: true });
+    const res = await executeQuery(AllStoryQuery, {
+      variables: { locale: lang },
+      includeDrafts: true,
+    });
     return wrap(res.allStoryItems);
   }
-  return await getCollection("stories");
+  const items = await getCollection("story_item");
+  return items.filter((item: any) => item.data._locale === lang);
 };
 
-export const getWebinars = async (isPreview: boolean) => {
+export const getWebinars = async (lang: SiteLocale, isPreview: boolean) => {
   if (isPreview) {
-    const res = await executeQuery(AllWebinarQuery, { includeDrafts: true });
+    const res = await executeQuery(AllWebinarQuery, {
+      variables: { locale: lang },
+      includeDrafts: true,
+    });
     return wrap(res.allWebinarItems);
   }
-  return await getCollection("webinars");
+  const items = await getCollection("webinar_item");
+  return items.filter((item: any) => item.data._locale === lang);
 };
 
-export const getResources = async (isPreview: boolean) => {
+export const getResources = async (lang: SiteLocale, isPreview: boolean) => {
   if (isPreview) {
-    const res = await executeQuery(AllResourcesQuery, { includeDrafts: true });
+    const res = await executeQuery(AllResourcesQuery, {
+      variables: { locale: lang },
+      includeDrafts: true,
+    });
     return wrap(res.allResources);
   }
-  return await getCollection("resources");
+  const items = await getCollection("resource");
+  return items.filter((item: any) => item.data._locale === lang);
 };

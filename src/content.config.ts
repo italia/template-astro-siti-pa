@@ -7,9 +7,10 @@ import type {
 import { executeQuery } from "@lib/datocms";
 import {
   AllNewsQuery,
+  AllResourcesQuery,
   AllStoryQuery,
   AllWebinarQuery,
-  AllResourcesQuery,
+  LocalesQuery,
 } from "@utils/query";
 import { defineCollection, z } from "astro:content";
 
@@ -24,38 +25,161 @@ const resourceSchema = z.custom<ResourceFragmentType>();
 const newsCollection = defineCollection({
   schema: newsSchema,
   loader: async () => {
-    const response = await executeQuery(AllNewsQuery);
-    return response.allNewsItems;
+    const localesResponse = await executeQuery(LocalesQuery);
+    const locales = localesResponse?.site?.locales || ["it"];
+
+    const allEntries = [];
+
+    for (const locale of locales) {
+      try {
+        const response = await executeQuery(AllNewsQuery, {
+          variables: { locale },
+        });
+
+        if (response?.allNewsItems && Array.isArray(response.allNewsItems)) {
+          const itemsWithLocale = response.allNewsItems.map((item: any) => ({
+            ...item,
+            id: `${locale}-${item.id}`,
+            _locale: locale,
+          }));
+
+          allEntries.push(...itemsWithLocale);
+        } else {
+          console.warn(`Nessuna risorsa trovata per la lingua: ${locale}`);
+        }
+      } catch (error) {
+        console.error(
+          `Errore durante il caricamento delle risorse per [${locale}]:`,
+          error,
+        );
+        continue;
+      }
+    }
+
+    return allEntries;
   },
 });
 
 const storiesCollection = defineCollection({
   schema: storySchema,
   loader: async () => {
-    const response = await executeQuery(AllStoryQuery);
-    return response.allStoryItems;
+    const localesResponse = await executeQuery(LocalesQuery);
+    const locales = localesResponse?.site?.locales || ["it"];
+
+    const allEntries = [];
+
+    for (const locale of locales) {
+      try {
+        const response = await executeQuery(AllStoryQuery, {
+          variables: { locale },
+        });
+
+        if (response?.allStoryItems && Array.isArray(response.allStoryItems)) {
+          const itemsWithLocale = response.allStoryItems.map((item: any) => ({
+            ...item,
+            id: `${locale}-${item.id}`,
+            _locale: locale,
+          }));
+
+          allEntries.push(...itemsWithLocale);
+        } else {
+          console.warn(`Nessuna risorsa trovata per la lingua: ${locale}`);
+        }
+      } catch (error) {
+        console.error(
+          `Errore durante il caricamento delle risorse per [${locale}]:`,
+          error,
+        );
+        continue;
+      }
+    }
+
+    return allEntries;
   },
 });
 
 const webinarsCollection = defineCollection({
   schema: webinarSchema,
   loader: async () => {
-    const response = await executeQuery(AllWebinarQuery);
-    return response.allWebinarItems;
+    const localesResponse = await executeQuery(LocalesQuery);
+    const locales = localesResponse?.site?.locales || ["it"];
+
+    const allEntries = [];
+
+    for (const locale of locales) {
+      try {
+        const response = await executeQuery(AllWebinarQuery, {
+          variables: { locale },
+        });
+
+        if (
+          response?.allWebinarItems &&
+          Array.isArray(response.allWebinarItems)
+        ) {
+          const itemsWithLocale = response.allWebinarItems.map((item: any) => ({
+            ...item,
+            id: `${locale}-${item.id}`,
+            _locale: locale,
+          }));
+
+          allEntries.push(...itemsWithLocale);
+        } else {
+          console.warn(`Nessuna risorsa trovata per la lingua: ${locale}`);
+        }
+      } catch (error) {
+        console.error(
+          `Errore durante il caricamento delle risorse per [${locale}]:`,
+          error,
+        );
+        continue;
+      }
+    }
+
+    return allEntries;
   },
 });
 
 const resourcesCollection = defineCollection({
   schema: resourceSchema,
   loader: async () => {
-    const response = await executeQuery(AllResourcesQuery);
-    return response.allResources;
+    const localesResponse = await executeQuery(LocalesQuery);
+    const locales = localesResponse?.site?.locales || ["it"];
+
+    const allEntries = [];
+
+    for (const locale of locales) {
+      try {
+        const response = await executeQuery(AllResourcesQuery, {
+          variables: { locale },
+        });
+
+        if (response?.allResources && Array.isArray(response.allResources)) {
+          const itemsWithLocale = response.allResources.map((item: any) => ({
+            ...item,
+            id: `${locale}-${item.id}`,
+            _locale: locale,
+          }));
+
+          allEntries.push(...itemsWithLocale);
+        } else {
+          console.warn(`Nessuna risorsa trovata per la lingua: ${locale}`);
+        }
+      } catch (error) {
+        console.error(
+          `Errore durante il caricamento delle risorse per [${locale}]:`,
+          error,
+        );
+        continue;
+      }
+    }
+
+    return allEntries;
   },
 });
 
 export const collections = {
-  news: newsCollection,
-  stories: storiesCollection,
-  webinars: webinarsCollection,
-  resources: resourcesCollection,
+  news_item: newsCollection,
+  story_item: storiesCollection,
+  webinar_item: webinarsCollection,
+  resource: resourcesCollection,
 };
