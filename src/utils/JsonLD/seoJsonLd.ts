@@ -100,7 +100,7 @@ const normalizeSiteUrl = (siteUrl: string | URL) => {
 const toAbsoluteUrl = (path: string, siteUrl: string | URL) =>
   new URL(path, siteUrl).toString();
 
-export function buildCommonJsonLd(siteUrl: string | URL) {
+export function buildCommonJsonLd(siteUrl: string | URL, siteName: string) {
   const baseUrl = normalizeSiteUrl(siteUrl);
 
   return {
@@ -124,7 +124,7 @@ export function buildCommonJsonLd(siteUrl: string | URL) {
         "@type": "WebSite",
         "@id": `${baseUrl}/#website`,
         url: baseUrl,
-        name: "Cloud Italia",
+        name: siteName,
         inLanguage: "it-IT",
         publisher: {
           "@id": `${baseUrl}/#organization`,

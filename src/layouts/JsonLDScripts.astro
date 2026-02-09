@@ -1,6 +1,8 @@
 ---
+import { executeQuery } from "@lib/datocms";
 import { generateJsonLdScripts } from "@utils/JsonLD/generateScripts";
 import { type JsonLdPageData } from "@utils/JsonLD/seoJsonLd";
+import { GlobalSettingsQuery } from "@utils/query";
 
 type Props = {
   jsonLd?: JsonLdPageData;
@@ -13,12 +15,19 @@ const { lang, recordId } = Astro.locals;
 const siteUrl = Astro.site || process.env.SITE_URL || "";
 const canonicalUrl = new URL(Astro.url.pathname, siteUrl).toString();
 
+const { globalSetting } = await executeQuery(GlobalSettingsQuery, {
+  variables: { locale: lang },
+});
+
+const siteName = globalSetting?.siteName || "Cloud Italia";
+
 const jsonLdScripts = generateJsonLdScripts({
   jsonLd,
   lang,
   siteUrl,
   canonicalUrl,
   recordId,
+  siteName,
 });
 
 const serializedJsonLdScripts = jsonLdScripts.map((script) =>
