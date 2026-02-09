@@ -419,9 +419,9 @@ export function extractListItems(
       const modelApiKey = item.newsPageTabType;
       const allItems: { data: { title: string; link?: string; id: string } }[] =
         await getCollection(modelApiKey);
-      const collection = allItems.filter(
-        (item: any) => item.data._locale === locale,
-      );
+      const collection = allItems
+        .slice(0, 10)
+        .filter((item: any) => item.data._locale === locale);
 
       collection.forEach((entry, index) => {
         const title = entry.data.title?.trim() || `Item ${index + 1}`;
