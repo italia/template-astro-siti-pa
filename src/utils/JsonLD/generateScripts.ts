@@ -40,7 +40,6 @@ export const generateJsonLdScripts = ({
 
   if (jsonLd.pageType.includes("collection")) {
     const items = getChildListItems(recordId, lang, siteUrl);
-    console.log("Collection items:", items);
     const collectionLd = buildCollectionJsonLd({
       canonicalUrl,
       siteUrl,
@@ -49,6 +48,7 @@ export const generateJsonLdScripts = ({
       description,
       listItems: items,
     });
+
     if (collectionLd) scripts.push(collectionLd);
   }
 
@@ -93,6 +93,5 @@ export const generateJsonLdScripts = ({
     const faqLd = buildFaqJsonLd({ canonicalUrl, faq: jsonLd.faq });
     if (faqLd) scripts.push(faqLd);
   }
-
   return scripts;
 };

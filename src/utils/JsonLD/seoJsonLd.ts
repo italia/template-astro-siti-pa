@@ -204,7 +204,7 @@ export function getChildListItems(
   parentId: string | undefined,
   locale: SiteLocale,
   siteUrl: string | URL,
-) {
+): JsonLdListItem[] {
   if (!parentId) return [];
 
   const baseUrl = normalizeSiteUrl(siteUrl);
@@ -242,60 +242,11 @@ export function getChildListItems(
     "@type": "ListItem",
     position: index + 1,
     name: item.name,
-    item: item.url,
+    url: item.url,
   }));
 }
 
 export function buildCollectionJsonLd({
-  canonicalUrl,
-  siteUrl,
-  inLanguage,
-  name,
-  description,
-  listItems,
-}: {
-  canonicalUrl: string;
-  siteUrl: string | URL;
-  inLanguage: string;
-  name: string;
-  description?: string | null;
-  listItems: Array<{
-    "@type": string;
-    position: number;
-    name: string;
-    item: string;
-  }>;
-}) {
-  if (!listItems.length) {
-    return null;
-  }
-
-  const baseUrl = normalizeSiteUrl(siteUrl);
-
-  return {
-    "@context": "https://schema.org",
-    "@type": "CollectionPage",
-    "@id": `${canonicalUrl}#webpage`,
-    url: canonicalUrl,
-    name,
-    description: description || undefined,
-    inLanguage,
-    isPartOf: {
-      "@id": `${baseUrl}/#website`,
-    },
-    about: {
-      "@id": `${baseUrl}/#organization`,
-    },
-    mainEntity: {
-      "@type": "ItemList",
-      "@id": `${canonicalUrl}#list`,
-      name,
-      itemListElement: listItems,
-    },
-  };
-}
-
-export function buildListJsonLd({
   canonicalUrl,
   siteUrl,
   inLanguage,
@@ -329,9 +280,6 @@ export function buildListJsonLd({
     },
     about: {
       "@id": `${baseUrl}/#organization`,
-    },
-    breadcrumb: {
-      "@id": `${canonicalUrl}#breadcrumb`,
     },
     mainEntity: {
       "@type": "ItemList",
@@ -470,11 +418,12 @@ export function extractListItems(
     tabs.forEach(async (item: any) => {
       const modelApiKey = item.newsPageTabType;
       const collection = await getCollection("news"); /* TODO: MODELAPIKEY */
-      console.log(`Fetched collection for model ${modelApiKey}:`, collection);
       collection.forEach((entry, index) => {
         const title = entry.data.title?.trim() || `Item ${index + 1}`;
-        const path = linkResolver(entry.id, lang);
+        const path = entry.data.link;
+
         if (!path || path === "#") return null;
+
         items.push({
           "@type": "ListItem",
           position: items.length + 1,
@@ -510,4 +459,51 @@ export function extractListItems(
 
   traverse(content);
   return items;
+}
+
+export function buildListJsonLd({
+  canonicalUrl,
+  siteUrl,
+  inLanguage,
+  name,
+  description,
+  listItems,
+}: {
+  canonicalUrl: string;
+  siteUrl: string | URL;
+  inLanguage: string;
+  name: string;
+  description?: string | null;
+  listItems: JsonLdListItem[];
+}) {
+  if (!listItems.length) {
+    return null;
+  }
+
+  const baseUrl = normalizeSiteUrl(siteUrl);
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "@id": `${canonicalUrl}#webpage`,
+    url: canonicalUrl,
+    name,
+    description: description || undefined,
+    inLanguage,
+    isPartOf: {
+      "@id": `${baseUrl}/#website`,
+    },
+    about: {
+      "@id": `${baseUrl}/#organization`,
+    },
+    breadcrumb: {
+      "@id": `${canonicalUrl}#breadcrumb`,
+    },
+    mainEntity: {
+      "@type": "ItemList",
+      "@id": `${canonicalUrl}#list`,
+      name,
+      itemListElement: listItems,
+    },
+  };
 }
