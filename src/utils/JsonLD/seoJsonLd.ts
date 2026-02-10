@@ -9,27 +9,59 @@ import {
 import { getCollection } from "astro:content";
 const linkMap = rawLinkMap as SiteMap;
 
-export type FaqItem = {
+type BaseJsonLdData = {
+  canonicalUrl: string;
+  siteUrl: string | URL;
+  inLanguage: string;
+  name?: string;
+  description?: string;
+};
+
+type FaqItem = {
   question: string;
   answer: string;
 };
 
-export type JsonLdListItem = {
+type JsonLdListItem = {
   "@type": string;
   position: number;
   name: string;
   url: string;
 };
 
-export type JsonLdPageType = ("collection" | "content" | "list")[];
-export type JsonLdArticleType = "TechArticle" | "Article" | "NewsArticle";
+type JsonLdPageType = "collection" | "content" | "list";
+type JsonLdArticleType = "TechArticle" | "Article" | "NewsArticle";
+
+type JsonLdBreadcrumbData = {
+  canonicalUrl: string;
+  recordId?: string;
+  locale: SiteLocale;
+  siteUrl: string | URL;
+};
+
+type JsonLdCollectionData = BaseJsonLdData & {
+  listItems: JsonLdListItem[];
+};
+
+type JsonLdContentData = BaseJsonLdData & {
+  articleType?: JsonLdArticleType;
+  articleSection?: string;
+  publishedAt?: string;
+  updatedAt?: string;
+  imageUrl?: string;
+};
+
+type JsonLdFaqData = {
+  canonicalUrl: string;
+  faq: FaqItem[];
+};
 
 export type JsonLdPageData = {
-  pageType: JsonLdPageType;
-  articleType?: "TechArticle" | "Article" | "NewsArticle";
-  seo?: SeoFieldFragmentType | null;
-  publishedAt?: string | null;
-  updatedAt?: string | null;
+  pageType: JsonLdPageType[];
+  articleType?: JsonLdArticleType;
+  seo?: SeoFieldFragmentType;
+  publishedAt?: string;
+  updatedAt?: string;
   faq?: FaqItem[];
   listItems?: JsonLdListItem[];
 };
@@ -139,12 +171,7 @@ export function buildBreadcrumbJsonLd({
   recordId,
   locale,
   siteUrl,
-}: {
-  canonicalUrl: string;
-  recordId?: string;
-  locale: SiteLocale;
-  siteUrl: string | URL;
-}) {
+}: JsonLdBreadcrumbData) {
   if (!recordId) return null;
   const steps = getBreadcrumbs(recordId, locale);
   if (!steps.length) return null;
@@ -175,7 +202,7 @@ export function buildBreadcrumbJsonLd({
 export function getPageTitle(
   recordId: string | undefined,
   locale: SiteLocale,
-  seo?: SeoFieldFragmentType | null,
+  seo?: SeoFieldFragmentType,
 ) {
   if (seo?.title) {
     return seo.title;
@@ -253,14 +280,7 @@ export function buildCollectionJsonLd({
   name,
   description,
   listItems,
-}: {
-  canonicalUrl: string;
-  siteUrl: string | URL;
-  inLanguage: string;
-  name: string;
-  description?: string | null;
-  listItems: JsonLdListItem[];
-}) {
+}: JsonLdCollectionData) {
   if (!listItems.length) {
     return null;
   }
@@ -301,18 +321,7 @@ export function buildContentJsonLd({
   publishedAt,
   updatedAt,
   imageUrl,
-}: {
-  canonicalUrl: string;
-  siteUrl: string | URL;
-  inLanguage: string;
-  name: string;
-  description?: string | null;
-  articleType?: "TechArticle" | "Article" | "NewsArticle";
-  articleSection?: string;
-  publishedAt?: string | null;
-  updatedAt?: string | null;
-  imageUrl?: string | null;
-}) {
+}: JsonLdContentData) {
   const baseUrl = normalizeSiteUrl(siteUrl);
   const webpageId = `${canonicalUrl}#webpage`;
   const contentId = `${canonicalUrl}#content`;
@@ -381,13 +390,7 @@ export function buildContentJsonLd({
   };
 }
 
-export function buildFaqJsonLd({
-  canonicalUrl,
-  faq,
-}: {
-  canonicalUrl: string;
-  faq: FaqItem[];
-}) {
+export function buildFaqJsonLd({ canonicalUrl, faq }: JsonLdFaqData) {
   if (!faq.length) return null;
 
   return {
@@ -473,14 +476,7 @@ export function buildListJsonLd({
   name,
   description,
   listItems,
-}: {
-  canonicalUrl: string;
-  siteUrl: string | URL;
-  inLanguage: string;
-  name: string;
-  description?: string | null;
-  listItems: JsonLdListItem[];
-}) {
+}: JsonLdCollectionData) {
   if (!listItems.length) {
     return null;
   }

@@ -48,10 +48,6 @@ const newsCollection = defineCollection({
           console.warn(`Nessuna risorsa trovata per la lingua: ${locale}`);
         }
       } catch (error) {
-        console.error(
-          `Errore durante il caricamento delle risorse per [${locale}]:`,
-          error,
-        );
         continue;
       }
     }
@@ -86,10 +82,6 @@ const storiesCollection = defineCollection({
           console.warn(`Nessuna risorsa trovata per la lingua: ${locale}`);
         }
       } catch (error) {
-        console.error(
-          `Errore durante il caricamento delle risorse per [${locale}]:`,
-          error,
-        );
         continue;
       }
     }
@@ -127,10 +119,6 @@ const webinarsCollection = defineCollection({
           console.warn(`Nessuna risorsa trovata per la lingua: ${locale}`);
         }
       } catch (error) {
-        console.error(
-          `Errore durante il caricamento delle risorse per [${locale}]:`,
-          error,
-        );
         continue;
       }
     }
@@ -165,10 +153,6 @@ const resourcesCollection = defineCollection({
           console.warn(`Nessuna risorsa trovata per la lingua: ${locale}`);
         }
       } catch (error) {
-        console.error(
-          `Errore durante il caricamento delle risorse per [${locale}]:`,
-          error,
-        );
         continue;
       }
     }

@@ -49,7 +49,7 @@ export const generateJsonLdScripts = ({
       siteUrl,
       inLanguage: languageTag,
       name: pageName,
-      description,
+      description: description || undefined,
       listItems: items,
     });
 
@@ -62,7 +62,7 @@ export const generateJsonLdScripts = ({
       siteUrl,
       inLanguage: languageTag,
       name: pageName,
-      description,
+      description: description || undefined,
       listItems: jsonLd.listItems,
     });
 
@@ -75,12 +75,12 @@ export const generateJsonLdScripts = ({
       siteUrl,
       inLanguage: languageTag,
       name: pageName,
-      description,
+      description: description || undefined,
       articleType: jsonLd.articleType,
       articleSection: getArticleSection(recordId, lang),
       publishedAt: jsonLd.publishedAt || undefined,
       updatedAt: jsonLd.updatedAt || undefined,
-      imageUrl,
+      imageUrl: imageUrl || undefined,
     });
     scripts.push(contentLd);
   }

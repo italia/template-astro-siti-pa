@@ -72,7 +72,7 @@ Astro.locals.recordId = id;
 
 const jsonLd: JsonLdPageData = {
   pageType: ["content"],
-  seo,
+  seo: seo || undefined,
   articleType: "NewsArticle",
   publishedAt,
   updatedAt,

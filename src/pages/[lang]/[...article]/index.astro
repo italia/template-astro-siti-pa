@@ -10,7 +10,7 @@ import type { ArticleContentFragmentType } from "@graphql/templateFragments";
 import type { SiteLocale } from "@graphql/types";
 import Layout from "@layouts/Layout.astro";
 import { executeQuery } from "@lib/datocms";
-import { extractFaqItems, type JsonLdPageData } from "@utils/JsonLD/seoJsonLd";
+import { type JsonLdPageData } from "@utils/JsonLD/seoJsonLd";
 import { linkResolver } from "@utils/linkResolver";
 import { removeLang } from "@utils/pathHelper";
 import { AllArticlesQuery, SidebarQuery } from "@utils/query";
@@ -82,11 +82,10 @@ Astro.locals.lang = lang;
 Astro.locals.recordId = id;
 const jsonLd: JsonLdPageData = {
   pageType: ["content"],
-  seo,
+  seo: seo || undefined,
   articleType: "TechArticle",
   publishedAt,
   updatedAt,
-  faq: extractFaqItems(content ?? []),
 };
 ---
 
