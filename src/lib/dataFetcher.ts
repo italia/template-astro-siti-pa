@@ -22,7 +22,10 @@ export const getNews = async (lang: SiteLocale, isPreview: boolean) => {
 
 export const getStories = async (lang: SiteLocale, isPreview: boolean) => {
   if (isPreview) {
-    const res = await executeQuery(AllStoryCardQuery, { includeDrafts: true });
+    const res = await executeQuery(AllStoryCardQuery, {
+      variables: { locale: lang },
+      includeDrafts: true,
+    });
     return wrap(res.allStoryItems);
   }
   const items = await getCollection("story_item");

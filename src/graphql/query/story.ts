@@ -8,8 +8,8 @@ import { graphql } from "@graphql/graphql";
 
 export const AllStoryCardQuery = graphql(
   `
-    query AllStory {
-      allStoryItems {
+    query AllStory($locale: SiteLocale!) {
+      allStoryItems(locale: $locale) {
         ...StoryCardFragment
       }
     }

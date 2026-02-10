@@ -58,8 +58,34 @@ const newsCollection = defineCollection({
 const storiesCollection = defineCollection({
   schema: storySchema,
   loader: async () => {
-    const response = await executeQuery(AllStoryCardQuery);
-    return response.allStoryItems;
+    const localesResponse = await executeQuery(LocalesQuery);
+    const locales = localesResponse?.site?.locales || ["it"];
+
+    const allEntries = [];
+
+    for (const locale of locales) {
+      try {
+        const response = await executeQuery(AllStoryCardQuery, {
+          variables: { locale },
+        });
+
+        if (response?.allStoryItems && Array.isArray(response.allStoryItems)) {
+          const itemsWithLocale = response.allStoryItems.map((item: any) => ({
+            ...item,
+            id: `${locale}-${item.id}`,
+            _locale: locale,
+          }));
+
+          allEntries.push(...itemsWithLocale);
+        } else {
+          console.warn(`Nessuna risorsa trovata per la lingua: ${locale}`);
+        }
+      } catch (error) {
+        continue;
+      }
+    }
+
+    return allEntries;
   },
 });
 
