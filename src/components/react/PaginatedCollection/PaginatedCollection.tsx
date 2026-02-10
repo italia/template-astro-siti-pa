@@ -110,32 +110,36 @@ export function PaginatedCollection({
         </div>
       </div>
       <ul className="it-card-list row pt-4">
-        {paginatedItems.map((n) => (
-          <>
-            {newsPageTabType === "news_item" && (
-              <li className="col-12 col-lg-4 mb-5" key={n.title}>
+        {paginatedItems.map((n) => {
+          const isResource = newsPageTabType === "resource";
+          const colClass = isResource
+            ? "col-12 col-lg-7 mb-3"
+            : "col-12 col-lg-4 mb-5";
+
+          const itemKey = n.title;
+
+          return (
+            <li className={colClass} key={itemKey}>
+              {newsPageTabType === "news_item" && (
                 <CardEditorialNews {...(n as CardEditorialNewsProps)} />
-              </li>
-            )}
-            {newsPageTabType === "story_item" && (
-              <li className="col-12 col-lg-4 mb-5" key={n.title}>
+              )}
+
+              {newsPageTabType === "story_item" && (
                 <CardEditorialInlineMini
                   {...(n as CardEditorialInlineMiniProps)}
                 />
-              </li>
-            )}
-            {newsPageTabType === "webinar_item" && (
-              <li className="col-12 col-lg-4 mb-5" key={n.title}>
+              )}
+
+              {newsPageTabType === "webinar_item" && (
                 <CardEditorialNews {...(n as CardEditorialNewsProps)} />
-              </li>
-            )}
-            {newsPageTabType === "resource" && (
-              <li className="col-12 col-lg-7 mb-3" key={n.title}>
+              )}
+
+              {newsPageTabType === "resource" && (
                 <Resource {...(n as ResourceProps)} />
-              </li>
-            )}
-          </>
-        ))}
+              )}
+            </li>
+          );
+        })}
       </ul>
       <Pagination
         currentPage={page}
