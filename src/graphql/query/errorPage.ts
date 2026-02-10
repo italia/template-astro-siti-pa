@@ -1,4 +1,4 @@
-import { ImageFragment } from "@graphql/commonFragments";
+import { ImageFragment } from "@graphql/fragment/commonFragments";
 import { graphql } from "@graphql/graphql";
 
 export const ErrorPageQuery = graphql(

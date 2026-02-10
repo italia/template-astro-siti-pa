@@ -1,5 +1,5 @@
-import type { CatalogueIndexingFragmentType } from "@graphql/query/indexing";
-import type { HomepageFragmentType } from "@graphql/slugFragments";
+import type { CatalogueIndexingFragmentType } from "@graphql/fragment/indexing";
+import type { HomepageFragmentType } from "@graphql/fragment/slugFragments";
 import type { SiteLocale } from "@graphql/types";
 import { getCataloguesMapCategory } from "@utils/indexing/getCategory";
 import { resolveRoutePath, type RoutableRecord } from "@utils/pathHelper";

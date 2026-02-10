@@ -4,7 +4,7 @@ import {
   type AllPagesSlugFragmentType,
   type AllStoryItemsSlugFragmentType,
   type AllWebinarItemsSlugFragmentType,
-} from "@graphql/slugFragments";
+} from "@graphql/fragment/slugFragments";
 import type { SiteLocale } from "../graphql/types";
 
 type HasLocales = {

@@ -1,8 +1,9 @@
 ---
 import { linkResolver } from "@utils/linkResolver";
-import type { UseCaseContainerFragmentType } from "../../../graphql/sectionFragments";
-import UseCaseContainer from "../../organisms/UseCaseContainer/UseCaseContainer.astro";
+
 import type { UseCaseCardProps } from "@components/molecules/UseCaseCard/types";
+import { UseCaseContainer } from "@components/organisms/UseCaseContainer";
+import type { UseCaseContainerFragmentType } from "@graphql/fragment/sectionFragments";
 
 type Props = {
   block: UseCaseContainerFragmentType;

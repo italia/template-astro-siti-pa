@@ -1,9 +1,9 @@
 ---
-import { linkResolver } from "@utils/linkResolver";
-import type { DataSectionRecordFragmentType } from "../../../graphql/sectionFragments";
-import { DataSection } from "../../organisms/DataSection";
 import type { CardEditorialNewsProps } from "@components/molecules/CardEditorialNews/types";
+import { DataSection } from "@components/organisms/DataSection";
 import type { ResultProps } from "@components/organisms/DataSection/types";
+import type { DataSectionRecordFragmentType } from "@graphql/fragment/sectionFragments";
+import { linkResolver } from "@utils/linkResolver";
 
 type Props = {
   block: DataSectionRecordFragmentType;

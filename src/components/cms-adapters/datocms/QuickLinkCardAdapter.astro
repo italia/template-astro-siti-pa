@@ -1,9 +1,9 @@
 ---
 import type { GenericListItemProps } from "@components/molecules/GenericList/types";
+import { QuickLinkCard } from "@components/molecules/QuickLinkCard";
+import type { QuickLinkCardFragmentType } from "@graphql/fragment/commonFragments";
 import { createDownloadUrl } from "@utils/createDownloadUrl";
 import { linkResolver } from "@utils/linkResolver";
-import type { QuickLinkCardFragmentType } from "../../../graphql/commonFragments";
-import { QuickLinkCard } from "../../molecules/QuickLinkCard";
 
 type DatoRecord = QuickLinkCardFragmentType & {
   __typename: string;

@@ -1,6 +1,6 @@
-import { TagFragment } from "@graphql/commonFragments";
+import { TagFragment } from "@graphql/fragment/commonFragments";
+import { InsightContentFragment } from "@graphql/fragment/insight";
 import { graphql } from "@graphql/graphql";
-import { InsightContentFragment } from "@graphql/templateFragments";
 import { SeoFieldFragment } from "@graphql/seoFragments";
 
 export const AllInsightsContentQuery = graphql(

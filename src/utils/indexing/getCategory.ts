@@ -1,11 +1,11 @@
 import type {
-  CatalogueLocalesFragmentType,
-  PageLocalesFragmentType,
-} from "@graphql/metaFragments";
-import type {
   ArticleIndexingFragmentType,
   CatalogueIndexingFragmentType,
-} from "@graphql/query/indexing";
+} from "@graphql/fragment/indexing";
+import type {
+  CatalogueLocalesFragmentType,
+  PageLocalesFragmentType,
+} from "@graphql/fragment/metaFragments";
 import type { SiteLocale } from "@graphql/types";
 
 type tabType = { type: string; title: string };

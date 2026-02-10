@@ -4,9 +4,9 @@ import type { ResourceProps } from "@components/react/Resource";
 import type {
   NewsItemFragmentType,
   ResourceFragmentType,
-  StoryItemFragmentType,
+  StoryCardFragmentType,
   WebinarItemFragmentType,
-} from "@graphql/commonFragments";
+} from "@graphql/fragment/commonFragments";
 import { linkResolver } from "@utils/linkResolver";
 
 export const mapNewsToCardEditorialNewsProps = (
@@ -24,7 +24,7 @@ export const mapNewsToCardEditorialNewsProps = (
 });
 
 export const mapStoryToCardEditorialInlineMiniProps = (
-  story: StoryItemFragmentType,
+  story: StoryCardFragmentType,
   lang: string,
 ): CardEditorialInlineMiniProps => ({
   title: story.title,

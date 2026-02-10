@@ -2,9 +2,9 @@ import type {
   HeaderNavbarProps,
   MenuItemProps,
 } from "@components/organisms/Header/types";
-import { linkResolver } from "@utils/linkResolver";
-import type { MenuItemFragmentType } from "@graphql/commonFragments";
+import type { MenuItemFragmentType } from "@graphql/fragment/commonFragments";
 import type { SiteLocale } from "@graphql/types";
+import { linkResolver } from "@utils/linkResolver";
 
 function menuItemAdapter(
   item: MenuItemFragmentType,

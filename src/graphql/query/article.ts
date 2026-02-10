@@ -1,6 +1,6 @@
-import { TagFragment } from "@graphql/commonFragments";
+import { ArticleContentFragment } from "@graphql/fragment/article";
+import { TagFragment } from "@graphql/fragment/commonFragments";
 import { graphql } from "@graphql/graphql";
-import { ArticleContentFragment } from "@graphql/templateFragments";
 import { SeoFieldFragment } from "@graphql/seoFragments";
 
 export const AllArticlesContentQuery = graphql(
@@ -9,8 +9,8 @@ export const AllArticlesContentQuery = graphql(
       allArticles {
         id
         locales: _locales
-        publishedAt: _publishedAt
         updatedAt: _updatedAt
+        publishedAt: _publishedAt
         allContentLocales: _allContentLocales {
           locale
           value {

@@ -1,5 +1,5 @@
+import { HeroFragment } from "@graphql/fragment/sectionFragments";
 import { graphql, type FragmentOf } from "@graphql/graphql";
-import { HeroFragment } from "@graphql/sectionFragments";
 
 export const SearchBarFragment = graphql(`
   fragment SearchBarFragment on SearchBarRecord @_unmask {

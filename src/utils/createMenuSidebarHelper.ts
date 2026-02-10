@@ -1,7 +1,7 @@
 import type { SidebarItemFirstLevelProps } from "@components/organisms/Sidebar/types";
-import { linkResolver } from "@utils/linkResolver";
-import type { SidebarMenuFragmentType } from "@graphql/commonFragments";
+import type { SidebarMenuFragmentType } from "@graphql/fragment/commonFragments";
 import type { SiteLocale } from "@graphql/types";
+import { linkResolver } from "@utils/linkResolver";
 
 export function createMenuSidebar(
   datoItems: SidebarMenuFragmentType[],

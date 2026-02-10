@@ -1,3 +1,4 @@
+import type { ArticleContentFragmentType } from "@graphql/fragment/article";
 import type {
   CalloutFragmentType,
   ExternalLinkFragmentType,
@@ -7,7 +8,9 @@ import type {
   ListCardInfoFragmentType,
   OrderedListFragmentType,
   TopicsBlockFragmentType,
-} from "@graphql/commonFragments";
+} from "@graphql/fragment/commonFragments";
+import type { InsightContentFragmentType } from "@graphql/fragment/insight";
+import type { PageContentFragmentType } from "@graphql/fragment/page";
 import type {
   ActionCardFragmentType,
   DataSectionRecordFragmentType,
@@ -21,14 +24,10 @@ import type {
   TextAndAccordionFragmentType,
   TextAndImageFragmentType,
   WebinarDescriptionFragmentType,
-} from "@graphql/sectionFragments";
-import type {
-  ArticleContentFragmentType,
-  InsightContentFragmentType,
-  PageContentFragmentType,
-  StoryContentFragmentType,
-  WebinarContentFragmentType,
-} from "@graphql/templateFragments";
+} from "@graphql/fragment/sectionFragments";
+import type { StoryContentFragmentType } from "@graphql/fragment/story";
+import type { WebinarContentFragmentType } from "@graphql/fragment/webinar";
+
 import { render } from "datocms-structured-text-to-plain-text";
 
 type BlockType =

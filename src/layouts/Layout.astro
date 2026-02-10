@@ -7,15 +7,15 @@ import { Seo, type TitleMetaLinkTag } from "@datocms/astro";
 import type {
   FooterFragmentType,
   HeaderFragmentType,
-} from "@graphql/sectionFragments";
+} from "@graphql/fragment/sectionFragments";
+import { LayoutQuery } from "@graphql/query/layout";
+import {
+  GlobalSettingsQuery,
+  SiteMetaTagsQuery,
+} from "@graphql/query/settings";
 import { executeQuery } from "@lib/datocms";
 import { isDraftModeEnabled } from "@lib/draftMode";
 import { type JsonLdPageData } from "@utils/JsonLD/seoJsonLd";
-import {
-  GlobalSettingsQuery,
-  LayoutQuery,
-  SiteMetaTagsQuery,
-} from "@utils/query";
 import bsi from "bootstrap-italia/dist/js/bootstrap-italia.bundle.min.js?url";
 import "../styles/global.scss";
 import JsonLDScripts from "./JsonLDScripts.astro";

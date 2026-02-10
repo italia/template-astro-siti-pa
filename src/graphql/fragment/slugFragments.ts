@@ -1,5 +1,4 @@
-import { LocaleFragment } from "@graphql/commonFragments";
-import { graphql, type FragmentOf } from "@graphql/graphql";
+import { LocaleFragment } from "@graphql/fragment/commonFragments";
 import {
   ArticleLocalesFragment,
   CatalogueLocalesFragment,
@@ -7,7 +6,8 @@ import {
   PageLocalesFragment,
   StoryItemLocalesFragment,
   WebinarItemLocalesFragment,
-} from "@graphql/metaFragments";
+} from "@graphql/fragment/metaFragments";
+import { graphql, type FragmentOf } from "@graphql/graphql";
 
 export const AllArticlesSlugFragment = graphql(
   `

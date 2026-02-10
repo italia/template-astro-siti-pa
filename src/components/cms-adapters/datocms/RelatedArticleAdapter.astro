@@ -1,7 +1,7 @@
 ---
-import type { RelatedArticleFragmentType } from "../../../graphql/commonFragments";
-import ArticleNavigationAdapter from "./ArticleNavigationAdapter.astro";
+import type { RelatedArticleFragmentType } from "@graphql/fragment/commonFragments";
 import ArticleListAdapter from "./ArticleListAdapter.astro";
+import ArticleNavigationAdapter from "./ArticleNavigationAdapter.astro";
 
 type DatoRecord = RelatedArticleFragmentType & {
   __typename: string;

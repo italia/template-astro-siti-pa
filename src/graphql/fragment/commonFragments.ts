@@ -221,9 +221,9 @@ export const NewsTabFragment = graphql(
 
 export type NewsTabFragmentType = FragmentOf<typeof NewsTabFragment>;
 
-export const StoryItemFragment = graphql(
+export const StoryCardFragment = graphql(
   `
-    fragment StoryItemFragment on StoryItemRecord @_unmask {
+    fragment StoryCardFragment on StoryItemRecord @_unmask {
       id
       title
       topic {
@@ -239,7 +239,7 @@ export const StoryItemFragment = graphql(
   [ImageFragment],
 );
 
-export type StoryItemFragmentType = FragmentOf<typeof StoryItemFragment>;
+export type StoryCardFragmentType = FragmentOf<typeof StoryCardFragment>;
 
 export const StoryTabFragment = graphql(
   `
@@ -250,11 +250,11 @@ export const StoryTabFragment = graphql(
       id
       title
       news {
-        ...StoryItemFragment
+        ...StoryCardFragment
       }
     }
   `,
-  [StoryItemFragment, InternalLinkFragment],
+  [StoryCardFragment, InternalLinkFragment],
 );
 
 export type StoryTabFragmentType = FragmentOf<typeof StoryTabFragment>;

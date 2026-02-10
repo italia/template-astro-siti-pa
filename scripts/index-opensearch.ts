@@ -1,4 +1,4 @@
-import { LocaleLabelsQuery } from "@graphql/query/indexing";
+import { LocaleLabelsQuery } from "@graphql/fragment/indexing";
 import type { Document, SiteLocale } from "@graphql/types";
 import { executeQuery } from "@lib/datocms";
 import { Client } from "@opensearch-project/opensearch";

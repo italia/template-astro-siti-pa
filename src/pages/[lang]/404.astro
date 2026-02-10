@@ -3,10 +3,10 @@ import { ButtonLink } from "@components/atoms/Button";
 import { Image } from "@components/atoms/Image";
 import { SplitContent } from "@components/layout/SplitContent";
 import { ErrorPageQuery } from "@graphql/query/errorPage";
+import { LocalesQuery } from "@graphql/query/settings";
 import Layout from "@layouts/Layout.astro";
 import { executeQuery } from "@lib/datocms";
 import { linkResolver } from "@utils/linkResolver";
-import { LocalesQuery } from "@utils/query";
 
 export async function getStaticPaths() {
   const {

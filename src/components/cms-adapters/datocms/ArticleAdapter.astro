@@ -2,7 +2,8 @@
 import StructuredTextAdapter from "@components/cms-adapters/datocms/StructuredTextAdapter.astro";
 import { Breadcrumb } from "@components/molecules/Breadcrumb";
 import { SectionContainer } from "@components/organisms/SectionContainer";
-import type { ArticleContentFragmentType } from "@graphql/templateFragments";
+import type { ArticleContentFragmentType } from "@graphql/fragment/article";
+
 import { createBreadcrumb } from "@utils/createBreadcrumb";
 
 type Props = {

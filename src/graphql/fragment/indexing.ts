@@ -1,31 +1,29 @@
+import { ArticleContentFragment } from "@graphql/fragment/article";
 import {
   DownloadLinkFragment,
   ExternalLinkFragment,
   LocaleFragment,
-} from "@graphql/commonFragments";
-import { graphql, type FragmentOf } from "@graphql/graphql";
+} from "@graphql/fragment/commonFragments";
+import { HomepageModelContentFragment } from "@graphql/fragment/homepage";
+import { InsightContentFragment } from "@graphql/fragment/insight";
 import {
   ArticleLocalesFragment,
   InsightLocalesFragment,
   PageLocalesFragment,
   StoryItemLocalesFragment,
   WebinarItemLocalesFragment,
-} from "@graphql/metaFragments";
+} from "@graphql/fragment/metaFragments";
+import { PageContentFragment } from "@graphql/fragment/page";
 import {
   AllArticlesSlugFragment,
   AllInsightsSlugFragment,
   AllPagesSlugFragment,
   AllStoryItemsSlugFragment,
   AllWebinarItemsSlugFragment,
-} from "@graphql/slugFragments";
-import {
-  ArticleContentFragment,
-  HomepageModelContentFragment,
-  InsightContentFragment,
-  PageContentFragment,
-  StoryContentFragment,
-  WebinarContentFragment,
-} from "@graphql/templateFragments";
+} from "@graphql/fragment/slugFragments";
+import { StoryContentFragment } from "@graphql/fragment/story";
+import { WebinarContentFragment } from "@graphql/fragment/webinar";
+import { graphql, type FragmentOf } from "@graphql/graphql";
 
 export const ArticleIndexingFragment = graphql(
   `

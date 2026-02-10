@@ -1,12 +1,14 @@
 ---
 import PageAdapter from "@components/cms-adapters/datocms/PageAdapter.astro";
-import type { TagFragmentType } from "@graphql/commonFragments";
+import type { TagFragmentType } from "@graphql/fragment/commonFragments";
+import type { InsightContentFragmentType } from "@graphql/fragment/insight";
+
 import {
   AllInsightsContentQuery,
   InsightSeoQuery,
 } from "@graphql/query/insight";
 import type { SeoFieldFragmentType } from "@graphql/seoFragments";
-import type { InsightContentFragmentType } from "@graphql/templateFragments";
+
 import type { SiteLocale } from "@graphql/types";
 import Layout from "@layouts/Layout.astro";
 import { executeQuery } from "@lib/datocms";

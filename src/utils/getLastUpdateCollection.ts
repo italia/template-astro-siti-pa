@@ -1,4 +1,4 @@
-import type { CatalogueContentFragmentType } from "@graphql/templateFragments";
+import type { CatalogueContentFragmentType } from "@graphql/fragment/catalogue";
 
 export const getLastUpdateCollection = (
   content: CatalogueContentFragmentType[] | undefined,

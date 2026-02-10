@@ -1,3 +1,4 @@
+import { AllLinkQuery } from "@graphql/query/settings";
 import { executeQuery } from "@lib/datocms";
 import {
   getTitle,
@@ -8,7 +9,7 @@ import {
   type LocaleMap,
   type SiteMap,
 } from "@utils/linkMap/processItems";
-import { AllLinkQuery } from "@utils/query";
+
 import fs from "fs";
 import path from "path";
 

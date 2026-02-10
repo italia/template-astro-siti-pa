@@ -6,7 +6,7 @@ import type {
   ResourseIndexingFragmentType,
   StoryIndexingFragmentType,
   WebinarIndexingFragmentType,
-} from "@graphql/query/indexing";
+} from "@graphql/fragment/indexing";
 import type { SiteLocale } from "@graphql/types";
 import { createDownloadUrl } from "@utils/createDownloadUrl";
 import {

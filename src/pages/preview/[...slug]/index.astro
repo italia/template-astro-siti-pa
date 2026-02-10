@@ -4,23 +4,23 @@ import SidebarAdapter from "@components/cms-adapters/datocms/SidebarAdapter.astr
 import SidebarLayoutAdapter from "@components/cms-adapters/datocms/SidebarLayoutAdapter.astro";
 import DraftModeQueryListener from "@components/DraftModeQueryListener.astro";
 import type { TypedDocumentNode } from "@datocms/cda-client";
-import type { SidebarFragmentType } from "@graphql/commonFragments";
+import type { SidebarFragmentType } from "@graphql/fragment/commonFragments";
+import { HomepageQuery } from "@graphql/query/homepage";
+import { LayoutQuery, SidebarQuery } from "@graphql/query/layout";
+import {
+  ArticleByIdQuery,
+  CatalogueByIdQuery,
+  InsightByIdQuery,
+  PageByIdQuery,
+  StoryItemByIdQuery,
+  WebinarByIdQuery,
+} from "@graphql/query/preview";
+
 import { SearchPageContentQuery } from "@graphql/query/search";
 import type { SiteLocale } from "@graphql/types";
 import Layout from "@layouts/Layout.astro";
 import { executeQuery } from "@lib/datocms";
 import { linkResolver } from "@utils/linkResolver";
-import {
-  ArticleByIdQuery,
-  CatalogueByIdQuery,
-  HomepageQuery,
-  InsightByIdQuery,
-  LayoutQuery,
-  PageByIdQuery,
-  SidebarQuery,
-  StoryItemByIdQuery,
-  WebinarByIdQuery,
-} from "@utils/query";
 
 type QueryConfig<T = any, V = any> = {
   query: TypedDocumentNode<T, V>;

@@ -1,19 +1,23 @@
 ---
 import SidebarLayoutAdapter from "@components/cms-adapters/datocms/SidebarLayoutAdapter.astro";
+import type { ArticleContentFragmentType } from "@graphql/fragment/article";
 import type {
   SidebarFragmentType,
   TagFragmentType,
-} from "@graphql/commonFragments";
-import { ArticleSeoQuery } from "@graphql/query/article";
+} from "@graphql/fragment/commonFragments";
+import {
+  AllArticlesContentQuery,
+  ArticleSeoQuery,
+} from "@graphql/query/article";
+import { SidebarQuery } from "@graphql/query/layout";
 import type { SeoFieldFragmentType } from "@graphql/seoFragments";
-import type { ArticleContentFragmentType } from "@graphql/templateFragments";
+
 import type { SiteLocale } from "@graphql/types";
 import Layout from "@layouts/Layout.astro";
 import { executeQuery } from "@lib/datocms";
 import { type JsonLdPageData } from "@utils/JsonLD/seoJsonLd";
 import { linkResolver } from "@utils/linkResolver";
 import { removeLang } from "@utils/pathHelper";
-import { AllArticlesQuery, SidebarQuery } from "@utils/query";
 
 export async function getStaticPaths() {
   type PathItem = {
@@ -32,7 +36,7 @@ export async function getStaticPaths() {
     };
   };
 
-  const response = await executeQuery(AllArticlesQuery);
+  const response = await executeQuery(AllArticlesContentQuery);
 
   const pathsPromises =
     response.allArticles?.flatMap((page) =>

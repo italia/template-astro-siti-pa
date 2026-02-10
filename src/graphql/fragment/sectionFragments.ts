@@ -31,7 +31,7 @@ import {
   TextBlockFragment,
   TopicsBlockFragment,
   UseCaseBlockFragment,
-} from "@graphql/commonFragments";
+} from "@graphql/fragment/commonFragments";
 import { graphql, type FragmentOf } from "@graphql/graphql";
 
 export const HeroFragment = graphql(

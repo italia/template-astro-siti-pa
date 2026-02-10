@@ -1,8 +1,10 @@
 ---
 import PageAdapter from "@components/cms-adapters/datocms/PageAdapter.astro";
+import { HomepageQuery } from "@graphql/query/homepage";
+import { LocalesQuery } from "@graphql/query/settings";
+
 import Layout from "@layouts/Layout.astro";
 import { executeQuery } from "@lib/datocms";
-import { HomepageQuery, LocalesQuery } from "@utils/query";
 
 export async function getStaticPaths() {
   const {

@@ -1,5 +1,5 @@
+import { LocaleFragment, TagFragment } from "@graphql/fragment/commonFragments";
 import { graphql, type FragmentOf } from "@graphql/graphql";
-import { LocaleFragment, TagFragment } from "./commonFragments";
 
 export const SeoMetaFragment = graphql(
   `

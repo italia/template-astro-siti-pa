@@ -1,4 +1,5 @@
-import { AllDocumentsQuery } from "@graphql/query/indexing";
+import { AllDocumentsQuery } from "@graphql/fragment/indexing";
+import { LocalesQuery } from "@graphql/query/settings";
 import type { SiteLocale } from "@graphql/types";
 import { executeQuery } from "@lib/datocms";
 import {
@@ -9,7 +10,6 @@ import {
   resolveArticleCategory,
 } from "@utils/indexing/getCategory";
 import * as Mappers from "@utils/indexing/indexingMappers";
-import { LocalesQuery } from "@utils/query";
 import type { APIRoute } from "astro";
 
 export async function getStaticPaths() {

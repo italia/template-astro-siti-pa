@@ -1,9 +1,9 @@
+import type { ChartFragmentType } from "@graphql/fragment/commonFragments";
 import {
   ChartWrapper,
   type FieldDataType,
   type InfosType,
 } from "dataviz-components";
-import type { ChartFragmentType } from "@graphql/commonFragments";
 
 type ChartProps = {
   data: ChartFragmentType;

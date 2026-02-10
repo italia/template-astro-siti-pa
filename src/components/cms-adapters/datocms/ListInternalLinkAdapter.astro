@@ -1,7 +1,7 @@
 ---
+import { ListInternalLink } from "@components/molecules/ListInternalLink";
+import type { ListInternalLinkFragmentType } from "@graphql/fragment/commonFragments";
 import { linkResolver } from "@utils/linkResolver";
-import type { ListInternalLinkFragmentType } from "../../../graphql/commonFragments";
-import { ListInternalLink } from "../../molecules/ListInternalLink";
 
 type DatoRecord = ListInternalLinkFragmentType & {
   __typename: string;
