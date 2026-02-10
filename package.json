@@ -6,7 +6,7 @@
     "staging": "NODE_TLS_REJECT_UNAUTHORIZED=0 bun ./scripts/run-env.ts staging dev",
     "production": "bun ./scripts/run-env.ts production dev",
     "build:staging": "bun ./scripts/run-env.ts staging build",
-    "build:production": "bun ./scripts/run-env.ts production build",
+    "build:production": "bun ./scripts/run-env.ts production build && bun run index:production",
     "migrate": "bun ./scripts/migrate.ts",
     "astro": "dotenv -c -- bash -c 'astro'",
     "generate-output": "gql.tada generate output",
@@ -15,7 +15,7 @@
     "prepare": "husky",
     "format": "prettier . --write --ignore-unknown",
     "index:staging": "dotenv -c -- bash -c 'NODE_TLS_REJECT_UNAUTHORIZED=0 bun run ./scripts/index-opensearch.ts staging'",
-    "index:production": "dotenv -c -- bash -c 'NODE_TLS_REJECT_UNAUTHORIZED=0 bun run ./scripts/index-opensearch.ts production'"
+    "index:production": "dotenv -c -- bash -c 'bun run ./scripts/index-opensearch.ts production'"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.6",

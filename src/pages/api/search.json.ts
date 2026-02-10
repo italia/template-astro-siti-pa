@@ -10,6 +10,7 @@ const HOST = import.meta.env.OPENSEARCH_HOST;
 const USERNAME = import.meta.env.OPENSEARCH_USERNAME;
 const PASSWORD = import.meta.env.OPENSEARCH_PASSWORD;
 const INDEX_NAME_PREFIX = import.meta.env.OPENSEARCH_INDEX_NAME;
+const isProduction = process.env.NODE_ENV === "production";
 
 if (!HOST || !USERNAME || !PASSWORD || !INDEX_NAME_PREFIX) {
   throw new Error(
@@ -23,7 +24,9 @@ const client = new Client({
     username: USERNAME,
     password: PASSWORD,
   },
-  agent: new https.Agent({ rejectUnauthorized: false }),
+  agent: isProduction
+    ? undefined
+    : new https.Agent({ rejectUnauthorized: false }),
 });
 
 export const GET: APIRoute = async ({ url }) => {
