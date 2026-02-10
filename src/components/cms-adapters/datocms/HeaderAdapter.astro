@@ -4,6 +4,8 @@ import type {
   HeaderFragmentType,
   SearchMenuFragmentType,
 } from "@graphql/fragment/sectionFragments";
+import { GlobalSettingsQuery } from "@graphql/query/settings";
+import { executeQuery } from "@lib/datocms";
 import { createMenu } from "@utils/createMenuHelper";
 import { linkResolver } from "@utils/linkResolver";
 
@@ -33,6 +35,10 @@ const menuItems = createMenu(
   currentUrl,
   lang,
 );
+
+const { globalSetting } = await executeQuery(GlobalSettingsQuery, {
+  variables: { locale: lang },
+});
 ---
 
 <Header
@@ -48,4 +54,7 @@ const menuItems = createMenu(
     url: linkResolver(search.id, lang),
   }}
   linkBackHome={linkResolver(homeRecordId, lang)}
+  ariaLabelLinkLogo={globalSetting?.ariaLabelLogo || "Home"}
+  ariaLabelLanguageSelector={globalSetting?.languageSelector ||
+    "Lingua selezionata"}
 />

@@ -1521,7 +1521,19 @@ type GlobalSeoField {
 
 """Record of type Global setting (global_setting)"""
 type GlobalSettingRecord implements RecordInterface {
+  _allAriaLabelLogoLocales(
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+  ): [StringNonNullMultiLocaleField!]
   _allLabelCtaLocales(
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+  ): [StringNonNullMultiLocaleField!]
+  _allLanguageSelectorLocales(
     """
     If you want to fallback to a default translation when a translation has not been found
     """
@@ -1573,9 +1585,27 @@ type GlobalSettingRecord implements RecordInterface {
   _status: ItemStatus!
   _unpublishingScheduledAt: DateTime
   _updatedAt: DateTime!
+  ariaLabelLogo(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+  ): String!
   id: ItemId!
   image: FileField!
   labelCta(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+  ): String!
+  languageSelector(
     """The locale to use to fetch the field's content"""
     locale: SiteLocale
 
@@ -7754,7 +7784,7 @@ type TextImageRecord implements RecordInterface {
   variant: String!
 }
 
-"""Block of type Text + statistic (text_statistic)"""
+"""Block of type Text + statistics (text_statistic)"""
 type TextStatisticRecord implements RecordInterface {
   _createdAt: DateTime!
 

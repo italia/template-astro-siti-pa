@@ -38,6 +38,8 @@ export const GlobalSettingsQuery = graphql(`
     globalSetting(locale: $locale) {
       siteName
       lastUpdateLabel
+      ariaLabelLogo
+      languageSelector
     }
   }
 `);

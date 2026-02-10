@@ -7,11 +7,14 @@ export type HeaderCentralProps = HeaderBase & {
   brandTagLine: string;
   menuItems: HeaderNavbarProps;
   logo: string;
+  ariaLabelLinkLogo: string;
+
   search?: SearchConfig;
 };
 
 export type HeaderSlimProps = HeaderBase & {
   slimContent: string;
+  ariaLabelLanguageSelector: string;
   locales: string[];
 };
 

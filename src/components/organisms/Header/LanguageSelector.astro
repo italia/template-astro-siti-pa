@@ -4,9 +4,10 @@ import { linkResolver } from "@utils/linkResolver";
 
 type Props = {
   locales: string[];
+  ariaLabelLanguageSelector: string;
 };
 
-const { locales } = Astro.props;
+const { locales, ariaLabelLanguageSelector } = Astro.props;
 const { lang: currentLocale, recordId: currentRecordId } = Astro.locals;
 
 const getTranslatedHref = (targetLocale: string) => {
@@ -25,8 +26,9 @@ const getTranslatedHref = (targetLocale: string) => {
     role="button"
     data-bs-toggle="dropdown"
     aria-expanded="false"
+    id="languagesDropButton"
   >
-    <span class="visually-hidden">Selezione lingua: lingua selezionata</span>
+    <span class="visually-hidden">{ariaLabelLanguageSelector}</span>
     <span>{currentLocale}</span>
     <ItExpand class="d-none d-lg-block" />
   </a>
@@ -34,7 +36,11 @@ const getTranslatedHref = (targetLocale: string) => {
     <div class="row">
       <div class="col-12">
         <div class="link-list-wrapper">
-          <ul class="link-list">
+          <ul
+            id="languages"
+            class="link-list"
+            aria-labelledby="languagesDropButton"
+          >
             {
               locales.map((locale) => (
                 <li>
