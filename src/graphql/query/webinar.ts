@@ -2,12 +2,12 @@ import {
   TagFragment,
   WebinarItemFragment,
 } from "@graphql/fragment/commonFragments";
+import { SeoFieldFragment } from "@graphql/fragment/seoFragments";
 import {
   AllWebinarItemsFragment,
   WebinarContentFragment,
 } from "@graphql/fragment/webinar";
 import { graphql } from "@graphql/graphql";
-import { SeoFieldFragment } from "@graphql/seoFragments";
 
 export const AllWebinarItemsQuery = graphql(
   `

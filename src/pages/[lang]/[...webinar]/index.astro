@@ -1,12 +1,12 @@
 ---
 import PageAdapter from "@components/cms-adapters/datocms/PageAdapter.astro";
 import type { TagFragmentType } from "@graphql/fragment/commonFragments";
+import type { SeoFieldFragmentType } from "@graphql/fragment/seoFragments";
 import type { WebinarContentFragmentType } from "@graphql/fragment/webinar";
 import {
   AllWebinarsContentQuery,
   WebinarSeoQuery,
 } from "@graphql/query/webinar";
-import type { SeoFieldFragmentType } from "@graphql/seoFragments";
 import type { SiteLocale } from "@graphql/types";
 import Layout from "@layouts/Layout.astro";
 import { executeQuery } from "@lib/datocms";

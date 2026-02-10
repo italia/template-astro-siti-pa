@@ -1,5 +1,5 @@
 import rawLinkMap from "@data/linkMap.json";
-import type { SeoFieldFragmentType } from "@graphql/seoFragments";
+import type { SeoFieldFragmentType } from "@graphql/fragment/seoFragments";
 import type { SiteLocale } from "@graphql/types";
 import {
   getBreadcrumbs,

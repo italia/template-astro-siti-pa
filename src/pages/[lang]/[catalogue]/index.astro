@@ -2,11 +2,11 @@
 import PageAdapter from "@components/cms-adapters/datocms/PageAdapter.astro";
 import type { CatalogueContentFragmentType } from "@graphql/fragment/catalogue";
 import type { TagFragmentType } from "@graphql/fragment/commonFragments";
+import type { SeoFieldFragmentType } from "@graphql/fragment/seoFragments";
 import {
   AllCataloguesContentQuery,
   CatalogueSeoQuery,
 } from "@graphql/query/catalogue";
-import type { SeoFieldFragmentType } from "@graphql/seoFragments";
 
 import type { SiteLocale } from "@graphql/types";
 import Layout from "@layouts/Layout.astro";

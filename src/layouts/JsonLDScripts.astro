@@ -1,8 +1,8 @@
 ---
+import { GlobalSettingsQuery } from "@graphql/query/settings";
 import { executeQuery } from "@lib/datocms";
 import { generateJsonLdScripts } from "@utils/JsonLD/generateScripts";
 import { type JsonLdPageData } from "@utils/JsonLD/seoJsonLd";
-import { GlobalSettingsQuery } from "@utils/query";
 
 type Props = {
   jsonLd?: JsonLdPageData;

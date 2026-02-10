@@ -1,4 +1,4 @@
-import { ImageFragment } from "@graphql/commonFragments";
+import { ImageFragment } from "@graphql/fragment/commonFragments";
 import { graphql, type FragmentOf } from "@graphql/graphql";
 
 export const SeoFieldFragment = graphql(

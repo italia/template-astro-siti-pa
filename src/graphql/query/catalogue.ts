@@ -1,7 +1,7 @@
 import { CatalogueContentFragment } from "@graphql/fragment/catalogue";
 import { TagFragment } from "@graphql/fragment/commonFragments";
+import { SeoFieldFragment } from "@graphql/fragment/seoFragments";
 import { graphql } from "@graphql/graphql";
-import { SeoFieldFragment } from "@graphql/seoFragments";
 
 export const AllCataloguesContentQuery = graphql(
   `

@@ -49,9 +49,6 @@ export const AllStoryItemsFragment = graphql(
   `
     fragment AllStoryItemsFragment on StoryItemRecord @_unmask {
       id
-      seo: _seoMetaTags {
-        ...TagFragment
-      }
       allContentLocales: _allContentLocales {
         locale
         value {

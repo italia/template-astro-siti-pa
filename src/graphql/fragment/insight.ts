@@ -51,9 +51,6 @@ export const AllInsightsFragment = graphql(
   `
     fragment AllInsightsFragment on InsightRecord @_unmask {
       id
-      seo: _seoMetaTags {
-        ...TagFragment
-      }
       allContentLocales: _allContentLocales {
         locale
         value {

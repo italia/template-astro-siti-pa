@@ -2,9 +2,9 @@ import {
   StoryCardFragment,
   TagFragment,
 } from "@graphql/fragment/commonFragments";
+import { SeoFieldFragment } from "@graphql/fragment/seoFragments";
 import { StoryContentFragment } from "@graphql/fragment/story";
 import { graphql } from "@graphql/graphql";
-import { SeoFieldFragment } from "@graphql/seoFragments";
 
 export const AllStoryCardQuery = graphql(
   `

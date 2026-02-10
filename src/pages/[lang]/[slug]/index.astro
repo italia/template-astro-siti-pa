@@ -3,8 +3,8 @@ import PageAdapter from "@components/cms-adapters/datocms/PageAdapter.astro";
 
 import type { TagFragmentType } from "@graphql/fragment/commonFragments";
 import type { PageContentFragmentType } from "@graphql/fragment/page";
+import type { SeoFieldFragmentType } from "@graphql/fragment/seoFragments";
 import { AllPagesContentQuery, PageSeoQuery } from "@graphql/query/page";
-import type { SeoFieldFragmentType } from "@graphql/seoFragments";
 import type { SiteLocale } from "@graphql/types";
 import Layout from "@layouts/Layout.astro";
 import { executeQuery } from "@lib/datocms";

@@ -1,5 +1,6 @@
 import { TagFragment } from "@graphql/fragment/commonFragments";
 import { HomepageModelContentFragment } from "@graphql/fragment/homepage";
+import { SeoFieldFragment } from "@graphql/fragment/seoFragments";
 import { graphql } from "@graphql/graphql";
 
 export const HomepageQuery = graphql(
@@ -9,8 +10,12 @@ export const HomepageQuery = graphql(
         id
         title
         publishedAt: _publishedAt
-        seo: _seoMetaTags(locale: $locale) {
+        updatedAt: _updatedAt
+        metaTags: _seoMetaTags(locale: $locale) {
           ...TagFragment
+        }
+        seo {
+          ...SeoFieldFragment
         }
         content {
           ...HomepageModelContentFragment
@@ -18,5 +23,5 @@ export const HomepageQuery = graphql(
       }
     }
   `,
-  [HomepageModelContentFragment, TagFragment],
+  [HomepageModelContentFragment, SeoFieldFragment, TagFragment],
 );

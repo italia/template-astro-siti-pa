@@ -1,8 +1,16 @@
-
-
-import type { NewsItemFragmentType, ResourceFragmentType, StoryCardFragmentType, WebinarItemFragmentType } from "@graphql/fragment/commonFragments";
+import type {
+  NewsItemFragmentType,
+  ResourceFragmentType,
+  StoryCardFragmentType,
+  WebinarItemFragmentType,
+} from "@graphql/fragment/commonFragments";
+import { AllNewsQuery } from "@graphql/query/news";
+import { AllResourcesQuery } from "@graphql/query/resource";
+import { LocalesQuery } from "@graphql/query/settings";
+import { AllStoryCardQuery } from "@graphql/query/story";
+import { AllWebinarQuery } from "@graphql/query/webinar";
 import { executeQuery } from "@lib/datocms";
-import { AllNewsQuery, AllResourcesQuery, AllWebinarQuery, LocalesQuery } from "@utils/query";
+
 import { defineCollection, z } from "astro:content";
 
 const newsSchema = z.custom<NewsItemFragmentType>();
