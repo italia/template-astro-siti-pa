@@ -9,6 +9,7 @@ export type HeroProps = {
   showBreadcrumb?: boolean;
   variant?: HeroVariantProps;
   backgroundColor?: SectionBackground;
+  bgClass?: string;
 };
 
 export type HeroSizeProps = "xsmall" | "small" | "default";

@@ -1,3 +1,5 @@
+@import "@styles/palette";
+
 .icon-container {
   display: flex;
   width: 56px;
@@ -6,11 +8,11 @@
   justify-content: center;
   align-items: center;
   border-radius: 4px;
-  background: #79ece8;
+  background: $accent-color;
 }
 
 .icon-container.icon-text {
-  color: var(--color-blue-20, #036);
+  color: $primary-darker;
   font-family: "Titillium Web";
   font-size: 40px;
   font-style: normal;

@@ -1,6 +1,7 @@
 @use "bootstrap-italia/src/scss/bootstrap-italia" as *;
+@import "@styles/palette";
 
 .bg-teal {
-  background: #79ece8;
+  background: $accent-color;
   color: $color-text-secondary;
 }

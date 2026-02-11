@@ -4359,6 +4359,7 @@ input KpiElementModelFilter {
   flowDirection: StringFilter
   flowValue: StringFilter
   footerText: StringFilter
+  openDataPath: StringFilter
   percentage: StringFilter
   showFlow: BooleanFilter
   title: StringFilter
@@ -4398,6 +4399,8 @@ enum KpiElementModelOrderBy {
   flowValue_DESC
   footerText_ASC
   footerText_DESC
+  openDataPath_ASC
+  openDataPath_DESC
   percentage_ASC
   percentage_DESC
   showFlow_ASC
@@ -4438,6 +4441,7 @@ type KpiElementRecord implements RecordInterface {
   flowValue: String
   footerText: String
   id: ItemId!
+  openDataPath: String
   percentage: String
   showFlow: BooleanType!
   title: String!
