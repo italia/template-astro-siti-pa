@@ -17,7 +17,8 @@ const {
   backgroundColor = "light",
 } = Astro.props;
 
-const bgClass = backgroundColor === "light" ? "lightgrey-bg-a3" : "white-bg";
+const bgClass =
+  backgroundColor === "light" ? "it-section-bg-light" : "it-section-bg-default";
 ---
 
 <style>
@@ -74,7 +75,7 @@ const bgClass = backgroundColor === "light" ? "lightgrey-bg-a3" : "white-bg";
 </article>
 
 <article
-  class="it-card rounded shadow-sm border lightgrey-bg-a3 d-block d-lg-none"
+  class="it-card rounded shadow-sm border it-section-bg-light d-block d-lg-none"
 >
   {
     image && (
