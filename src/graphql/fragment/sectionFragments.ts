@@ -25,7 +25,6 @@ import {
   OrderedListFragment,
   QuickLinkCardFragment,
   StatisticBlockFragment,
-  StatisticsBoxFragment,
   StoryTabFragment,
   SupportingBrandFragment,
   TextBlockFragment,
@@ -215,15 +214,17 @@ export const HighlightsFragment = graphql(
       id
       title
       paragraph(markdown: true)
-      cards {
-        ...StatisticsBoxFragment
+      kpiElement {
+        title
+        valuePrefix
+        value
       }
       image {
         ...ImageFragment
       }
     }
   `,
-  [StatisticsBoxFragment, ImageFragment],
+  [ImageFragment],
 );
 
 export type HighlightsFragmentType = FragmentOf<typeof HighlightsFragment>;

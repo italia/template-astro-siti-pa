@@ -173,8 +173,10 @@ const flattenDataSection = (record: DataSectionRecordFragmentType): string => {
     const h = record.highlights;
     parts.push(h.title);
     parts.push(h.paragraph);
-    h.cards?.forEach((card) => {
-      parts.push(card.title, card.description);
+    h.kpiElement?.forEach((kpi) => {
+      parts.push(kpi.title);
+      kpi.valuePrefix && parts.push(kpi.valuePrefix);
+      kpi.value && parts.push(kpi.value);
     });
   }
 

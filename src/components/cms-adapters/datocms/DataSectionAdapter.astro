@@ -1,7 +1,10 @@
 ---
 import type { CardEditorialNewsProps } from "@components/molecules/CardEditorialNews/types";
 import { DataSection } from "@components/organisms/DataSection";
-import type { ResultProps } from "@components/organisms/DataSection/types";
+import type {
+  HighlightsProps,
+  ResultProps,
+} from "@components/organisms/DataSection/types";
 import type { DataSectionRecordFragmentType } from "@graphql/fragment/sectionFragments";
 import { linkResolver } from "@utils/linkResolver";
 
@@ -12,9 +15,13 @@ type Props = {
 const { block } = Astro.props;
 const { lang } = Astro.locals;
 
-const highlights = {
+const highlights: HighlightsProps = {
   ...block.highlights,
   image: block.highlights.image,
+  cards: block.highlights.kpiElement.map((kpi) => ({
+    title: kpi.title,
+    description: `${kpi.valuePrefix || ""} ${kpi.value}`,
+  })),
 };
 const panel = {
   title: block.panel.title,

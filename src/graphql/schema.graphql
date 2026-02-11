@@ -1828,9 +1828,9 @@ type HighlightRecord implements RecordInterface {
   _status: ItemStatus!
   _unpublishingScheduledAt: DateTime
   _updatedAt: DateTime!
-  cards: [StatisticsBoxRecord!]!
   id: ItemId!
   image: FileField!
+  kpiElement: [KpiElementRecord!]!
   paragraph(
     """Process content as markdown"""
     markdown: Boolean
