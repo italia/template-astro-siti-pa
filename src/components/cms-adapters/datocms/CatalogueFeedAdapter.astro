@@ -24,8 +24,6 @@ const tabs: PageNewsTab[] = block.tabs.map((tab) => ({
 const { globalSetting } = await executeQuery(GlobalSettingsQuery, {
   variables: { locale: lang },
 });
-
-console.log(globalSetting);
 ---
 
 <CatalogueFeed

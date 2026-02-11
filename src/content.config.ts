@@ -38,7 +38,6 @@ const newsCollection = defineCollection({
         if (response?.allNewsItems && Array.isArray(response.allNewsItems)) {
           const itemsWithLocale = response.allNewsItems.map((item: any) => ({
             ...item,
-            id: `${locale}-${item.id}`,
             _locale: locale,
           }));
 
@@ -51,6 +50,7 @@ const newsCollection = defineCollection({
       }
     }
 
+    console.log("allEntries", allEntries);
     return allEntries;
   },
 });
@@ -72,7 +72,6 @@ const storiesCollection = defineCollection({
         if (response?.allStoryItems && Array.isArray(response.allStoryItems)) {
           const itemsWithLocale = response.allStoryItems.map((item: any) => ({
             ...item,
-            id: `${locale}-${item.id}`,
             _locale: locale,
           }));
 
@@ -109,7 +108,6 @@ const webinarsCollection = defineCollection({
         ) {
           const itemsWithLocale = response.allWebinarItems.map((item: any) => ({
             ...item,
-            id: `${locale}-${item.id}`,
             _locale: locale,
           }));
 
@@ -143,7 +141,6 @@ const resourcesCollection = defineCollection({
         if (response?.allResources && Array.isArray(response.allResources)) {
           const itemsWithLocale = response.allResources.map((item: any) => ({
             ...item,
-            id: `${locale}-${item.id}`,
             _locale: locale,
           }));
 
