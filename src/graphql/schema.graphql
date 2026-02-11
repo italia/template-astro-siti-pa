@@ -1587,6 +1587,12 @@ type GlobalSettingRecord implements RecordInterface {
     """
     fallbackLocales: [SiteLocale!]
   ): [StringNonNullMultiLocaleField!]
+  _allLoadingLocales(
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+  ): [StringNonNullMultiLocaleField!]
   _allParagraphLocales(
     """Process content as markdown"""
     markdown: Boolean
@@ -1720,6 +1726,15 @@ type GlobalSettingRecord implements RecordInterface {
     fallbackLocales: [SiteLocale!]
   ): String!
   lastUpdateLabel(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+  ): String!
+  loading(
     """The locale to use to fetch the field's content"""
     locale: SiteLocale
 

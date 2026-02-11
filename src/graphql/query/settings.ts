@@ -47,6 +47,7 @@ export const GlobalSettingsQuery = graphql(`
       ariaLabelInternalLink
       ariaLabelDownloadLink
       analyzer
+      loading
     }
   }
 `);
