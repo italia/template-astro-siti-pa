@@ -5,6 +5,8 @@ export type ResourceProps = {
   type: string;
   url: string;
   download?: boolean;
+  ariaLabelExternalLink?: string;
+  ariaLabelDownloadLink?: string;
 };
 
 export function Resource({
@@ -13,8 +15,11 @@ export function Resource({
   url,
   download,
   type,
+  ariaLabelExternalLink = "",
+  ariaLabelDownloadLink = "",
 }: ResourceProps) {
   const icon = download ? "it-download" : "it-external-link";
+  const ariaLabel = download ? ariaLabelDownloadLink : ariaLabelExternalLink;
 
   return (
     <>
@@ -30,6 +35,7 @@ export function Resource({
           <svg className="icon icon-sm icon-primary">
             <use href={`/bsi-svg/sprites.svg#${icon}`} />
           </svg>
+          <span className="visually-hidden">{ariaLabel}</span>
         </a>
         <div>
           <div className="mb-2 mb-md-0 mt-2 mt-md-0 ms-lg-3 badge bg-secondary text-uppercase">

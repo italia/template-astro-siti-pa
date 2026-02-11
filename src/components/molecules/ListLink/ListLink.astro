@@ -1,0 +1,18 @@
+---
+import ListLinkItem from "./ListLinkItem.astro";
+import type { ListLinkProps } from "./types";
+
+type Props = ListLinkProps;
+
+const { items, variant } = Astro.props;
+---
+
+<style>
+  @import "./style.scss";
+</style>
+
+<div class="it-list-wrapper">
+  <ul class="it-list">
+    {items.map((item) => <ListLinkItem {...item} variant={variant} />)}
+  </ul>
+</div>

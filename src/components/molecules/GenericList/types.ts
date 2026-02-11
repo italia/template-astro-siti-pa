@@ -12,9 +12,6 @@ export type GenericListItemProps = {
   subtext?: string;
   avatar?: string;
   icon?: string;
-  iconRight?: string;
-  linkTo?: string;
-  openInNewTab?: boolean;
 };
 
 export type GenericListSizeProps = "default" | "bold" | "small";

@@ -1521,6 +1521,12 @@ type GlobalSeoField {
 
 """Record of type Global setting (global_setting)"""
 type GlobalSettingRecord implements RecordInterface {
+  _allAnalyzerLocales(
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+  ): [StringNonNullMultiLocaleField!]
   _allAriaLabelCardActionLocales(
     """
     If you want to fallback to a default translation when a translation has not been found
@@ -1528,6 +1534,24 @@ type GlobalSettingRecord implements RecordInterface {
     fallbackLocales: [SiteLocale!]
   ): [StringNonNullMultiLocaleField!]
   _allAriaLabelCardCategoryLocales(
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+  ): [StringNonNullMultiLocaleField!]
+  _allAriaLabelDownloadLinkLocales(
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+  ): [StringNonNullMultiLocaleField!]
+  _allAriaLabelExternalLinkLocales(
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+  ): [StringNonNullMultiLocaleField!]
+  _allAriaLabelInternalLinkLocales(
     """
     If you want to fallback to a default translation when a translation has not been found
     """
@@ -1603,6 +1627,15 @@ type GlobalSettingRecord implements RecordInterface {
   _status: ItemStatus!
   _unpublishingScheduledAt: DateTime
   _updatedAt: DateTime!
+  analyzer(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+  ): String!
   ariaLabelCardAction(
     """The locale to use to fetch the field's content"""
     locale: SiteLocale
@@ -1613,6 +1646,33 @@ type GlobalSettingRecord implements RecordInterface {
     fallbackLocales: [SiteLocale!]
   ): String!
   ariaLabelCardCategory(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+  ): String!
+  ariaLabelDownloadLink(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+  ): String!
+  ariaLabelExternalLink(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+  ): String!
+  ariaLabelInternalLink(
     """The locale to use to fetch the field's content"""
     locale: SiteLocale
 

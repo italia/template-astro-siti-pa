@@ -13,6 +13,8 @@ export type UpdateTabSectionProps = {
   ariaLabelTopic: string;
   ariaLabelCardCategory: string;
   ariaLabelCardAction: string;
+  ariaLabelExternalLink: string;
+  ariaLabelDownloadLink: string;
 };
 
 export type ElementType =

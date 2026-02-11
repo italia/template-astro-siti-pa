@@ -1,0 +1,39 @@
+---
+import ItIcon from "@static/assets/ItIcon.astro";
+import type { ListLinkItemProps, ListLinkVariantProps } from "./types";
+
+type Props = ListLinkItemProps & {
+  variant?: ListLinkVariantProps;
+  bordered?: boolean;
+};
+const {
+  text,
+  iconRight,
+  linkTo,
+  variant = "light",
+  bordered = false,
+  openInNewTab = false,
+  ariaLabelLink,
+} = Astro.props;
+
+const colorClassName = variant === "dark" ? "text-white text-underline" : "";
+const iconClassName = variant === "dark" ? "icon-white" : "";
+
+const target = openInNewTab ? "_blank" : "_self";
+const rel = openInNewTab ? "noopener noreferrer" : undefined;
+---
+
+<li>
+  <div class={`list-item ${!bordered ? "border-0" : ""}`}>
+    <a
+      href={linkTo}
+      class={`it-right-zone ${colorClassName}`}
+      rel={rel}
+      target={target}
+    >
+      <div class="fs-6 m-0 col-10">{text}</div>
+      {iconRight && <ItIcon name={iconRight} class={iconClassName} />}
+      {ariaLabelLink && <span class="visually-hidden">{ariaLabelLink}</span>}
+    </a>
+  </div>
+</li>

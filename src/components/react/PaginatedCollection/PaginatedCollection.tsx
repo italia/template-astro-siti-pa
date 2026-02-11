@@ -20,6 +20,8 @@ type PaginatedCollectionCommonProps = {
   ariaLabelTopic: string;
   ariaLabelCardCategory: string;
   ariaLabelCardAction: string;
+  ariaLabelExternalLink: string;
+  ariaLabelDownloadLink: string;
 };
 
 type PaginatedCollectionProps =
@@ -51,6 +53,8 @@ export function PaginatedCollection({
   ariaLabelTopic,
   ariaLabelCardCategory,
   ariaLabelCardAction,
+  ariaLabelDownloadLink,
+  ariaLabelExternalLink,
 }: PaginatedCollectionProps) {
   const [page, setPage] = useState(1);
   const [selectedCategory, setSelectedCategory] = useState(labelForAll);
@@ -153,7 +157,11 @@ export function PaginatedCollection({
               )}
 
               {newsPageTabType === "resource" && (
-                <Resource {...(n as ResourceProps)} />
+                <Resource
+                  {...(n as ResourceProps)}
+                  ariaLabelExternalLink={ariaLabelExternalLink}
+                  ariaLabelDownloadLink={ariaLabelDownloadLink}
+                />
               )}
             </li>
           );

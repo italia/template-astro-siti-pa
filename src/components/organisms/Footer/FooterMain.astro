@@ -1,6 +1,8 @@
 ---
 import { ChipLink } from "@components/atoms/Chip";
 import { Link } from "@components/atoms/Link";
+import { GlobalSettingsQuery } from "@graphql/query/settings";
+import { executeQuery } from "@lib/datocms";
 import FooterUtility from "./FooterUtility.astro";
 import type { FooterTopicsProps, FooterUtilityProps } from "./types";
 
@@ -9,6 +11,10 @@ type Props = {
   utilities: FooterUtilityProps[];
 };
 const { topics, utilities } = Astro.props;
+const { lang } = Astro.locals;
+const { globalSetting } = await executeQuery(GlobalSettingsQuery, {
+  variables: { locale: lang },
+});
 ---
 
 <div class="it-footer-main">
@@ -23,7 +29,14 @@ const { topics, utilities } = Astro.props;
             {
               topics.items.map((topic) => (
                 <li class="list-inline-item">
-                  <ChipLink {...topic} variant="outline-white" size="large" />
+                  <ChipLink
+                    {...topic}
+                    variant="outline-white"
+                    size="large"
+                    visuallyHidden={
+                      globalSetting?.ariaLabelInternalLink || "Link interno"
+                    }
+                  />
                 </li>
               ))
             }

@@ -28,6 +28,8 @@ const {
   ariaLabelTopic,
   ariaLabelCardCategory,
   ariaLabelCardAction,
+  ariaLabelExternalLink,
+  ariaLabelDownloadLink,
 } = Astro.props;
 const { lang } = Astro.locals;
 
@@ -92,6 +94,8 @@ function getCollectionItems(type: string) {
                 ariaLabelTopic={ariaLabelTopic}
                 ariaLabelCardCategory={ariaLabelCardCategory}
                 ariaLabelCardAction={ariaLabelCardAction}
+                ariaLabelExternalLink={ariaLabelExternalLink}
+                ariaLabelDownloadLink={ariaLabelDownloadLink}
               />
             </TabContent>
           );

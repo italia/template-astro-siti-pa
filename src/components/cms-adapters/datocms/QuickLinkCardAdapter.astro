@@ -1,7 +1,9 @@
 ---
-import type { GenericListItemProps } from "@components/molecules/GenericList/types";
+import type { ListLinkItemProps } from "@components/molecules/ListLink/types";
 import { QuickLinkCard } from "@components/molecules/QuickLinkCard";
 import type { QuickLinkCardFragmentType } from "@graphql/fragment/commonFragments";
+import { GlobalSettingsQuery } from "@graphql/query/settings";
+import { executeQuery } from "@lib/datocms";
 import { createDownloadUrl } from "@utils/createDownloadUrl";
 import { linkResolver } from "@utils/linkResolver";
 
@@ -17,7 +19,17 @@ type Props = {
 const { block } = Astro.props;
 const { lang } = Astro.locals;
 
-const links: GenericListItemProps[] = block.linkToResource.map((link) => {
+const { globalSetting } = await executeQuery(GlobalSettingsQuery, {
+  variables: { locale: lang },
+});
+
+const downloadLabel = globalSetting?.ariaLabelDownloadLink || "Scarica il file";
+const externalLinkLabel =
+  globalSetting?.ariaLabelExternalLink || "Apri in una nuova scheda";
+const articleLinkLabel =
+  globalSetting?.ariaLabelInternalLink || "Leggi l'articolo";
+
+const links: ListLinkItemProps[] = block.linkToResource.map((link) => {
   if (link.componentName === "ResourceRecord") {
     const res = link.resource;
 
@@ -26,6 +38,7 @@ const links: GenericListItemProps[] = block.linkToResource.map((link) => {
         linkTo: createDownloadUrl(res.doc),
         text: res.label,
         iconRight: "it-download",
+        ariaLabelLink: `${downloadLabel} ${res.label}`,
       };
     }
 
@@ -34,6 +47,7 @@ const links: GenericListItemProps[] = block.linkToResource.map((link) => {
       text: res.label,
       iconRight: "it-external-link",
       openInNewTab: true,
+      ariaLabelLink: `${externalLinkLabel} ${res.label}`,
     };
   }
 
@@ -42,6 +56,7 @@ const links: GenericListItemProps[] = block.linkToResource.map((link) => {
       linkTo: linkResolver(link.id, lang),
       text: link.title,
       iconRight: "it-arrow-right",
+      ariaLabelLink: `${articleLinkLabel} ${link.title}`,
     };
   }
 

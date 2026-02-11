@@ -1,6 +1,6 @@
 ---
 import type { GenericListItemProps } from "@components/molecules/GenericList/types";
-import { GenericList } from "@components/molecules/GenericList";
+import { ListLink } from "@components/molecules/ListLink";
 
 type Props = {
   title: string;
@@ -12,5 +12,5 @@ const { title, links } = Astro.props;
 
 <div class="primary-bg-a8 rounded-2 py-4 px-5 text-white">
   <h3>{title}</h3>
-  <GenericList items={links} variant="dark" size="small" />
+  <ListLink items={links} variant="dark" />
 </div>

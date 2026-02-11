@@ -265,18 +265,12 @@ export const topicItems: string[] = ["Sviluppo interfaccia", "Performance"];
 export const genericListItems: GenericListItemProps[] = [
   {
     text: "Link lista 1 attivo",
-    linkTo: "#",
-    iconRight: "it-external-link",
   },
   {
     text: "Link lista 2",
-    linkTo: "#",
-    iconRight: "it-link",
   },
   {
     text: "Link lista 3",
-    linkTo: "#",
-    iconRight: "it-download",
   },
 ];
 

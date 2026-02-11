@@ -15,22 +15,15 @@ const {
   text,
   subtext,
   avatar,
-  iconRight,
   icon,
   size = "default",
-  linkTo,
   variant = "light",
   bordered = false,
-  openInNewTab = false,
 } = Astro.props;
 const textClassName = size === "small" ? "fs-6" : size === "bold" ? "text" : "";
 
 const colorClassName = variant === "dark" ? "text-white text-underline" : "";
 const iconClassName = variant === "dark" ? "icon-white" : "";
-const RightZoneTag = linkTo ? "a" : "div";
-
-const target = openInNewTab ? "_blank" : "_self";
-const rel = openInNewTab ? "noopener noreferrer" : undefined;
 ---
 
 <li>
@@ -51,12 +44,7 @@ const rel = openInNewTab ? "noopener noreferrer" : undefined;
       )
     }
 
-    <RightZoneTag
-      href={linkTo}
-      class={`it-right-zone ${colorClassName}`}
-      rel={rel}
-      target={target}
-    >
+    <div class={`it-right-zone ${colorClassName}`}>
       {
         subtext ? (
           <div>
@@ -67,7 +55,6 @@ const rel = openInNewTab ? "noopener noreferrer" : undefined;
           <div class={`${textClassName} m-0 col-10`}>{text}</div>
         )
       }
-      {iconRight && <ItIcon name={iconRight} class={iconClassName} />}
-    </RightZoneTag>
+    </div>
   </div>
 </li>

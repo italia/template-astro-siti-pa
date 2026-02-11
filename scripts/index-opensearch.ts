@@ -1,12 +1,11 @@
-import { LocaleLabelsQuery } from "@graphql/fragment/indexing";
+import { GlobalSettingsQuery } from "@graphql/query/settings";
 import type { Document, SiteLocale } from "@graphql/types";
 import { executeQuery } from "@lib/datocms";
 import { Client } from "@opensearch-project/opensearch";
+import dotenv from "dotenv";
 import * as fs from "fs";
 import { existsSync } from "node:fs";
 import * as path from "path";
-
-import dotenv from "dotenv";
 
 const mode = process.argv[2];
 
@@ -123,10 +122,10 @@ async function runIndexing() {
   for (const file of files) {
     const lang = file.split(".")[0] as SiteLocale;
 
-    const mappingLanguage = await executeQuery(LocaleLabelsQuery, {
+    const { globalSetting } = await executeQuery(GlobalSettingsQuery, {
       variables: { locale: lang },
     });
-    const analyzer = mappingLanguage?.lang?.analyzer || "standard";
+    const analyzer = globalSetting?.analyzer || "standard";
 
     const INDEX_NAME = INDEX_NAME_PREFIX + lang;
 
