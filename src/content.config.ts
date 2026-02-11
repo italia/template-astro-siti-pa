@@ -6,7 +6,6 @@ import type {
 } from "@graphql/fragment/commonFragments";
 import { AllNewsQuery } from "@graphql/query/news";
 import { AllResourcesQuery } from "@graphql/query/resource";
-import { LocalesQuery } from "@graphql/query/settings";
 import { AllStoryCardQuery } from "@graphql/query/story";
 import { AllWebinarQuery } from "@graphql/query/webinar";
 import { executeQuery } from "@lib/datocms";
@@ -24,136 +23,32 @@ const resourceSchema = z.custom<ResourceFragmentType>();
 const newsCollection = defineCollection({
   schema: newsSchema,
   loader: async () => {
-    const localesResponse = await executeQuery(LocalesQuery);
-    const locales = localesResponse?.site?.locales || ["it"];
-
-    const allEntries = [];
-
-    for (const locale of locales) {
-      try {
-        const response = await executeQuery(AllNewsQuery, {
-          variables: { locale },
-        });
-
-        if (response?.allNewsItems && Array.isArray(response.allNewsItems)) {
-          const itemsWithLocale = response.allNewsItems.map((item: any) => ({
-            ...item,
-            _locale: locale,
-          }));
-
-          allEntries.push(...itemsWithLocale);
-        } else {
-          console.warn(`Nessuna risorsa trovata per la lingua: ${locale}`);
-        }
-      } catch (error) {
-        continue;
-      }
-    }
-
-    console.log("allEntries", allEntries);
-    return allEntries;
+    const response = await executeQuery(AllNewsQuery);
+    return response?.allNewsItems || [];
   },
 });
 
 const storiesCollection = defineCollection({
   schema: storySchema,
   loader: async () => {
-    const localesResponse = await executeQuery(LocalesQuery);
-    const locales = localesResponse?.site?.locales || ["it"];
-
-    const allEntries = [];
-
-    for (const locale of locales) {
-      try {
-        const response = await executeQuery(AllStoryCardQuery, {
-          variables: { locale },
-        });
-
-        if (response?.allStoryItems && Array.isArray(response.allStoryItems)) {
-          const itemsWithLocale = response.allStoryItems.map((item: any) => ({
-            ...item,
-            _locale: locale,
-          }));
-
-          allEntries.push(...itemsWithLocale);
-        } else {
-          console.warn(`Nessuna risorsa trovata per la lingua: ${locale}`);
-        }
-      } catch (error) {
-        continue;
-      }
-    }
-
-    return allEntries;
+    const response = await executeQuery(AllStoryCardQuery);
+    return response?.allStoryItems || [];
   },
 });
 
 const webinarsCollection = defineCollection({
   schema: webinarSchema,
   loader: async () => {
-    const localesResponse = await executeQuery(LocalesQuery);
-    const locales = localesResponse?.site?.locales || ["it"];
-
-    const allEntries = [];
-
-    for (const locale of locales) {
-      try {
-        const response = await executeQuery(AllWebinarQuery, {
-          variables: { locale },
-        });
-
-        if (
-          response?.allWebinarItems &&
-          Array.isArray(response.allWebinarItems)
-        ) {
-          const itemsWithLocale = response.allWebinarItems.map((item: any) => ({
-            ...item,
-            _locale: locale,
-          }));
-
-          allEntries.push(...itemsWithLocale);
-        } else {
-          console.warn(`Nessuna risorsa trovata per la lingua: ${locale}`);
-        }
-      } catch (error) {
-        continue;
-      }
-    }
-
-    return allEntries;
+    const response = await executeQuery(AllWebinarQuery);
+    return response?.allWebinarItems || [];
   },
 });
 
 const resourcesCollection = defineCollection({
   schema: resourceSchema,
   loader: async () => {
-    const localesResponse = await executeQuery(LocalesQuery);
-    const locales = localesResponse?.site?.locales || ["it"];
-
-    const allEntries = [];
-
-    for (const locale of locales) {
-      try {
-        const response = await executeQuery(AllResourcesQuery, {
-          variables: { locale },
-        });
-
-        if (response?.allResources && Array.isArray(response.allResources)) {
-          const itemsWithLocale = response.allResources.map((item: any) => ({
-            ...item,
-            _locale: locale,
-          }));
-
-          allEntries.push(...itemsWithLocale);
-        } else {
-          console.warn(`Nessuna risorsa trovata per la lingua: ${locale}`);
-        }
-      } catch (error) {
-        continue;
-      }
-    }
-
-    return allEntries;
+    const response = await executeQuery(AllResourcesQuery);
+    return response?.allResources || [];
   },
 });
 

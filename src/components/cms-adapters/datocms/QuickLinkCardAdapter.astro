@@ -31,9 +31,9 @@ const articleLinkLabel =
 
 const links: ListLinkItemProps[] = block.linkToResource.map((link) => {
   if (link.componentName === "ResourceRecord") {
-    const res = link.resource;
+    const res = link.allResourceLocales?.find((t) => t.locale === lang)?.value;
 
-    if (res.componentName === "DownloadLinkRecord") {
+    if (res?.componentName === "DownloadLinkRecord") {
       return {
         linkTo: createDownloadUrl(res.doc),
         text: res.label,
@@ -43,11 +43,11 @@ const links: ListLinkItemProps[] = block.linkToResource.map((link) => {
     }
 
     return {
-      linkTo: res.url,
-      text: res.label,
+      linkTo: res?.url || "#",
+      text: res?.label || "",
       iconRight: "it-external-link",
       openInNewTab: true,
-      ariaLabelLink: `${externalLinkLabel} ${res.label}`,
+      ariaLabelLink: `${externalLinkLabel} ${res?.label || ""}`,
     };
   }
 

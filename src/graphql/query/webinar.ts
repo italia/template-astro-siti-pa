@@ -22,8 +22,8 @@ export const AllWebinarItemsQuery = graphql(
 
 export const AllWebinarQuery = graphql(
   `
-    query AllWebinar($locale: SiteLocale!) {
-      allWebinarItems(locale: $locale) {
+    query AllWebinar {
+      allWebinarItems {
         ...WebinarItemFragment
       }
     }

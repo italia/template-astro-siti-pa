@@ -165,19 +165,29 @@ export const NewsItemFragment = graphql(
   `
     fragment NewsItemFragment on NewsItemRecord @_unmask {
       id
-      title
-      paragraph
-      topic {
-        label
+      allTitleLocales: _allTitleLocales {
+        ...LocaleFragment
       }
-      dateOfPublication
-      link
+      allParagraphLocales: _allParagraphLocales {
+        ...LocaleFragment
+      }
+      allTopicLocales: _allTopicLocales {
+        value {
+          id
+          label
+        }
+        locale
+      }
+      allLinkLocales: _allLinkLocales {
+        ...LocaleFragment
+      }
+      publishedAt: _publishedAt
       image {
         ...ImageFragment
       }
     }
   `,
-  [ImageFragment],
+  [ImageFragment, LocaleFragment],
 );
 
 export type NewsItemFragmentType = FragmentOf<typeof NewsItemFragment>;
@@ -186,19 +196,27 @@ export const WebinarItemFragment = graphql(
   `
     fragment WebinarItemFragment on WebinarItemRecord @_unmask {
       id
-      title
-      paragraph
-      topic {
-        label
+      allTitleLocales: _allTitleLocales {
+        ...LocaleFragment
       }
-      date
+      allParagraphLocales: _allParagraphLocales {
+        ...LocaleFragment
+      }
+      allTopicLocales: _allTopicLocales {
+        value {
+          id
+          label
+        }
+        locale
+      }
+
+      publishedAt: _publishedAt
       image {
         ...ImageFragment
       }
-      slug
     }
   `,
-  [ImageFragment],
+  [ImageFragment, LocaleFragment],
 );
 
 export type WebinarItemFragmentType = FragmentOf<typeof WebinarItemFragment>;
@@ -225,18 +243,23 @@ export const StoryCardFragment = graphql(
   `
     fragment StoryCardFragment on StoryItemRecord @_unmask {
       id
-      title
-      topic {
-        label
+      allTitleLocales: _allTitleLocales {
+        ...LocaleFragment
       }
-      dateOfPublication
-      slug
+      allTopicLocales: _allTopicLocales {
+        value {
+          id
+          label
+        }
+        locale
+      }
+      publishedAt: _publishedAt
       image {
         ...ImageFragment
       }
     }
   `,
-  [ImageFragment],
+  [ImageFragment, LocaleFragment],
 );
 
 export type StoryCardFragmentType = FragmentOf<typeof StoryCardFragment>;
@@ -747,22 +770,31 @@ export const ResourceFragment = graphql(
   `
     fragment ResourceFragment on ResourceRecord @_unmask {
       id
-      typeResource {
-        label
-      }
-      category {
-        label
-      }
-      resource {
-        ... on RecordInterface {
-          id
-          componentName: __typename
+      allTypeResourceLocales: _allTypeResourceLocales {
+        locale
+        value {
+          label
         }
-        ... on ExternalLinkRecord {
-          ...ExternalLinkFragment
+      }
+      allCategoryLocales: _allCategoryLocales {
+        locale
+        value {
+          label
         }
-        ... on DownloadLinkRecord {
-          ...DownloadLinkFragment
+      }
+      allResourceLocales: _allResourceLocales {
+        locale
+        value {
+          ... on RecordInterface {
+            id
+            componentName: __typename
+          }
+          ... on ExternalLinkRecord {
+            ...ExternalLinkFragment
+          }
+          ... on DownloadLinkRecord {
+            ...DownloadLinkFragment
+          }
         }
       }
     }

@@ -3,8 +3,8 @@ import { graphql } from "@graphql/graphql";
 
 export const AllResourcesQuery = graphql(
   `
-    query AllResources($locale: SiteLocale!) {
-      allResources(locale: $locale) {
+    query AllResources {
+      allResources {
         ...ResourceFragment
       }
     }

@@ -35,17 +35,27 @@ const { globalSetting } = await executeQuery(GlobalSettingsQuery, {
         return {
           componentName: "CardEditorialNews",
           title: tab.title,
-          news: tab.news.map((n) => ({
-            title: n.title,
-            description: n.paragraph,
-            image: n.image,
-            linkTo: n.link,
-            category: n.topic.label,
-            dateTime: n.dateOfPublication,
-            action: new URL(n.link).host,
-            ariaLabelCardCategory: globalSetting?.ariaLabelCardCategory,
-            ariaLabelCardAction: globalSetting?.ariaLabelCardAction,
-          })),
+          news: tab.news.map((n) => {
+            const link = n.allLinkLocales?.find(
+              (t) => t.locale === lang,
+            )?.value;
+            return {
+              title:
+                n.allTitleLocales?.find((t) => t.locale === lang)?.value || "",
+              description:
+                n.allParagraphLocales?.find((t) => t.locale === lang)?.value ||
+                "",
+              image: n.image,
+              linkTo: link || "#",
+              category:
+                n.allTopicLocales?.find((t) => t.locale === lang)?.value
+                  .label || "",
+              dateTime: n.publishedAt,
+              action: link ? new URL(link).host : "",
+              ariaLabelCardCategory: globalSetting?.ariaLabelCardCategory,
+              ariaLabelCardAction: globalSetting?.ariaLabelCardAction,
+            };
+          }),
         };
 
       case "StoryTabRecord":
@@ -53,11 +63,15 @@ const { globalSetting } = await executeQuery(GlobalSettingsQuery, {
           componentName: "CardEditorialInlineMini",
           title: tab.title,
           news: tab.news.map((n) => ({
-            title: n.title,
+            title:
+              n.allTitleLocales?.find((t) => t.locale === lang)?.value || "",
             image: n.image,
             linkTo: linkResolver(n.id, lang),
-            category: n.topic.label,
-            dateTime: n.dateOfPublication,
+            category:
+              n.allTopicLocales?.find((t) => t.locale === lang)?.value.label ||
+              "",
+            dateTime: n.publishedAt,
+
             ariaLabelCardCategory: globalSetting?.ariaLabelCardCategory,
           })),
         };
