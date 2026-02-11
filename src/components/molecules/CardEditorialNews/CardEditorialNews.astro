@@ -14,6 +14,8 @@ const {
   dateTime,
   action,
   fullHeight = true,
+  ariaLabelCardCategory = "",
+  ariaLabelCardAction = "",
 } = Astro.props;
 
 const shouldShowFooter = category || dateTime;
@@ -44,6 +46,7 @@ const shouldShowFooter = category || dateTime;
       <footer class="it-card-related it-card-footer">
         {category && (
           <div class="it-card-taxonomy">
+            <span class="visually-hidden">{ariaLabelCardCategory}</span>
             <p class="it-card-category">{category}</p>
           </div>
         )}
@@ -53,7 +56,7 @@ const shouldShowFooter = category || dateTime;
   }
   {
     action && (
-      <div class="it-card-footer" aria-label="Link correlati:">
+      <div class="it-card-footer" aria-label={ariaLabelCardAction}>
         <a href={new URL(linkTo).origin} class="it-card-link" target="_blank">
           {action}
         </a>

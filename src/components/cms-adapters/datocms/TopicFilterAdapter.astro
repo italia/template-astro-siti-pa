@@ -2,6 +2,8 @@
 import { TopicFilter } from "@components/organisms/TopicFilter";
 import type { ContentCollectionProps } from "@components/organisms/TopicFilter/types";
 import type { TopicFilterFragmentType } from "@graphql/fragment/sectionFragments";
+import { GlobalSettingsQuery } from "@graphql/query/settings";
+import { executeQuery } from "@lib/datocms";
 import { linkResolver } from "@utils/linkResolver";
 
 type Props = {
@@ -29,6 +31,10 @@ const contentCollection: ContentCollectionProps[] = block.content.map(
     };
   },
 );
+
+const { globalSetting } = await executeQuery(GlobalSettingsQuery, {
+  variables: { locale: lang },
+});
 ---
 
 <TopicFilter
@@ -37,4 +43,5 @@ const contentCollection: ContentCollectionProps[] = block.content.map(
   labelForAll={block.labelForAll}
   paragraph={block.paragraph}
   contentCollection={contentCollection}
+  ariaLabelTopic={globalSetting?.chipTopicLabel || "Argomento"}
 />

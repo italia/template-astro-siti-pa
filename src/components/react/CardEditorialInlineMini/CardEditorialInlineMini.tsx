@@ -8,9 +8,10 @@ export type CardEditorialInlineMiniProps = {
   description: string;
   image: ImageProps;
   linkTo: string;
-  category?: string | null;
-  dateTime?: string | null;
+  category?: string;
+  dateTime?: string;
   lang: string;
+  ariaLabelCardCategory?: string;
 };
 
 export function CardEditorialInlineMini({
@@ -21,6 +22,7 @@ export function CardEditorialInlineMini({
   category,
   dateTime,
   lang,
+  ariaLabelCardCategory,
 }: CardEditorialInlineMiniProps) {
   const shouldShowFooter = !!category || !!dateTime;
 
@@ -46,7 +48,11 @@ export function CardEditorialInlineMini({
         <footer className="it-card-related it-card-footer">
           {category && (
             <div className="it-card-taxonomy">
-              <Chip label={category} visuallyHidden="" disabled />
+              <Chip
+                label={category}
+                visuallyHidden={ariaLabelCardCategory || ""}
+                disabled
+              />
             </div>
           )}
           {dateTime && (
@@ -55,38 +61,5 @@ export function CardEditorialInlineMini({
         </footer>
       )}
     </article>
-
-    /* 
-    <article className="it-card it-card-inline it-card-inline-mini it-card-image rounded shadow-sm border">
-      <div className="it-card-inline-content">
-        <h3 className="it-card-title h4">
-          <a href={linkTo}>{title}</a>
-        </h3>
-        {description && (
-          <div className="it-card-body">
-            <p className="it-card-text">{description}</p>
-          </div>
-        )}
-        {shouldShowFooter && (
-          <footer className="it-card-related it-card-footer">
-            {category && (
-              <div className="it-card-taxonomy">
-                <Chip label={category} visuallyHidden="" disabled />
-              </div>
-            )}
-            {dateTime && (
-              <DateTime className="it-card-date" value={dateTime} lang={lang} />
-            )}
-          </footer>
-        )}
-      </div>
-      <div className="it-card-image-wrapper">
-        <div className="ratio ratio-1x1">
-          <figure className="figure img-full">
-            <Image {...image} />
-          </figure>
-        </div>
-      </div>
-    </article> */
   );
 }

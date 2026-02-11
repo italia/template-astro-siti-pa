@@ -2,12 +2,16 @@
 import { CatalogueFeed } from "@components/organisms/CatalogueFeed";
 import type { PageNewsTab } from "@components/organisms/CatalogueFeed/types";
 import type { CatalogueFeedFragmentType } from "@graphql/fragment/sectionFragments";
+import { GlobalSettingsQuery } from "@graphql/query/settings";
+import { executeQuery } from "@lib/datocms";
 
 type Props = {
   block: CatalogueFeedFragmentType;
 };
 
 const { block } = Astro.props;
+const { lang } = Astro.locals;
+
 const tabs: PageNewsTab[] = block.tabs.map((tab) => ({
   title: tab.title,
   paragraph: tab.paragraph,
@@ -16,6 +20,18 @@ const tabs: PageNewsTab[] = block.tabs.map((tab) => ({
   newsPageTabType: tab.newsPageTabType,
   perPage: tab.elementPerPage || undefined,
 }));
+
+const { globalSetting } = await executeQuery(GlobalSettingsQuery, {
+  variables: { locale: lang },
+});
+
+console.log(globalSetting);
 ---
 
-<CatalogueFeed id={block.id} tabs={tabs} />
+<CatalogueFeed
+  id={block.id}
+  tabs={tabs}
+  ariaLabelTopic={globalSetting?.chipTopicLabel || ""}
+  ariaLabelCardCategory={globalSetting?.ariaLabelCardCategory || ""}
+  ariaLabelCardAction={globalSetting?.ariaLabelCardAction || ""}
+/>

@@ -22,7 +22,13 @@ import type { ElementType, UpdateTabSectionProps } from "./types";
 
 type Props = UpdateTabSectionProps;
 
-const { id, tabs = [] } = Astro.props;
+const {
+  id,
+  tabs = [],
+  ariaLabelTopic,
+  ariaLabelCardCategory,
+  ariaLabelCardAction,
+} = Astro.props;
 const { lang } = Astro.locals;
 
 const tabsItems = tabs.map((tab, index) => ({
@@ -83,6 +89,9 @@ function getCollectionItems(type: string) {
                 {...tab}
                 items={items as any}
                 newsPageTabType={tabType}
+                ariaLabelTopic={ariaLabelTopic}
+                ariaLabelCardCategory={ariaLabelCardCategory}
+                ariaLabelCardAction={ariaLabelCardAction}
               />
             </TabContent>
           );

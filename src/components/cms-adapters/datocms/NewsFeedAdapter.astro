@@ -1,6 +1,8 @@
 ---
 import { NewsFeed } from "@components/organisms/NewsFeed";
 import type { NewsFeedFragmentType } from "@graphql/fragment/sectionFragments";
+import { GlobalSettingsQuery } from "@graphql/query/settings";
+import { executeQuery } from "@lib/datocms";
 import { linkResolver } from "@utils/linkResolver";
 
 type Props = {
@@ -15,6 +17,10 @@ const buttonLink =
     ? linkResolver(block.cta.linkTo.id, lang)
     : undefined;
 const buttonLabel = block.cta?.label;
+
+const { globalSetting } = await executeQuery(GlobalSettingsQuery, {
+  variables: { locale: lang },
+});
 ---
 
 <NewsFeed
@@ -37,6 +43,8 @@ const buttonLabel = block.cta?.label;
             category: n.topic.label,
             dateTime: n.dateOfPublication,
             action: new URL(n.link).host,
+            ariaLabelCardCategory: globalSetting?.ariaLabelCardCategory,
+            ariaLabelCardAction: globalSetting?.ariaLabelCardAction,
           })),
         };
 
@@ -50,6 +58,7 @@ const buttonLabel = block.cta?.label;
             linkTo: linkResolver(n.id, lang),
             category: n.topic.label,
             dateTime: n.dateOfPublication,
+            ariaLabelCardCategory: globalSetting?.ariaLabelCardCategory,
           })),
         };
     }

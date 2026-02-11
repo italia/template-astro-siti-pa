@@ -7,8 +7,14 @@ import { Carousel, CarouselItem } from "@components/molecules/Carousel";
 
 type Props = TopicFilterProps;
 
-const { title, filterTitle, labelForAll, paragraph, contentCollection } =
-  Astro.props;
+const {
+  title,
+  filterTitle,
+  labelForAll,
+  paragraph,
+  contentCollection,
+  ariaLabelTopic,
+} = Astro.props;
 
 const slugify = (text: string) =>
   text
@@ -42,6 +48,7 @@ const slugify = (text: string) =>
         variant="column"
         disabled={false}
         variantChip="primary"
+        ariaLabelTopic={ariaLabelTopic}
       />
     </div>
   </div>

@@ -6,6 +6,7 @@ import type {
 export type TopicsProps = {
   title?: string;
   topics: string[];
+  ariaLabelTopic?: string;
   variant?: "row" | "column";
   disabled?: boolean;
   variantChip?: VariantChipProps;

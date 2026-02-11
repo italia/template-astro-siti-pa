@@ -17,6 +17,9 @@ type PaginatedCollectionCommonProps = {
   filterTitle: string;
   labelForAll: string;
   perPage?: number;
+  ariaLabelTopic: string;
+  ariaLabelCardCategory: string;
+  ariaLabelCardAction: string;
 };
 
 type PaginatedCollectionProps =
@@ -45,6 +48,9 @@ export function PaginatedCollection({
   filterTitle,
   labelForAll,
   newsPageTabType,
+  ariaLabelTopic,
+  ariaLabelCardCategory,
+  ariaLabelCardAction,
 }: PaginatedCollectionProps) {
   const [page, setPage] = useState(1);
   const [selectedCategory, setSelectedCategory] = useState(labelForAll);
@@ -85,12 +91,15 @@ export function PaginatedCollection({
         </div>
         <div className="col-lg-5 col-12">
           <div className="it-list-wrapper d-flex flex-column">
-            <span className="text-uppercase text-dark fw-semibold mt-1 fs-6">
+            <span
+              id="filterPagination"
+              className="text-uppercase text-dark fw-semibold mt-1 fs-6"
+            >
               {filterTitle}
             </span>
             <ul
               className="it-list d-flex mb-0 flex-wrap"
-              aria-label="Argomenti correlati:"
+              aria-labelledby="filterPagination"
             >
               {categories.map((category) => (
                 <li className="list-item border-bottom-0 me-3 mt-1">
@@ -99,7 +108,7 @@ export function PaginatedCollection({
                     variant="primary"
                     size="large"
                     label={category}
-                    visuallyHidden={category}
+                    visuallyHidden={ariaLabelTopic}
                     onClick={() => handleCategoryChange(category)}
                     active={selectedCategory === category}
                   />
@@ -121,17 +130,26 @@ export function PaginatedCollection({
           return (
             <li className={colClass} key={itemKey}>
               {newsPageTabType === "news_item" && (
-                <CardEditorialNews {...(n as CardEditorialNewsProps)} />
+                <CardEditorialNews
+                  {...(n as CardEditorialNewsProps)}
+                  ariaLabelCardCategory={ariaLabelCardCategory}
+                  ariaLabelCardAction={ariaLabelCardAction}
+                />
               )}
 
               {newsPageTabType === "story_item" && (
                 <CardEditorialInlineMini
                   {...(n as CardEditorialInlineMiniProps)}
+                  ariaLabelCardCategory={ariaLabelCardCategory}
                 />
               )}
 
               {newsPageTabType === "webinar_item" && (
-                <CardEditorialNews {...(n as CardEditorialNewsProps)} />
+                <CardEditorialNews
+                  {...(n as CardEditorialNewsProps)}
+                  ariaLabelCardCategory={ariaLabelCardCategory}
+                  ariaLabelCardAction={ariaLabelCardAction}
+                />
               )}
 
               {newsPageTabType === "resource" && (

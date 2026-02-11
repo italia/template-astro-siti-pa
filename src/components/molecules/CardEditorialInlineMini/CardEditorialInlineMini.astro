@@ -11,11 +11,20 @@ export type CardEditorialInlineMiniProps = {
   linkTo: string;
   category?: string;
   dateTime?: string;
+  ariaLabelCardCategory?: string;
 };
 
 type Props = CardEditorialInlineMiniProps;
 
-const { title, description, image, linkTo, category, dateTime } = Astro.props;
+const {
+  title,
+  description,
+  image,
+  linkTo,
+  category,
+  dateTime,
+  ariaLabelCardCategory,
+} = Astro.props;
 
 const shouldShowFooter = category || dateTime;
 ---
@@ -44,7 +53,12 @@ const shouldShowFooter = category || dateTime;
       <footer class="it-card-related it-card-footer">
         {category && (
           <div class="it-card-taxonomy">
-            <ChipLink linkTo={""} label={category} visuallyHidden="" disabled />
+            <ChipLink
+              linkTo={""}
+              label={category}
+              visuallyHidden={ariaLabelCardCategory || ""}
+              disabled
+            />
           </div>
         )}
         {dateTime && <DateTime className="it-card-date" value={dateTime} />}

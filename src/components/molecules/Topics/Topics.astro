@@ -10,7 +10,9 @@ const {
   variantChip = "primary",
   sizeChip = "large",
   disabled = true,
+  ariaLabelTopic = "",
 } = Astro.props;
+const listId = `list-topics-${Math.random().toString(36).substring(2, 9)}`;
 ---
 
 <div
@@ -19,18 +21,24 @@ const {
   {
     title && (
       <span
+        id={listId}
         class={`text-uppercase text-dark fw-semibold mt-1 me-3 ${variant === "column" ? "fs-6" : ""}`}
+        aria-hidden="true"
       >
         {title}
       </span>
     )
   }
-  <ul class="it-list d-flex flex-wrap" aria-label="Argomenti correlati:">
+  <ul
+    class="it-list d-flex flex-wrap"
+    aria-labelledby={title ? listId : undefined}
+    aria-label={!title ? "Argomenti correlati" : undefined}
+  >
     {
       topics.map((topic) => (
         <li class="list-item border-bottom-0 me-3 mt-2">
           <Chip
-            visuallyHidden=""
+            visuallyHidden={ariaLabelTopic}
             disabled={disabled}
             label={topic}
             size={sizeChip}

@@ -12,6 +12,8 @@ export type CardEditorialNewsProps = {
   action?: string;
   fullHeight?: boolean;
   lang: string;
+  ariaLabelCardCategory?: string;
+  ariaLabelCardAction?: string;
 };
 
 export function CardEditorialNews({
@@ -24,6 +26,8 @@ export function CardEditorialNews({
   action,
   fullHeight = true,
   lang,
+  ariaLabelCardCategory,
+  ariaLabelCardAction,
 }: CardEditorialNewsProps) {
   const shouldShowFooter = !!category || !!dateTime;
 
@@ -48,6 +52,7 @@ export function CardEditorialNews({
         <footer className="it-card-related it-card-footer">
           {category && (
             <div className="it-card-taxonomy">
+              <span className="visually-hidden">{ariaLabelCardCategory}</span>
               <p className="it-card-category">{category}</p>
             </div>
           )}
@@ -57,7 +62,7 @@ export function CardEditorialNews({
         </footer>
       )}
       {action && (
-        <div className="it-card-footer" aria-label="Link correlati:">
+        <div className="it-card-footer" aria-label={ariaLabelCardAction}>
           <a
             href={new URL(linkTo).origin}
             className="it-card-link"

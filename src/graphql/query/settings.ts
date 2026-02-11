@@ -40,6 +40,9 @@ export const GlobalSettingsQuery = graphql(`
       lastUpdateLabel
       ariaLabelLogo
       languageSelector
+      chipTopicLabel
+      ariaLabelCardCategory
+      ariaLabelCardAction
     }
   }
 `);

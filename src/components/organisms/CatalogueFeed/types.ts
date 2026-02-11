@@ -10,6 +10,9 @@ export type PageNewsTab = {
 export type UpdateTabSectionProps = {
   id: string;
   tabs: PageNewsTab[];
+  ariaLabelTopic: string;
+  ariaLabelCardCategory: string;
+  ariaLabelCardAction: string;
 };
 
 export type ElementType =
