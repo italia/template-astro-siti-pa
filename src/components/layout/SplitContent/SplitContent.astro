@@ -1,6 +1,6 @@
 ---
 import { SectionContainer } from "@components/organisms/SectionContainer";
-import type { SplitContentProps, SectionBackground } from "./types";
+import type { SectionBackground, SplitContentProps } from "./types";
 
 type Props = SplitContentProps;
 
@@ -13,10 +13,10 @@ const {
 } = Astro.props;
 
 const backgroundColorClassNames: Record<SectionBackground, string> = {
-  default: "",
-  primary: "bg-primary",
-  dark: "primary-bg-a10",
-  lighter: "lightgrey-bg-a3",
+  default: "it-section-bg-default dark",
+  primary: "it-section-bg-primary",
+  dark: "it-section-bg-dark",
+  lighter: "it-section-bg-light dark",
 };
 ---
 
