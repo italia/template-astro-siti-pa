@@ -1,31 +1,15 @@
 ---
 import { Image } from "@components/atoms/Image";
-import type { SectionBackground } from "@components/layout/SplitContent/types";
 import type { HeroProps } from "./types";
 type Props = HeroProps;
 
-const {
-  title,
-  paragraph,
-  image,
-  showBreadcrumb,
-  backgroundColor = "default",
-} = Astro.props;
-
-const backgroundColorClassNames: Record<SectionBackground, string> = {
-  default: "bg-white dark",
-  primary: "bg-primary",
-  dark: "primary-bg-a8",
-  lighter: "lightgrey-bg-a3 dark",
-};
+const { title, paragraph, image, showBreadcrumb, bgClass } = Astro.props;
 ---
 
 <style>
   @import "./style.scss";
 </style>
-<section
-  class=`it-hero-wrapper xsmall-size ${backgroundColorClassNames[backgroundColor]}`
->
+<section class=`it-hero-wrapper xsmall-size ${bgClass}`>
   <div class="container">
     <div class="row align-items-center">
       <div class="col-12 col-lg-8">

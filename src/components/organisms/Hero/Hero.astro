@@ -1,4 +1,5 @@
 ---
+import type { SectionBackground } from "@components/layout/SplitContent/types";
 import HeroCompactImage from "./HeroCompactImage.astro";
 import HeroDefault from "./HeroDefault.astro";
 import HeroFullHeightImage from "./HeroFullHeightImage.astro";
@@ -15,6 +16,18 @@ const {
   variant = "default",
   backgroundColor = "default",
 } = Astro.props;
+
+const backgroundColorClassNames: Record<SectionBackground, string> = {
+  default: "it-hero-bg-default dark",
+  primary: "it-hero-bg-primary",
+  dark: "it-hero-bg-dark",
+  lighter: "it-hero-bg-light dark",
+};
+
+const classBackground =
+  image && (variant === "default" || variant === "small")
+    ? backgroundColorClassNames["primary"]
+    : backgroundColorClassNames[backgroundColor];
 ---
 
 <style>
@@ -30,7 +43,7 @@ const {
       imageMobile={imageMobile}
       variant={variant}
       showBreadcrumb={showBreadcrumb}
-      backgroundColor={backgroundColor}
+      bgClass={classBackground}
     >
       <slot name="breadcrumb" slot="breadcrumb" />
     </HeroDefault>
@@ -44,7 +57,7 @@ const {
       paragraph={paragraph}
       image={image}
       showBreadcrumb={showBreadcrumb}
-      backgroundColor={backgroundColor}
+      bgClass={classBackground}
     >
       <slot name="breadcrumb" slot="breadcrumb" />
     </HeroCompactImage>
@@ -58,7 +71,7 @@ const {
       paragraph={paragraph}
       image={image}
       showBreadcrumb={showBreadcrumb}
-      backgroundColor={backgroundColor}
+      bgClass={classBackground}
     >
       <slot name="breadcrumb" slot="breadcrumb" />
     </HeroFullHeightImage>
