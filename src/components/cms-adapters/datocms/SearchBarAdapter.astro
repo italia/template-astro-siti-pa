@@ -1,4 +1,5 @@
 ---
+import Loader from "@components/Loader.astro";
 import { SectionContainer } from "@components/organisms/SectionContainer";
 import { FullTextSearch } from "@components/react/SearchBar";
 import type { SearchBarFragmentType } from "@graphql/fragment/search";
@@ -37,7 +38,11 @@ const { globalSetting } = await executeQuery(GlobalSettingsQuery, {
           ariaLabelDownloadLink={globalSetting?.ariaLabelDownloadLink || ""}
           ariaLabelExternalLink={globalSetting?.ariaLabelExternalLink || ""}
           ariaLabelInternalLink={globalSetting?.ariaLabelInternalLink || ""}
-        />
+        >
+          <div slot="fallback">
+            <Loader />
+          </div>
+        </FullTextSearch>
       </div>
     </div>
   </div>

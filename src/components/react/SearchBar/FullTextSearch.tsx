@@ -80,7 +80,6 @@ export const FullTextSearch = ({
         labelButton={labelButton}
         inputPlaceholder={inputPlaceholder}
       />
-      {loading && <div>Loading...</div>}
       {!loading && confirmedQuery && (
         <SearchResultList
           results={results}

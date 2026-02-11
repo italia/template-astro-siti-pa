@@ -44,7 +44,6 @@ export const SearchResultList = ({
           ))}
         </div>
       </div>
-      \
     </div>
   );
 };
