@@ -2,6 +2,8 @@
 import { SectionContainer } from "@components/organisms/SectionContainer";
 import { FullTextSearch } from "@components/react/SearchBar";
 import type { SearchBarFragmentType } from "@graphql/fragment/search";
+import { GlobalSettingsQuery } from "@graphql/query/settings";
+import { executeQuery } from "@lib/datocms";
 
 type Props = {
   block: SearchBarFragmentType;
@@ -9,6 +11,10 @@ type Props = {
 
 const { block } = Astro.props;
 const { lang } = Astro.locals;
+
+const { globalSetting } = await executeQuery(GlobalSettingsQuery, {
+  variables: { locale: lang },
+});
 ---
 
 <SectionContainer className="search-main lightgrey-bg-a3">
@@ -28,6 +34,9 @@ const { lang } = Astro.locals;
           inputPlaceholder={block.inputPlaceholder}
           labelForAllResult={block.labelForAllResult}
           labelForNoResult={block.labelForNoResult}
+          ariaLabelDownloadLink={globalSetting?.ariaLabelDownloadLink || ""}
+          ariaLabelExternalLink={globalSetting?.ariaLabelExternalLink || ""}
+          ariaLabelInternalLink={globalSetting?.ariaLabelInternalLink || ""}
         />
       </div>
     </div>

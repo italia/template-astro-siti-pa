@@ -12,6 +12,9 @@ type FullTextSearchProps = {
   inputPlaceholder: string;
   labelForAllResult: string;
   labelForNoResult: string;
+  ariaLabelExternalLink?: string;
+  ariaLabelDownloadLink?: string;
+  ariaLabelInternalLink?: string;
 };
 export const FullTextSearch = ({
   locale,
@@ -19,6 +22,9 @@ export const FullTextSearch = ({
   inputPlaceholder,
   labelForAllResult,
   labelForNoResult,
+  ariaLabelExternalLink,
+  ariaLabelDownloadLink,
+  ariaLabelInternalLink,
 }: FullTextSearchProps) => {
   const [value, setValue] = useState<string>("");
   const [confirmedQuery, setConfirmedQuery] = useState<string>("");
@@ -81,6 +87,9 @@ export const FullTextSearch = ({
           value={confirmedQuery}
           labelForAllResult={labelForAllResult}
           labelForNoResult={labelForNoResult}
+          ariaLabelDownloadLink={ariaLabelDownloadLink}
+          ariaLabelExternalLink={ariaLabelExternalLink}
+          ariaLabelInternalLink={ariaLabelInternalLink}
         />
       )}
     </div>

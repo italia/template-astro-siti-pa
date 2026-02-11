@@ -6,6 +6,9 @@ type SearchResultProps = {
   results: SearchResult[];
   labelForAllResult: string;
   labelForNoResult: string;
+  ariaLabelExternalLink?: string;
+  ariaLabelDownloadLink?: string;
+  ariaLabelInternalLink?: string;
 };
 
 export const SearchResultList = ({
@@ -13,6 +16,9 @@ export const SearchResultList = ({
   value,
   labelForAllResult,
   labelForNoResult,
+  ariaLabelExternalLink,
+  ariaLabelDownloadLink,
+  ariaLabelInternalLink,
 }: SearchResultProps) => {
   return (
     <div className="row text-start">
@@ -26,12 +32,19 @@ export const SearchResultList = ({
             {labelForNoResult} <strong>"{value}"</strong>
           </p>
         )}
-        <div role="list" aria-label="Risultati di ricerca">
+        <div role="list" aria-label={`${labelForAllResult} ${value}`}>
           {results.map((result) => (
-            <SearchResultItem key={result.id} result={result} />
+            <SearchResultItem
+              key={result.id}
+              result={result}
+              ariaLabelDownloadLink={ariaLabelDownloadLink}
+              ariaLabelExternalLink={ariaLabelExternalLink}
+              ariaLabelInternalLink={ariaLabelInternalLink}
+            />
           ))}
         </div>
       </div>
+      \
     </div>
   );
 };
