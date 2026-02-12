@@ -34,8 +34,8 @@ const globalSettingsSchema = z.object({
     ariaLabelExternalLink: z.string(),
     ariaLabelInternalLink: z.string(),
     ariaLabelDownloadLink: z.string(),
-    analyzer: z.string().optional(),
-    loading: z.string().optional(),
+    analyzer: z.string(),
+    loading: z.string(),
   }),
 });
 
