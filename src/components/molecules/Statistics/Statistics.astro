@@ -17,6 +17,12 @@ const { items, variant = "light" } = Astro.props;
   @import "./style.scss";
 </style>
 
-<div class="statistics-container">
-  {items.map((item) => <DataContainer {...item} variant={variant} />)}
-</div>
+<ul class="statistics-container" role="list">
+  {
+    items.map((item) => (
+      <li class="statistics-item">
+        <DataContainer {...item} variant={variant} />
+      </li>
+    ))
+  }
+</ul>

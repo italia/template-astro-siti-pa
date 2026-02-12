@@ -9,14 +9,14 @@ type Props = DataContainerProps & { variant?: VariantTextDataContainerProps };
 const { info, title, contentIcon, variant = "light" } = Astro.props;
 ---
 
-<div>
+<Fragment>
   <p class=`body-sans-lg fw-semibold ${variant==="dark" ? "text-white": ""}`>
     {title}
   </p>
   <div class="d-flex align-items-center gap-3">
-    <IconContainer content={contentIcon} />
-    <p class=` h1 align-middle m-0 ${variant==="dark" ? "text-white": ""}`>
+    <IconContainer content={contentIcon} aria-hidden="true" />
+    <p class=`h1 align-middle m-0 ${variant==="dark" ? "text-white": ""}`>
       {info}
     </p>
   </div>
-</div>
+</Fragment>
