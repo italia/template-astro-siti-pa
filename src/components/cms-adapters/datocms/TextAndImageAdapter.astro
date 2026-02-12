@@ -1,9 +1,10 @@
 ---
 import TextContainerAdapter from "@components/cms-adapters/datocms/TextContainerAdapter.astro";
-import { SplitContent } from "@components/layout/SplitContent";
 import type { SectionBackground } from "@components/layout/SplitContent/types";
 import { ImageContainer } from "@components/molecules/ImageContainer";
 import { AdditionalContent } from "@components/organisms/AdditionalContent";
+import { TextAndImage } from "@components/organisms/TextAndImage";
+import type { VariantTextAndImageProps } from "@components/organisms/TextAndImage/types";
 import type { TextAndImageFragmentType } from "@graphql/fragment/sectionFragments";
 
 type Props = {
@@ -24,31 +25,25 @@ const variantAdditionalContent =
     ? "light"
     : undefined;
 
-const columnLeftSize = block.variant === "variant-2" ? 4 : 6;
-const columnRightSize = block.variant === "variant-2" ? 8 : 5;
-
-const alignItems = block.variant === "variant-2" ? "top" : "center";
-
 const additionalContent = block.additionalContent;
 ---
 
-<SplitContent
-  leftColumns={columnLeftSize}
-  rightColumns={columnRightSize}
-  alignItems={alignItems}
+<TextAndImage
+  variant={block.variant as VariantTextAndImageProps}
   background={block.backgroundColor as SectionBackground}
 >
-  <Fragment slot="left">
-    <TextContainerAdapter block={block.text} variant={variantTextContainer} />
-  </Fragment>
+  <TextContainerAdapter
+    slot="text"
+    block={block.text}
+    variant={variantTextContainer}
+  />
 
-  <Fragment slot="right">
-    <ImageContainer image={block.image} ratio="4x3" />
-  </Fragment>
+  <ImageContainer slot="image" image={block.image} ratio="4x3" />
 
   {
     additionalContent && (
       <AdditionalContent
+        slot="additionalContent"
         title={additionalContent.title || undefined}
         content={additionalContent.content.map((item) => {
           return {
@@ -61,4 +56,4 @@ const additionalContent = block.additionalContent;
       />
     )
   }
-</SplitContent>
+</TextAndImage>

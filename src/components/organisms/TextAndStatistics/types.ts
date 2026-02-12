@@ -1,8 +1,5 @@
-import type { DataContainerProps } from "@components/molecules/DataContainer/types";
+import type { SectionBackground } from "@components/layout/SplitContent/types";
 
 export type TextAndStatisticsProps = {
-  title: string;
-  paragraph: string;
-  labelButton: string;
-  dataStatistics: DataContainerProps[];
+  background: SectionBackground;
 };

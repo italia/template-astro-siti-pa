@@ -1,59 +1,23 @@
 ---
-import { Image } from "@components/atoms/Image";
 import { SplitContent } from "@components/layout/SplitContent";
-import { CardEditorialWithIcon } from "@components/molecules/CardEditorialWithIcon";
-import TextContainer from "@components/molecules/TextContainer/TextContainer.astro";
 import type { TextAndImageProps } from "./types";
 
 type Props = TextAndImageProps;
 
-const {
-  title,
-  paragraph,
-  labelButton,
-  image,
-  variant = "default",
-  cards,
-  labelCards,
-} = Astro.props;
+const { background, variant } = Astro.props;
+const columnLeftSize = variant === "variant-2" ? 4 : 6;
+const columnRightSize = variant === "variant-2" ? 8 : 5;
 
-const textContainerVariant =
-  variant === "big" || variant === "withBox" ? "primary" : undefined;
-const textLabelColorClass =
-  variant === "big" || variant === "withBox" ? "text-white" : undefined;
-
-const leftColumns = variant === "big" ? 4 : 6;
-const rightColumns = variant === "big" ? 8 : 5;
-const background =
-  variant === "big" ? "primary" : variant === "withBox" ? "dark" : "default";
+const alignItems = variant === "variant-2" ? "top" : "center";
 ---
 
 <SplitContent
-  leftColumns={leftColumns}
-  rightColumns={rightColumns}
-  alignItems={variant === "big" ? "top" : "center"}
+  leftColumns={columnLeftSize}
+  rightColumns={columnRightSize}
+  alignItems={alignItems}
   background={background}
 >
-  <TextContainer
-    slot="left"
-    title={title}
-    paragraph={paragraph}
-    labelButton={labelButton}
-    variant={textContainerVariant}
-  />
-  <div class="ratio ratio-4x3" slot="right">
-    <Image {...image} />
-  </div>
-  {
-    cards && cards.length > 0 && (
-      <div class="row align-item-center justify-content-between pt-5">
-        <p class={`it-label ${textLabelColorClass}`}>{labelCards}</p>
-        {cards.map((card) => (
-          <div class="col-12 col-md-6 mb-3 mb-md-4 col-lg-4">
-            <CardEditorialWithIcon {...card} />
-          </div>
-        ))}
-      </div>
-    )
-  }
+  <slot name="text" slot="left" />
+  <slot name="image" slot="right" />
+  <slot name="additionalContent" />
 </SplitContent>

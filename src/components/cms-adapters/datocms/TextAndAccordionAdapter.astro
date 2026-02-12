@@ -1,7 +1,7 @@
 ---
 import AccordionAdapter from "@components/cms-adapters/datocms/AccordionAdapter.astro";
 import TextContainerAdapter from "@components/cms-adapters/datocms/TextContainerAdapter.astro";
-import { SplitContent } from "@components/layout/SplitContent";
+import { TextAndAccordions } from "@components/organisms/TextAndAccordions";
 import type { TextAndAccordionFragmentType } from "@graphql/fragment/sectionFragments";
 
 type Props = {
@@ -11,11 +11,7 @@ type Props = {
 const { block } = Astro.props;
 ---
 
-<SplitContent rightColumns={5} leftColumns={5} alignItems="top">
-  <Fragment slot="left">
-    <TextContainerAdapter block={block.text} variant="light" />
-  </Fragment>
-  <Fragment slot="right">
-    <AccordionAdapter block={block.accordion} />
-  </Fragment>
-</SplitContent>
+<TextAndAccordions>
+  <TextContainerAdapter slot="text" block={block.text} variant="light" />
+  <AccordionAdapter slot="accordion" block={block.accordion} />
+</TextAndAccordions>

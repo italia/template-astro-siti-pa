@@ -1,0 +1,16 @@
+---
+import { SplitContent } from "@components/layout/SplitContent";
+---
+
+<SplitContent rightColumns={5} leftColumns={5} alignItems="center">
+  <slot name="text" slot="left" />
+
+  <div class="row justify-content-between align-items-center">
+    <div class="col-12 col-lg-6">
+      <slot name="subjects" />
+    </div>
+    <div class="col-12 col-lg-5 mt-4 mt-lg-0">
+      <slot name="resources" />
+    </div>
+  </div>
+</SplitContent>

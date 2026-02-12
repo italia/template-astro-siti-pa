@@ -1,18 +1,9 @@
 ---
 import { Badge } from "@components/atoms/Badge";
 import { Button, ButtonLink } from "@components/atoms/Button";
+import type { ActionCardProps } from "./types";
 
-type Props = {
-  title: string;
-  paragraph: string;
-  category?: string;
-  cta: {
-    label: string;
-    url: string;
-  };
-  labelButtonMore: string;
-  labelButtonLess: string;
-};
+type Props = ActionCardProps;
 
 const { title, paragraph, category, cta, labelButtonMore, labelButtonLess } =
   Astro.props;

@@ -1,14 +1,8 @@
-import type { ImageProps } from "@components/atoms/Image/types";
-import type { CardEditorialWithIconProps } from "@components/molecules/CardEditorialWithIcon/types";
+import type { SectionBackground } from "@components/layout/SplitContent/types";
 
 export type TextAndImageProps = {
-  title: string;
-  paragraph: string;
-  labelButton?: string;
-  image: ImageProps;
-  variant?: TextAndImageVariantProps;
-  labelCards?: string | null;
-  cards?: CardEditorialWithIconProps[];
+  background: SectionBackground;
+  variant: VariantTextAndImageProps;
 };
 
-export type TextAndImageVariantProps = "default" | "big" | "withBox";
+export type VariantTextAndImageProps = "variant-1" | "variant-2" | "variant-3";

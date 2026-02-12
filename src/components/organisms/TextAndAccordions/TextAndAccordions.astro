@@ -1,22 +1,8 @@
 ---
 import { SplitContent } from "@components/layout/SplitContent";
-import { Accordion } from "@components/molecules/Accordion";
-import type { AccordionProps } from "@components/molecules/Accordion/types";
-import TextContainer from "@components/molecules/TextContainer/TextContainer.astro";
-
-type Props = {
-  title: string;
-  paragraph: string;
-  labelAccordion: string;
-  accordion: AccordionProps;
-};
-const { title, paragraph, labelAccordion, accordion } = Astro.props;
 ---
 
-<SplitContent leftColumns={5} rightColumns={5} alignItems="top">
-  <TextContainer slot="left" title={title} paragraph={paragraph} />
-  <div slot="right">
-    <p class="it-label">{labelAccordion}</p>
-    <Accordion {...accordion} variant="background-active" />
-  </div>
+<SplitContent rightColumns={5} leftColumns={5} alignItems="top">
+  <slot name="text" slot="left" />
+  <slot name="accordion" slot="right" />
 </SplitContent>

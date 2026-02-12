@@ -29,6 +29,11 @@ import {
   sidebarItems,
   useCaseItems,
 } from "@utils/mock";
+import { ImageContainer } from "./molecules/ImageContainer";
+import { Statistics } from "./molecules/Statistics";
+import { TextContainer } from "./molecules/TextContainer";
+import { UseCases } from "./molecules/UseCases";
+import { AdditionalContent } from "./organisms/AdditionalContent";
 ---
 
 <h2 class="mb-4">Organisms</h2>
@@ -439,36 +444,33 @@ import {
     <tr>
       <td>Default</td>
       <td class="p-0">
-        <TextAndImage
-          title="Cos’è il cloud e perché è importante?"
-          paragraph="Il cloud è alla base della modernizzazione della Pubblica Amministrazione. Permette di erogare servizi digitali più sicuri, scalabili e sostenibili, migliorando la gestione dei dati e semplificando il lavoro di enti e fornitori. "
-          image={image}
-          labelButton="Azione primaria"
-        />
+        <TextAndImage background="default" variant="variant-1">
+          <TextContainer slot="text" title="Titolo" paragraph="Descrizione" />
+          <ImageContainer slot="image" image={image} ratio="4x3" />
+        </TextAndImage>
       </td>
     </tr>
     <tr>
       <td>Big</td>
       <td class="p-0">
-        <TextAndImage
-          variant="big"
-          title="Cos’è il cloud e perché è importante?"
-          paragraph="Il cloud è alla base della modernizzazione della Pubblica Amministrazione. Permette di erogare servizi digitali più sicuri, scalabili e sostenibili, migliorando la gestione dei dati e semplificando il lavoro di enti e fornitori. "
-          image={image}
-        />
+        <TextAndImage background="primary" variant="variant-2">
+          <TextContainer slot="text" title="Titolo" paragraph="Descrizione" />
+          <ImageContainer slot="image" image={image} ratio="4x3" />
+        </TextAndImage>
       </td>
     </tr>
     <tr>
       <td>With box</td>
       <td class="p-0">
-        <TextAndImage
-          variant="withBox"
-          title="Cos’è il cloud e perché è importante?"
-          paragraph="Il cloud è alla base della modernizzazione della Pubblica Amministrazione. Permette di erogare servizi digitali più sicuri, scalabili e sostenibili, migliorando la gestione dei dati e semplificando il lavoro di enti e fornitori. "
-          image={image}
-          cards={cardItems}
-          labelCards="In evidenza"
-        />
+        <TextAndImage background="dark" variant="variant-3">
+          <TextContainer slot="text" title="Titolo" paragraph="Descrizione" />
+          <ImageContainer slot="image" image={image} ratio="4x3" />
+          <AdditionalContent
+            slot="useCases"
+            content={cardItems}
+            title="In evidenza"
+          />
+        </TextAndImage>
       </td>
     </tr>
   </tbody>
@@ -483,12 +485,10 @@ import {
   <tbody>
     <tr>
       <td class="p-0">
-        <TextAndStatistics
-          title="Cos’è il cloud e perché è importante?"
-          paragraph="Il cloud è alla base della modernizzazione della Pubblica Amministrazione. Permette di erogare servizi digitali più sicuri, scalabili e sostenibili, migliorando la gestione dei dati e semplificando il lavoro di enti e fornitori. "
-          labelButton="Azione primaria"
-          dataStatistics={dataStatisticsItems}
-        />
+        <TextAndStatistics background="default">
+          <TextContainer slot="text" title="Titolo" paragraph="Descrizione" />
+          <Statistics slot="useCases" items={dataStatisticsItems} />
+        </TextAndStatistics>
       </td>
     </tr>
   </tbody>
@@ -503,13 +503,10 @@ import {
   <tbody>
     <tr>
       <td class="p-0">
-        <TextAndUseCase
-          title="Cos’è il cloud e perché è importante?"
-          paragraph="Il cloud è alla base della modernizzazione della Pubblica Amministrazione. Permette di erogare servizi digitali più sicuri, scalabili e sostenibili, migliorando la gestione dei dati e semplificando il lavoro di enti e fornitori. "
-          labelButton="Azione primaria"
-          labelUseCases="in evidenza"
-          useCases={useCaseItems}
-        />
+        <TextAndUseCase background="default">
+          <TextContainer slot="text" title="Titolo" paragraph="Descrizione" />
+          <UseCases slot="useCases" items={useCaseItems} />
+        </TextAndUseCase>
       </td>
     </tr>
   </tbody>

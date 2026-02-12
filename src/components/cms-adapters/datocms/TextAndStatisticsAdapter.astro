@@ -1,8 +1,8 @@
 ---
 import StatisticAdapter from "@components/cms-adapters/datocms/StatisticAdapter.astro";
 import TextContainerAdapter from "@components/cms-adapters/datocms/TextContainerAdapter.astro";
-import { SplitContent } from "@components/layout/SplitContent";
 import type { SectionBackground } from "@components/layout/SplitContent/types";
+import { TextAndStatistics } from "@components/organisms/TextAndStatistics";
 import type { TextAndStatisticsFragmentType } from "@graphql/fragment/sectionFragments";
 
 type Props = {
@@ -15,16 +15,15 @@ const variantTextContainer =
   block.backgroundColor === "dark" ? "dark" : "light";
 ---
 
-<SplitContent
-  rightColumns={5}
-  leftColumns={6}
-  alignItems="center"
-  background={block.backgroundColor as SectionBackground}
->
-  <Fragment slot="left">
-    <TextContainerAdapter block={block.text} variant={variantTextContainer} />
-  </Fragment>
-  <Fragment slot="right">
-    <StatisticAdapter block={block.statistics} variant={variantTextContainer} />
-  </Fragment>
-</SplitContent>
+<TextAndStatistics background={block.backgroundColor as SectionBackground}>
+  <TextContainerAdapter
+    slot="text"
+    block={block.text}
+    variant={variantTextContainer}
+  />
+  <StatisticAdapter
+    slot="statistics"
+    block={block.statistics}
+    variant={variantTextContainer}
+  />
+</TextAndStatistics>
