@@ -33,21 +33,10 @@ export const SiteMetaTagsQuery = graphql(
   [TagFragment],
 );
 
-export const GlobalSettingsQuery = graphql(`
-  query GlobalSettings($locale: SiteLocale!) {
+export const AnalyzerQuery = graphql(`
+  query AnalyzerQuery($locale: SiteLocale!) {
     globalSetting(locale: $locale) {
-      siteName
-      lastUpdateLabel
-      ariaLabelLogo
-      languageSelector
-      chipTopicLabel
-      ariaLabelCardCategory
-      ariaLabelCardAction
-      ariaLabelExternalLink
-      ariaLabelInternalLink
-      ariaLabelDownloadLink
       analyzer
-      loading
     }
   }
 `);
