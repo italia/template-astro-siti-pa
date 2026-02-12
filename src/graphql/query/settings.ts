@@ -33,14 +33,6 @@ export const SiteMetaTagsQuery = graphql(
   [TagFragment],
 );
 
-export const AnalyzerQuery = graphql(`
-  query AnalyzerQuery($locale: SiteLocale!) {
-    globalSetting(locale: $locale) {
-      analyzer
-    }
-  }
-`);
-
 export const AllGlobalSettingsQuery = graphql(
   `
     query AllGlobalSettings {
