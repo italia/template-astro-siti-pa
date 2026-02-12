@@ -16,7 +16,7 @@ const { title, paragraph, labelAccordion, accordion } = Astro.props;
 <SplitContent leftColumns={5} rightColumns={5} alignItems="top">
   <TextContainer slot="left" title={title} paragraph={paragraph} />
   <div slot="right">
-    <p class="fw-semibold fs-6 text-uppercase">{labelAccordion}</p>
+    <p class="it-label">{labelAccordion}</p>
     <Accordion {...accordion} variant="background-active" />
   </div>
 </SplitContent>

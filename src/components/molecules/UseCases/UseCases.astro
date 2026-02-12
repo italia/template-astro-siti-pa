@@ -18,7 +18,7 @@ const { items, label, backgroundColor } = Astro.props;
   @import "./style.scss";
 </style>
 
-{label && <p class="fw-semibold fs-6 text-uppercase">{label}</p>}
+{label && <p class="it-label">{label}</p>}
 <div class="usecase-container">
   {
     items.map((useCase) => (

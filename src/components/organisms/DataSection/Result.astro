@@ -1,6 +1,6 @@
 ---
-import { OrderedList } from "@components/molecules/OrderedList";
 import { CardEditorialNews } from "@components/molecules/CardEditorialNews";
+import { OrderedList } from "@components/molecules/OrderedList";
 import type { ResultProps } from "./types";
 
 type Props = ResultProps;
@@ -17,11 +17,7 @@ const { title, paragraph, items, titleListNews, news } = Astro.props;
     <OrderedList items={items} variant="small" />
   </div>
   <div class="col-lg-4 col-12">
-    {
-      titleListNews && (
-        <p class="fw-semibold fs-6 text-uppercase">{titleListNews}</p>
-      )
-    }
+    {titleListNews && <p class="it-label">{titleListNews}</p>}
     {
       news.map((newItem) => (
         <CardEditorialNews fullHeight={false} {...newItem} />

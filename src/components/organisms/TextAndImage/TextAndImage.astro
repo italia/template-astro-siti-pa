@@ -1,9 +1,9 @@
 ---
+import { Image } from "@components/atoms/Image";
+import { SplitContent } from "@components/layout/SplitContent";
 import { CardEditorialWithIcon } from "@components/molecules/CardEditorialWithIcon";
 import TextContainer from "@components/molecules/TextContainer/TextContainer.astro";
 import type { TextAndImageProps } from "./types";
-import { Image } from "@components/atoms/Image";
-import { SplitContent } from "@components/layout/SplitContent";
 
 type Props = TextAndImageProps;
 
@@ -47,9 +47,7 @@ const background =
   {
     cards && cards.length > 0 && (
       <div class="row align-item-center justify-content-between pt-5">
-        <p class={`fw-semibold fs-6 text-uppercase ${textLabelColorClass}`}>
-          {labelCards}
-        </p>
+        <p class={`it-label ${textLabelColorClass}`}>{labelCards}</p>
         {cards.map((card) => (
           <div class="col-12 col-md-6 mb-3 mb-md-4 col-lg-4">
             <CardEditorialWithIcon {...card} />

@@ -95,10 +95,7 @@ export function PaginatedCollection({
         </div>
         <div className="col-lg-5 col-12">
           <div className="it-list-wrapper d-flex flex-column">
-            <span
-              id="filterPagination"
-              className="text-uppercase text-dark fw-semibold mt-1 fs-6"
-            >
+            <span id="filterPagination" className="it-label text-dark mt-1">
               {filterTitle}
             </span>
             <ul
@@ -175,33 +172,3 @@ export function PaginatedCollection({
     </div>
   );
 }
-
-/* 
-<div
-  class=`it-list-wrapper d-flex ${variant === "column" ? "flex-column" : "align-items-center "} `
->
-  {
-    title && (
-      <span
-        class={`text-uppercase text-dark fw-semibold mt-1 me-3 ${variant === "column" ? "fs-6" : ""}`}
-      >
-        {title}
-      </span>
-    )
-  }
-  <ul class="it-list d-flex mb-0 flex-wrap" aria-label="Argomenti correlati:">
-    {
-      topics.map((topic) => (
-        <li class="list-item border-bottom-0 me-3 mt-1">
-          <Chip
-            visuallyHidden=""
-            disabled={disabled}
-            label={topic}
-            size={sizeChip}
-            variant={variantChip}
-          />
-        </li>
-      ))
-    }
-  </ul>
-</div> */
