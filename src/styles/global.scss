@@ -7,14 +7,6 @@ body {
   height: 100%;
 }
 
-.btn-outline-white:hover {
-  background-color: hsla(0, 0%, 100%, 0.1);
-}
-
-.btn-outline-white:active {
-  background-color: hsla(0, 0%, 100%, 0.25);
-}
-
 @media (min-width: 992px) {
   .py-lg-80 {
     padding-top: 80px !important;

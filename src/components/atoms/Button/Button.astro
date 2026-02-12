@@ -9,6 +9,9 @@ const { label, id, icon, variant = "light", size = "large" } = Astro.props;
 const { className, colorIcon } = getButtonClasses(variant, size, !!icon);
 ---
 
+<style>
+  @import "./style.scss";
+</style>
 <button type="button" class={className} id={id}>
   <ButtonBase label={label} icon={icon} colorIcon={colorIcon} />
 </button>
