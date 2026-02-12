@@ -1,4 +1,4 @@
-import { TagFragment } from "@graphql/fragment/commonFragments";
+import { LocaleFragment, TagFragment } from "@graphql/fragment/commonFragments";
 import { CatalogueIndexingFragment } from "@graphql/fragment/indexing";
 import {
   AllArticlesSlugFragment,
@@ -51,6 +51,55 @@ export const GlobalSettingsQuery = graphql(`
     }
   }
 `);
+
+export const AllGlobalSettingsQuery = graphql(
+  `
+    query AllGlobalSettings {
+      globalSetting {
+        _allAriaLabelCardActionLocales {
+          ...LocaleFragment
+        }
+        _allAnalyzerLocales {
+          ...LocaleFragment
+        }
+        _allAriaLabelCardCategoryLocales {
+          ...LocaleFragment
+        }
+        _allAriaLabelDownloadLinkLocales {
+          ...LocaleFragment
+        }
+        _allAriaLabelExternalLinkLocales {
+          ...LocaleFragment
+        }
+        _allAriaLabelInternalLinkLocales {
+          ...LocaleFragment
+        }
+        _allAriaLabelLogoLocales {
+          ...LocaleFragment
+        }
+        _allLabelCtaLocales {
+          ...LocaleFragment
+        }
+        _allChipTopicLabelLocales {
+          ...LocaleFragment
+        }
+        _allLanguageSelectorLocales {
+          ...LocaleFragment
+        }
+        _allLastUpdateLabelLocales {
+          ...LocaleFragment
+        }
+        _allLoadingLocales {
+          ...LocaleFragment
+        }
+        _allSiteNameLocales {
+          ...LocaleFragment
+        }
+      }
+    }
+  `,
+  [LocaleFragment],
+);
 
 export const AllLinkQuery = graphql(
   `
