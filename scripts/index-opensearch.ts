@@ -26,7 +26,7 @@ const HOST = import.meta.env.OPENSEARCH_HOST;
 const USERNAME = import.meta.env.OPENSEARCH_USERNAME;
 const PASSWORD = import.meta.env.OPENSEARCH_PASSWORD;
 const INDEX_NAME_PREFIX = import.meta.env.OPENSEARCH_INDEX_NAME;
-const CONTENT_PATH = path.join(process.cwd(), "dist", "client", "indexing");
+const CONTENT_PATH = path.join(process.cwd(), "dist", "indexing");
 
 if (!HOST || !USERNAME || !PASSWORD || !CONTENT_PATH || !INDEX_NAME_PREFIX) {
   throw new Error(
