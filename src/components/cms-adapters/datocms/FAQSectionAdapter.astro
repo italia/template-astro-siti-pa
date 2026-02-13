@@ -1,5 +1,5 @@
 ---
-import type { VariantAccordionProps } from "@components/molecules/Accordion/types";
+import type { SectionBackground } from "@components/layout/SplitContent/types";
 import { FAQSection } from "@components/organisms/FAQSection";
 import type { FaqSectionRecordFragmentType } from "@graphql/fragment/sectionFragments";
 
@@ -11,9 +11,9 @@ const { block } = Astro.props;
 ---
 
 <FAQSection
+  background={block.backgroundColor as SectionBackground}
   title={block.title}
   accordion={{
     ...block.accordion,
-    variant: block.accordion.variant as VariantAccordionProps,
   }}
 />

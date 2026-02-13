@@ -1,4 +1,5 @@
 ---
+import type { SectionBackground } from "@components/layout/SplitContent/types";
 import { Accordion } from "@components/molecules/Accordion";
 import type { AccordionProps } from "@components/molecules/Accordion/types";
 import { SectionContainer } from "@components/organisms/SectionContainer";
@@ -6,17 +7,30 @@ import { SectionContainer } from "@components/organisms/SectionContainer";
 type Props = {
   title: string;
   accordion: AccordionProps;
+  background: SectionBackground;
 };
-const { title, accordion } = Astro.props;
+const { title, accordion, background } = Astro.props;
+
+const backgroundColorClassNames: Record<SectionBackground, string> = {
+  default: "it-section-bg-default dark",
+  primary: "it-section-bg-primary",
+  dark: "it-section-bg-dark",
+  lighter: "it-section-bg-light dark",
+};
 ---
 
-<SectionContainer>
+<SectionContainer className={backgroundColorClassNames[background]}>
   <div class="row align-items-top">
     <div class="col-12">
       <h2 class="pb-5">
         {title}
       </h2>
-      <Accordion {...accordion} fullWidth={false} allOpen={false} />
+      <Accordion
+        {...accordion}
+        fullWidth={false}
+        allOpen={false}
+        variant="background-active"
+      />
     </div>
   </div>
 </SectionContainer>

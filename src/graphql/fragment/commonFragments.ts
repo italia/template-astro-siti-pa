@@ -386,7 +386,6 @@ export const AccordionFragment = graphql(`
       body(markdown: true)
       header
     }
-    variant
   }
 `);
 

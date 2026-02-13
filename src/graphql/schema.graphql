@@ -103,7 +103,6 @@ type AccordionRecord implements RecordInterface {
   _updatedAt: DateTime!
   id: ItemId!
   items: [AccordionItemRecord!]!
-  variant: String!
 }
 
 """Block of type Webinar transcript (action_card)"""
@@ -1240,6 +1239,7 @@ type FaqSectionRecord implements RecordInterface {
   _unpublishingScheduledAt: DateTime
   _updatedAt: DateTime!
   accordion: AccordionRecord!
+  backgroundColor: String!
   id: ItemId!
   title: String!
 }
@@ -7821,6 +7821,7 @@ type TextAccordionRecord implements RecordInterface {
   _unpublishingScheduledAt: DateTime
   _updatedAt: DateTime!
   accordion: AccordionBlockRecord!
+  backgroundColor: String!
   id: ItemId!
   text: TextBlockRecord!
 }

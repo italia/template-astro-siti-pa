@@ -199,6 +199,7 @@ export const FaqSectionRecordFragment = graphql(
       accordion {
         ...AccordionFragment
       }
+      backgroundColor
     }
   `,
   [AccordionFragment],
@@ -635,6 +636,7 @@ export const TextAndAccordionFragment = graphql(
       accordion {
         ...AccordionBlockFragment
       }
+      backgroundColor
     }
   `,
   [TextBlockFragment, AccordionBlockFragment],

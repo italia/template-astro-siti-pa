@@ -29,6 +29,7 @@ import {
   sidebarItems,
   useCaseItems,
 } from "@utils/mock";
+import { Accordion } from "./molecules/Accordion";
 import { ImageContainer } from "./molecules/ImageContainer";
 import { Statistics } from "./molecules/Statistics";
 import { TextContainer } from "./molecules/TextContainer";
@@ -106,6 +107,7 @@ import { AdditionalContent } from "./organisms/AdditionalContent";
     <tr>
       <td class="p-0">
         <FAQSection
+          background="default"
           title="Domande frequenti"
           accordion={{
             id: "FAQ",
@@ -422,12 +424,10 @@ import { AdditionalContent } from "./organisms/AdditionalContent";
   <tbody>
     <tr>
       <td class="p-0">
-        <TextAndAccordions
-          title="Cos’è il cloud e perché è importante?"
-          paragraph="Il cloud è alla base della modernizzazione della Pubblica Amministrazione. Permette di erogare servizi digitali più sicuri, scalabili e sostenibili, migliorando la gestione dei dati e semplificando il lavoro di enti e fornitori. "
-          labelAccordion="In evidenza"
-          accordion={{ id: "FAQ", items: accordionItems }}
-        />
+        <TextAndAccordions background="default">
+          <TextContainer slot="text" title="Titolo" paragraph="Descrizione" />
+          <Accordion slot="accordion" items={accordionItems} id="FAQ" />
+        </TextAndAccordions>
       </td>
     </tr>
   </tbody>
