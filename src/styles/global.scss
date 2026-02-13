@@ -53,6 +53,10 @@ body {
 @media (max-width: 991.98px) {
   .menu-column {
     z-index: 1055 !important;
+
+    .navbar {
+      border-top: 1px solid $gray-border;
+    }
   }
 }
 
