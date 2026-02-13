@@ -1,9 +1,9 @@
 ---
 import TextContainerAdapter from "@components/cms-adapters/datocms/TextContainerAdapter.astro";
 import UseCasesAdapter from "@components/cms-adapters/datocms/UseCasesAdapter.astro";
-import type { SectionBackground } from "@components/layout/SplitContent/types";
 import { TextAndUseCase } from "@components/organisms/TextAndUseCase";
 import type { TextAndUseCasesFragmentType } from "@graphql/fragment/sectionFragments";
+import type { SectionBackground } from "@utils/background";
 
 type Props = {
   block: TextAndUseCasesFragmentType;

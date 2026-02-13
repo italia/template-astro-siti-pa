@@ -1,5 +1,5 @@
 import type { ImageProps } from "@components/atoms/Image/types";
-import type { SectionBackground } from "@components/layout/SplitContent/types";
+import type { SectionBackground } from "@utils/background";
 
 export type HeroProps = {
   title: string;

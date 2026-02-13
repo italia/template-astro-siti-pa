@@ -1,25 +1,14 @@
 ---
-import type { SectionBackground } from "@components/layout/SplitContent/types";
 import { Accordion } from "@components/molecules/Accordion";
-import type { AccordionProps } from "@components/molecules/Accordion/types";
 import { SectionContainer } from "@components/organisms/SectionContainer";
+import { getSectionBgClass } from "@utils/background";
+import type { FAQSectionProps } from "./types";
 
-type Props = {
-  title: string;
-  accordion: AccordionProps;
-  background: SectionBackground;
-};
-const { title, accordion, background } = Astro.props;
-
-const backgroundColorClassNames: Record<SectionBackground, string> = {
-  default: "it-section-bg-default dark",
-  primary: "it-section-bg-primary",
-  dark: "it-section-bg-dark",
-  lighter: "it-section-bg-light dark",
-};
+type Props = FAQSectionProps;
+const { title, accordion, background = "default" } = Astro.props;
 ---
 
-<SectionContainer className={backgroundColorClassNames[background]}>
+<SectionContainer className={getSectionBgClass(background)}>
   <div class="row align-items-top">
     <div class="col-12">
       <h2 class="pb-5">

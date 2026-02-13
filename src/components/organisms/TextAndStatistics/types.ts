@@ -1,5 +1,5 @@
-import type { SectionBackground } from "@components/layout/SplitContent/types";
+import type { SectionBackground } from "@utils/background";
 
 export type TextAndStatisticsProps = {
-  background: SectionBackground;
+  background?: SectionBackground;
 };

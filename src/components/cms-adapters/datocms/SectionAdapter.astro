@@ -8,12 +8,10 @@ import StatisticAdapter from "@components/cms-adapters/datocms/StatisticAdapter.
 import TextContainerAdapter from "@components/cms-adapters/datocms/TextContainerAdapter.astro";
 import UseCasesAdapter from "@components/cms-adapters/datocms/UseCasesAdapter.astro";
 import { SplitContent } from "@components/layout/SplitContent";
-import type {
-  SectionAlignItems,
-  SectionBackground,
-} from "@components/layout/SplitContent/types";
+import type { SectionAlignItems } from "@components/layout/SplitContent/types";
 import { AdditionalContent } from "@components/organisms/AdditionalContent";
 import type { SectionFragmentType } from "@graphql/fragment/sectionFragments";
+import type { SectionBackground } from "@utils/background";
 
 type Props = {
   block: SectionFragmentType;

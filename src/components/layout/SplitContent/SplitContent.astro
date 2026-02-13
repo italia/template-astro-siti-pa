@@ -1,6 +1,7 @@
 ---
 import { SectionContainer } from "@components/organisms/SectionContainer";
-import type { SectionBackground, SplitContentProps } from "./types";
+import { getSectionBgClass } from "@utils/background";
+import type { SplitContentProps } from "./types";
 
 type Props = SplitContentProps;
 
@@ -11,16 +12,9 @@ const {
   background = "default",
   classSecondColumn = "",
 } = Astro.props;
-
-const backgroundColorClassNames: Record<SectionBackground, string> = {
-  default: "it-section-bg-default dark",
-  primary: "it-section-bg-primary",
-  dark: "it-section-bg-dark",
-  lighter: "it-section-bg-light dark",
-};
 ---
 
-<SectionContainer className={backgroundColorClassNames[background]}>
+<SectionContainer className={getSectionBgClass(background)}>
   <div class=`row justify-content-between align-items-${alignItems}`>
     <div class=`col-lg-${leftColumns} col-12`>
       <slot name="left" />

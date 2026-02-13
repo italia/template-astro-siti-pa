@@ -1,11 +1,11 @@
 ---
 import TextContainerAdapter from "@components/cms-adapters/datocms/TextContainerAdapter.astro";
-import type { SectionBackground } from "@components/layout/SplitContent/types";
 import { ImageContainer } from "@components/molecules/ImageContainer";
 import { AdditionalContent } from "@components/organisms/AdditionalContent";
 import { TextAndImage } from "@components/organisms/TextAndImage";
 import type { VariantTextAndImageProps } from "@components/organisms/TextAndImage/types";
 import type { TextAndImageFragmentType } from "@graphql/fragment/sectionFragments";
+import type { SectionBackground } from "@utils/background";
 
 type Props = {
   block: TextAndImageFragmentType;

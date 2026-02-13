@@ -4,7 +4,7 @@ import type { TextAndImageProps } from "./types";
 
 type Props = TextAndImageProps;
 
-const { background, variant } = Astro.props;
+const { background = "default", variant = "variant-1" } = Astro.props;
 const columnLeftSize = variant === "variant-2" ? 4 : 6;
 const columnRightSize = variant === "variant-2" ? 8 : 5;
 

@@ -1,4 +1,5 @@
-export type SectionBackground = "default" | "primary" | "dark" | "lighter";
+import type { SectionBackground } from "@utils/background";
+
 export type SectionAlignItems = "top" | "center";
 
 export type SplitContentProps = {

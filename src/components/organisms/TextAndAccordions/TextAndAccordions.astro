@@ -1,10 +1,10 @@
 ---
 import { SplitContent } from "@components/layout/SplitContent";
-import type { SectionBackground } from "@components/layout/SplitContent/types";
+import type { SectionBackground } from "@utils/background";
 
-type Props = { background: SectionBackground };
+type Props = { background?: SectionBackground };
 
-const { background } = Astro.props;
+const { background = "default" } = Astro.props;
 ---
 
 <SplitContent
