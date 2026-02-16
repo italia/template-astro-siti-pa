@@ -14,8 +14,4 @@ type Props = {
 const { block } = Astro.props;
 ---
 
-<Callout
-  title={block.title}
-  paragraph={block.paragraph}
-  visuallyHidden={block.visuallyHidden || undefined}
-/>
+<Callout title={block.title} paragraph={block.paragraph} />

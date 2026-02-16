@@ -663,7 +663,6 @@ type CalloutLinkRecord implements RecordInterface {
     markdown: Boolean
   ): String!
   title: String!
-  visuallyHidden: String
 }
 
 """Block of type Note (callout)"""
@@ -692,7 +691,6 @@ type CalloutRecord implements RecordInterface {
     markdown: Boolean
   ): String!
   title: String!
-  visuallyHidden: String
 }
 
 """Block of type Card editorial with icon (card_editorial_with_icon)"""
@@ -4450,75 +4448,6 @@ type KpiElementRecord implements RecordInterface {
   valueSuffix: String
 }
 
-"""Record of type Lang (lang)"""
-type LangRecord implements RecordInterface {
-  _allAnalyzerLocales(
-    """
-    If you want to fallback to a default translation when a translation has not been found
-    """
-    fallbackLocales: [SiteLocale!]
-  ): [StringNonNullMultiLocaleField!]
-  _allLongLabelLocales(
-    """
-    If you want to fallback to a default translation when a translation has not been found
-    """
-    fallbackLocales: [SiteLocale!]
-  ): [StringNonNullMultiLocaleField!]
-  _allShortLabelLocales(
-    """
-    If you want to fallback to a default translation when a translation has not been found
-    """
-    fallbackLocales: [SiteLocale!]
-  ): [StringNonNullMultiLocaleField!]
-  _createdAt: DateTime!
-
-  """Editing URL"""
-  _editingUrl: String
-  _firstPublishedAt: DateTime!
-  _isValid: BooleanType!
-  _locales: [SiteLocale!]!
-  _modelApiKey: String!
-  _publicationScheduledAt: DateTime
-  _publishedAt: DateTime!
-
-  """Generates SEO and Social card meta tags to be used in your frontend"""
-  _seoMetaTags(
-    """The locale to use to fetch the field's content"""
-    locale: SiteLocale
-  ): [Tag!]!
-  _status: ItemStatus!
-  _unpublishingScheduledAt: DateTime
-  _updatedAt: DateTime!
-  analyzer(
-    """The locale to use to fetch the field's content"""
-    locale: SiteLocale
-
-    """
-    If you want to fallback to a default translation when a translation has not been found
-    """
-    fallbackLocales: [SiteLocale!]
-  ): String!
-  id: ItemId!
-  longLabel(
-    """The locale to use to fetch the field's content"""
-    locale: SiteLocale
-
-    """
-    If you want to fallback to a default translation when a translation has not been found
-    """
-    fallbackLocales: [SiteLocale!]
-  ): String!
-  shortLabel(
-    """The locale to use to fetch the field's content"""
-    locale: SiteLocale
-
-    """
-    If you want to fallback to a default translation when a translation has not been found
-    """
-    fallbackLocales: [SiteLocale!]
-  ): String!
-}
-
 union LayoutModelSmallPrintField = ExternalLinkRecord | InternalLinkRecord
 
 union LayoutModelUtilityField = ExternalLinkRecord | SupportingBrandRecord
@@ -6269,17 +6198,6 @@ type Query {
     filter: KpiElementModelFilter
     orderBy: [KpiElementModelOrderBy] = [_updatedAt_DESC]
   ): KpiElementRecord
-
-  """Returns the single instance record"""
-  lang(
-    """The locale to use to fetch the field's content"""
-    locale: SiteLocale
-
-    """
-    If you want to fallback to a default translation when a translation has not been found
-    """
-    fallbackLocales: [SiteLocale!]
-  ): LangRecord
 
   """Returns the single instance record"""
   layout(
