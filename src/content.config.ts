@@ -5,12 +5,15 @@ import type {
   WebinarItemFragmentType,
 } from "@graphql/fragment/commonFragments";
 import { AllNewsQuery } from "@graphql/query/news";
+import {
+  AllPagesContentQuery,
+  type PageFragmentType,
+} from "@graphql/query/page";
 import { AllResourcesQuery } from "@graphql/query/resource";
 import { AllGlobalSettingsQuery } from "@graphql/query/settings";
 import { AllStoryCardQuery } from "@graphql/query/story";
 import { AllWebinarQuery } from "@graphql/query/webinar";
 import { executeQuery } from "@lib/datocms";
-
 import { defineCollection, z } from "astro:content";
 
 const newsSchema = z.custom<NewsItemFragmentType>();
@@ -38,6 +41,8 @@ const globalSettingsSchema = z.object({
     loading: z.string(),
   }),
 });
+
+const pageSchema = z.custom<PageFragmentType>();
 
 const newsCollection = defineCollection({
   schema: newsSchema,
@@ -117,10 +122,19 @@ const globalSettingsCollection = defineCollection({
   },
 });
 
+const pagesCollection = defineCollection({
+  schema: pageSchema,
+  loader: async () => {
+    const response = await executeQuery(AllPagesContentQuery);
+    return response?.allPages || [];
+  },
+});
+
 export const collections = {
   news_item: newsCollection,
   story_item: storiesCollection,
   webinar_item: webinarsCollection,
   resource: resourcesCollection,
   global_settings: globalSettingsCollection,
+  page: pagesCollection,
 };
