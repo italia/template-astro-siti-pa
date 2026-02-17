@@ -1,13 +1,11 @@
 ---
-import type { SiteLocale } from "@graphql/types";
-import Layout from "@layouts/Layout.astro";
-import { executeQuery } from "@lib/datocms";
-
 import PageAdapter from "@components/cms-adapters/datocms/PageAdapter.astro";
 import type { SearchPageContentFragmentType } from "@graphql/fragment/search";
-import { SearchPageContentQuery } from "@graphql/query/search";
+import type { SiteLocale } from "@graphql/types";
+import Layout from "@layouts/Layout.astro";
 import { linkResolver } from "@utils/linkResolver";
 import { removeLang } from "@utils/pathHelper";
+import { getCollection } from "astro:content";
 
 export async function getStaticPaths() {
   type PathItem = {
@@ -21,9 +19,10 @@ export async function getStaticPaths() {
     };
   };
 
-  const response = await executeQuery(SearchPageContentQuery);
+  const response = await getCollection("search");
 
-  const page = response.search;
+  const page = response[0].data;
+  if (!page) return;
 
   const pathsPromises =
     page?.locales.map(async (lang) => {

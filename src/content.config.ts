@@ -14,6 +14,10 @@ import {
   type PageFragmentType,
 } from "@graphql/query/page";
 import { AllResourcesQuery } from "@graphql/query/resource";
+import {
+  SearchPageContentQuery,
+  type SearchRecordFragmentType,
+} from "@graphql/query/search";
 import { AllGlobalSettingsQuery } from "@graphql/query/settings";
 import { AllStoryCardQuery } from "@graphql/query/story";
 import { AllWebinarQuery } from "@graphql/query/webinar";
@@ -48,6 +52,7 @@ const globalSettingsSchema = z.object({
 
 const pageSchema = z.custom<PageFragmentType>();
 const homepageSchema = z.custom<HomepageRecordFragmentType>();
+const searchSchema = z.custom<SearchRecordFragmentType>();
 
 const newsCollection = defineCollection({
   schema: newsSchema,
@@ -143,6 +148,14 @@ const homepageCollection = defineCollection({
   },
 });
 
+const searchCollection = defineCollection({
+  schema: searchSchema,
+  loader: async () => {
+    const response = await executeQuery(SearchPageContentQuery);
+    return response?.search ? [response.search] : [];
+  },
+});
+
 export const collections = {
   news_item: newsCollection,
   story_item: storiesCollection,
@@ -151,4 +164,5 @@ export const collections = {
   global_settings: globalSettingsCollection,
   page: pagesCollection,
   homepage: homepageCollection,
+  search: searchCollection,
 };
