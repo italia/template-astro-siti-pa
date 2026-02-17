@@ -24,7 +24,11 @@ import {
 } from "@graphql/query/search";
 import { AllGlobalSettingsQuery } from "@graphql/query/settings";
 import { AllStoryCardQuery } from "@graphql/query/story";
-import { AllWebinarQuery } from "@graphql/query/webinar";
+import {
+  AllWebinarQuery,
+  AllWebinarsContentQuery,
+  type AllWebinarRecordFragmentType,
+} from "@graphql/query/webinar";
 import { executeQuery } from "@lib/datocms";
 import { defineCollection, z } from "astro:content";
 
@@ -57,6 +61,7 @@ const globalSettingsSchema = z.object({
 const pageSchema = z.custom<PageFragmentType>();
 const homepageSchema = z.custom<HomepageRecordFragmentType>();
 const searchSchema = z.custom<SearchRecordFragmentType>();
+const webinarContentSchema = z.custom<AllWebinarRecordFragmentType>();
 
 const catalogueSchema = z.intersection(
   z.custom<AllCataloguesRecordFragmentType>(),
@@ -193,6 +198,14 @@ const cataloguesCollection = defineCollection({
   },
 });
 
+const webinarContentCollection = defineCollection({
+  schema: webinarContentSchema,
+  loader: async () => {
+    const response = await executeQuery(AllWebinarsContentQuery);
+    return response?.allWebinarItems || [];
+  },
+});
+
 export const collections = {
   news_item: newsCollection,
   story_item: storiesCollection,
@@ -203,4 +216,5 @@ export const collections = {
   homepage: homepageCollection,
   search: searchCollection,
   catalogue: cataloguesCollection,
+  webinar_content: webinarContentCollection,
 };

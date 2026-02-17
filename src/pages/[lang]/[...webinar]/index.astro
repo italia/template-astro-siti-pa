@@ -3,16 +3,14 @@ import PageAdapter from "@components/cms-adapters/datocms/PageAdapter.astro";
 import type { TagFragmentType } from "@graphql/fragment/commonFragments";
 import type { SeoFieldFragmentType } from "@graphql/fragment/seoFragments";
 import type { WebinarContentFragmentType } from "@graphql/fragment/webinar";
-import {
-  AllWebinarsContentQuery,
-  WebinarSeoQuery,
-} from "@graphql/query/webinar";
+import { WebinarSeoQuery } from "@graphql/query/webinar";
 import type { SiteLocale } from "@graphql/types";
 import Layout from "@layouts/Layout.astro";
 import { executeQuery } from "@lib/datocms";
 import { extractFaqItems, type JsonLdPageData } from "@utils/JsonLD/seoJsonLd";
 import { linkResolver } from "@utils/linkResolver";
 import { removeLang } from "@utils/pathHelper";
+import { getCollection } from "astro:content";
 
 export async function getStaticPaths() {
   type PathItem = {
@@ -30,11 +28,12 @@ export async function getStaticPaths() {
     };
   };
 
-  const response = await executeQuery(AllWebinarsContentQuery);
+  const response = await getCollection("webinar_content");
 
   const pathsPromises =
-    response.allWebinarItems?.flatMap((page) =>
-      page.locales.map(async (lang) => {
+    response?.flatMap((item) => {
+      const page = item.data;
+      return page.locales.map(async (lang) => {
         const seoRes = await executeQuery(WebinarSeoQuery, {
           variables: { id: page.id, locale: lang },
         });
@@ -59,8 +58,8 @@ export async function getStaticPaths() {
             updatedAt: seoRes.webinarItem?.updatedAt || page.updatedAt,
           },
         };
-      }),
-    ) || [];
+      });
+    }) || [];
 
   const paths = await Promise.all(pathsPromises);
 

@@ -7,7 +7,7 @@ import {
   AllWebinarItemsFragment,
   WebinarContentFragment,
 } from "@graphql/fragment/webinar";
-import { graphql } from "@graphql/graphql";
+import { graphql, type FragmentOf } from "@graphql/graphql";
 
 export const AllWebinarItemsQuery = graphql(
   `
@@ -31,24 +31,37 @@ export const AllWebinarQuery = graphql(
   [WebinarItemFragment],
 );
 
-export const AllWebinarsContentQuery = graphql(
+export const AllWebinarRecordFragment = graphql(
   `
-    query AllWebinarsContentQuery {
-      allWebinarItems {
-        id
-        locales: _locales
-        publishedAt: _publishedAt
-        updatedAt: _updatedAt
-        allContentLocales: _allContentLocales {
-          locale
-          value {
-            ...WebinarContentFragment
-          }
+    fragment AllWebinarRecordFragment on WebinarItemRecord @_unmask {
+      id
+      locales: _locales
+      publishedAt: _publishedAt
+      updatedAt: _updatedAt
+      allContentLocales: _allContentLocales {
+        locale
+        value {
+          ...WebinarContentFragment
         }
       }
     }
   `,
   [WebinarContentFragment],
+);
+
+export type AllWebinarRecordFragmentType = FragmentOf<
+  typeof AllWebinarRecordFragment
+>;
+
+export const AllWebinarsContentQuery = graphql(
+  `
+    query AllWebinarsContentQuery {
+      allWebinarItems {
+        ...AllWebinarRecordFragment
+      }
+    }
+  `,
+  [AllWebinarRecordFragment],
 );
 
 export const WebinarSeoQuery = graphql(
