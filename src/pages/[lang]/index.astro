@@ -1,14 +1,12 @@
 ---
 import PageAdapter from "@components/cms-adapters/datocms/PageAdapter.astro";
-import { LocalesQuery } from "@graphql/query/settings";
 import Layout from "@layouts/Layout.astro";
-import { executeQuery } from "@lib/datocms";
 import { getCollection } from "astro:content";
 
 export async function getStaticPaths() {
-  const {
-    site: { locales },
-  } = await executeQuery(LocalesQuery);
+  const response = await getCollection("locales");
+
+  const locales = response[0].data.locales;
   return locales.map((lang) => ({
     params: {
       lang,

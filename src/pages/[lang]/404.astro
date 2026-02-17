@@ -3,15 +3,15 @@ import { ButtonLink } from "@components/atoms/Button";
 import { Image } from "@components/atoms/Image";
 import { SplitContent } from "@components/layout/SplitContent";
 import { ErrorPageQuery } from "@graphql/query/errorPage";
-import { LocalesQuery } from "@graphql/query/settings";
 import Layout from "@layouts/Layout.astro";
 import { executeQuery } from "@lib/datocms";
 import { linkResolver } from "@utils/linkResolver";
+import { getCollection } from "astro:content";
 
 export async function getStaticPaths() {
-  const {
-    site: { locales },
-  } = await executeQuery(LocalesQuery);
+  const response = await getCollection("locales");
+
+  const locales = response[0].data.locales;
   const paths = await Promise.all(
     locales.map(async (lang) => {
       const { globalSetting, homepage } = await executeQuery(ErrorPageQuery, {

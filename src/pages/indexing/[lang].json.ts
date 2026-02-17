@@ -1,5 +1,4 @@
 import { AllDocumentsQuery } from "@graphql/fragment/indexing";
-import { LocalesQuery } from "@graphql/query/settings";
 import type { SiteLocale } from "@graphql/types";
 import { getGlobalSettings } from "@lib/dataFetcher";
 import { executeQuery } from "@lib/datocms";
@@ -12,11 +11,12 @@ import {
 } from "@utils/indexing/getCategory";
 import * as Mappers from "@utils/indexing/indexingMappers";
 import type { APIRoute } from "astro";
+import { getCollection } from "astro:content";
 
 export async function getStaticPaths() {
-  const {
-    site: { locales },
-  } = await executeQuery(LocalesQuery);
+  const response = await getCollection("locales");
+
+  const locales = response[0].data.locales;
   return locales.map((lang) => ({
     params: {
       lang,

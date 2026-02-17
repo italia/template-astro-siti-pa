@@ -7,7 +7,7 @@ import { AllNewsQuery } from "@graphql/query/news";
 import { AllPagesContentQuery } from "@graphql/query/page";
 import { AllResourcesQuery } from "@graphql/query/resource";
 import { SearchPageContentQuery } from "@graphql/query/search";
-import { AllGlobalSettingsQuery } from "@graphql/query/settings";
+import { AllGlobalSettingsQuery, LocalesQuery } from "@graphql/query/settings";
 import {
   AllStoriesContentQuery,
   AllStoryCardQuery,
@@ -149,4 +149,17 @@ export const layoutLoader = async () => {
 export const sidebarLoader = async () => {
   const response = await executeQuery(SidebarQuery);
   return response?.sidebarForArticle ? [response.sidebarForArticle] : [];
+};
+
+export const localesLoader = async () => {
+  const response = await executeQuery(LocalesQuery);
+
+  if (!response?.site?.locales) return [];
+
+  return [
+    {
+      id: "site-locales",
+      locales: response.site.locales,
+    },
+  ];
 };

@@ -18,6 +18,7 @@ import type { SearchRecordFragmentType } from "@graphql/fragment/search";
 import type { SearchMenuFragmentType } from "@graphql/fragment/sectionFragments";
 import type { AllStoriesRecordFragmentType } from "@graphql/fragment/story";
 import type { AllWebinarRecordFragmentType } from "@graphql/fragment/webinar";
+import type { SiteLocale } from "@graphql/types";
 import { z } from "astro:content";
 
 export const newsSchema = z.custom<NewsItemFragmentType>();
@@ -84,3 +85,8 @@ export const catalogueSchema = z.intersection(
     }),
   }),
 );
+
+export const localesSchema = z.object({
+  id: z.string(),
+  locales: z.array(z.custom<SiteLocale>()),
+});

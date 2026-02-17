@@ -5,6 +5,7 @@ import {
   homepageLoader,
   insightContentLoader,
   layoutLoader,
+  localesLoader,
   newsLoader,
   pagesLoader,
   resourcesLoader,
@@ -22,6 +23,7 @@ import {
   homepageSchema,
   insightSchema,
   layoutSchema,
+  localesSchema,
   newsSchema,
   pageSchema,
   resourceSchema,
@@ -94,5 +96,9 @@ export const collections = {
   sidebar: defineCollection({
     schema: sidebarSchema,
     loader: sidebarLoader,
+  }),
+  locales: defineCollection({
+    schema: localesSchema,
+    loader: localesLoader,
   }),
 };
