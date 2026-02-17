@@ -4,6 +4,7 @@ import type {
   NewsItemFragmentType,
   ResourceFragmentType,
   StoryCardFragmentType,
+  TagFragmentType,
   WebinarItemFragmentType,
 } from "@graphql/fragment/commonFragments";
 import type { ErrorRecordFragmentType } from "@graphql/fragment/globalSettings";
@@ -96,4 +97,9 @@ export const errorPageSchema = z.object({
   id: z.string(),
   globalSetting: z.custom<ErrorRecordFragmentType>(),
   homepageId: z.string().optional(),
+});
+
+export const siteMetaTagsSchema = z.object({
+  id: z.string(),
+  faviconMetaTags: z.array(z.custom<TagFragmentType>()),
 });

@@ -8,7 +8,11 @@ import { AllNewsQuery } from "@graphql/query/news";
 import { AllPagesContentQuery } from "@graphql/query/page";
 import { AllResourcesQuery } from "@graphql/query/resource";
 import { SearchPageContentQuery } from "@graphql/query/search";
-import { AllGlobalSettingsQuery, LocalesQuery } from "@graphql/query/settings";
+import {
+  AllGlobalSettingsQuery,
+  LocalesQuery,
+  SiteMetaTagsQuery,
+} from "@graphql/query/settings";
 import {
   AllStoriesContentQuery,
   AllStoryCardQuery,
@@ -175,6 +179,19 @@ export const errorPageLoader = async () => {
       id: "error-page",
       globalSetting: response.globalSetting,
       homepageId: response.homepage?.id,
+    },
+  ];
+};
+
+export const siteMetaTagsLoader = async () => {
+  const response = await executeQuery(SiteMetaTagsQuery);
+
+  if (!response?.site?.faviconMetaTags) return [];
+
+  return [
+    {
+      id: "site-meta-tags",
+      faviconMetaTags: response.site.faviconMetaTags,
     },
   ];
 };

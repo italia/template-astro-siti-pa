@@ -4,16 +4,14 @@ import FooterAdapter from "@components/cms-adapters/datocms/FooterAdapter.astro"
 import HeaderAdapter from "@components/cms-adapters/datocms/HeaderAdapter.astro";
 import { LastUpdate } from "@components/molecules/LastUpdate";
 import { Seo, type TitleMetaLinkTag } from "@datocms/astro";
-
 import type {
   FooterFragmentType,
   HeaderFragmentType,
 } from "@graphql/fragment/layout";
-import { SiteMetaTagsQuery } from "@graphql/query/settings";
 import { getGlobalSettings, getLayout } from "@lib/dataFetcher";
-import { executeQuery } from "@lib/datocms";
 import { isDraftModeEnabled } from "@lib/draftMode";
 import { type JsonLdPageData } from "@utils/JsonLD/seoJsonLd";
+import { getCollection } from "astro:content";
 import bsi from "bootstrap-italia/dist/js/bootstrap-italia.bundle.min.js?url";
 import "../styles/global.scss";
 import JsonLDScripts from "./JsonLDScripts.astro";
@@ -37,9 +35,9 @@ const {
 
 const { lang } = Astro.locals;
 
-const result = await executeQuery(SiteMetaTagsQuery, {
-  includeDrafts: isPreview,
-});
+const result = await getCollection("site_meta");
+
+const siteMetaTag = result[0].data;
 
 const response = await getLayout(isPreview);
 
@@ -80,7 +78,7 @@ const isShowingPreviewBar = isPreview && redirectUrl;
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
     {noIndex && <meta name="robots" content="noindex, nofollow" />}
-    <Seo data={[...result.site.faviconMetaTags, ...pageSeo]} />
+    <Seo data={[...siteMetaTag.faviconMetaTags, ...pageSeo]} />
     <JsonLDScripts jsonLd={jsonLd} />
     <link
       href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300;400;600;700&display=swap"

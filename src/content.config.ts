@@ -12,6 +12,7 @@ import {
   resourcesLoader,
   searchLoader,
   sidebarLoader,
+  siteMetaTagsLoader,
   storiesLoader,
   storyContentLoader,
   webinarContentLoader,
@@ -31,6 +32,7 @@ import {
   resourceSchema,
   searchSchema,
   sidebarSchema,
+  siteMetaTagsSchema,
   storyContentSchema,
   storySchema,
   webinarContentSchema,
@@ -106,5 +108,9 @@ export const collections = {
   error_page: defineCollection({
     schema: errorPageSchema,
     loader: errorPageLoader,
+  }),
+  site_meta: defineCollection({
+    schema: siteMetaTagsSchema,
+    loader: siteMetaTagsLoader,
   }),
 };
