@@ -1,3 +1,4 @@
+import { LayoutQuery } from "@graphql/query/layout";
 import { AllNewsQuery } from "@graphql/query/news";
 import { AllResourcesQuery } from "@graphql/query/resource";
 import { AllStoryCardQuery } from "@graphql/query/story";
@@ -54,3 +55,13 @@ export async function getGlobalSettings(lang: string) {
   );
   return globalSettingLocale?.data.value;
 }
+
+export const getLayout = async (isPreview: boolean) => {
+  if (isPreview) {
+    const res = await executeQuery(LayoutQuery, {
+      includeDrafts: true,
+    });
+    return wrap([res.layout]);
+  }
+  return await getCollection("layout");
+};

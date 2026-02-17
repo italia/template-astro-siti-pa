@@ -4,13 +4,13 @@ import FooterAdapter from "@components/cms-adapters/datocms/FooterAdapter.astro"
 import HeaderAdapter from "@components/cms-adapters/datocms/HeaderAdapter.astro";
 import { LastUpdate } from "@components/molecules/LastUpdate";
 import { Seo, type TitleMetaLinkTag } from "@datocms/astro";
+
 import type {
   FooterFragmentType,
   HeaderFragmentType,
-} from "@graphql/fragment/sectionFragments";
-import { LayoutQuery } from "@graphql/query/layout";
+} from "@graphql/fragment/layout";
 import { SiteMetaTagsQuery } from "@graphql/query/settings";
-import { getGlobalSettings } from "@lib/dataFetcher";
+import { getGlobalSettings, getLayout } from "@lib/dataFetcher";
 import { executeQuery } from "@lib/datocms";
 import { isDraftModeEnabled } from "@lib/draftMode";
 import { type JsonLdPageData } from "@utils/JsonLD/seoJsonLd";
@@ -41,33 +41,32 @@ const result = await executeQuery(SiteMetaTagsQuery, {
   includeDrafts: isPreview,
 });
 
-const { layout, homepage, search } = await executeQuery(LayoutQuery, {
-  variables: { locale: lang },
-  includeDrafts: isPreview,
-});
+const response = await getLayout(isPreview);
+
+const { layout, homepage, search } = response[0].data;
 
 const globalSetting = await getGlobalSettings(lang);
 
 if (!layout) return;
 
 const headerLayout: HeaderFragmentType = {
-  tagline: layout.tagline,
-  organization: layout.organization,
+  _allTaglineLocales: layout._allTaglineLocales,
+  _allOrganizationLocales: layout._allOrganizationLocales,
   siteName: layout.siteName,
-  mainNavigation: layout.mainNavigation,
-  secondaryNavigation: layout.secondaryNavigation,
+  allMainNavigation: layout.allMainNavigation,
+  allSecondaryNavigation: layout.allSecondaryNavigation,
   locales: layout.locales,
   logoSelect: layout.logoSelect,
 };
 
 const footerLayout: FooterFragmentType = {
-  heading: layout.heading,
-  organizations: layout.organizations,
-  topicTitle: layout.topicTitle,
-  topicLink: layout.topicLink,
-  utilityTitle: layout.utilityTitle,
-  utility: layout.utility,
-  smallPrint: layout.smallPrint,
+  _allHeadingLocales: layout._allHeadingLocales,
+  _allOrganizationsLocales: layout._allOrganizationsLocales,
+  _allTopicTitleLocales: layout._allTopicTitleLocales,
+  _allTopicLinkLocales: layout._allTopicLinkLocales,
+  _allUtilityTitleLocales: layout._allUtilityTitleLocales,
+  _allUtilityLocales: layout._allUtilityLocales,
+  _allSmallPrintLocales: layout._allSmallPrintLocales,
 };
 
 const isShowingPreviewBar = isPreview && redirectUrl;

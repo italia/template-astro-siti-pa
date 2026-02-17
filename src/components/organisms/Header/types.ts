@@ -4,7 +4,7 @@ type HeaderBase = {
 
 export type HeaderCentralProps = HeaderBase & {
   brandTitle: string;
-  brandTagLine: string;
+  brandTagLine?: string;
   menuItems: HeaderNavbarProps;
   logo: string;
   ariaLabelLinkLogo: string;
@@ -13,7 +13,7 @@ export type HeaderCentralProps = HeaderBase & {
 };
 
 export type HeaderSlimProps = HeaderBase & {
-  slimContent: string;
+  slimContent?: string;
   ariaLabelLanguageSelector: string;
   locales: string[];
 };
@@ -22,7 +22,7 @@ export type HeaderProps = HeaderCentralProps & HeaderSlimProps;
 
 export type SearchConfig = {
   isEnabled: boolean;
-  label: string;
+  label?: string;
   url: string;
 };
 

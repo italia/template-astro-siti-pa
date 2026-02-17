@@ -1,9 +1,7 @@
 ---
 import { Header } from "@components/organisms/Header";
-import type {
-  HeaderFragmentType,
-  SearchMenuFragmentType,
-} from "@graphql/fragment/sectionFragments";
+import type { HeaderFragmentType } from "@graphql/fragment/layout";
+import type { SearchMenuFragmentType } from "@graphql/fragment/sectionFragments";
 import { getGlobalSettings } from "@lib/dataFetcher";
 import { createMenu } from "@utils/createMenuHelper";
 import { linkResolver } from "@utils/linkResolver";
@@ -14,11 +12,11 @@ type Props = HeaderFragmentType & {
 };
 
 const {
-  tagline,
-  organization,
+  _allTaglineLocales,
+  _allOrganizationLocales,
   siteName,
-  mainNavigation,
-  secondaryNavigation,
+  allMainNavigation,
+  allSecondaryNavigation,
   locales,
   homeRecordId,
   logoSelect,
@@ -27,6 +25,15 @@ const {
 
 const { lang } = Astro.locals;
 const currentUrl = Astro.url.pathname;
+
+const tagline = _allTaglineLocales?.find((l) => l.locale === lang)?.value;
+const organization = _allOrganizationLocales?.find(
+  (l) => l.locale === lang,
+)?.value;
+const mainNavigation = allMainNavigation?.find((l) => l.locale === lang)?.value;
+const secondaryNavigation = allSecondaryNavigation?.find(
+  (l) => l.locale === lang,
+)?.value;
 
 const menuItems = createMenu(
   mainNavigation,
@@ -47,7 +54,7 @@ const globalSetting = await getGlobalSettings(lang);
   logo={logoSelect}
   search={search && {
     isEnabled: search.isSearchEnabled,
-    label: search.searchLabel,
+    label: search._allSearchLabelLocales?.find((l) => l.locale === lang)?.value,
     url: linkResolver(search.id, lang),
   }}
   linkBackHome={linkResolver(homeRecordId, lang)}

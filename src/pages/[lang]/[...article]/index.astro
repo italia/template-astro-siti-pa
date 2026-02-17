@@ -1,21 +1,17 @@
 ---
 import SidebarLayoutAdapter from "@components/cms-adapters/datocms/SidebarLayoutAdapter.astro";
 import type { ArticleContentFragmentType } from "@graphql/fragment/article";
-import type {
-  SidebarFragmentType,
-  TagFragmentType,
-} from "@graphql/fragment/commonFragments";
+import type { TagFragmentType } from "@graphql/fragment/commonFragments";
+import type { SidebarFragmentType } from "@graphql/fragment/layout";
 import type { SeoFieldFragmentType } from "@graphql/fragment/seoFragments";
 import { ArticleSeoQuery } from "@graphql/query/article";
-import { SidebarQuery } from "@graphql/query/layout";
-import { getCollection } from "astro:content";
-
 import type { SiteLocale } from "@graphql/types";
 import Layout from "@layouts/Layout.astro";
 import { executeQuery } from "@lib/datocms";
 import { type JsonLdPageData } from "@utils/JsonLD/seoJsonLd";
 import { linkResolver } from "@utils/linkResolver";
 import { removeLang } from "@utils/pathHelper";
+import { getCollection } from "astro:content";
 
 export async function getStaticPaths() {
   type PathItem = {
@@ -44,9 +40,9 @@ export async function getStaticPaths() {
           variables: { id: page.id, locale: lang },
         });
 
-        const { sidebarForArticle } = await executeQuery(SidebarQuery, {
-          variables: { locale: lang },
-        });
+        const response = await getCollection("sidebar");
+
+        const sidebarForArticle = response[0].data;
 
         const fullPath = linkResolver(page.id, lang);
 

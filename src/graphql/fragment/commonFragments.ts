@@ -607,23 +607,6 @@ export const SidebarMenuFragment = graphql(
 
 export type SidebarMenuFragmentType = FragmentOf<typeof SidebarMenuFragment>;
 
-export const SidebarFragment = graphql(
-  `
-    fragment SidebarFragment on SidebarForArticleRecord @_unmask {
-      id
-      headerLabel
-      openLabel
-      closeLabel
-      menu {
-        ...SidebarMenuFragment
-      }
-    }
-  `,
-  [SidebarMenuFragment],
-);
-
-export type SidebarFragmentType = FragmentOf<typeof SidebarFragment>;
-
 export const ListBlockquoteFragment = graphql(`
   fragment ListBlockquoteFragment on ListBlockquoteRecord @_unmask {
     id

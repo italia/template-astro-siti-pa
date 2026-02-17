@@ -636,6 +636,11 @@ type BrandRecord implements RecordInterface {
   url: String!
 }
 
+type BrandRecordListListNonNullMultiLocaleField {
+  locale: SiteLocale
+  value: [BrandRecord!]!
+}
+
 """Block of type Note link (callout_link)"""
 type CalloutLinkRecord implements RecordInterface {
   _createdAt: DateTime!
@@ -4284,6 +4289,11 @@ type InternalLinkRecord implements RecordInterface {
   linkTo: InternalLinkModelLinkToField!
 }
 
+type InternalLinkRecordListListNonNullMultiLocaleField {
+  locale: SiteLocale
+  value: [InternalLinkRecord!]!
+}
+
 """Block of type Intro article (intro_article)"""
 type IntroArticleRecord implements RecordInterface {
   _createdAt: DateTime!
@@ -4450,7 +4460,17 @@ type KpiElementRecord implements RecordInterface {
 
 union LayoutModelSmallPrintField = ExternalLinkRecord | InternalLinkRecord
 
+type LayoutModelSmallPrintFieldListListNonNullMultiLocaleField {
+  locale: SiteLocale
+  value: [LayoutModelSmallPrintField!]!
+}
+
 union LayoutModelUtilityField = ExternalLinkRecord | SupportingBrandRecord
+
+type LayoutModelUtilityFieldListListNonNullMultiLocaleField {
+  locale: SiteLocale
+  value: [LayoutModelUtilityField!]!
+}
 
 """Record of type Layout (layout)"""
 type LayoutRecord implements RecordInterface {
@@ -4481,24 +4501,42 @@ type LayoutRecord implements RecordInterface {
     """
     fallbackLocales: [SiteLocale!]
   ): [StringNonNullMultiLocaleField!]
-  _allSiteNameLocales(
+  _allOrganizationsLocales(
     """
     If you want to fallback to a default translation when a translation has not been found
     """
     fallbackLocales: [SiteLocale!]
-  ): [StringNonNullMultiLocaleField!]
+  ): [BrandRecordListListNonNullMultiLocaleField!]
+  _allSmallPrintLocales(
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+  ): [LayoutModelSmallPrintFieldListListNonNullMultiLocaleField!]
   _allTaglineLocales(
     """
     If you want to fallback to a default translation when a translation has not been found
     """
     fallbackLocales: [SiteLocale!]
   ): [StringNonNullMultiLocaleField!]
+  _allTopicLinkLocales(
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+  ): [InternalLinkRecordListListNonNullMultiLocaleField!]
   _allTopicTitleLocales(
     """
     If you want to fallback to a default translation when a translation has not been found
     """
     fallbackLocales: [SiteLocale!]
   ): [StringNonNullMultiLocaleField!]
+  _allUtilityLocales(
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+  ): [LayoutModelUtilityFieldListListNonNullMultiLocaleField!]
   _allUtilityTitleLocales(
     """
     If you want to fallback to a default translation when a translation has not been found
@@ -4565,8 +4603,7 @@ type LayoutRecord implements RecordInterface {
     """
     fallbackLocales: [SiteLocale!]
   ): String!
-  organizations: [BrandRecord!]!
-  siteName(
+  organizations(
     """The locale to use to fetch the field's content"""
     locale: SiteLocale
 
@@ -4574,8 +4611,17 @@ type LayoutRecord implements RecordInterface {
     If you want to fallback to a default translation when a translation has not been found
     """
     fallbackLocales: [SiteLocale!]
-  ): String!
-  smallPrint: [LayoutModelSmallPrintField!]!
+  ): [BrandRecord!]!
+  siteName: String!
+  smallPrint(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+  ): [LayoutModelSmallPrintField!]!
   tagline(
     """The locale to use to fetch the field's content"""
     locale: SiteLocale
@@ -4585,7 +4631,15 @@ type LayoutRecord implements RecordInterface {
     """
     fallbackLocales: [SiteLocale!]
   ): String!
-  topicLink: [InternalLinkRecord!]!
+  topicLink(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+  ): [InternalLinkRecord!]!
   topicTitle(
     """The locale to use to fetch the field's content"""
     locale: SiteLocale
@@ -4595,7 +4649,15 @@ type LayoutRecord implements RecordInterface {
     """
     fallbackLocales: [SiteLocale!]
   ): String!
-  utility: [LayoutModelUtilityField!]!
+  utility(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+  ): [LayoutModelUtilityField!]!
   utilityTitle(
     """The locale to use to fetch the field's content"""
     locale: SiteLocale

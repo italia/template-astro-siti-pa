@@ -4,6 +4,12 @@ import type {
   StoryCardFragmentType,
   WebinarItemFragmentType,
 } from "@graphql/fragment/commonFragments";
+import type {
+  FooterFragmentType,
+  HeaderFragmentType,
+  SidebarFragmentType,
+} from "@graphql/fragment/layout";
+import type { SearchMenuFragmentType } from "@graphql/fragment/sectionFragments";
 import {
   AllArticlesContentQuery,
   type AllArticlesRecordFragmentType,
@@ -20,6 +26,7 @@ import {
   AllInsightsContentQuery,
   type AllInsightsRecordFragmentType,
 } from "@graphql/query/insight";
+import { LayoutQuery, SidebarQuery } from "@graphql/query/layout";
 import { AllNewsQuery } from "@graphql/query/news";
 import {
   AllPagesContentQuery,
@@ -77,6 +84,17 @@ const webinarContentSchema = z.custom<AllWebinarRecordFragmentType>();
 const storyContentSchema = z.custom<AllStoriesRecordFragmentType>();
 const insightSchema = z.custom<AllInsightsRecordFragmentType>();
 const articleSchema = z.custom<AllArticlesRecordFragmentType>();
+
+const layoutSchema = z.object({
+  layout: z.intersection(
+    z.custom<HeaderFragmentType>(),
+    z.custom<FooterFragmentType>(),
+  ),
+  search: z.custom<SearchMenuFragmentType>(),
+  homepageId: z.string(),
+});
+
+const sidebarSchema = z.custom<SidebarFragmentType>();
 
 const catalogueSchema = z.intersection(
   z.custom<AllCataloguesRecordFragmentType>(),
@@ -245,6 +263,30 @@ const articleContentCollection = defineCollection({
   },
 });
 
+const layoutCollection = defineCollection({
+  schema: layoutSchema,
+  loader: async () => {
+    const response = await executeQuery(LayoutQuery);
+    if (!response?.homepage?.id) return [];
+    return [
+      {
+        id: response.homepage.id,
+        layout: response?.layout,
+        search: response?.search,
+        homepageId: response?.homepage?.id,
+      },
+    ];
+  },
+});
+
+const sidebarCollection = defineCollection({
+  schema: sidebarSchema,
+  loader: async () => {
+    const response = await executeQuery(SidebarQuery);
+    return response?.sidebarForArticle ? [response.sidebarForArticle] : [];
+  },
+});
+
 export const collections = {
   news_item: newsCollection,
   story_item: storiesCollection,
@@ -259,4 +301,6 @@ export const collections = {
   story_content: storyContentCollection,
   insight: insightContentCollection,
   article: articleContentCollection,
+  layout: layoutCollection,
+  sidebar: sidebarCollection,
 };

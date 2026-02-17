@@ -4,7 +4,6 @@ import {
   AdditionalContentFragment,
   ArticleCardPreviewFragment,
   AuthorListFragment,
-  BrandFragment,
   CalloutFragment,
   ChannelFragment,
   ChartFragment,
@@ -20,13 +19,12 @@ import {
   ListCardInfoFragment,
   ListCollectionFragment,
   ListItemFragment,
-  MenuItemFragment,
+  LocaleFragment,
   NewsTabFragment,
   OrderedListFragment,
   QuickLinkCardFragment,
   StatisticBlockFragment,
   StoryTabFragment,
-  SupportingBrandFragment,
   TextBlockFragment,
   TopicsBlockFragment,
   UseCaseBlockFragment,
@@ -165,31 +163,6 @@ export const SectionFragment = graphql(
 );
 
 export type SectionFragmentType = FragmentOf<typeof SectionFragment>;
-
-export const HeaderFragment = graphql(
-  `
-    fragment HeaderFragment on LayoutRecord @_unmask {
-      locales: _locales
-      mainNavigation: navigationBar {
-        ... on MenuItemRecord {
-          ...MenuItemFragment
-        }
-      }
-      secondaryNavigation: navigationBarSecondary {
-        ... on MenuItemRecord {
-          ...MenuItemFragment
-        }
-      }
-      logoSelect
-      tagline
-      organization
-      siteName
-    }
-  `,
-  [MenuItemFragment],
-);
-
-export type HeaderFragmentType = FragmentOf<typeof HeaderFragment>;
 
 export const FaqSectionRecordFragment = graphql(
   `
@@ -355,63 +328,6 @@ export const SupportCTASectionFragment = graphql(
 export type SupportCTASectionFragmentType = FragmentOf<
   typeof SupportCTASectionFragment
 >;
-
-export const FooterFragment = graphql(
-  `
-    fragment FooterFragment on LayoutRecord @_unmask {
-      heading(markdown: true)
-      organizations {
-        ...BrandFragment
-      }
-      topicTitle
-      topicLink {
-        id
-        linkTo {
-          ... on CatalogueRecord {
-            id
-          }
-          ... on PageRecord {
-            id
-          }
-        }
-        label
-      }
-      utilityTitle
-      utility {
-        ... on RecordInterface {
-          id
-          componentName: __typename
-        }
-        ... on SupportingBrandRecord {
-          ...SupportingBrandFragment
-        }
-        ... on ExternalLinkRecord {
-          ...ExternalLinkFragment
-        }
-      }
-      smallPrint {
-        ... on RecordInterface {
-          id
-          componentName: __typename
-        }
-        ... on ExternalLinkRecord {
-          ...ExternalLinkFragment
-        }
-        ... on InternalLinkRecord {
-          ...InternalLinkFragment
-        }
-      }
-    }
-  `,
-  [
-    ExternalLinkFragment,
-    InternalLinkFragment,
-    BrandFragment,
-    SupportingBrandFragment,
-  ],
-);
-
-export type FooterFragmentType = FragmentOf<typeof FooterFragment>;
 
 export const StructuredTextFragment = graphql(
   `
@@ -646,13 +562,18 @@ export type TextAndAccordionFragmentType = FragmentOf<
   typeof TextAndAccordionFragment
 >;
 
-export const SearchMenuFragment = graphql(`
-  fragment SearchMenuFragment on SearchRecord @_unmask {
-    id
-    searchLabel
-    isSearchEnabled
-  }
-`);
+export const SearchMenuFragment = graphql(
+  `
+    fragment SearchMenuFragment on SearchRecord @_unmask {
+      id
+      _allSearchLabelLocales {
+        ...LocaleFragment
+      }
+      isSearchEnabled
+    }
+  `,
+  [LocaleFragment],
+);
 
 export type SearchMenuFragmentType = FragmentOf<typeof SearchMenuFragment>;
 

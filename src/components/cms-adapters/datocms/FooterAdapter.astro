@@ -5,67 +5,84 @@ import type {
   FooterLinkProps,
   FooterLogoProps,
 } from "@components/organisms/Footer/types";
-import type { FooterFragmentType } from "@graphql/fragment/sectionFragments";
+import type { FooterFragmentType } from "@graphql/fragment/layout";
+
 import { linkResolver } from "@utils/linkResolver";
 
 type Props = FooterFragmentType;
 
 const {
-  heading,
-  organizations,
-  topicTitle,
-  topicLink,
-  utilityTitle,
-  utility,
-  smallPrint,
+  _allHeadingLocales,
+  _allOrganizationsLocales,
+  _allTopicTitleLocales,
+  _allTopicLinkLocales,
+  _allUtilityTitleLocales,
+  _allUtilityLocales,
+  _allSmallPrintLocales,
 } = Astro.props;
 
 const { lang } = Astro.locals;
+const heading = _allHeadingLocales?.find((l) => l.locale === lang)?.value || "";
+const organizations = _allOrganizationsLocales?.find(
+  (l) => l.locale === lang,
+)?.value;
+const topicTitle =
+  _allTopicTitleLocales?.find((l) => l.locale === lang)?.value || "";
+const topicLink = _allTopicLinkLocales?.find((l) => l.locale === lang)?.value;
+const utilityTitle =
+  _allUtilityTitleLocales?.find((l) => l.locale === lang)?.value || "";
+const utility = _allUtilityLocales?.find((l) => l.locale === lang)?.value;
+const smallPrint = _allSmallPrintLocales?.find((l) => l.locale === lang)?.value;
 
-const logos: FooterLogoProps[] = organizations.map((org) => {
-  return {
-    mainLogo: org.mainLogo,
-    brandLogo: org.brandLogo,
-    label: org.label,
-    linkTo: org.url,
-  };
-});
+const logos: FooterLogoProps[] =
+  organizations?.map((org) => {
+    return {
+      mainLogo: org.mainLogo,
+      brandLogo: org.brandLogo,
+      label: org.label,
+      linkTo: org.url,
+    };
+  }) || [];
 
-const topicItems = topicLink.map((link) => {
-  return {
-    label: link.label,
-    visuallyHidden: "link",
-    linkTo: linkResolver(link.linkTo.id, lang),
-  };
-});
+const topicItems =
+  topicLink?.map((link) => {
+    return {
+      label: link.label,
+      visuallyHidden: "link",
+      linkTo: linkResolver(link.linkTo.id, lang),
+    };
+  }) || [];
 
-const socialUtilities: FooterLinkProps[] = utility
-  .filter((util) => util.componentName === "SupportingBrandRecord")
-  .map((util) => ({
-    label: util.label,
-    ariaLabel: "link",
-    icon: util.brandLogo,
-    url: util.url,
-  }));
+const socialUtilities: FooterLinkProps[] =
+  utility
+    ?.filter((util) => util.componentName === "SupportingBrandRecord")
+    .map((util) => ({
+      label: util.label,
+      ariaLabel: "link",
+      icon: util.brandLogo,
+      url: util.url,
+    })) || [];
 
-const linkUtilities: LinkProps[] = utility
-  .filter((util) => util.componentName === "ExternalLinkRecord")
-  .map((util) => ({
-    label: util.label,
-    ariaLabel: "link",
-    url: util.url,
-    openInNewTab: true,
-  }));
+const linkUtilities: LinkProps[] =
+  utility
+    ?.filter((util) => util.componentName === "ExternalLinkRecord")
+    .map((util) => ({
+      label: util.label,
+      ariaLabel: "link",
+      url: util.url,
+      openInNewTab: true,
+    })) || [];
 
-const smallPrints: LinkProps[] = smallPrint.map((link) => {
-  const isExternal = link.componentName === "ExternalLinkRecord";
-  const url = isExternal ? link.url : linkResolver(link.linkTo?.id, lang);
+const smallPrints: LinkProps[] =
+  smallPrint?.map((link) => {
+    const isExternal = link.componentName === "ExternalLinkRecord";
+    const url = isExternal ? link.url : linkResolver(link.linkTo?.id, lang);
 
-  return {
-    label: link.label,
-    [isExternal ? "url" : "linkTo"]: url,
-  };
-});
+    return {
+      label: link.label,
+      [isExternal ? "url" : "linkTo"]: url,
+    };
+  }) || [];
 ---
 
 <Footer

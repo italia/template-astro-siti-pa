@@ -1,6 +1,6 @@
 ---
 import { Sidebar } from "@components/organisms/Sidebar";
-import type { SidebarFragmentType } from "@graphql/fragment/commonFragments";
+import type { SidebarFragmentType } from "@graphql/fragment/layout";
 import { createMenuSidebar } from "@utils/createMenuSidebarHelper";
 
 type Props = {
@@ -10,14 +10,26 @@ type Props = {
 const { sidebar } = Astro.props;
 const currentPathname = Astro.url.pathname.replace(/\/$/, "");
 const { lang } = Astro.locals;
-const sidebarItems = createMenuSidebar(sidebar.menu, currentPathname, lang);
+const headerLabel = sidebar._allHeaderLabelLocales?.find(
+  (l) => l.locale === lang,
+)?.value;
+const openLabel =
+  sidebar._allOpenLabelLocales?.find((l) => l.locale === lang)?.value || "";
+const closeLabel =
+  sidebar._allCloseLabelLocales?.find((l) => l.locale === lang)?.value || "";
+
+const menu = sidebar._allMenuLocales?.find((l) => l.locale === lang)?.value;
+if (!menu) {
+  return;
+}
+const sidebarItems = createMenuSidebar(menu, currentPathname, lang);
 ---
 
 <Sidebar
   id={sidebar.id}
-  header={sidebar.headerLabel || undefined}
+  header={headerLabel || undefined}
   ariaLabel="Apri/chiudi sidebar"
-  openLabel={sidebar.openLabel}
-  closeLabel={sidebar.closeLabel}
+  openLabel={openLabel}
+  closeLabel={closeLabel}
   items={sidebarItems}
 />
