@@ -1,7 +1,29 @@
 import { TagFragment } from "@graphql/fragment/commonFragments";
 import { InsightContentFragment } from "@graphql/fragment/insight";
 import { SeoFieldFragment } from "@graphql/fragment/seoFragments";
-import { graphql } from "@graphql/graphql";
+import { graphql, type FragmentOf } from "@graphql/graphql";
+
+export const AllInsightsRecordFragment = graphql(
+  `
+    fragment AllInsightsRecordFragment on InsightRecord @_unmask {
+      id
+      locales: _locales
+      publishedAt: _publishedAt
+      updatedAt: _updatedAt
+      allContentLocales: _allContentLocales {
+        locale
+        value {
+          ...InsightContentFragment
+        }
+      }
+    }
+  `,
+  [InsightContentFragment],
+);
+
+export type AllInsightsRecordFragmentType = FragmentOf<
+  typeof AllInsightsRecordFragment
+>;
 
 export const AllInsightsContentQuery = graphql(
   `
