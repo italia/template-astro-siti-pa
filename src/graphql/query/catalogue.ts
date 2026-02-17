@@ -1,22 +1,35 @@
 import { CatalogueContentFragment } from "@graphql/fragment/catalogue";
 import { TagFragment } from "@graphql/fragment/commonFragments";
 import { SeoFieldFragment } from "@graphql/fragment/seoFragments";
-import { graphql } from "@graphql/graphql";
+import { graphql, type FragmentOf } from "@graphql/graphql";
+
+export const AllCataloguesRecordFragment = graphql(
+  `
+    fragment AllCataloguesRecordFragment on CatalogueRecord @_unmask {
+      id
+      locales: _locales
+      publishedAt: _publishedAt
+      updatedAt: _updatedAt
+      allContentLocales: _allContentLocales {
+        locale
+        value {
+          ...CatalogueContentFragment
+        }
+      }
+    }
+  `,
+  [CatalogueContentFragment],
+);
+
+export type AllCataloguesRecordFragmentType = FragmentOf<
+  typeof AllCataloguesRecordFragment
+>;
 
 export const AllCataloguesContentQuery = graphql(
   `
     query AllCataloguesContentQuery {
       allCatalogues {
-        id
-        locales: _locales
-        publishedAt: _publishedAt
-        updatedAt: _updatedAt
-        allContentLocales: _allContentLocales {
-          locale
-          value {
-            ...CatalogueContentFragment
-          }
-        }
+        ...AllCataloguesRecordFragment
       }
       lastNews: allNewsItems(orderBy: _createdAt_DESC, first: 1) {
         publishedAt: _publishedAt
@@ -27,12 +40,12 @@ export const AllCataloguesContentQuery = graphql(
       lastWebinar: allWebinarItems(orderBy: _createdAt_DESC, first: 1) {
         publishedAt: _publishedAt
       }
-      lastResourse: allResources(orderBy: _createdAt_DESC, first: 1) {
+      lastResource: allResources(orderBy: _createdAt_DESC, first: 1) {
         publishedAt: _publishedAt
       }
     }
   `,
-  [CatalogueContentFragment],
+  [AllCataloguesRecordFragment],
 );
 
 export const CatalogueSeoQuery = graphql(

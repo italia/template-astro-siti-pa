@@ -1,12 +1,10 @@
 ---
 import PageAdapter from "@components/cms-adapters/datocms/PageAdapter.astro";
+
 import type { CatalogueContentFragmentType } from "@graphql/fragment/catalogue";
 import type { TagFragmentType } from "@graphql/fragment/commonFragments";
 import type { SeoFieldFragmentType } from "@graphql/fragment/seoFragments";
-import {
-  AllCataloguesContentQuery,
-  CatalogueSeoQuery,
-} from "@graphql/query/catalogue";
+import { CatalogueSeoQuery } from "@graphql/query/catalogue";
 
 import type { SiteLocale } from "@graphql/types";
 import Layout from "@layouts/Layout.astro";
@@ -19,6 +17,7 @@ import {
 } from "@utils/JsonLD/seoJsonLd";
 import { linkResolver } from "@utils/linkResolver";
 import { removeLang } from "@utils/pathHelper";
+import { getCollection } from "astro:content";
 
 export async function getStaticPaths() {
   type PathItem = {
@@ -36,18 +35,13 @@ export async function getStaticPaths() {
     };
   };
 
-  const response = await executeQuery(AllCataloguesContentQuery);
-
-  const datesRegistry = {
-    news_item: response.lastNews[0]?.publishedAt,
-    story_item: response.lastStory[0]?.publishedAt,
-    webinar_item: response.lastWebinar[0]?.publishedAt,
-    resource: response.lastResourse[0]?.publishedAt,
-  };
+  const catalogues = await getCollection("catalogue");
 
   const pathsPromises =
-    response.allCatalogues?.flatMap((page) =>
-      page.locales.map(async (lang) => {
+    catalogues?.flatMap((item) => {
+      const page = item.data;
+      const datesRegistry = page.datesRegistry;
+      return page.locales.map(async (lang) => {
         const content = page.allContentLocales?.find(
           (contentLocale) => contentLocale.locale === lang,
         )?.value;
@@ -76,8 +70,8 @@ export async function getStaticPaths() {
             updatedAt: seoRes.catalogue?.updatedAt || page.updatedAt,
           },
         };
-      }),
-    ) || [];
+      });
+    }) || [];
 
   const paths = await Promise.all(pathsPromises);
 

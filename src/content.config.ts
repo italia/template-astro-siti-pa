@@ -5,6 +5,10 @@ import type {
   WebinarItemFragmentType,
 } from "@graphql/fragment/commonFragments";
 import {
+  AllCataloguesContentQuery,
+  type AllCataloguesRecordFragmentType,
+} from "@graphql/query/catalogue";
+import {
   HomepageQuery,
   type HomepageRecordFragmentType,
 } from "@graphql/query/homepage";
@@ -53,6 +57,18 @@ const globalSettingsSchema = z.object({
 const pageSchema = z.custom<PageFragmentType>();
 const homepageSchema = z.custom<HomepageRecordFragmentType>();
 const searchSchema = z.custom<SearchRecordFragmentType>();
+
+const catalogueSchema = z.intersection(
+  z.custom<AllCataloguesRecordFragmentType>(),
+  z.object({
+    datesRegistry: z.object({
+      news: z.string().optional(),
+      story: z.string().optional(),
+      webinar: z.string().optional(),
+      resource: z.string().optional(),
+    }),
+  }),
+);
 
 const newsCollection = defineCollection({
   schema: newsSchema,
@@ -156,6 +172,27 @@ const searchCollection = defineCollection({
   },
 });
 
+const cataloguesCollection = defineCollection({
+  schema: catalogueSchema,
+  loader: async () => {
+    const response = await executeQuery(AllCataloguesContentQuery);
+
+    const datesRegistry = {
+      news: response?.lastNews?.[0]?.publishedAt,
+      story: response?.lastStory?.[0]?.publishedAt,
+      webinar: response?.lastWebinar?.[0]?.publishedAt,
+      resource: response?.lastResource?.[0]?.publishedAt,
+    };
+
+    return (
+      response?.allCatalogues.map((cat: any) => ({
+        ...cat,
+        datesRegistry: datesRegistry,
+      })) || []
+    );
+  },
+});
+
 export const collections = {
   news_item: newsCollection,
   story_item: storiesCollection,
@@ -165,4 +202,5 @@ export const collections = {
   page: pagesCollection,
   homepage: homepageCollection,
   search: searchCollection,
+  catalogue: cataloguesCollection,
 };
