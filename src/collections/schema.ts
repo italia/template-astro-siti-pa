@@ -1,0 +1,86 @@
+import type { AllArticlesRecordFragmentType } from "@graphql/fragment/article";
+import type { AllCataloguesRecordFragmentType } from "@graphql/fragment/catalogue";
+import type {
+  NewsItemFragmentType,
+  ResourceFragmentType,
+  StoryCardFragmentType,
+  WebinarItemFragmentType,
+} from "@graphql/fragment/commonFragments";
+import type { HomepageRecordFragmentType } from "@graphql/fragment/homepage";
+import type { AllInsightsRecordFragmentType } from "@graphql/fragment/insight";
+import type {
+  FooterFragmentType,
+  HeaderFragmentType,
+  SidebarFragmentType,
+} from "@graphql/fragment/layout";
+import type { PageFragmentType } from "@graphql/fragment/page";
+import type { SearchRecordFragmentType } from "@graphql/fragment/search";
+import type { SearchMenuFragmentType } from "@graphql/fragment/sectionFragments";
+import type { AllStoriesRecordFragmentType } from "@graphql/fragment/story";
+import type { AllWebinarRecordFragmentType } from "@graphql/fragment/webinar";
+import { z } from "astro:content";
+
+export const newsSchema = z.custom<NewsItemFragmentType>();
+
+export const storySchema = z.custom<StoryCardFragmentType>();
+
+export const webinarSchema = z.custom<WebinarItemFragmentType>();
+
+export const resourceSchema = z.custom<ResourceFragmentType>();
+
+export const pageSchema = z.custom<PageFragmentType>();
+
+export const homepageSchema = z.custom<HomepageRecordFragmentType>();
+
+export const searchSchema = z.custom<SearchRecordFragmentType>();
+
+export const webinarContentSchema = z.custom<AllWebinarRecordFragmentType>();
+
+export const storyContentSchema = z.custom<AllStoriesRecordFragmentType>();
+
+export const insightSchema = z.custom<AllInsightsRecordFragmentType>();
+
+export const articleSchema = z.custom<AllArticlesRecordFragmentType>();
+
+export const globalSettingsSchema = z.object({
+  id: z.string(),
+  locale: z.string(),
+  value: z.object({
+    siteName: z.string(),
+    lastUpdateLabel: z.string(),
+    ariaLabelLogo: z.string(),
+    languageSelector: z.string(),
+    chipTopicLabel: z.string(),
+    ariaLabelCardCategory: z.string(),
+    ariaLabelCardAction: z.string(),
+    ariaLabelExternalLink: z.string(),
+    ariaLabelInternalLink: z.string(),
+    ariaLabelDownloadLink: z.string(),
+    analyzer: z.string(),
+    loading: z.string(),
+  }),
+});
+
+export const layoutSchema = z.object({
+  id: z.string(),
+  layout: z.intersection(
+    z.custom<HeaderFragmentType>(),
+    z.custom<FooterFragmentType>(),
+  ),
+  search: z.custom<SearchMenuFragmentType>(),
+  homepageId: z.string(),
+});
+
+export const sidebarSchema = z.custom<SidebarFragmentType>();
+
+export const catalogueSchema = z.intersection(
+  z.custom<AllCataloguesRecordFragmentType>(),
+  z.object({
+    datesRegistry: z.object({
+      news: z.string().optional(),
+      story: z.string().optional(),
+      webinar: z.string().optional(),
+      resource: z.string().optional(),
+    }),
+  }),
+);

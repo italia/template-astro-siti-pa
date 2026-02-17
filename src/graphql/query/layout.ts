@@ -10,6 +10,7 @@ export const LayoutQuery = graphql(
   `
     query Layout {
       layout {
+        id
         ...FooterFragment
         ...HeaderFragment
       }
