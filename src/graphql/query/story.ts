@@ -4,7 +4,7 @@ import {
 } from "@graphql/fragment/commonFragments";
 import { SeoFieldFragment } from "@graphql/fragment/seoFragments";
 import { StoryContentFragment } from "@graphql/fragment/story";
-import { graphql } from "@graphql/graphql";
+import { graphql, type FragmentOf } from "@graphql/graphql";
 
 export const AllStoryCardQuery = graphql(
   `
@@ -17,24 +17,37 @@ export const AllStoryCardQuery = graphql(
   [StoryCardFragment],
 );
 
-export const AllStoriesContentQuery = graphql(
+export const AllStoriesRecordFragment = graphql(
   `
-    query AllStoriesContentQuery {
-      allStoryItems {
-        id
-        locales: _locales
-        publishedAt: _publishedAt
-        updatedAt: _updatedAt
-        allContentLocales: _allContentLocales {
-          locale
-          value {
-            ...StoryContentFragment
-          }
+    fragment AllStoriesRecordFragment on StoryItemRecord @_unmask {
+      id
+      locales: _locales
+      publishedAt: _publishedAt
+      updatedAt: _updatedAt
+      allContentLocales: _allContentLocales {
+        locale
+        value {
+          ...StoryContentFragment
         }
       }
     }
   `,
   [StoryContentFragment],
+);
+
+export type AllStoriesRecordFragmentType = FragmentOf<
+  typeof AllStoriesRecordFragment
+>;
+
+export const AllStoriesContentQuery = graphql(
+  `
+    query AllStoriesContentQuery {
+      allStoryItems {
+        ...AllStoriesRecordFragment
+      }
+    }
+  `,
+  [AllStoriesRecordFragment],
 );
 
 export const StorySeoQuery = graphql(
