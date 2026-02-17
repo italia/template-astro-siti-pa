@@ -1,5 +1,6 @@
 import { AllArticlesContentQuery } from "@graphql/query/article";
 import { AllCataloguesContentQuery } from "@graphql/query/catalogue";
+import { ErrorPageQuery } from "@graphql/query/errorPage";
 import { HomepageQuery } from "@graphql/query/homepage";
 import { AllInsightsContentQuery } from "@graphql/query/insight";
 import { LayoutQuery, SidebarQuery } from "@graphql/query/layout";
@@ -160,6 +161,20 @@ export const localesLoader = async () => {
     {
       id: "site-locales",
       locales: response.site.locales,
+    },
+  ];
+};
+
+export const errorPageLoader = async () => {
+  const response = await executeQuery(ErrorPageQuery);
+
+  if (!response?.globalSetting) return [];
+
+  return [
+    {
+      id: "error-page",
+      globalSetting: response.globalSetting,
+      homepageId: response.homepage?.id,
     },
   ];
 };

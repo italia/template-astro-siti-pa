@@ -1,6 +1,7 @@
 import {
   articleContentLoader,
   cataloguesLoader,
+  errorPageLoader,
   globalSettingsLoader,
   homepageLoader,
   insightContentLoader,
@@ -19,6 +20,7 @@ import {
 import {
   articleSchema,
   catalogueSchema,
+  errorPageSchema,
   globalSettingsSchema,
   homepageSchema,
   insightSchema,
@@ -100,5 +102,9 @@ export const collections = {
   locales: defineCollection({
     schema: localesSchema,
     loader: localesLoader,
+  }),
+  error_page: defineCollection({
+    schema: errorPageSchema,
+    loader: errorPageLoader,
   }),
 };

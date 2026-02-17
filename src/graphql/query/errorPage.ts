@@ -1,21 +1,16 @@
-import { ImageFragment } from "@graphql/fragment/commonFragments";
+import { ErrorRecordFragment } from "@graphql/fragment/globalSettings";
 import { graphql } from "@graphql/graphql";
 
 export const ErrorPageQuery = graphql(
   `
-    query ErrorPage($locale: SiteLocale!) {
-      globalSetting(locale: $locale) {
-        title
-        paragraph(markdown: true)
-        image {
-          ...ImageFragment
-        }
-        labelCta
+    query ErrorPage {
+      globalSetting {
+        ...ErrorRecordFragment
       }
       homepage {
         id
       }
     }
   `,
-  [ImageFragment],
+  [ErrorRecordFragment],
 );

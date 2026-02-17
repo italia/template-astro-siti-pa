@@ -2,26 +2,52 @@
 import { ButtonLink } from "@components/atoms/Button";
 import { Image } from "@components/atoms/Image";
 import { SplitContent } from "@components/layout/SplitContent";
-import { ErrorPageQuery } from "@graphql/query/errorPage";
+import type { ImageFragmentType } from "@graphql/fragment/commonFragments";
+import type { SiteLocale } from "@graphql/types";
 import Layout from "@layouts/Layout.astro";
-import { executeQuery } from "@lib/datocms";
 import { linkResolver } from "@utils/linkResolver";
 import { getCollection } from "astro:content";
 
 export async function getStaticPaths() {
+  type PathItem = {
+    params: {
+      lang: SiteLocale;
+    };
+    props: {
+      title: string;
+      paragraph: string;
+      labelCta: string;
+      image: ImageFragmentType;
+      homepageId: string;
+    };
+  };
+
   const response = await getCollection("locales");
 
   const locales = response[0].data.locales;
   const paths = await Promise.all(
     locales.map(async (lang) => {
-      const { globalSetting, homepage } = await executeQuery(ErrorPageQuery, {
-        variables: { locale: lang },
-      });
+      const response = await getCollection("error_page");
+      const globalSetting = response[0].data.globalSetting;
+      const homepageId = response[0].data.homepageId;
+      if (!globalSetting) return null;
 
       return {
         params: { lang },
-        props: { globalSetting, homepage },
-      };
+        props: {
+          title:
+            globalSetting?._allTitleLocales?.find((l) => l.locale === lang)
+              ?.value || "",
+          paragraph:
+            globalSetting?._allParagraphLocales?.find((l) => l.locale === lang)
+              ?.value || "",
+          labelCta:
+            globalSetting?._allLabelCtaLocales?.find((l) => l.locale === lang)
+              ?.value || "",
+          image: globalSetting.image,
+          homepageId,
+        },
+      } as PathItem;
     }),
   );
 
@@ -29,26 +55,24 @@ export async function getStaticPaths() {
 }
 
 const { lang } = Astro.params;
-const { globalSetting, homepage } = Astro.props;
-
-if (!globalSetting) return;
+const { title, paragraph, image, labelCta, homepageId } = Astro.props;
 ---
 
 <Layout>
   <SplitContent leftColumns={6} rightColumns={5}>
     <div slot="left" class=`text-container mb-4 mb-lg-0`>
-      <h1 class="mb-3">{globalSetting.title}</h1>
-      <div class="mb-4" set:html={globalSetting.paragraph} />
+      <h1 class="mb-3">{title}</h1>
+      <div class="mb-4" set:html={paragraph} />
       <div class="mt-5">
         <ButtonLink
           size="small"
-          label={globalSetting.labelCta}
-          linkTo={linkResolver(homepage?.id, lang)}
+          label={labelCta}
+          linkTo={linkResolver(homepageId, lang)}
         />
       </div>
     </div>
     <div class="ratio ratio-4x3" slot="right">
-      <Image {...globalSetting.image} />
+      <Image {...image} />
     </div>
   </SplitContent>
 </Layout>

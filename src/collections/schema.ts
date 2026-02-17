@@ -6,6 +6,7 @@ import type {
   StoryCardFragmentType,
   WebinarItemFragmentType,
 } from "@graphql/fragment/commonFragments";
+import type { ErrorRecordFragmentType } from "@graphql/fragment/globalSettings";
 import type { HomepageRecordFragmentType } from "@graphql/fragment/homepage";
 import type { AllInsightsRecordFragmentType } from "@graphql/fragment/insight";
 import type {
@@ -89,4 +90,10 @@ export const catalogueSchema = z.intersection(
 export const localesSchema = z.object({
   id: z.string(),
   locales: z.array(z.custom<SiteLocale>()),
+});
+
+export const errorPageSchema = z.object({
+  id: z.string(),
+  globalSetting: z.custom<ErrorRecordFragmentType>(),
+  homepageId: z.string().optional(),
 });
