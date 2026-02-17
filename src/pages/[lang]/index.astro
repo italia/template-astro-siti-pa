@@ -1,10 +1,9 @@
 ---
 import PageAdapter from "@components/cms-adapters/datocms/PageAdapter.astro";
-import { HomepageQuery } from "@graphql/query/homepage";
 import { LocalesQuery } from "@graphql/query/settings";
-
 import Layout from "@layouts/Layout.astro";
 import { executeQuery } from "@lib/datocms";
+import { getCollection } from "astro:content";
 
 export async function getStaticPaths() {
   const {
@@ -20,16 +19,21 @@ export async function getStaticPaths() {
 const { lang } = Astro.params;
 Astro.locals.lang = lang;
 
-const { homepage } = await executeQuery(HomepageQuery, {
-  variables: { locale: lang },
-});
+const response = await getCollection("homepage");
 
+const homepage = response[0].data;
 if (!homepage) return;
 
-const content = homepage.content;
+const content = homepage.allContentLocales?.find(
+  (contentLocale) => contentLocale.locale === lang,
+)?.value;
+
+if (!content) return;
+
 Astro.locals.recordId = homepage.id;
 ---
 
-<Layout pageSeo={homepage.metaTags} datePublished={homepage.publishedAt}>
+<!-- pageSeo={homepage.metaTags} -->
+<Layout datePublished={homepage.publishedAt}>
   <PageAdapter content={content} />
 </Layout>

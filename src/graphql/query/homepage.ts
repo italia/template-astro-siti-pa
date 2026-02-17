@@ -1,8 +1,40 @@
-import { TagFragment } from "@graphql/fragment/commonFragments";
 import { HomepageModelContentFragment } from "@graphql/fragment/homepage";
-import { SeoFieldFragment } from "@graphql/fragment/seoFragments";
-import { graphql } from "@graphql/graphql";
+import { graphql, type FragmentOf } from "@graphql/graphql";
 
+export const HomepageRecordFragment = graphql(
+  `
+    fragment HomepageRecordFragment on HomepageRecord @_unmask {
+      id
+      title
+      publishedAt: _publishedAt
+      updatedAt: _updatedAt
+      allContentLocales: _allContentLocales {
+        locale
+        value {
+          ...HomepageModelContentFragment
+        }
+      }
+    }
+  `,
+  [HomepageModelContentFragment],
+);
+
+export type HomepageRecordFragmentType = FragmentOf<
+  typeof HomepageRecordFragment
+>;
+
+export const HomepageQuery = graphql(
+  `
+    query HomepageQuery {
+      homepage {
+        ...HomepageRecordFragment
+      }
+    }
+  `,
+  [HomepageRecordFragment],
+);
+
+/* 
 export const HomepageQuery = graphql(
   `
     query HomepageQuery($locale: SiteLocale!) {
@@ -25,3 +57,4 @@ export const HomepageQuery = graphql(
   `,
   [HomepageModelContentFragment, SeoFieldFragment, TagFragment],
 );
+ */

@@ -4,6 +4,10 @@ import type {
   StoryCardFragmentType,
   WebinarItemFragmentType,
 } from "@graphql/fragment/commonFragments";
+import {
+  HomepageQuery,
+  type HomepageRecordFragmentType,
+} from "@graphql/query/homepage";
 import { AllNewsQuery } from "@graphql/query/news";
 import {
   AllPagesContentQuery,
@@ -43,6 +47,7 @@ const globalSettingsSchema = z.object({
 });
 
 const pageSchema = z.custom<PageFragmentType>();
+const homepageSchema = z.custom<HomepageRecordFragmentType>();
 
 const newsCollection = defineCollection({
   schema: newsSchema,
@@ -130,6 +135,14 @@ const pagesCollection = defineCollection({
   },
 });
 
+const homepageCollection = defineCollection({
+  schema: homepageSchema,
+  loader: async () => {
+    const response = await executeQuery(HomepageQuery);
+    return response?.homepage ? [response.homepage] : [];
+  },
+});
+
 export const collections = {
   news_item: newsCollection,
   story_item: storiesCollection,
@@ -137,4 +150,5 @@ export const collections = {
   resource: resourcesCollection,
   global_settings: globalSettingsCollection,
   page: pagesCollection,
+  homepage: homepageCollection,
 };
