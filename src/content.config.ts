@@ -5,6 +5,10 @@ import type {
   WebinarItemFragmentType,
 } from "@graphql/fragment/commonFragments";
 import {
+  AllArticlesContentQuery,
+  type AllArticlesRecordFragmentType,
+} from "@graphql/query/article";
+import {
   AllCataloguesContentQuery,
   type AllCataloguesRecordFragmentType,
 } from "@graphql/query/catalogue";
@@ -72,6 +76,7 @@ const searchSchema = z.custom<SearchRecordFragmentType>();
 const webinarContentSchema = z.custom<AllWebinarRecordFragmentType>();
 const storyContentSchema = z.custom<AllStoriesRecordFragmentType>();
 const insightSchema = z.custom<AllInsightsRecordFragmentType>();
+const articleSchema = z.custom<AllArticlesRecordFragmentType>();
 
 const catalogueSchema = z.intersection(
   z.custom<AllCataloguesRecordFragmentType>(),
@@ -232,6 +237,14 @@ const insightContentCollection = defineCollection({
   },
 });
 
+const articleContentCollection = defineCollection({
+  schema: articleSchema,
+  loader: async () => {
+    const response = await executeQuery(AllArticlesContentQuery);
+    return response?.allArticles || [];
+  },
+});
+
 export const collections = {
   news_item: newsCollection,
   story_item: storiesCollection,
@@ -245,4 +258,5 @@ export const collections = {
   webinar_content: webinarContentCollection,
   story_content: storyContentCollection,
   insight: insightContentCollection,
+  article: articleContentCollection,
 };

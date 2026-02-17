@@ -6,11 +6,9 @@ import type {
   TagFragmentType,
 } from "@graphql/fragment/commonFragments";
 import type { SeoFieldFragmentType } from "@graphql/fragment/seoFragments";
-import {
-  AllArticlesContentQuery,
-  ArticleSeoQuery,
-} from "@graphql/query/article";
+import { ArticleSeoQuery } from "@graphql/query/article";
 import { SidebarQuery } from "@graphql/query/layout";
+import { getCollection } from "astro:content";
 
 import type { SiteLocale } from "@graphql/types";
 import Layout from "@layouts/Layout.astro";
@@ -36,11 +34,12 @@ export async function getStaticPaths() {
     };
   };
 
-  const response = await executeQuery(AllArticlesContentQuery);
+  const response = await getCollection("article");
 
   const pathsPromises =
-    response.allArticles?.flatMap((page) =>
-      page.locales.map(async (lang) => {
+    response?.flatMap((item) => {
+      const page = item.data;
+      return page.locales.map(async (lang) => {
         const seoRes = await executeQuery(ArticleSeoQuery, {
           variables: { id: page.id, locale: lang },
         });
@@ -70,8 +69,8 @@ export async function getStaticPaths() {
             updatedAt: seoRes.article?.updatedAt || page.updatedAt,
           },
         };
-      }),
-    ) || [];
+      });
+    }) || [];
 
   const paths = await Promise.all(pathsPromises);
 
