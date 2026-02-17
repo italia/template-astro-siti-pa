@@ -76,3 +76,25 @@ export const ArticleContentFragment = graphql(
 export type ArticleContentFragmentType = FragmentOf<
   typeof ArticleContentFragment
 >;
+
+export const AllArticlesRecordFragment = graphql(
+  `
+    fragment AllArticlesRecordFragment on ArticleRecord @_unmask {
+      id
+      locales: _locales
+      updatedAt: _updatedAt
+      publishedAt: _publishedAt
+      allContentLocales: _allContentLocales {
+        locale
+        value {
+          ...ArticleContentFragment
+        }
+      }
+    }
+  `,
+  [ArticleContentFragment],
+);
+
+export type AllArticlesRecordFragmentType = FragmentOf<
+  typeof AllArticlesRecordFragment
+>;

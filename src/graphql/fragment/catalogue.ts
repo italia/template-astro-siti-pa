@@ -29,3 +29,25 @@ export const CatalogueContentFragment = graphql(
 export type CatalogueContentFragmentType = FragmentOf<
   typeof CatalogueContentFragment
 >;
+
+export const AllCataloguesRecordFragment = graphql(
+  `
+    fragment AllCataloguesRecordFragment on CatalogueRecord @_unmask {
+      id
+      locales: _locales
+      publishedAt: _publishedAt
+      updatedAt: _updatedAt
+      allContentLocales: _allContentLocales {
+        locale
+        value {
+          ...CatalogueContentFragment
+        }
+      }
+    }
+  `,
+  [CatalogueContentFragment],
+);
+
+export type AllCataloguesRecordFragmentType = FragmentOf<
+  typeof AllCataloguesRecordFragment
+>;

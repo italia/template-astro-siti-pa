@@ -64,3 +64,25 @@ export const AllStoryItemsFragment = graphql(
 export type AllStoryItemsFragmentType = FragmentOf<
   typeof AllStoryItemsFragment
 >;
+
+export const AllStoriesRecordFragment = graphql(
+  `
+    fragment AllStoriesRecordFragment on StoryItemRecord @_unmask {
+      id
+      locales: _locales
+      publishedAt: _publishedAt
+      updatedAt: _updatedAt
+      allContentLocales: _allContentLocales {
+        locale
+        value {
+          ...StoryContentFragment
+        }
+      }
+    }
+  `,
+  [StoryContentFragment],
+);
+
+export type AllStoriesRecordFragmentType = FragmentOf<
+  typeof AllStoriesRecordFragment
+>;

@@ -63,3 +63,25 @@ export const AllWebinarItemsFragment = graphql(
 export type AllWebinarItemsFragmentType = FragmentOf<
   typeof AllWebinarItemsFragment
 >;
+
+export const AllWebinarRecordFragment = graphql(
+  `
+    fragment AllWebinarRecordFragment on WebinarItemRecord @_unmask {
+      id
+      locales: _locales
+      publishedAt: _publishedAt
+      updatedAt: _updatedAt
+      allContentLocales: _allContentLocales {
+        locale
+        value {
+          ...WebinarContentFragment
+        }
+      }
+    }
+  `,
+  [WebinarContentFragment],
+);
+
+export type AllWebinarRecordFragmentType = FragmentOf<
+  typeof AllWebinarRecordFragment
+>;

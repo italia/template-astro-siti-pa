@@ -1,29 +1,7 @@
-import { CatalogueContentFragment } from "@graphql/fragment/catalogue";
+import { AllCataloguesRecordFragment } from "@graphql/fragment/catalogue";
 import { TagFragment } from "@graphql/fragment/commonFragments";
 import { SeoFieldFragment } from "@graphql/fragment/seoFragments";
-import { graphql, type FragmentOf } from "@graphql/graphql";
-
-export const AllCataloguesRecordFragment = graphql(
-  `
-    fragment AllCataloguesRecordFragment on CatalogueRecord @_unmask {
-      id
-      locales: _locales
-      publishedAt: _publishedAt
-      updatedAt: _updatedAt
-      allContentLocales: _allContentLocales {
-        locale
-        value {
-          ...CatalogueContentFragment
-        }
-      }
-    }
-  `,
-  [CatalogueContentFragment],
-);
-
-export type AllCataloguesRecordFragmentType = FragmentOf<
-  typeof AllCataloguesRecordFragment
->;
+import { graphql } from "@graphql/graphql";
 
 export const AllCataloguesContentQuery = graphql(
   `

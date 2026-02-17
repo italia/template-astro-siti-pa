@@ -49,3 +49,25 @@ export const HomepageModelContentFragment = graphql(
 export type HomepageModelContentFragmentType = FragmentOf<
   typeof HomepageModelContentFragment
 >;
+
+export const HomepageRecordFragment = graphql(
+  `
+    fragment HomepageRecordFragment on HomepageRecord @_unmask {
+      id
+      title
+      publishedAt: _publishedAt
+      updatedAt: _updatedAt
+      allContentLocales: _allContentLocales {
+        locale
+        value {
+          ...HomepageModelContentFragment
+        }
+      }
+    }
+  `,
+  [HomepageModelContentFragment],
+);
+
+export type HomepageRecordFragmentType = FragmentOf<
+  typeof HomepageRecordFragment
+>;

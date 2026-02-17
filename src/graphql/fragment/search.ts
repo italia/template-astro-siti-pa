@@ -34,3 +34,21 @@ export const SearchPageContentFragment = graphql(
 export type SearchPageContentFragmentType = FragmentOf<
   typeof SearchPageContentFragment
 >;
+
+export const SearchRecordFragment = graphql(
+  `
+    fragment SearchRecordFragment on SearchRecord @_unmask {
+      id
+      locales: _locales
+      allContentLocales: _allContentLocales {
+        locale
+        value {
+          ...SearchPageContentFragment
+        }
+      }
+    }
+  `,
+  [SearchPageContentFragment],
+);
+
+export type SearchRecordFragmentType = FragmentOf<typeof SearchRecordFragment>;

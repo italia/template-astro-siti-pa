@@ -64,3 +64,25 @@ export const AllInsightsFragment = graphql(
 );
 
 export type AllInsightsFragmentType = FragmentOf<typeof AllInsightsFragment>;
+
+export const AllInsightsRecordFragment = graphql(
+  `
+    fragment AllInsightsRecordFragment on InsightRecord @_unmask {
+      id
+      locales: _locales
+      publishedAt: _publishedAt
+      updatedAt: _updatedAt
+      allContentLocales: _allContentLocales {
+        locale
+        value {
+          ...InsightContentFragment
+        }
+      }
+    }
+  `,
+  [InsightContentFragment],
+);
+
+export type AllInsightsRecordFragmentType = FragmentOf<
+  typeof AllInsightsRecordFragment
+>;

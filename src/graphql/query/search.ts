@@ -1,23 +1,5 @@
-import { SearchPageContentFragment } from "@graphql/fragment/search";
-import { graphql, type FragmentOf } from "@graphql/graphql";
-
-export const SearchRecordFragment = graphql(
-  `
-    fragment SearchRecordFragment on SearchRecord @_unmask {
-      id
-      locales: _locales
-      allContentLocales: _allContentLocales {
-        locale
-        value {
-          ...SearchPageContentFragment
-        }
-      }
-    }
-  `,
-  [SearchPageContentFragment],
-);
-
-export type SearchRecordFragmentType = FragmentOf<typeof SearchRecordFragment>;
+import { SearchRecordFragment } from "@graphql/fragment/search";
+import { graphql } from "@graphql/graphql";
 
 export const SearchPageContentQuery = graphql(
   `

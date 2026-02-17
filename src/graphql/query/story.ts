@@ -3,8 +3,8 @@ import {
   TagFragment,
 } from "@graphql/fragment/commonFragments";
 import { SeoFieldFragment } from "@graphql/fragment/seoFragments";
-import { StoryContentFragment } from "@graphql/fragment/story";
-import { graphql, type FragmentOf } from "@graphql/graphql";
+import { AllStoriesRecordFragment } from "@graphql/fragment/story";
+import { graphql } from "@graphql/graphql";
 
 export const AllStoryCardQuery = graphql(
   `
@@ -16,28 +16,6 @@ export const AllStoryCardQuery = graphql(
   `,
   [StoryCardFragment],
 );
-
-export const AllStoriesRecordFragment = graphql(
-  `
-    fragment AllStoriesRecordFragment on StoryItemRecord @_unmask {
-      id
-      locales: _locales
-      publishedAt: _publishedAt
-      updatedAt: _updatedAt
-      allContentLocales: _allContentLocales {
-        locale
-        value {
-          ...StoryContentFragment
-        }
-      }
-    }
-  `,
-  [StoryContentFragment],
-);
-
-export type AllStoriesRecordFragmentType = FragmentOf<
-  typeof AllStoriesRecordFragment
->;
 
 export const AllStoriesContentQuery = graphql(
   `

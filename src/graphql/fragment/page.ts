@@ -73,3 +73,23 @@ export const PageContentFragment = graphql(
 );
 
 export type PageContentFragmentType = FragmentOf<typeof PageContentFragment>;
+
+export const PageFragment = graphql(
+  `
+    fragment PageFragment on PageRecord @_unmask {
+      id
+      locales: _locales
+      publishedAt: _publishedAt
+      updatedAt: _updatedAt
+      allContentLocales: _allContentLocales {
+        locale
+        value {
+          ...PageContentFragment
+        }
+      }
+    }
+  `,
+  [PageContentFragment],
+);
+
+export type PageFragmentType = FragmentOf<typeof PageFragment>;

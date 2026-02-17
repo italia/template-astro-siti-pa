@@ -1,27 +1,7 @@
 import { TagFragment } from "@graphql/fragment/commonFragments";
-import { PageContentFragment } from "@graphql/fragment/page";
+import { PageFragment } from "@graphql/fragment/page";
 import { SeoFieldFragment } from "@graphql/fragment/seoFragments";
-import { graphql, type FragmentOf } from "@graphql/graphql";
-
-export const PageFragment = graphql(
-  `
-    fragment PageFragment on PageRecord @_unmask {
-      id
-      locales: _locales
-      publishedAt: _publishedAt
-      updatedAt: _updatedAt
-      allContentLocales: _allContentLocales {
-        locale
-        value {
-          ...PageContentFragment
-        }
-      }
-    }
-  `,
-  [PageContentFragment],
-);
-
-export type PageFragmentType = FragmentOf<typeof PageFragment>;
+import { graphql } from "@graphql/graphql";
 
 export const AllPagesContentQuery = graphql(
   `

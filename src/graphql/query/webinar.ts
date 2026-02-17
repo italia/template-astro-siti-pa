@@ -5,9 +5,9 @@ import {
 import { SeoFieldFragment } from "@graphql/fragment/seoFragments";
 import {
   AllWebinarItemsFragment,
-  WebinarContentFragment,
+  AllWebinarRecordFragment,
 } from "@graphql/fragment/webinar";
-import { graphql, type FragmentOf } from "@graphql/graphql";
+import { graphql } from "@graphql/graphql";
 
 export const AllWebinarItemsQuery = graphql(
   `
@@ -30,28 +30,6 @@ export const AllWebinarQuery = graphql(
   `,
   [WebinarItemFragment],
 );
-
-export const AllWebinarRecordFragment = graphql(
-  `
-    fragment AllWebinarRecordFragment on WebinarItemRecord @_unmask {
-      id
-      locales: _locales
-      publishedAt: _publishedAt
-      updatedAt: _updatedAt
-      allContentLocales: _allContentLocales {
-        locale
-        value {
-          ...WebinarContentFragment
-        }
-      }
-    }
-  `,
-  [WebinarContentFragment],
-);
-
-export type AllWebinarRecordFragmentType = FragmentOf<
-  typeof AllWebinarRecordFragment
->;
 
 export const AllWebinarsContentQuery = graphql(
   `
