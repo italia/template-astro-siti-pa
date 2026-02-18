@@ -1,15 +1,35 @@
-import { AllDocumentsQuery } from "@graphql/fragment/indexing";
 import { AllArticlesContentQuery } from "@graphql/query/article";
-import { AllCataloguesContentQuery } from "@graphql/query/catalogue";
+import {
+  AllCataloguesContentQuery,
+  LastItemsUpdateQuery,
+} from "@graphql/query/catalogue";
 import { ErrorPageQuery } from "@graphql/query/errorPage";
 import { HomepageQuery } from "@graphql/query/homepage";
+import {
+  ArticlesIdxQuery,
+  CataloguesIdxQuery,
+  InsightsIdxQuery,
+  NewsIdxQuery,
+  PagesIdxQuery,
+  ResourcesIdxQuery,
+  StoriesIdxQuery,
+  WebinarsIdxQuery,
+} from "@graphql/query/indexing";
 import { AllInsightsContentQuery } from "@graphql/query/insight";
 import { LayoutQuery, SidebarQuery } from "@graphql/query/layout";
 import { AllNewsQuery } from "@graphql/query/news";
 import { AllPagesContentQuery } from "@graphql/query/page";
 import { AllResourcesQuery } from "@graphql/query/resource";
 import { SearchPageContentQuery } from "@graphql/query/search";
-import { GlobalSeoQuery } from "@graphql/query/seo";
+import {
+  ArticlesSeoQuery,
+  CataloguesSeoQuery,
+  HomepageSeoQuery,
+  InsightsSeoQuery,
+  PagesSeoQuery,
+  StoriesSeoQuery,
+  WebinarsSeoQuery,
+} from "@graphql/query/seo";
 import {
   AllGlobalSettingsQuery,
   LocalesQuery,
@@ -23,25 +43,46 @@ import {
   AllWebinarQuery,
   AllWebinarsContentQuery,
 } from "@graphql/query/webinar";
-import { executeQuery } from "@lib/datocms";
+import { executeAutoPagingQuery, executeQuery } from "@lib/datocms";
 
 export const newsLoader = async () => {
-  const response = await executeQuery(AllNewsQuery);
+  const oneYearAgo = new Date();
+  oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
+  const dateLimit = oneYearAgo.toISOString();
+  const response = await executeAutoPagingQuery(AllNewsQuery, {
+    variables: {
+      dateLimit: dateLimit,
+    },
+  });
   return response?.allNewsItems || [];
 };
 
 export const storiesLoader = async () => {
-  const response = await executeQuery(AllStoryCardQuery);
+  const oneYearAgo = new Date();
+  oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
+  const dateLimit = oneYearAgo.toISOString();
+  const response = await executeAutoPagingQuery(AllStoryCardQuery, {
+    variables: {
+      dateLimit: dateLimit,
+    },
+  });
   return response?.allStoryItems || [];
 };
 
 export const webinarsLoader = async () => {
-  const response = await executeQuery(AllWebinarQuery);
+  const oneYearAgo = new Date();
+  oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
+  const dateLimit = oneYearAgo.toISOString();
+  const response = await executeAutoPagingQuery(AllWebinarQuery, {
+    variables: {
+      dateLimit: dateLimit,
+    },
+  });
   return response?.allWebinarItems || [];
 };
 
 export const resourcesLoader = async () => {
-  const response = await executeQuery(AllResourcesQuery);
+  const response = await executeAutoPagingQuery(AllResourcesQuery);
   return response?.allResources || [];
 };
 
@@ -89,7 +130,7 @@ export const globalSettingsLoader = async () => {
 };
 
 export const pagesLoader = async () => {
-  const response = await executeQuery(AllPagesContentQuery);
+  const response = await executeAutoPagingQuery(AllPagesContentQuery);
   return response?.allPages || [];
 };
 
@@ -104,16 +145,19 @@ export const searchLoader = async () => {
 };
 
 export const cataloguesLoader = async () => {
-  const response = await executeQuery(AllCataloguesContentQuery);
+  const [cataloguesData, updatesData] = await Promise.all([
+    executeAutoPagingQuery(AllCataloguesContentQuery),
+    executeQuery(LastItemsUpdateQuery),
+  ]);
   const datesRegistry = {
-    news: response?.lastNews?.[0]?.publishedAt,
-    story: response?.lastStory?.[0]?.publishedAt,
-    webinar: response?.lastWebinar?.[0]?.publishedAt,
-    resource: response?.lastResource?.[0]?.publishedAt,
+    news: updatesData?.lastNews?.[0]?.publishedAt,
+    story: updatesData?.lastStory?.[0]?.publishedAt,
+    webinar: updatesData?.lastWebinar?.[0]?.publishedAt,
+    resource: updatesData?.lastResource?.[0]?.publishedAt,
   };
 
   return (
-    response?.allCatalogues.map((cat: any) => ({
+    cataloguesData?.allCatalogues.map((cat: any) => ({
       ...cat,
       datesRegistry: datesRegistry,
     })) || []
@@ -121,22 +165,22 @@ export const cataloguesLoader = async () => {
 };
 
 export const webinarContentLoader = async () => {
-  const response = await executeQuery(AllWebinarsContentQuery);
+  const response = await executeAutoPagingQuery(AllWebinarsContentQuery);
   return response?.allWebinarItems || [];
 };
 
 export const storyContentLoader = async () => {
-  const response = await executeQuery(AllStoriesContentQuery);
+  const response = await executeAutoPagingQuery(AllStoriesContentQuery);
   return response?.allStoryItems || [];
 };
 
 export const insightContentLoader = async () => {
-  const response = await executeQuery(AllInsightsContentQuery);
+  const response = await executeAutoPagingQuery(AllInsightsContentQuery);
   return response?.allInsights || [];
 };
 
 export const articleContentLoader = async () => {
-  const response = await executeQuery(AllArticlesContentQuery);
+  const response = await executeAutoPagingQuery(AllArticlesContentQuery);
   return response?.allArticles || [];
 };
 
@@ -209,114 +253,82 @@ export const globalSeoLoader = async () => {
   const localesRes = await executeQuery(LocalesQuery);
   const locales = localesRes?.site?.locales || ["it"];
 
-  const allSeoEntries = [];
+  const allLocalesResults = await Promise.all(
+    locales.map(async (locale) => {
+      const [
+        homepageRes,
+        articlesRes,
+        insightsRes,
+        cataloguesRes,
+        pagesRes,
+        storiesRes,
+        webinarsRes,
+      ] = await Promise.all([
+        executeQuery(HomepageSeoQuery, { variables: { locale } }),
+        executeAutoPagingQuery(ArticlesSeoQuery, { variables: { locale } }),
+        executeAutoPagingQuery(InsightsSeoQuery, { variables: { locale } }),
+        executeAutoPagingQuery(CataloguesSeoQuery, { variables: { locale } }),
+        executeAutoPagingQuery(PagesSeoQuery, { variables: { locale } }),
+        executeAutoPagingQuery(StoriesSeoQuery, { variables: { locale } }),
+        executeAutoPagingQuery(WebinarsSeoQuery, { variables: { locale } }),
+      ]);
 
-  for (const locale of locales) {
-    const response = await executeQuery(GlobalSeoQuery, {
-      variables: {
-        locale,
-      },
-    });
+      const mapEntry = (record: any) => ({
+        id: `${record.id}_${locale}`,
+        recordId: record.id,
+        locale: locale,
+        metaTags: record.metaTags,
+        seo: record.seo,
+        updatedAt: record.updatedAt,
+      });
 
-    if (response?.allArticles) {
-      const entries = response.allArticles.map((article) => ({
-        id: `${article.id}_${locale}`,
-        recordId: article.id,
-        locale: locale,
-        metaTags: article.metaTags,
-        seo: article.seo,
-        updatedAt: article.updatedAt,
-      }));
-      allSeoEntries.push(...entries);
-    }
-    if (response?.allPages) {
-      const entries = response.allPages.map((page) => ({
-        id: `${page.id}_${locale}`,
-        recordId: page.id,
-        locale: locale,
-        metaTags: page.metaTags,
-        seo: page.seo,
-        updatedAt: page.updatedAt,
-      }));
-      allSeoEntries.push(...entries);
-    }
-    if (response?.allCatalogues) {
-      const entries = response.allCatalogues.map((page) => ({
-        id: `${page.id}_${locale}`,
-        recordId: page.id,
-        locale: locale,
-        metaTags: page.metaTags,
-        seo: page.seo,
-        updatedAt: page.updatedAt,
-      }));
-      allSeoEntries.push(...entries);
-    }
-    if (response?.allStoryItems) {
-      const entries = response.allStoryItems.map((page) => ({
-        id: `${page.id}_${locale}`,
-        recordId: page.id,
-        locale: locale,
-        metaTags: page.metaTags,
-        seo: page.seo,
-        updatedAt: page.updatedAt,
-      }));
-      allSeoEntries.push(...entries);
-    }
-    if (response?.allInsights) {
-      const entries = response.allInsights.map((page) => ({
-        id: `${page.id}_${locale}`,
-        recordId: page.id,
-        locale: locale,
-        metaTags: page.metaTags,
-        seo: page.seo,
-        updatedAt: page.updatedAt,
-      }));
-      allSeoEntries.push(...entries);
-    }
-    if (response?.allWebinarItems) {
-      const entries = response.allWebinarItems.map((page) => ({
-        id: `${page.id}_${locale}`,
-        recordId: page.id,
-        locale: locale,
-        metaTags: page.metaTags,
-        seo: page.seo,
-        updatedAt: page.updatedAt,
-      }));
-      allSeoEntries.push(...entries);
-    }
-    if (response?.homepage) {
-      const page = response.homepage;
-      const entries = {
-        id: `${page.id}_${locale}`,
-        recordId: page.id,
-        locale: locale,
-        metaTags: page.metaTags,
-        seo: page.seo,
-        updatedAt: page.updatedAt,
-      };
-      allSeoEntries.push(entries);
-    }
-  }
+      return [
+        ...(homepageRes?.homepage ? [mapEntry(homepageRes.homepage)] : []),
+        ...(articlesRes?.allArticles?.map(mapEntry) || []),
+        ...(insightsRes?.allInsights?.map(mapEntry) || []),
+        ...(cataloguesRes?.allCatalogues?.map(mapEntry) || []),
+        ...(pagesRes?.allPages?.map(mapEntry) || []),
+        ...(storiesRes?.allStoryItems?.map(mapEntry) || []),
+        ...(webinarsRes?.allWebinarItems?.map(mapEntry) || []),
+      ];
+    }),
+  );
 
-  return allSeoEntries;
+  return allLocalesResults.flat();
 };
 
 export const allDocumentsLoader = async () => {
-  const response = await executeQuery(AllDocumentsQuery);
-
-  if (!response) return [];
+  const [
+    articlesRes,
+    insightsRes,
+    storiesRes,
+    newsRes,
+    webinarsRes,
+    resourcesRes,
+    cataloguesRes,
+    pagesRes,
+  ] = await Promise.all([
+    executeAutoPagingQuery(ArticlesIdxQuery),
+    executeAutoPagingQuery(InsightsIdxQuery),
+    executeAutoPagingQuery(StoriesIdxQuery),
+    executeAutoPagingQuery(NewsIdxQuery),
+    executeAutoPagingQuery(WebinarsIdxQuery),
+    executeAutoPagingQuery(ResourcesIdxQuery),
+    executeAutoPagingQuery(CataloguesIdxQuery),
+    executeAutoPagingQuery(PagesIdxQuery),
+  ]);
 
   return [
     {
       id: "all-documents",
-      allArticles: response.allArticles || [],
-      allInsights: response.allInsights || [],
-      allStoryItems: response.allStoryItems || [],
-      allNewsItems: response.allNewsItems || [],
-      allWebinarItems: response.allWebinarItems || [],
-      allResources: response.allResources || [],
-      allCatalogues: response.allCatalogues || [],
-      allPages: response.allPages || [],
+      allArticles: articlesRes.allArticles || [],
+      allInsights: insightsRes.allInsights || [],
+      allStoryItems: storiesRes.allStoryItems || [],
+      allNewsItems: newsRes.allNewsItems || [],
+      allWebinarItems: webinarsRes.allWebinarItems || [],
+      allResources: resourcesRes.allResources || [],
+      allCatalogues: cataloguesRes.allCatalogues || [],
+      allPages: pagesRes.allPages || [],
     },
   ];
 };

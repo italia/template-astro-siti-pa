@@ -4,7 +4,7 @@ import { graphql } from "@graphql/graphql";
 export const AllPagesContentQuery = graphql(
   `
     query AllPagesContentQuery {
-      allPages {
+      allPages(first: 2500) {
         ...PageFragment
       }
     }

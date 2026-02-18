@@ -4,7 +4,7 @@ import { graphql } from "@graphql/graphql";
 export const AllResourcesQuery = graphql(
   `
     query AllResources {
-      allResources {
+      allResources(first: 2500) {
         ...ResourceFragment
       }
     }
