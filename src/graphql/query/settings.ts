@@ -82,50 +82,83 @@ export const AllGlobalSettingsQuery = graphql(
   [LocaleFragment],
 );
 
-export const AllLinkQuery = graphql(
+export const PagesLinksQuery = graphql(
   `
-    query AllLinks {
-      allPages {
+    query PagesLinks {
+      allPages(first: 2500) {
         ...AllPagesSlugFragment
       }
-      allArticles {
+    }
+  `,
+  [AllPagesSlugFragment],
+);
+
+export const ArticlesLinksQuery = graphql(
+  `
+    query ArticlesLinks {
+      allArticles(first: 2500) {
         ...AllArticlesSlugFragment
       }
-      allInsights {
+    }
+  `,
+  [AllArticlesSlugFragment],
+);
+
+export const InsightsLinksQuery = graphql(
+  `
+    query InsightsLinks {
+      allInsights(first: 2500) {
         ...AllInsightsSlugFragment
       }
-      allStoryItems {
+    }
+  `,
+  [AllInsightsSlugFragment],
+);
+
+export const StoriesLinksQuery = graphql(
+  `
+    query StoriesLinks {
+      allStoryItems(first: 2500) {
         ...AllStoryItemsSlugFragment
       }
-      allWebinarItems {
+    }
+  `,
+  [AllStoryItemsSlugFragment],
+);
+
+export const WebinarsLinksQuery = graphql(
+  `
+    query WebinarsLinks {
+      allWebinarItems(first: 2500) {
         ...AllWebinarItemsSlugFragment
       }
-      allWebinarItems {
-        ...AllWebinarItemsSlugFragment
-      }
-      allCatalogues {
+    }
+  `,
+  [AllWebinarItemsSlugFragment],
+);
+
+export const CataloguesLinksQuery = graphql(
+  `
+    query CataloguesLinks {
+      allCatalogues(first: 2500) {
         ...AllCataloguesSlugFragment
+        ...CatalogueIndexingFragment
       }
+    }
+  `,
+  [AllCataloguesSlugFragment, CatalogueIndexingFragment],
+);
+
+export const SingletonLinksQuery = graphql(
+  `
+    query SingletonLinks {
       homepage {
         ...HomepageFragment
       }
       search {
         ...SearchFragment
       }
-      allCatalogues {
-        ...CatalogueIndexingFragment
-      }
     }
   `,
-  [
-    AllArticlesSlugFragment,
-    AllPagesSlugFragment,
-    AllInsightsSlugFragment,
-    AllStoryItemsSlugFragment,
-    AllWebinarItemsSlugFragment,
-    AllCataloguesSlugFragment,
-    HomepageFragment,
-    SearchFragment,
-    CatalogueIndexingFragment,
-  ],
+  [HomepageFragment, SearchFragment],
 );

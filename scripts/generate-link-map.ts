@@ -1,5 +1,13 @@
-import { AllLinkQuery } from "@graphql/query/settings";
-import { executeQuery } from "@lib/datocms";
+import {
+  ArticlesLinksQuery,
+  CataloguesLinksQuery,
+  InsightsLinksQuery,
+  PagesLinksQuery,
+  SingletonLinksQuery,
+  StoriesLinksQuery,
+  WebinarsLinksQuery,
+} from "@graphql/query/settings";
+import { executeAutoPagingQuery, executeQuery } from "@lib/datocms";
 import {
   getTitle,
   processItemsCategoryPages,
@@ -18,9 +26,26 @@ const outputPath = `src/data/linkMap.json`;
 async function generateLinkMap() {
   console.log(`Generating link map...`);
 
-  const data = await executeQuery(AllLinkQuery);
+  const [
+    pagesRes,
+    articlesRes,
+    insightsRes,
+    storiesRes,
+    webinarsRes,
+    cataloguesRes,
+    singletonsRes,
+  ] = await Promise.all([
+    executeAutoPagingQuery(PagesLinksQuery),
+    executeAutoPagingQuery(ArticlesLinksQuery),
+    executeAutoPagingQuery(InsightsLinksQuery),
+    executeAutoPagingQuery(StoriesLinksQuery),
+    executeAutoPagingQuery(WebinarsLinksQuery),
+    executeAutoPagingQuery(CataloguesLinksQuery),
+    executeQuery(SingletonLinksQuery),
+  ]);
+
   const linkMap: SiteMap = {};
-  const home = data.homepage;
+  const home = singletonsRes.homepage;
 
   if (home) {
     linkMap[home.id] = {} as LocaleMap;
@@ -32,7 +57,7 @@ async function generateLinkMap() {
     });
   }
 
-  const search = data.search;
+  const search = singletonsRes.search;
 
   if (search) {
     linkMap[search.id] = {} as LocaleMap;
@@ -54,28 +79,36 @@ async function generateLinkMap() {
     });
   }
 
-  const collectionPages = [data.allPages, data.allCatalogues];
+  const collectionPages = [pagesRes.allPages, cataloguesRes.allCatalogues];
 
   collectionPages.forEach((collection) =>
     processItemsPages(collection, linkMap, home),
   );
 
-  const collectionNestedPages = [data.allArticles];
+  const collectionNestedPages = [articlesRes.allArticles];
 
   collectionNestedPages.forEach((collection) =>
     processItemsNestedPages(collection, linkMap, home),
   );
 
-  const collectionCategoryPages = [data.allInsights];
+  const collectionCategoryPages = [insightsRes.allInsights];
 
   collectionCategoryPages.forEach((collection) =>
     processItemsCategoryPages(collection, linkMap, home),
   );
 
-  const collectionTabPages = [data.allStoryItems, data.allWebinarItems];
+  const collectionTabPages = [
+    storiesRes.allStoryItems,
+    webinarsRes.allWebinarItems,
+  ];
 
   collectionTabPages.forEach((collection) =>
-    processItemsTabPages(collection, linkMap, home, data.allCatalogues),
+    processItemsTabPages(
+      collection,
+      linkMap,
+      home,
+      cataloguesRes.allCatalogues,
+    ),
   );
 
   const fullOutputPath = path.resolve(outputPath);

@@ -116,12 +116,7 @@ export const AllWebinarItemsSlugFragment = graphql(
       }
     }
   `,
-  [
-    LocaleFragment,
-    PageLocalesFragment,
-    CatalogueLocalesFragment,
-    WebinarItemLocalesFragment,
-  ],
+  [PageLocalesFragment, CatalogueLocalesFragment, WebinarItemLocalesFragment],
 );
 
 export type AllWebinarItemsSlugFragmentType = FragmentOf<
@@ -136,12 +131,7 @@ export const AllCataloguesSlugFragment = graphql(
       ...CatalogueLocalesFragment
     }
   `,
-  [
-    LocaleFragment,
-    PageLocalesFragment,
-    CatalogueLocalesFragment,
-    CatalogueLocalesFragment,
-  ],
+  [CatalogueLocalesFragment],
 );
 
 export type AllCataloguesSlugFragmentType = FragmentOf<
