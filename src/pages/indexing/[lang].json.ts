@@ -11,12 +11,14 @@ import {
 } from "@utils/indexing/getCategory";
 import * as Mappers from "@utils/indexing/indexingMappers";
 import type { APIRoute } from "astro";
-import { getCollection } from "astro:content";
+import { getEntry } from "astro:content";
 
 export async function getStaticPaths() {
-  const response = await getCollection("locales");
+  const response = await getEntry("locales", "site-locales");
 
-  const locales = response[0].data.locales;
+  const locales = response?.data.locales;
+  if (!locales) throw new Error("Locales not found");
+
   return locales.map((lang) => ({
     params: {
       lang,

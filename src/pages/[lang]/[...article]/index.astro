@@ -33,7 +33,7 @@ export async function getStaticPaths() {
 
   const sidebarForArticle = sidebarEntry?.data;
 
-  if (!sidebarForArticle) throw new Error("Sidebar non trovata");
+  if (!sidebarForArticle) throw new Error("Sidebar not found");
 
   const pathsPromises =
     response?.flatMap((item) => {
