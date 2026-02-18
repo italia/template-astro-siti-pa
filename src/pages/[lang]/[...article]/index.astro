@@ -29,6 +29,11 @@ export async function getStaticPaths() {
   };
 
   const response = await getCollection("article");
+  const sidebarEntry = await getEntry("sidebar", "sidebar");
+
+  const sidebarForArticle = sidebarEntry?.data;
+
+  if (!sidebarForArticle) throw new Error("Sidebar non trovata");
 
   const pathsPromises =
     response?.flatMap((item) => {
@@ -39,10 +44,6 @@ export async function getStaticPaths() {
           `${page.id}_${lang}`,
         );
         const seoRes = seoResCollection?.data;
-
-        const response = await getCollection("sidebar");
-
-        const sidebarForArticle = response[0].data;
 
         const fullPath = linkResolver(page.id, lang);
 
@@ -57,7 +58,7 @@ export async function getStaticPaths() {
             seoMeta: seoRes?.metaTags || [],
             seo: seoRes?.seo ?? null,
             id: page.id,
-            sidebar: sidebarForArticle,
+            sidebar: { ...sidebarForArticle, id: `sidebar_${page.id}` },
             content: page.allContentLocales?.find(
               (contentLocale) => contentLocale.locale === lang,
             )?.value,

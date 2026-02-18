@@ -154,7 +154,14 @@ export const layoutLoader = async () => {
 
 export const sidebarLoader = async () => {
   const response = await executeQuery(SidebarQuery);
-  return response?.sidebarForArticle ? [response.sidebarForArticle] : [];
+  if (!response?.sidebarForArticle) return [];
+
+  return [
+    {
+      ...response.sidebarForArticle,
+      id: "sidebar",
+    },
+  ];
 };
 
 export const localesLoader = async () => {
