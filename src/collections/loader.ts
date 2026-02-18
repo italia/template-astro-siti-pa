@@ -1,3 +1,4 @@
+import { AllDocumentsQuery } from "@graphql/fragment/indexing";
 import { AllArticlesContentQuery } from "@graphql/query/article";
 import { AllCataloguesContentQuery } from "@graphql/query/catalogue";
 import { ErrorPageQuery } from "@graphql/query/errorPage";
@@ -298,4 +299,24 @@ export const globalSeoLoader = async () => {
   }
 
   return allSeoEntries;
+};
+
+export const allDocumentsLoader = async () => {
+  const response = await executeQuery(AllDocumentsQuery);
+
+  if (!response) return [];
+
+  return [
+    {
+      id: "all-documents",
+      allArticles: response.allArticles || [],
+      allInsights: response.allInsights || [],
+      allStoryItems: response.allStoryItems || [],
+      allNewsItems: response.allNewsItems || [],
+      allWebinarItems: response.allWebinarItems || [],
+      allResources: response.allResources || [],
+      allCatalogues: response.allCatalogues || [],
+      allPages: response.allPages || [],
+    },
+  ];
 };

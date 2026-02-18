@@ -1,7 +1,5 @@
-import { AllDocumentsQuery } from "@graphql/fragment/indexing";
 import type { SiteLocale } from "@graphql/types";
 import { getGlobalSettings } from "@lib/dataFetcher";
-import { executeQuery } from "@lib/datocms";
 import {
   getCataloguesMapCategory,
   getCategoryName,
@@ -38,7 +36,12 @@ export const GET: APIRoute = async ({ params }) => {
   const globalSetting = await getGlobalSettings(lang);
   const analyzer = globalSetting?.analyzer || "standard";
 
-  const response = await executeQuery(AllDocumentsQuery);
+  const responseCollection = await getEntry("documents", "all-documents");
+  const response = responseCollection?.data;
+
+  if (!response)
+    return new Response("No documents to indexing", { status: 400 });
+
   const articles = response.allArticles;
   const insights = response.allInsights;
   const stories = response.allStoryItems;

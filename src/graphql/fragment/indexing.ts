@@ -286,13 +286,3 @@ export const AllDocumentsQuery = graphql(
     PageIndexingFragment,
   ],
 );
-
-export const LocaleLabelsQuery = graphql(`
-  query LocaleLabels($locale: SiteLocale!) {
-    lang(locale: $locale) {
-      analyzer
-      longLabel
-      shortLabel
-    }
-  }
-`);

@@ -1,4 +1,5 @@
 import {
+  allDocumentsLoader,
   articleContentLoader,
   cataloguesLoader,
   errorPageLoader,
@@ -20,6 +21,7 @@ import {
   webinarsLoader,
 } from "@collections/loader";
 import {
+  allDocumentsSchema,
   articleSchema,
   catalogueSchema,
   errorPageSchema,
@@ -118,5 +120,9 @@ export const collections = {
   global_seo: defineCollection({
     schema: globalSeoSchema,
     loader: globalSeoLoader,
+  }),
+  documents: defineCollection({
+    loader: allDocumentsLoader,
+    schema: allDocumentsSchema,
   }),
 };

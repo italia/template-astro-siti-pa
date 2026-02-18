@@ -9,6 +9,16 @@ import type {
 } from "@graphql/fragment/commonFragments";
 import type { ErrorRecordFragmentType } from "@graphql/fragment/globalSettings";
 import type { HomepageRecordFragmentType } from "@graphql/fragment/homepage";
+import type {
+  ArticleIndexingFragmentType,
+  CatalogueIndexingFragmentType,
+  InsightIndexingFragmentType,
+  NewsIndexingFragmentType,
+  PageIndexingFragmentType,
+  ResourseIndexingFragmentType,
+  StoryIndexingFragmentType,
+  WebinarIndexingFragmentType,
+} from "@graphql/fragment/indexing";
 import type { AllInsightsRecordFragmentType } from "@graphql/fragment/insight";
 import type {
   FooterFragmentType,
@@ -112,4 +122,16 @@ export const globalSeoSchema = z.object({
   metaTags: z.array(z.custom<TagFragmentType>()),
   seo: z.custom<SeoFieldFragmentType>(),
   updatedAt: z.string(),
+});
+
+export const allDocumentsSchema = z.object({
+  id: z.string(),
+  allArticles: z.array(z.custom<ArticleIndexingFragmentType>()),
+  allInsights: z.array(z.custom<InsightIndexingFragmentType>()),
+  allStoryItems: z.array(z.custom<StoryIndexingFragmentType>()),
+  allNewsItems: z.array(z.custom<NewsIndexingFragmentType>()),
+  allWebinarItems: z.array(z.custom<WebinarIndexingFragmentType>()),
+  allResources: z.array(z.custom<ResourseIndexingFragmentType>()),
+  allCatalogues: z.array(z.custom<CatalogueIndexingFragmentType>()),
+  allPages: z.array(z.custom<PageIndexingFragmentType>()),
 });
