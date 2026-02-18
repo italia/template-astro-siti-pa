@@ -1,6 +1,4 @@
-import { TagFragment } from "@graphql/fragment/commonFragments";
 import { InsightContentFragment } from "@graphql/fragment/insight";
-import { SeoFieldFragment } from "@graphql/fragment/seoFragments";
 import { graphql } from "@graphql/graphql";
 
 export const AllInsightsContentQuery = graphql(
@@ -21,21 +19,4 @@ export const AllInsightsContentQuery = graphql(
     }
   `,
   [InsightContentFragment],
-);
-
-export const InsightSeoQuery = graphql(
-  `
-    query InsightSeoQuery($id: ItemId!, $locale: SiteLocale!) {
-      insight(filter: { id: { eq: $id } }, locale: $locale) {
-        metaTags: _seoMetaTags {
-          ...TagFragment
-        }
-        seo {
-          ...SeoFieldFragment
-        }
-        updatedAt: _updatedAt
-      }
-    }
-  `,
-  [TagFragment, SeoFieldFragment],
 );

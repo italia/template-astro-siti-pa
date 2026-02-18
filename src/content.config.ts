@@ -2,6 +2,7 @@ import {
   articleContentLoader,
   cataloguesLoader,
   errorPageLoader,
+  globalSeoLoader,
   globalSettingsLoader,
   homepageLoader,
   insightContentLoader,
@@ -22,6 +23,7 @@ import {
   articleSchema,
   catalogueSchema,
   errorPageSchema,
+  globalSeoSchema,
   globalSettingsSchema,
   homepageSchema,
   insightSchema,
@@ -112,5 +114,9 @@ export const collections = {
   site_meta: defineCollection({
     schema: siteMetaTagsSchema,
     loader: siteMetaTagsLoader,
+  }),
+  global_seo: defineCollection({
+    schema: globalSeoSchema,
+    loader: globalSeoLoader,
   }),
 };

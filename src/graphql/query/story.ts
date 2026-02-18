@@ -1,8 +1,4 @@
-import {
-  StoryCardFragment,
-  TagFragment,
-} from "@graphql/fragment/commonFragments";
-import { SeoFieldFragment } from "@graphql/fragment/seoFragments";
+import { StoryCardFragment } from "@graphql/fragment/commonFragments";
 import { AllStoriesRecordFragment } from "@graphql/fragment/story";
 import { graphql } from "@graphql/graphql";
 
@@ -26,21 +22,4 @@ export const AllStoriesContentQuery = graphql(
     }
   `,
   [AllStoriesRecordFragment],
-);
-
-export const StorySeoQuery = graphql(
-  `
-    query StorySeoQuery($id: ItemId!, $locale: SiteLocale!) {
-      storyItem(filter: { id: { eq: $id } }, locale: $locale) {
-        metaTags: _seoMetaTags {
-          ...TagFragment
-        }
-        seo {
-          ...SeoFieldFragment
-        }
-        updatedAt: _updatedAt
-      }
-    }
-  `,
-  [TagFragment, SeoFieldFragment],
 );

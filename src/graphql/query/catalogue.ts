@@ -1,6 +1,4 @@
 import { AllCataloguesRecordFragment } from "@graphql/fragment/catalogue";
-import { TagFragment } from "@graphql/fragment/commonFragments";
-import { SeoFieldFragment } from "@graphql/fragment/seoFragments";
 import { graphql } from "@graphql/graphql";
 
 export const AllCataloguesContentQuery = graphql(
@@ -24,21 +22,4 @@ export const AllCataloguesContentQuery = graphql(
     }
   `,
   [AllCataloguesRecordFragment],
-);
-
-export const CatalogueSeoQuery = graphql(
-  `
-    query CatalogueSeoQuery($id: ItemId!, $locale: SiteLocale!) {
-      catalogue(filter: { id: { eq: $id } }, locale: $locale) {
-        metaTags: _seoMetaTags {
-          ...TagFragment
-        }
-        seo {
-          ...SeoFieldFragment
-        }
-        updatedAt: _updatedAt
-      }
-    }
-  `,
-  [TagFragment, SeoFieldFragment],
 );

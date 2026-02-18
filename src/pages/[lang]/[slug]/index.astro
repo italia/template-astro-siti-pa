@@ -4,14 +4,12 @@ import PageAdapter from "@components/cms-adapters/datocms/PageAdapter.astro";
 import type { TagFragmentType } from "@graphql/fragment/commonFragments";
 import type { PageContentFragmentType } from "@graphql/fragment/page";
 import type { SeoFieldFragmentType } from "@graphql/fragment/seoFragments";
-import { PageSeoQuery } from "@graphql/query/page";
 import type { SiteLocale } from "@graphql/types";
 import Layout from "@layouts/Layout.astro";
-import { executeQuery } from "@lib/datocms";
 import { type JsonLdPageData, extractFaqItems } from "@utils/JsonLD/seoJsonLd";
 import { linkResolver } from "@utils/linkResolver";
 import { removeLang } from "@utils/pathHelper";
-import { getCollection } from "astro:content";
+import { getCollection, getEntry } from "astro:content";
 
 export async function getStaticPaths() {
   type PathItem = {
@@ -34,9 +32,11 @@ export async function getStaticPaths() {
   const pathsPromises =
     allPages?.flatMap((page) =>
       page.data.locales.map(async (lang) => {
-        const seoRes = await executeQuery(PageSeoQuery, {
-          variables: { id: page.id, locale: lang },
-        });
+        const seoResCollection = await getEntry(
+          "global_seo",
+          `${page.id}_${lang}`,
+        );
+        const seoRes = seoResCollection?.data;
 
         const fullPath = linkResolver(page.id, lang);
 
@@ -48,11 +48,11 @@ export async function getStaticPaths() {
             lang: lang,
           },
           props: {
-            seoMeta: seoRes.page?.metaTags || [],
-            seo: seoRes.page?.seo || null,
+            seoMeta: seoRes?.metaTags || [],
+            seo: seoRes?.seo || null,
             id: page.id,
             publishedAt: page.data.publishedAt,
-            updatedAt: seoRes.page?.updatedAt || page.data.updatedAt,
+            updatedAt: seoRes?.updatedAt || page.data.updatedAt,
             content: page.data.allContentLocales?.find(
               (contentLocale) => contentLocale.locale === lang,
             )?.value,

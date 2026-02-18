@@ -4,11 +4,9 @@ import PageAdapter from "@components/cms-adapters/datocms/PageAdapter.astro";
 import type { CatalogueContentFragmentType } from "@graphql/fragment/catalogue";
 import type { TagFragmentType } from "@graphql/fragment/commonFragments";
 import type { SeoFieldFragmentType } from "@graphql/fragment/seoFragments";
-import { CatalogueSeoQuery } from "@graphql/query/catalogue";
 
 import type { SiteLocale } from "@graphql/types";
 import Layout from "@layouts/Layout.astro";
-import { executeQuery } from "@lib/datocms";
 import { getLastUpdateCollection } from "@utils/getLastUpdateCollection";
 import {
   extractFaqItems,
@@ -17,7 +15,7 @@ import {
 } from "@utils/JsonLD/seoJsonLd";
 import { linkResolver } from "@utils/linkResolver";
 import { removeLang } from "@utils/pathHelper";
-import { getCollection } from "astro:content";
+import { getCollection, getEntry } from "astro:content";
 
 export async function getStaticPaths() {
   type PathItem = {
@@ -48,9 +46,11 @@ export async function getStaticPaths() {
 
         const finalUpdateDate = getLastUpdateCollection(content, datesRegistry);
 
-        const seoRes = await executeQuery(CatalogueSeoQuery, {
-          variables: { id: page.id, locale: lang },
-        });
+        const seoResCollection = await getEntry(
+          "global_seo",
+          `${page.id}_${lang}`,
+        );
+        const seoRes = seoResCollection?.data;
 
         const fullPath = linkResolver(page.id, lang);
 
@@ -62,12 +62,12 @@ export async function getStaticPaths() {
             lang: lang,
           },
           props: {
-            seoMeta: seoRes.catalogue?.metaTags || [],
-            seo: seoRes.catalogue?.seo || null,
+            seoMeta: seoRes?.metaTags || [],
+            seo: seoRes?.seo || null,
             id: page.id,
             content: content,
             publishedAt: finalUpdateDate,
-            updatedAt: seoRes.catalogue?.updatedAt || page.updatedAt,
+            updatedAt: seoRes?.updatedAt || page.updatedAt,
           },
         };
       });

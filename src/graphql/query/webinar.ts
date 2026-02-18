@@ -1,8 +1,4 @@
-import {
-  TagFragment,
-  WebinarItemFragment,
-} from "@graphql/fragment/commonFragments";
-import { SeoFieldFragment } from "@graphql/fragment/seoFragments";
+import { WebinarItemFragment } from "@graphql/fragment/commonFragments";
 import {
   AllWebinarItemsFragment,
   AllWebinarRecordFragment,
@@ -40,21 +36,4 @@ export const AllWebinarsContentQuery = graphql(
     }
   `,
   [AllWebinarRecordFragment],
-);
-
-export const WebinarSeoQuery = graphql(
-  `
-    query WebinarSeoQuery($id: ItemId!, $locale: SiteLocale!) {
-      webinarItem(filter: { id: { eq: $id } }, locale: $locale) {
-        metaTags: _seoMetaTags {
-          ...TagFragment
-        }
-        seo {
-          ...SeoFieldFragment
-        }
-        updatedAt: _updatedAt
-      }
-    }
-  `,
-  [TagFragment, SeoFieldFragment],
 );

@@ -18,6 +18,7 @@ import type {
 import type { PageFragmentType } from "@graphql/fragment/page";
 import type { SearchRecordFragmentType } from "@graphql/fragment/search";
 import type { SearchMenuFragmentType } from "@graphql/fragment/sectionFragments";
+import type { SeoFieldFragmentType } from "@graphql/fragment/seoFragments";
 import type { AllStoriesRecordFragmentType } from "@graphql/fragment/story";
 import type { AllWebinarRecordFragmentType } from "@graphql/fragment/webinar";
 import type { SiteLocale } from "@graphql/types";
@@ -102,4 +103,13 @@ export const errorPageSchema = z.object({
 export const siteMetaTagsSchema = z.object({
   id: z.string(),
   faviconMetaTags: z.array(z.custom<TagFragmentType>()),
+});
+
+export const globalSeoSchema = z.object({
+  id: z.string(),
+  recordId: z.string(),
+  locale: z.string(),
+  metaTags: z.array(z.custom<TagFragmentType>()),
+  seo: z.custom<SeoFieldFragmentType>(),
+  updatedAt: z.string(),
 });

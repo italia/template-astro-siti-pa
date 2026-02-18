@@ -8,6 +8,7 @@ import { AllNewsQuery } from "@graphql/query/news";
 import { AllPagesContentQuery } from "@graphql/query/page";
 import { AllResourcesQuery } from "@graphql/query/resource";
 import { SearchPageContentQuery } from "@graphql/query/search";
+import { GlobalSeoQuery } from "@graphql/query/seo";
 import {
   AllGlobalSettingsQuery,
   LocalesQuery,
@@ -194,4 +195,100 @@ export const siteMetaTagsLoader = async () => {
       faviconMetaTags: response.site.faviconMetaTags,
     },
   ];
+};
+
+export const globalSeoLoader = async () => {
+  const localesRes = await executeQuery(LocalesQuery);
+  const locales = localesRes?.site?.locales || ["it"];
+
+  const allSeoEntries = [];
+
+  for (const locale of locales) {
+    const response = await executeQuery(GlobalSeoQuery, {
+      variables: {
+        locale,
+      },
+    });
+
+    if (response?.allArticles) {
+      const entries = response.allArticles.map((article) => ({
+        id: `${article.id}_${locale}`,
+        recordId: article.id,
+        locale: locale,
+        metaTags: article.metaTags,
+        seo: article.seo,
+        updatedAt: article.updatedAt,
+      }));
+      allSeoEntries.push(...entries);
+    }
+    if (response?.allPages) {
+      const entries = response.allPages.map((page) => ({
+        id: `${page.id}_${locale}`,
+        recordId: page.id,
+        locale: locale,
+        metaTags: page.metaTags,
+        seo: page.seo,
+        updatedAt: page.updatedAt,
+      }));
+      allSeoEntries.push(...entries);
+    }
+    if (response?.allCatalogues) {
+      const entries = response.allCatalogues.map((page) => ({
+        id: `${page.id}_${locale}`,
+        recordId: page.id,
+        locale: locale,
+        metaTags: page.metaTags,
+        seo: page.seo,
+        updatedAt: page.updatedAt,
+      }));
+      allSeoEntries.push(...entries);
+    }
+    if (response?.allStoryItems) {
+      const entries = response.allStoryItems.map((page) => ({
+        id: `${page.id}_${locale}`,
+        recordId: page.id,
+        locale: locale,
+        metaTags: page.metaTags,
+        seo: page.seo,
+        updatedAt: page.updatedAt,
+      }));
+      allSeoEntries.push(...entries);
+    }
+    if (response?.allInsights) {
+      const entries = response.allInsights.map((page) => ({
+        id: `${page.id}_${locale}`,
+        recordId: page.id,
+        locale: locale,
+        metaTags: page.metaTags,
+        seo: page.seo,
+        updatedAt: page.updatedAt,
+      }));
+      allSeoEntries.push(...entries);
+    }
+    if (response?.allWebinarItems) {
+      const entries = response.allWebinarItems.map((page) => ({
+        id: `${page.id}_${locale}`,
+        recordId: page.id,
+        locale: locale,
+        metaTags: page.metaTags,
+        seo: page.seo,
+        updatedAt: page.updatedAt,
+      }));
+      allSeoEntries.push(...entries);
+    }
+    if (response?.homepage) {
+      const page = response.homepage;
+      const entries = {
+        id: `${page.id}_${locale}`,
+        recordId: page.id,
+        locale: locale,
+        metaTags: page.metaTags,
+        seo: page.seo,
+        updatedAt: page.updatedAt,
+      };
+      allSeoEntries.push(entries);
+    }
+  }
+
+  return allSeoEntries;
 };

@@ -3,14 +3,12 @@ import PageAdapter from "@components/cms-adapters/datocms/PageAdapter.astro";
 import type { TagFragmentType } from "@graphql/fragment/commonFragments";
 import type { SeoFieldFragmentType } from "@graphql/fragment/seoFragments";
 import type { WebinarContentFragmentType } from "@graphql/fragment/webinar";
-import { WebinarSeoQuery } from "@graphql/query/webinar";
 import type { SiteLocale } from "@graphql/types";
 import Layout from "@layouts/Layout.astro";
-import { executeQuery } from "@lib/datocms";
 import { extractFaqItems, type JsonLdPageData } from "@utils/JsonLD/seoJsonLd";
 import { linkResolver } from "@utils/linkResolver";
 import { removeLang } from "@utils/pathHelper";
-import { getCollection } from "astro:content";
+import { getCollection, getEntry } from "astro:content";
 
 export async function getStaticPaths() {
   type PathItem = {
@@ -34,9 +32,11 @@ export async function getStaticPaths() {
     response?.flatMap((item) => {
       const page = item.data;
       return page.locales.map(async (lang) => {
-        const seoRes = await executeQuery(WebinarSeoQuery, {
-          variables: { id: page.id, locale: lang },
-        });
+        const seoResCollection = await getEntry(
+          "global_seo",
+          `${page.id}_${lang}`,
+        );
+        const seoRes = seoResCollection?.data;
 
         const fullPath = linkResolver(page.id, lang);
 
@@ -48,14 +48,14 @@ export async function getStaticPaths() {
             lang: lang,
           },
           props: {
-            seoMeta: seoRes.webinarItem?.metaTags || [],
-            seo: seoRes.webinarItem?.seo || null,
+            seoMeta: seoRes?.metaTags || [],
+            seo: seoRes?.seo || null,
             id: page.id,
             content: page.allContentLocales?.find(
               (contentLocale) => contentLocale.locale === lang,
             )?.value,
             publishedAt: page.publishedAt,
-            updatedAt: seoRes.webinarItem?.updatedAt || page.updatedAt,
+            updatedAt: seoRes?.updatedAt || page.updatedAt,
           },
         };
       });

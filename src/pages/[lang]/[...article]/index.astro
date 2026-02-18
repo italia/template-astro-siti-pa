@@ -4,14 +4,12 @@ import type { ArticleContentFragmentType } from "@graphql/fragment/article";
 import type { TagFragmentType } from "@graphql/fragment/commonFragments";
 import type { SidebarFragmentType } from "@graphql/fragment/layout";
 import type { SeoFieldFragmentType } from "@graphql/fragment/seoFragments";
-import { ArticleSeoQuery } from "@graphql/query/article";
 import type { SiteLocale } from "@graphql/types";
 import Layout from "@layouts/Layout.astro";
-import { executeQuery } from "@lib/datocms";
 import { type JsonLdPageData } from "@utils/JsonLD/seoJsonLd";
 import { linkResolver } from "@utils/linkResolver";
 import { removeLang } from "@utils/pathHelper";
-import { getCollection } from "astro:content";
+import { getCollection, getEntry } from "astro:content";
 
 export async function getStaticPaths() {
   type PathItem = {
@@ -36,9 +34,11 @@ export async function getStaticPaths() {
     response?.flatMap((item) => {
       const page = item.data;
       return page.locales.map(async (lang) => {
-        const seoRes = await executeQuery(ArticleSeoQuery, {
-          variables: { id: page.id, locale: lang },
-        });
+        const seoResCollection = await getEntry(
+          "global_seo",
+          `${page.id}_${lang}`,
+        );
+        const seoRes = seoResCollection?.data;
 
         const response = await getCollection("sidebar");
 
@@ -54,15 +54,15 @@ export async function getStaticPaths() {
             lang: lang,
           },
           props: {
-            seoMeta: seoRes.article?.metaTags || [],
-            seo: seoRes.article?.seo ?? null,
+            seoMeta: seoRes?.metaTags || [],
+            seo: seoRes?.seo ?? null,
             id: page.id,
             sidebar: sidebarForArticle,
             content: page.allContentLocales?.find(
               (contentLocale) => contentLocale.locale === lang,
             )?.value,
             publishedAt: page.publishedAt,
-            updatedAt: seoRes.article?.updatedAt || page.updatedAt,
+            updatedAt: seoRes?.updatedAt || page.updatedAt,
           },
         };
       });
