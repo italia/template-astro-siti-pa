@@ -2,6 +2,7 @@
 import { NewsFeed } from "@components/organisms/NewsFeed";
 import type { NewsFeedFragmentType } from "@graphql/fragment/sectionFragments";
 import { getGlobalSettings } from "@lib/dataFetcher";
+import { DatoBlockModel } from "@utils/cmsMapper";
 import { linkResolver } from "@utils/linkResolver";
 
 type Props = {
@@ -28,7 +29,7 @@ const globalSetting = await getGlobalSettings(lang);
   linkTo={buttonLink}
   tabs={block.tabs.map((tab) => {
     switch (tab.componentName) {
-      case "NewsTabRecord":
+      case DatoBlockModel.NewsTab:
         return {
           componentName: "CardEditorialNews",
           title: tab.title,
@@ -55,7 +56,7 @@ const globalSetting = await getGlobalSettings(lang);
           }),
         };
 
-      case "StoryTabRecord":
+      case DatoBlockModel.StoryTab:
         return {
           componentName: "CardEditorialInlineMini",
           title: tab.title,

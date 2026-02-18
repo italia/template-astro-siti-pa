@@ -7,6 +7,7 @@ import type {
   PageLocalesFragmentType,
 } from "@graphql/fragment/metaFragments";
 import type { SiteLocale } from "@graphql/types";
+import { DatoBlockModel } from "@utils/cmsMapper";
 
 type tabType = { type: string; title: string };
 type catalogueMapCategory = { type: tabType[]; title?: string };
@@ -66,7 +67,7 @@ export const getCataloguesMapCategory = (
       (t: any) => t.locale === lang,
     )?.value;
     const feedRecord = catalogue.content.find(
-      (item) => item.componentName === "CatalogueFeedRecord",
+      (item) => item.componentName === DatoBlockModel.CatalogueFeed,
     );
     let tabTypes: tabType[] = [];
     if (feedRecord && "tabs" in feedRecord) {

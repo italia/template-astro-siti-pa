@@ -1,4 +1,5 @@
 import type { CatalogueContentFragmentType } from "@graphql/fragment/catalogue";
+import { DatoBlockModel } from "./cmsMapper";
 
 export const getLastUpdateCollection = (
   content: CatalogueContentFragmentType[] | undefined,
@@ -9,7 +10,7 @@ export const getLastUpdateCollection = (
   }
 
   const feedRecord = content?.find(
-    (c) => c.componentName === "CatalogueFeedRecord",
+    (c) => c.componentName === DatoBlockModel.CatalogueFeed,
   );
   let finalUpdateDate = null;
 

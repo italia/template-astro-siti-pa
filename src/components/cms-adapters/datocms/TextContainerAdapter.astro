@@ -2,6 +2,7 @@
 import { TextContainer } from "@components/molecules/TextContainer";
 import type { TextContainerVariant } from "@components/molecules/TextContainer/types";
 import type { TextBlockFragmentType } from "@graphql/fragment/commonFragments";
+import { DatoBlockModel } from "@utils/cmsMapper";
 import { linkResolver } from "@utils/linkResolver";
 
 type Props = {
@@ -18,12 +19,12 @@ const getCtaFields = () => {
   if (!cta) return { labelButton: undefined, linkTo: undefined };
 
   switch (cta.componentName) {
-    case "ExternalLinkRecord":
+    case DatoBlockModel.ExternalLink:
       return {
         labelButton: cta.label,
         linkTo: cta.url,
       };
-    case "InternalLinkRecord":
+    case DatoBlockModel.InternalLink:
       return {
         labelButton: cta.label,
         linkTo: linkResolver(cta.linkTo?.id, lang),

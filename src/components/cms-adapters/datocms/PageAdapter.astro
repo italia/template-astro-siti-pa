@@ -27,6 +27,7 @@ import type { PageContentFragmentType } from "@graphql/fragment/page";
 import type { SearchPageContentFragmentType } from "@graphql/fragment/search";
 import type { StoryContentFragmentType } from "@graphql/fragment/story";
 import type { WebinarContentFragmentType } from "@graphql/fragment/webinar";
+import { DatoBlockModel } from "@utils/cmsMapper";
 
 type ContentType =
   | HomepageModelContentFragmentType
@@ -48,52 +49,52 @@ const { content, isFontSerif = false } = Astro.props;
 {
   content.map((block) => {
     switch (block.componentName) {
-      case "HeroRecord":
+      case DatoBlockModel.Hero:
         return <HeroAdapter block={block} />;
-      case "NewsFeedRecord":
+      case DatoBlockModel.NewsFeed:
         return <NewsFeedAdapter block={block} />;
-      case "SupportChannelsSectionRecord":
+      case DatoBlockModel.SupportChannels:
         return <SupportChannelsSectionAdapter block={block} />;
-      case "FaqSectionRecord":
+      case DatoBlockModel.FaqSection:
         return <FAQSectionAdapter block={block} />;
-      case "DataSectionRecord":
+      case DatoBlockModel.DataSection:
         return <DataSectionAdapter block={block} />;
-      case "UseCaseContainerRecord":
+      case DatoBlockModel.UseCaseContainer:
         return <UseCaseContainerAdapter block={block} />;
-      case "TopicFilterRecord":
+      case DatoBlockModel.TopicFilter:
         return <TopicFilterAdapter block={block} />;
-      case "SupportCtaSectionRecord":
+      case DatoBlockModel.SupportCta:
         return <SupportCTASectionAdapter block={block} size="default" />;
-      case "StructuredTextRecord":
+      case DatoBlockModel.StructuredText:
         return (
           <StructuredTextBlockAdapter
             block={block.textContent}
             isFontSerif={isFontSerif}
           />
         );
-      case "ListCollectionRecord":
+      case DatoBlockModel.ListCollection:
         return <ListCollectionAdapter block={block} />;
-      case "CatalogueFeedRecord":
+      case DatoBlockModel.CatalogueFeed:
         return <CatalogueFeedAdapter block={block} />;
-      case "ActionCardRecord":
+      case DatoBlockModel.ActionCard:
         return <ActionCardSectionAdapter block={block} />;
-      case "SearchBarRecord":
+      case DatoBlockModel.SearchBar:
         return <SearchBarAdapter block={block} />;
-      case "TextImageRecord":
+      case DatoBlockModel.TextImage:
         return <TextAndImageAdapter block={block} />;
-      case "TextStatisticRecord":
+      case DatoBlockModel.TextStatistic:
         return <TextAndStatisticsAdapter block={block} />;
-      case "TextUseCaseRecord":
+      case DatoBlockModel.TextUseCase:
         return <TextAndUseCasesAdapter block={block} />;
-      case "TextAccordionRecord":
+      case DatoBlockModel.TextAccordion:
         return <TextAndAccordionAdapter block={block} />;
-      case "WebinarDescriptionRecord":
+      case DatoBlockModel.WebinarDescription:
         return <WebinarDescriptionAdapter block={block} />;
-      case "SpeakerRecord":
+      case DatoBlockModel.Speaker:
         return <SpeakerAdapter block={block} />;
-      case "IntroArticleRecord":
+      case DatoBlockModel.IntroArticle:
         return <IntroArticleAdapter block={block} />;
-      case "CalloutLinkRecord":
+      case DatoBlockModel.CalloutLink:
         return <CalloutLinkAdapter block={block} />;
       default:
         return null;

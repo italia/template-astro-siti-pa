@@ -12,6 +12,7 @@ import type { SectionAlignItems } from "@components/layout/SplitContent/types";
 import { AdditionalContent } from "@components/organisms/AdditionalContent";
 import type { SectionFragmentType } from "@graphql/fragment/sectionFragments";
 import type { SectionBackground } from "@utils/background";
+import { DatoBlockModel } from "@utils/cmsMapper";
 
 type Props = {
   block: SectionFragmentType;
@@ -50,7 +51,7 @@ const className = isRightBlockImage ? "px-0" : "";
     {
       (() => {
         switch (leftBlock.componentName) {
-          case "TextBlockRecord":
+          case DatoBlockModel.TextBlock:
             return (
               <TextContainerAdapter
                 block={leftBlock}
@@ -68,19 +69,19 @@ const className = isRightBlockImage ? "px-0" : "";
     {
       (() => {
         switch (rightBlock.componentName) {
-          case "UseCaseBlockRecord":
+          case DatoBlockModel.UseCaseBlock:
             return <UseCasesAdapter block={rightBlock} />;
-          case "ImageBlockRecord":
+          case DatoBlockModel.ImageBlock:
             return <ImageContainerAdapter block={rightBlock} />;
-          case "StatisticBlockRecord":
+          case DatoBlockModel.StatisticBlock:
             return <StatisticAdapter block={rightBlock} />;
-          case "AccordionBlockRecord":
+          case DatoBlockModel.AccordionBlock:
             return <AccordionAdapter block={rightBlock} />;
-          case "IconListBlockRecord":
+          case DatoBlockModel.IconListBlock:
             return <IconListAdapter block={rightBlock} />;
-          case "QuickLinkCardRecord":
+          case DatoBlockModel.QuickLinkCard:
             return <QuickLinkCardAdapter block={rightBlock} />;
-          case "AuthorListRecord":
+          case DatoBlockModel.AuthorList:
             return <AuthorListAdapter block={rightBlock} />;
           default:
             return;

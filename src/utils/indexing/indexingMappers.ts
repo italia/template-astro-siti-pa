@@ -8,6 +8,7 @@ import type {
   WebinarIndexingFragmentType,
 } from "@graphql/fragment/indexing";
 import type { SiteLocale } from "@graphql/types";
+import { DatoBlockModel } from "@utils/cmsMapper";
 import { createDownloadUrl } from "@utils/createDownloadUrl";
 import {
   flattenBlocks,
@@ -135,7 +136,7 @@ export const getMapResourse = (
   if (!block) return null;
 
   switch (block.componentName) {
-    case "ExternalLinkRecord":
+    case DatoBlockModel.ExternalLink:
       return {
         type: "resourse",
         id: resourse.id,
@@ -145,7 +146,7 @@ export const getMapResourse = (
         description: block.description,
         content: block.description,
       };
-    case "DownloadLinkRecord":
+    case DatoBlockModel.DownloadLink:
       return {
         type: "resourse",
         id: resourse.id,

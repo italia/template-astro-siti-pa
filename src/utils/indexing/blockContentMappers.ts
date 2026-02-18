@@ -27,6 +27,7 @@ import type {
 } from "@graphql/fragment/sectionFragments";
 import type { StoryContentFragmentType } from "@graphql/fragment/story";
 import type { WebinarContentFragmentType } from "@graphql/fragment/webinar";
+import { DatoBlockModel } from "@utils/cmsMapper";
 
 import { render } from "datocms-structured-text-to-plain-text";
 
@@ -46,29 +47,29 @@ export const flattenBlocks = (blocks: BlockType[] | undefined | null) => {
   return blocks
     .map((block) => {
       switch (block.componentName) {
-        case "HeroRecord":
+        case DatoBlockModel.Hero:
           return flattenHeroSection(block);
-        case "FaqSectionRecord":
+        case DatoBlockModel.FaqSection:
           return flattenFaqSection(block);
-        case "IntroArticleRecord":
+        case DatoBlockModel.IntroArticle:
           return flattenIntroArticle(block);
-        case "ActionCardRecord":
+        case DatoBlockModel.ActionCard:
           return flattenActionCard(block);
-        case "SpeakerRecord":
+        case DatoBlockModel.Speaker:
           return flattenSpeaker(block);
-        case "WebinarDescriptionRecord":
+        case DatoBlockModel.WebinarDescription:
           return flattenWebinarDescription(block);
-        case "SupportCtaSectionRecord":
+        case DatoBlockModel.SupportCta:
           return flattenSupportCtaSection(block);
-        case "StructuredTextRecord":
+        case DatoBlockModel.StructuredText:
           return render(block.textContent, stOptions);
-        case "DataSectionRecord":
+        case DatoBlockModel.DataSection:
           return flattenDataSection(block);
-        case "SupportChannelsSectionRecord":
+        case DatoBlockModel.SupportChannels:
           return flattenSupportChannelsSection(block);
-        case "TextAccordionRecord":
+        case DatoBlockModel.TextAccordion:
           return flattenTextAccordionSection(block);
-        case "TextImageRecord":
+        case DatoBlockModel.TextImage:
           return flattenTextImageSection(block);
         default:
           return "";
@@ -80,23 +81,23 @@ export const flattenBlocks = (blocks: BlockType[] | undefined | null) => {
 export const getSearchRenderOptions = () => ({
   renderBlock({ record }: { record: AllStructuredTextBlocks }) {
     switch (record.__typename) {
-      case "ImageBlockRecord":
+      case DatoBlockModel.ImageBlock:
         return flattenImageBlock(record);
-      case "CalloutRecord":
+      case DatoBlockModel.Callout:
         return flattenCallout(record);
-      case "ListCardEditorialWithIconRecord":
+      case DatoBlockModel.ListCardEditorial:
         return flattenListCardEditorialWithIcon(record);
-      case "ListCardInfoRecord":
+      case DatoBlockModel.ListCardInfo:
         return flattenListCardInfo(record);
-      case "OrderedListRecord":
+      case DatoBlockModel.OrderedList:
         return flattenOrderedList(record);
-      case "TopicsBlockRecord":
+      case DatoBlockModel.TopicsBlock:
         return flattenTopicsBlock(record);
-      case "ExternalLinkRecord":
+      case DatoBlockModel.ExternalLink:
         return flattenExternalLink(record);
-      case "SupportCtaSectionRecord":
+      case DatoBlockModel.SupportCta:
         return flattenSupportCtaSection(record);
-      case "ListBlockquoteRecord":
+      case DatoBlockModel.ListBlockquote:
         return flattenListBlockquote(record);
       default:
         console.warn(`Not implemented yet: ${record.__typename}`);

@@ -1,6 +1,7 @@
 import rawLinkMap from "@data/linkMap.json";
 import type { SeoFieldFragmentType } from "@graphql/fragment/seoFragments";
 import type { SiteLocale } from "@graphql/types";
+import { DatoBlockModel } from "@utils/cmsMapper";
 import {
   getBreadcrumbs,
   linkResolver,
@@ -103,7 +104,7 @@ export function extractFaqItems(content: unknown): FaqItem[] {
     const candidate = node as Record<string, any>;
     const componentName = candidate.componentName || candidate.__typename;
 
-    if (componentName === "FaqSectionRecord") {
+    if (componentName === DatoBlockModel.FaqSection) {
       processAccordion(candidate.accordion);
     }
 
@@ -458,7 +459,7 @@ export function extractListItems(
     const candidate = node as Record<string, any>;
     const componentName = candidate.componentName || candidate.__typename;
 
-    if (componentName === "CatalogueFeedRecord") {
+    if (componentName === DatoBlockModel.CatalogueFeed) {
       processCatalogueTabs(candidate.tabs);
     }
 

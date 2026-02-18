@@ -6,6 +6,7 @@ import type {
   FooterLogoProps,
 } from "@components/organisms/Footer/types";
 import type { FooterFragmentType } from "@graphql/fragment/layout";
+import { DatoBlockModel } from "@utils/cmsMapper";
 
 import { linkResolver } from "@utils/linkResolver";
 
@@ -65,7 +66,7 @@ const socialUtilities: FooterLinkProps[] =
 
 const linkUtilities: LinkProps[] =
   utility
-    ?.filter((util) => util.componentName === "ExternalLinkRecord")
+    ?.filter((util) => util.componentName === DatoBlockModel.ExternalLink)
     .map((util) => ({
       label: util.label,
       ariaLabel: "link",
@@ -75,7 +76,7 @@ const linkUtilities: LinkProps[] =
 
 const smallPrints: LinkProps[] =
   smallPrint?.map((link) => {
-    const isExternal = link.componentName === "ExternalLinkRecord";
+    const isExternal = link.componentName === DatoBlockModel.ExternalLink;
     const url = isExternal ? link.url : linkResolver(link.linkTo?.id, lang);
 
     return {

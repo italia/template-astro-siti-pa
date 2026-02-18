@@ -4,6 +4,7 @@ import type {
   SupportCTASectionSizeProps,
 } from "@components/organisms/SupportCTASection/types";
 import type { SupportCTASectionFragmentType } from "@graphql/fragment/sectionFragments";
+import { DatoBlockModel } from "@utils/cmsMapper";
 import { linkResolver } from "@utils/linkResolver";
 import { SupportCTASection } from "../../organisms/SupportCTASection";
 
@@ -26,12 +27,12 @@ const getCtaFields = () => {
   if (!cta) return { labelButton: undefined, linkTo: undefined };
 
   switch (cta.componentName) {
-    case "ExternalLinkRecord":
+    case DatoBlockModel.ExternalLink:
       return {
         labelButton: cta.label,
         linkTo: cta.url,
       };
-    case "InternalLinkRecord":
+    case DatoBlockModel.InternalLink:
       return {
         labelButton: cta.label,
         linkTo: linkResolver(cta.linkTo?.id, lang),
