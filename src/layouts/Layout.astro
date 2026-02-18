@@ -39,9 +39,10 @@ const result = await getCollection("site_meta");
 
 const siteMetaTag = result[0].data;
 
-const response = await getLayout(isPreview);
+const layoutEntry = await getLayout(isPreview);
 
-const { layout, homepage, search } = response[0].data;
+const layout = layoutEntry?.data?.layout;
+const { homepageId, search } = layoutEntry?.data || {};
 
 const globalSetting = await getGlobalSettings(lang);
 
@@ -93,7 +94,7 @@ const isShowingPreviewBar = isPreview && redirectUrl;
     {isShowingPreviewBar && <PreviewBar redirectUrl={redirectUrl} />}
     <HeaderAdapter
       {...headerLayout}
-      homeRecordId={homepage?.id}
+      homeRecordId={homepageId}
       search={search || undefined}
     />
     <main>
