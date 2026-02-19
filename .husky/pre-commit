@@ -1,2 +1,2 @@
-bun astro check
+bun ./scripts/run-env.ts staging check
 bun lint-staged
