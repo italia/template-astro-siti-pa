@@ -11,15 +11,13 @@ export default async function (client: Client) {
           name: "Production",
           disabled: false,
           customHeaders: [],
-          previewWebhook:
-            "https://template-site-astro.vercel.app/api/preview-links?token=4a8eaee12344fd81f6989fe9acb7f8bc4fc815210f0aec774b3fd7329efe35be",
+          previewWebhook: `${process.env.SITE_URL}/api/preview-links?token=${process.env.SECRET_API_TOKEN}`,
         },
         {
           name: "Local",
           disabled: false,
           customHeaders: [],
-          previewWebhook:
-            "http://localhost:4321/api/preview-links?token=4a8eaee12344fd81f6989fe9acb7f8bc4fc815210f0aec774b3fd7329efe35be",
+          previewWebhook: `http://localhost:4321/api/preview-links?token=${process.env.SECRET_API_TOKEN}`,
         },
       ],
       startOpen: true,
