@@ -21,19 +21,12 @@ import WAI from "./WAI.astro";
 type Props = {
   pageSeo?: TitleMetaLinkTag[];
   redirectUrl?: string;
-  noIndex?: boolean;
   datePublished?: string;
   jsonLd?: JsonLdPageData;
 };
 
 const isPreview = isDraftModeEnabled(Astro.cookies);
-const {
-  pageSeo = [],
-  redirectUrl,
-  noIndex = false,
-  datePublished,
-  jsonLd,
-} = Astro.props;
+const { pageSeo = [], redirectUrl, datePublished, jsonLd } = Astro.props;
 
 const { lang } = Astro.locals;
 
@@ -81,7 +74,6 @@ const isProd = import.meta.env.PROD;
       name="viewport"
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
-    {noIndex && <meta name="robots" content="noindex, nofollow" />}
     <Seo data={[...siteMetaTag.faviconMetaTags, ...pageSeo]} />
     <JsonLDScripts jsonLd={jsonLd} />
     {isProd && <WAI />}
