@@ -30,6 +30,12 @@ export default defineConfig({
   adapter: netlify({
     imageCDN: false,
   }),
+  image: {
+    service: {
+      entrypoint: "astro/assets/services/sharp",
+    },
+    domains: ["www.datocms-assets.com"],
+  },
   redirects: {
     "/": "/it",
   },
