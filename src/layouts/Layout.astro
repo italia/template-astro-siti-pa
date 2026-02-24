@@ -1,6 +1,7 @@
 ---
 import Loader from "@components/Loader.astro";
 import PreviewBar from "@components/PreviewBar.astro";
+import type { LinkProps } from "@components/atoms/Link/types";
 import FooterAdapter from "@components/cms-adapters/datocms/FooterAdapter.astro";
 import HeaderAdapter from "@components/cms-adapters/datocms/HeaderAdapter.astro";
 import { LastUpdate } from "@components/molecules/LastUpdate";
@@ -66,6 +67,11 @@ const footerLayout: FooterFragmentType = {
   _allSmallPrintLocales: layout._allSmallPrintLocales,
 };
 
+const linksPrefooter: LinkProps[] =
+  globalSetting?.links?.map((link) => {
+    return { url: link.url, label: link.label };
+  }) || [];
+
 const isShowingPreviewBar = isPreview && redirectUrl;
 const isProd = import.meta.env.PROD;
 ---
@@ -105,6 +111,7 @@ const isProd = import.meta.env.PROD;
         <LastUpdate
           label={globalSetting.lastUpdateLabel}
           date={datePublished}
+          links={linksPrefooter}
         />
       )
     }

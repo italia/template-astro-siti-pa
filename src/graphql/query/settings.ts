@@ -1,4 +1,7 @@
-import { TagFragment } from "@graphql/fragment/commonFragments";
+import {
+  ExternalLinkFragment,
+  TagFragment,
+} from "@graphql/fragment/commonFragments";
 import { CatalogueIndexingFragment } from "@graphql/fragment/indexing";
 import {
   AllArticlesSlugFragment,
@@ -45,10 +48,16 @@ export const AllGlobalSettingsQuery = graphql(
           locale
           value
         }
+        _allLinksLocales {
+          locale
+          value {
+            ...ExternalLinkFragment
+          }
+        }
       }
     }
   `,
-  [],
+  [ExternalLinkFragment],
 );
 
 export const PagesLinksQuery = graphql(

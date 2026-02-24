@@ -62,6 +62,14 @@ export const globalSettingsSchema = z.object({
   value: z.object({
     siteName: z.string(),
     lastUpdateLabel: z.string(),
+    links: z
+      .array(
+        z.object({
+          label: z.string(),
+          url: z.string(),
+        }),
+      )
+      .default([]),
   }),
 });
 
