@@ -8621,7 +8621,7 @@ type WebinarDescriptionRecord implements RecordInterface {
   _unpublishingScheduledAt: DateTime
   _updatedAt: DateTime!
   id: ItemId!
-  resourses: QuickLinkCardRecord!
+  resources: QuickLinkCardRecord
   subjects: FeatureListRecord!
   text: TextBlockRecord!
 }

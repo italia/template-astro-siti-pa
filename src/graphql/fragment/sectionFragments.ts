@@ -454,7 +454,7 @@ export const WebinarDescriptionFragment = graphql(
       subjects {
         ...FeatureListBlockFragment
       }
-      resourses {
+      resources {
         ...QuickLinkCardFragment
       }
     }
