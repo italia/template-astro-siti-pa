@@ -1,8 +1,10 @@
 ---
+import Loader from "@components/Loader.astro";
 import PreviewBar from "@components/PreviewBar.astro";
 import FooterAdapter from "@components/cms-adapters/datocms/FooterAdapter.astro";
 import HeaderAdapter from "@components/cms-adapters/datocms/HeaderAdapter.astro";
 import { LastUpdate } from "@components/molecules/LastUpdate";
+import Feedback from "@components/react/Feedback/Feedback";
 import { Seo, type TitleMetaLinkTag } from "@datocms/astro";
 import type {
   FooterFragmentType,
@@ -106,6 +108,11 @@ const isProd = import.meta.env.PROD;
         />
       )
     }
+    <Feedback client:only="react">
+      <div slot="fallback">
+        <Loader />
+      </div>
+    </Feedback>
     <FooterAdapter {...footerLayout} />
   </body>
 </html>
