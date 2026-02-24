@@ -15,12 +15,16 @@ const {
   showBreadcrumb = false,
   variant = "default",
   backgroundColor = "default",
+  labelButton,
+  linkTo,
 } = Astro.props;
 
 const classBackground =
   image && (variant === "default" || variant === "small")
     ? getHeroBgClass("primary")
     : getHeroBgClass(backgroundColor);
+
+const variantButton = backgroundColor === "primary" ? "dark" : "light";
 ---
 
 <style>
@@ -37,6 +41,9 @@ const classBackground =
       variant={variant}
       showBreadcrumb={showBreadcrumb}
       bgClass={classBackground}
+      labelButton={labelButton}
+      linkTo={linkTo}
+      variantButton={variantButton}
     >
       <slot name="breadcrumb" slot="breadcrumb" />
     </HeroDefault>
@@ -51,6 +58,9 @@ const classBackground =
       image={image}
       showBreadcrumb={showBreadcrumb}
       bgClass={classBackground}
+      labelButton={labelButton}
+      linkTo={linkTo}
+      variantButton={variantButton}
     >
       <slot name="breadcrumb" slot="breadcrumb" />
     </HeroCompactImage>
@@ -65,6 +75,9 @@ const classBackground =
       image={image}
       showBreadcrumb={showBreadcrumb}
       bgClass={classBackground}
+      labelButton={labelButton}
+      linkTo={linkTo}
+      variantButton={variantButton}
     >
       <slot name="breadcrumb" slot="breadcrumb" />
     </HeroFullHeightImage>

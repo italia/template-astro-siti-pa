@@ -1628,6 +1628,8 @@ type GlobalSettingRecord implements RecordInterface {
   ): String!
 }
 
+union HeroModelCtaField = ExternalLinkRecord | InternalLinkRecord
+
 """Block of type Hero (hero)"""
 type HeroRecord implements RecordInterface {
   _createdAt: DateTime!
@@ -1651,6 +1653,7 @@ type HeroRecord implements RecordInterface {
   backgroundColor: String
   backgroundImage: FileField
   backgroundImageForMobile: FileField
+  cta: HeroModelCtaField
   id: ItemId!
   paragraph(
     """Process content as markdown"""

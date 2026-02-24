@@ -9,7 +9,5 @@ type Props = {
 const { label, icon, colorIcon } = Astro.props;
 ---
 
-<span>
-  {label}
-</span>
+{label}
 {icon && <ItIcon name={icon} size="sm" class={colorIcon} />}

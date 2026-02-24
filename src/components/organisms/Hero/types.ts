@@ -1,3 +1,4 @@
+import type { ButtonVariantProps } from "@components/atoms/Button/types";
 import type { ImageProps } from "@components/atoms/Image/types";
 import type { SectionBackgroundHero } from "@utils/background";
 
@@ -10,6 +11,9 @@ export type HeroProps = {
   variant?: HeroVariantProps;
   backgroundColor?: SectionBackgroundHero;
   bgClass?: string;
+  labelButton?: string;
+  linkTo?: string;
+  variantButton?: ButtonVariantProps;
 };
 
 export type HeroSizeProps = "xsmall" | "small" | "default";

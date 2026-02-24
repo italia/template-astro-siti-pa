@@ -1,4 +1,5 @@
 ---
+import { ButtonLink } from "@components/atoms/Button";
 import { Image } from "@components/atoms/Image";
 import type { HeroProps } from "./types";
 
@@ -12,6 +13,9 @@ const {
   showBreadcrumb = false,
   variant = "default",
   bgClass,
+  labelButton,
+  linkTo,
+  variantButton,
 } = Astro.props;
 const sizeClass = variant === "small" ? "small-size" : "default-size";
 ---
@@ -53,6 +57,18 @@ const sizeClass = variant === "small" ? "small-size" : "default-size";
           {showBreadcrumb && <slot name="breadcrumb" />}
           <h1>{title}</h1>
           {paragraph && <p class="font-sans-serif">{paragraph}</p>}
+          {
+            labelButton && linkTo && (
+              <div class="it-btn-container">
+                <ButtonLink
+                  size="small"
+                  label={labelButton}
+                  variant={variantButton}
+                  linkTo={linkTo}
+                />
+              </div>
+            )
+          }
         </div>
       </div>
     </div>
