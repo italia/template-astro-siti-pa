@@ -1,5 +1,4 @@
 ---
-import ItArrowRightTriangle from "@static/assets/ItArrowRightTriangle.astro";
 import type { BreadcrumbItemProps } from "./types";
 
 type Props = BreadcrumbItemProps;
@@ -13,15 +12,6 @@ const ariaCurrent = active ? "page" : undefined;
   aria-current={ariaCurrent}
 >
   {!active && <a href={linkTo}>{label}</a>}
-  {
-    !active && (
-      <span class="separator mb-0">
-        <ItArrowRightTriangle
-          size="sm"
-          color={variant === "dark" ? "white" : undefined}
-        />
-      </span>
-    )
-  }
+  {!active && <span class="separator mb-0">/</span>}
   {active && label}
 </li>
