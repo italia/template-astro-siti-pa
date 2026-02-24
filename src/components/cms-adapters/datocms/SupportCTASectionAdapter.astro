@@ -4,8 +4,7 @@ import type {
   SupportCTASectionSizeProps,
 } from "@components/organisms/SupportCTASection/types";
 import type { SupportCTASectionFragmentType } from "@graphql/fragment/sectionFragments";
-import { DatoBlockModel } from "@utils/cmsMapper";
-import { linkResolver } from "@utils/linkResolver";
+import { getCtaFields } from "@utils/getCtaFields";
 import { SupportCTASection } from "../../organisms/SupportCTASection";
 
 type DatoRecord = SupportCTASectionFragmentType & {
@@ -21,31 +20,7 @@ type Props = {
 const { block, size = "small" } = Astro.props;
 const { lang } = Astro.locals;
 
-const getCtaFields = () => {
-  const cta = block.cta;
-
-  if (!cta) return { labelButton: undefined, linkTo: undefined };
-
-  switch (cta.componentName) {
-    case DatoBlockModel.ExternalLink:
-      return {
-        labelButton: cta.label,
-        linkTo: cta.url,
-      };
-    case DatoBlockModel.InternalLink:
-      return {
-        labelButton: cta.label,
-        linkTo: linkResolver(cta.linkTo?.id, lang),
-      };
-    default:
-      return {
-        labelButton: undefined,
-        linkTo: undefined,
-      };
-  }
-};
-
-const { labelButton, linkTo } = getCtaFields();
+const { labelButton, linkTo } = getCtaFields(block.cta, lang);
 ---
 
 <SupportCTASection

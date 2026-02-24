@@ -2,8 +2,7 @@
 import { TextContainer } from "@components/molecules/TextContainer";
 import type { TextContainerVariant } from "@components/molecules/TextContainer/types";
 import type { TextBlockFragmentType } from "@graphql/fragment/commonFragments";
-import { DatoBlockModel } from "@utils/cmsMapper";
-import { linkResolver } from "@utils/linkResolver";
+import { getCtaFields } from "@utils/getCtaFields";
 
 type Props = {
   block: TextBlockFragmentType;
@@ -13,31 +12,7 @@ type Props = {
 const { block, variant } = Astro.props;
 const { lang } = Astro.locals;
 
-const getCtaFields = () => {
-  const cta = block.cta;
-
-  if (!cta) return { labelButton: undefined, linkTo: undefined };
-
-  switch (cta.componentName) {
-    case DatoBlockModel.ExternalLink:
-      return {
-        labelButton: cta.label,
-        linkTo: cta.url,
-      };
-    case DatoBlockModel.InternalLink:
-      return {
-        labelButton: cta.label,
-        linkTo: linkResolver(cta.linkTo?.id, lang),
-      };
-    default:
-      return {
-        labelButton: undefined,
-        linkTo: undefined,
-      };
-  }
-};
-
-const { labelButton, linkTo } = getCtaFields();
+const { labelButton, linkTo } = getCtaFields(block.cta, lang);
 ---
 
 <TextContainer
