@@ -1,5 +1,6 @@
 type HeaderBase = {
   linkBackHome: string;
+  variant?: VariantHeaderProps;
 };
 
 export type HeaderCentralProps = HeaderBase & {
@@ -35,3 +36,5 @@ export type HeaderNavbarProps = {
   left: MenuItemProps[];
   right?: MenuItemProps[];
 };
+
+export type VariantHeaderProps = "dark" | "light";

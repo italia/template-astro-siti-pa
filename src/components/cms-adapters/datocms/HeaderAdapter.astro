@@ -1,5 +1,6 @@
 ---
 import { Header } from "@components/organisms/Header";
+import type { VariantHeaderProps } from "@components/organisms/Header/types";
 import type { HeaderFragmentType } from "@graphql/fragment/layout";
 import type { SearchMenuFragmentType } from "@graphql/fragment/sectionFragments";
 import { createMenu, createMetaMenu } from "@utils/createMenuHelper";
@@ -21,6 +22,7 @@ const {
   logoSelect,
   search,
   allMetaNavigation,
+  variant = "light",
 } = Astro.props;
 
 const { lang } = Astro.locals;
@@ -48,6 +50,7 @@ const metaMenuItems = createMetaMenu(metaNavigation, currentSite);
 ---
 
 <Header
+  variant={variant as VariantHeaderProps}
   brandTagLine={tagline}
   brandTitle={siteName}
   slimContent={organization}

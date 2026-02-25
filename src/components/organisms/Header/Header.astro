@@ -16,6 +16,7 @@ const {
   logo,
   search,
   metaNav,
+  variant = "light",
 } = Astro.props;
 ---
 
@@ -33,6 +34,7 @@ const {
     linkBackHome={linkBackHome}
     locales={locales}
     metaNav={metaNav}
+    variant={variant}
   />
   <HeaderCentral
     search={search}
@@ -41,5 +43,6 @@ const {
     menuItems={menuItems}
     linkBackHome={linkBackHome}
     logo={logo}
+    variant={variant}
   />
 </header>

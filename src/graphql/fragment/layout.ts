@@ -11,6 +11,7 @@ import { graphql, type FragmentOf } from "@graphql/graphql";
 export const HeaderFragment = graphql(
   `
     fragment HeaderFragment on LayoutRecord @_unmask {
+      variant
       locales: _locales
       allMainNavigation: _allNavigationBarLocales {
         locale

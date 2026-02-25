@@ -4,10 +4,18 @@ import type { HeaderSlimProps } from "./types";
 
 type Props = HeaderSlimProps;
 
-const { slimContent, linkBackHome, locales, metaNav = [] } = Astro.props;
+const {
+  slimContent,
+  linkBackHome,
+  locales,
+  metaNav = [],
+  variant = "light",
+} = Astro.props;
+
+const classVariant = variant === "light" ? "theme-light" : "";
 ---
 
-<div class="it-header-slim-wrapper theme-light">
+<div class={`it-header-slim-wrapper ${classVariant}`}>
   <div class="container-xxl">
     <div class="row">
       <div class="col-12">

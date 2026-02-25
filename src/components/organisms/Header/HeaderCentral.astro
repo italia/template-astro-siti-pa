@@ -9,16 +9,26 @@ import type { HeaderCentralProps } from "./types";
 
 type Props = HeaderCentralProps;
 
-const { brandTitle, brandTagLine, menuItems, linkBackHome, logo, search } =
-  Astro.props;
+const {
+  brandTitle,
+  brandTagLine,
+  menuItems,
+  linkBackHome,
+  logo,
+  search,
+  variant = "light",
+} = Astro.props;
 
 const lang = Astro.locals.lang || "it";
 
 const t = getI18n(lang);
+
+const classVariant = variant === "light" ? "theme-light" : "";
+const classVariantNav = variant === "light" ? "theme-light-desk" : "";
 ---
 
 <div class="it-nav-wrapper">
-  <div class="it-header-center-wrapper theme-light">
+  <div class={`it-header-center-wrapper ${classVariant}`}>
     <div class="container-xxl">
       <div class="row">
         <div class="col-12">
@@ -59,7 +69,7 @@ const t = getI18n(lang);
   </div>
   <div
     id="header-nav-wrapper"
-    class="it-header-navbar-wrapper theme-light-desk"
+    class={`it-header-navbar-wrapper ${classVariantNav}`}
   >
     <div class="container-xxl">
       <div class="row">

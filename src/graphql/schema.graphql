@@ -4592,6 +4592,7 @@ type LayoutRecord implements RecordInterface {
     """
     fallbackLocales: [SiteLocale!]
   ): String!
+  variant: String!
 }
 
 """Specifies how to filter Single-link fields"""
