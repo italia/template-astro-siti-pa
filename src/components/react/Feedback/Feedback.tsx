@@ -1,4 +1,4 @@
-import { Modal } from "bootstrap-italia";
+import type { Modal } from "bootstrap-italia";
 import { useCallback, useRef, useState } from "react";
 import FormNo from "./components/form-no/FormNo";
 import Icon, {
@@ -35,6 +35,25 @@ function Feedback() {
   const [modal, setModal] = useState<Modal | null>(null);
 
   const modalNo = useRef(null);
+
+  /* const sendFeedback = useCallback(
+    async (result = {}) => {
+      setFeedbackState(FeedbackState.Loading);
+ 
+      await new Promise((resolve) => setTimeout(resolve, 1500));
+
+      const mockSuccess = true;
+
+      if (!mockSuccess) {
+        setFeedbackState(FeedbackState.Error);
+        return false;
+      }
+
+      setFeedbackState(FeedbackState.Success);
+      return true;
+    },
+    [choiceVal],
+  ); */
 
   const sendFeedback = useCallback(
     async (result = {}) => {
@@ -84,13 +103,12 @@ function Feedback() {
   };
 
   const openModal = () => {
-    if (choiceVal === "0") {
-      if (modalNo.current) {
-        const dialog = new Modal(modalNo.current);
-        dialog.show();
+    const bootstrap = (window as any).bootstrap;
+    if (choiceVal === "0" && modalNo.current && bootstrap) {
+      const dialog = new bootstrap.Modal(modalNo.current);
+      dialog.show();
 
-        setModal(dialog);
-      }
+      setModal(dialog);
     }
   };
 

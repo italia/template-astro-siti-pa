@@ -1,7 +1,5 @@
 import { useEffect, useState } from "react";
 
-import { Input } from "bootstrap-italia";
-
 interface LabelTextAreaProps {
   id: string;
   value: string;
@@ -22,9 +20,10 @@ function LabelTextArea(props: LabelTextAreaProps) {
     }
   };
   useEffect(() => {
+    const bootstrap = (window as any).bootstrap;
     const element = document.getElementById(id);
-    if (element) {
-      new Input(element);
+    if (element && bootstrap) {
+      new bootstrap.Input(element);
     }
   });
   return (
