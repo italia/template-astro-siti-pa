@@ -4393,6 +4393,12 @@ type LayoutRecord implements RecordInterface {
     """
     fallbackLocales: [SiteLocale!]
   ): [StringNonNullMultiLocaleField!]
+  _allMetaNavigationLocales(
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+  ): [ExternalLinkRecordListListNonNullMultiLocaleField!]
   _allNavigationBarLocales(
     """
     If you want to fallback to a default translation when a translation has not been found
@@ -4486,6 +4492,15 @@ type LayoutRecord implements RecordInterface {
   ): String!
   id: ItemId!
   logoSelect: String!
+  metaNavigation(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+  ): [ExternalLinkRecord!]!
   navigationBar(
     """The locale to use to fetch the field's content"""
     locale: SiteLocale

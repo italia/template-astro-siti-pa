@@ -13,6 +13,7 @@ export type HeaderCentralProps = HeaderBase & {
 export type HeaderSlimProps = HeaderBase & {
   slimContent?: string;
   locales: string[];
+  metaNav?: MenuItemProps[];
 };
 
 export type HeaderProps = HeaderCentralProps & HeaderSlimProps;

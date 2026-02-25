@@ -2,7 +2,7 @@
 import { Header } from "@components/organisms/Header";
 import type { HeaderFragmentType } from "@graphql/fragment/layout";
 import type { SearchMenuFragmentType } from "@graphql/fragment/sectionFragments";
-import { createMenu } from "@utils/createMenuHelper";
+import { createMenu, createMetaMenu } from "@utils/createMenuHelper";
 import { linkResolver } from "@utils/linkResolver";
 
 type Props = HeaderFragmentType & {
@@ -20,10 +20,12 @@ const {
   homeRecordId,
   logoSelect,
   search,
+  allMetaNavigation,
 } = Astro.props;
 
 const { lang } = Astro.locals;
 const currentUrl = Astro.url.pathname;
+const currentSite = Astro.url.origin;
 
 const tagline = _allTaglineLocales?.find((l) => l.locale === lang)?.value;
 const organization = _allOrganizationLocales?.find(
@@ -34,18 +36,22 @@ const secondaryNavigation = allSecondaryNavigation?.find(
   (l) => l.locale === lang,
 )?.value;
 
+const metaNavigation = allMetaNavigation?.find((l) => l.locale === lang)?.value;
+
 const menuItems = createMenu(
   mainNavigation,
   secondaryNavigation,
   currentUrl,
   lang,
 );
+const metaMenuItems = createMetaMenu(metaNavigation, currentSite);
 ---
 
 <Header
   brandTagLine={tagline}
   brandTitle={siteName}
   slimContent={organization}
+  metaNav={metaMenuItems}
   menuItems={menuItems}
   locales={locales}
   logo={logoSelect}

@@ -28,6 +28,14 @@ export const HeaderFragment = graphql(
           }
         }
       }
+      allMetaNavigation: _allMetaNavigationLocales {
+        locale
+        value {
+          ... on ExternalLinkRecord {
+            ...ExternalLinkFragment
+          }
+        }
+      }
       logoSelect
       _allTaglineLocales {
         locale
@@ -40,7 +48,7 @@ export const HeaderFragment = graphql(
       siteName
     }
   `,
-  [MenuItemFragment],
+  [MenuItemFragment, ExternalLinkFragment],
 );
 
 export type HeaderFragmentType = FragmentOf<typeof HeaderFragment>;
