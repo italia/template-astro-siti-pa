@@ -1,5 +1,6 @@
 import { useCallback, useRef, useState } from "react";
 
+import { Image } from "@components/react/Image";
 import Icon, { type ColorIconProps, type SizeIconProps } from "../../Icon";
 import { FeedbackState } from "../../state";
 import LabelTextArea from "../label-textarea/label-textarea";
@@ -52,6 +53,12 @@ function FormNo({ onResult, state }: FormNoProps) {
   return (
     <div ref={rootRef}>
       <form>
+        <Image
+          url="/public/kit-analitics.svg"
+          alt=""
+          width={100}
+          height={100}
+        />
         <h2 className="mb-3" id="feedbackNoTitle">
           Grazie per la tua risposta!
         </h2>
