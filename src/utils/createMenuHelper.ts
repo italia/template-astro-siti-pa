@@ -4,13 +4,14 @@ import type {
 } from "@components/organisms/Header/types";
 import type {
   ExternalLinkFragmentType,
+  MegaMenuItemFragmentType,
   MenuItemFragmentType,
 } from "@graphql/fragment/commonFragments";
 import type { SiteLocale } from "@graphql/types";
 import { linkResolver } from "@utils/linkResolver";
 
 function menuItemAdapter(
-  item: MenuItemFragmentType,
+  item: MenuItemFragmentType | MegaMenuItemFragmentType,
   currentPath: string,
   locale: SiteLocale,
 ): MenuItemProps {
@@ -25,12 +26,23 @@ function menuItemAdapter(
       ? normalizedCurrent === "/"
       : normalizedCurrent.startsWith(normalizedMenu);
 
-  return {
+  const result: MenuItemProps = {
     id: item.id,
     title: item.title,
     url: finalHref,
     active: isActive,
   };
+
+  if ("subMenu" in item) {
+    result.image = item.image;
+    result.caption = item.caption;
+    result.subtitle = item.subtitle;
+    result.subMenuItems = item.subMenu?.map((menu) =>
+      menuItemAdapter(menu, currentPath, locale),
+    );
+  }
+
+  return result;
 }
 
 function metaMenuItemAdapter(
@@ -41,8 +53,6 @@ function metaMenuItemAdapter(
 
   const normalizedCurrent = currentPath.replace(/\/$/, "") || "/";
   const normalizedMenu = finalHref.replace(/\/$/, "") || "/";
-
-  console.log("norma", normalizedMenu, currentPath);
 
   const isActive =
     normalizedMenu === "/"
@@ -58,8 +68,8 @@ function metaMenuItemAdapter(
 }
 
 export function createMenu(
-  mainItems: MenuItemFragmentType[] = [],
-  secondaryItems: MenuItemFragmentType[] = [],
+  mainItems: (MegaMenuItemFragmentType | MenuItemFragmentType)[] = [],
+  secondaryItems: (MegaMenuItemFragmentType | MenuItemFragmentType)[] = [],
   currentPathname: string,
   currentLocale: SiteLocale,
 ): HeaderNavbarProps {

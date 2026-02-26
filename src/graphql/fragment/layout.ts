@@ -2,6 +2,7 @@ import {
   BrandFragment,
   ExternalLinkFragment,
   InternalLinkFragment,
+  MegaMenuItemFragment,
   MenuItemFragment,
   SidebarMenuFragment,
   SupportingBrandFragment,
@@ -19,6 +20,9 @@ export const HeaderFragment = graphql(
           ... on MenuItemRecord {
             ...MenuItemFragment
           }
+          ... on MegaMenuItemRecord {
+            ...MegaMenuItemFragment
+          }
         }
       }
       allSecondaryNavigation: _allNavigationBarSecondaryLocales {
@@ -26,6 +30,9 @@ export const HeaderFragment = graphql(
         value {
           ... on MenuItemRecord {
             ...MenuItemFragment
+          }
+          ... on MegaMenuItemRecord {
+            ...MegaMenuItemFragment
           }
         }
       }
@@ -49,7 +56,7 @@ export const HeaderFragment = graphql(
       siteName
     }
   `,
-  [MenuItemFragment, ExternalLinkFragment],
+  [MenuItemFragment, ExternalLinkFragment, MegaMenuItemFragment],
 );
 
 export type HeaderFragmentType = FragmentOf<typeof HeaderFragment>;
