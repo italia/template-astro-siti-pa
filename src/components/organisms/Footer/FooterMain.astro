@@ -19,7 +19,7 @@ const globalSetting = await getGlobalSettings(lang);
     <section class="px-0">
       <div class="row">
         <div class="col-12 py-4">
-          <h4 class="pb-4">{topics.title}</h4>
+          <p class="h4 pb-4">{topics.title}</p>
           <ul
             class="it-footer-small-prints-list list-inline mb-0 d-flex flex-column flex-md-row"
           >
@@ -46,7 +46,7 @@ const globalSetting = await getGlobalSettings(lang);
         {
           utilities.map((utility) => (
             <div class="col-12 ">
-              <h4 class="pb-4">{utility.title}</h4>
+              <p class="h4 pb-4">{utility.title}</p>
               <ul class="list-inline mb-0 d-flex flex-column flex-md-row">
                 {utility.socialItems.map((item) => (
                   <li class="list-inline-item me-4 mb-2">
