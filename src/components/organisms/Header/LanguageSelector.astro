@@ -1,4 +1,6 @@
 ---
+import type { SiteLocale } from "@graphql/types";
+import { getI18n } from "@i18n/ui";
 import ItExpand from "@static/assets/ItExpand.astro";
 import { linkResolver } from "@utils/linkResolver";
 
@@ -17,6 +19,8 @@ const getTranslatedHref = (targetLocale: string) => {
   }
   return `/${targetLocale}`;
 };
+
+const t = getI18n(currentLocale);
 ---
 
 <div class="nav-item dropdown">
@@ -29,7 +33,7 @@ const getTranslatedHref = (targetLocale: string) => {
     id="languagesDropButton"
   >
     <span class="visually-hidden">{ariaLabelLanguageSelector}</span>
-    <span lang={currentLocale}>{currentLocale}</span>
+    <span lang={currentLocale}>{t["language.short"]}</span>
     <ItExpand class="d-none d-lg-block" />
   </a>
   <div class="dropdown-menu">
@@ -42,22 +46,25 @@ const getTranslatedHref = (targetLocale: string) => {
             aria-labelledby="languagesDropButton"
           >
             {
-              locales.map((locale) => (
-                <li>
-                  <a
-                    class={`dropdown-item list-item ${locale === currentLocale ? "active" : ""}`}
-                    href={getTranslatedHref(locale)}
-                    lang={locale}
-                  >
-                    <span>
-                      <span>{locale.toUpperCase()}</span>
-                      {locale === currentLocale && (
-                        <span class="visually-hidden">selezionata</span>
-                      )}
-                    </span>
-                  </a>
-                </li>
-              ))
+              locales.map((locale) => {
+                const t = getI18n(locale as SiteLocale);
+                return (
+                  <li>
+                    <a
+                      class={`dropdown-item list-item ${locale === currentLocale ? "active" : ""}`}
+                      href={getTranslatedHref(locale)}
+                      lang={locale}
+                    >
+                      <span>
+                        <span>{t["language"].toUpperCase()}</span>
+                        {locale === currentLocale && (
+                          <span class="visually-hidden">selezionata</span>
+                        )}
+                      </span>
+                    </a>
+                  </li>
+                );
+              })
             }
           </ul>
         </div>

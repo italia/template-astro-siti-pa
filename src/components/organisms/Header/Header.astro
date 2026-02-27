@@ -1,6 +1,7 @@
 ---
 import HeaderCentral from "./HeaderCentral.astro";
 import HeaderSlim from "./HeaderSlim.astro";
+import SkipLinks from "./SkipLinks.astro";
 import type { HeaderProps } from "./types";
 
 type Props = HeaderProps;
@@ -19,7 +20,15 @@ const {
 } = Astro.props;
 ---
 
-<header class="it-header-wrapper shadow-sm">
+<header
+  class="it-header-wrapper it-header-sticky shadow-sm"
+  data-bs-toggle="sticky"
+  data-bs-position-type="fixed"
+  data-bs-sticky-class-name="is-sticky"
+  data-bs-target="#header-nav-wrapper"
+>
+  <SkipLinks idMenu={menuItems.left[0].id} />
+
   <HeaderSlim
     slimContent={slimContent}
     linkBackHome={linkBackHome}
