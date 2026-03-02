@@ -7,6 +7,9 @@ const ui: Record<SiteLocale, Record<string, string>> = {
     "skip.menu": "Vai al menù",
     "skip.content": "Vai al contenuto",
     "skip.footer": "Vai al piede",
+    "link.external": "Apre in un nuovo tab",
+    "link.internal": "Vai alla pagina",
+    "link.download": "Scarica il file",
   },
   en: {
     language: "English",
@@ -14,6 +17,9 @@ const ui: Record<SiteLocale, Record<string, string>> = {
     "skip.menu": "Go to menu",
     "skip.content": "Go to content",
     "skip.footer": "Go to footer",
+    "link.external": "Go to external page",
+    "link.internal": "Go to page",
+    "link.download": "Download file",
   },
 };
 
