@@ -10,7 +10,7 @@ const t = getI18n(lang);
 const { idMenu } = Astro.props;
 ---
 
-<nav class="skiplinks" aria-label="Scorciatoie di navigazione">
+<nav class="skiplinks" aria-label={t["header.skiplink"]}>
   <ul>
     <li>
       <a class="visually-hidden-focusable" href={`#${idMenu}`}

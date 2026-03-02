@@ -13,7 +13,7 @@ const isExternal = linkTo?.startsWith("http");
 const cardTitleId = `card-title-${id}`;
 ---
 
-<article class="it-card rounded shadow-sm border" aria-labelledby={cardTitleId}>
+<div class="it-card rounded shadow-sm border" aria-labelledby={cardTitleId}>
   <h3 class="it-card-title it-card-title-icon" id={cardTitleId}>
     <a
       href={linkTo}
@@ -38,4 +38,4 @@ const cardTitleId = `card-title-${id}`;
       {description}
     </p>
   </div>
-</article>
+</div>
