@@ -1,5 +1,5 @@
 ---
-import { CardInfoAndService } from "@components/molecules/CardInfoAndService";
+import { CardService } from "@components/molecules/CardService";
 import type { ExternalLinkFragmentType } from "@graphql/fragment/commonFragments";
 
 type DatoRecord = ExternalLinkFragmentType & {
@@ -18,7 +18,7 @@ if (!block.label || !block.url) {
 }
 ---
 
-<CardInfoAndService
+<CardService
   title={block.label}
   linkTo={block.url}
   description={block.description || ""}

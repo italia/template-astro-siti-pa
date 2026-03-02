@@ -15,6 +15,7 @@ export const mapNewsToCardEditorialNewsProps = (
 ): CardEditorialNewsProps => {
   const link = news.allLinkLocales?.find((t) => t.locale === lang)?.value;
   return {
+    id: news.id,
     title: news.allTitleLocales?.find((t) => t.locale === lang)?.value || "",
     description:
       news.allParagraphLocales?.find((t) => t.locale === lang)?.value || "",
@@ -32,6 +33,7 @@ export const mapStoryToCardEditorialInlineMiniProps = (
   story: StoryCardFragmentType,
   lang: string,
 ): CardEditorialInlineMiniProps => ({
+  id: story.id,
   title: story.allTitleLocales?.find((t) => t.locale === lang)?.value || "",
   image: story.image,
   linkTo: linkResolver(story.id, lang),
@@ -46,6 +48,7 @@ export const mapWebinarToCardEditorialNewsProps = (
   webinar: WebinarItemFragmentType,
   lang: string,
 ): CardEditorialNewsProps => ({
+  id: webinar.id,
   title: webinar.allTitleLocales?.find((t) => t.locale === lang)?.value || "",
   description:
     webinar.allParagraphLocales?.find((t) => t.locale === lang)?.value || "",

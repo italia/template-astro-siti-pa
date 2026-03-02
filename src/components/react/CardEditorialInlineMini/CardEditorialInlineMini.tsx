@@ -4,6 +4,7 @@ import { DateTime } from "@components/react/DateTime";
 import { Image } from "@components/react/Image";
 
 export type CardEditorialInlineMiniProps = {
+  id?: string;
   title: string;
   description: string;
   image: ImageProps;
@@ -15,6 +16,7 @@ export type CardEditorialInlineMiniProps = {
 };
 
 export function CardEditorialInlineMini({
+  id = "",
   title,
   description,
   image,
@@ -25,10 +27,14 @@ export function CardEditorialInlineMini({
   ariaLabelCardCategory,
 }: CardEditorialInlineMiniProps) {
   const shouldShowFooter = !!category || !!dateTime;
+  const cardTitleId = `card-title-${id}`;
 
   return (
-    <article className="it-card it-card-image it-card-height-full rounded shadow-sm border">
-      <h3 className="it-card-title">
+    <article
+      className="it-card it-card-image it-card-height-full rounded shadow-sm border"
+      aria-labelledby={cardTitleId}
+    >
+      <h3 className="it-card-title" id={cardTitleId}>
         <a href={linkTo}>{title}</a>
       </h3>
 

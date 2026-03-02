@@ -1,4 +1,4 @@
-export type CardInfoAndServiceProps = {
+export type CardServiceProps = {
   title: string;
   description: string;
   linkTo?: string;

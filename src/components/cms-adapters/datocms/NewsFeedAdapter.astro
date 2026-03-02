@@ -38,6 +38,7 @@ const globalSetting = await getGlobalSettings(lang);
               (t) => t.locale === lang,
             )?.value;
             return {
+              id: n.id,
               title:
                 n.allTitleLocales?.find((t) => t.locale === lang)?.value || "",
               description:
@@ -61,6 +62,7 @@ const globalSetting = await getGlobalSettings(lang);
           componentName: "CardEditorialInlineMini",
           title: tab.title,
           news: tab.news.map((n) => ({
+            id: n.id,
             title:
               n.allTitleLocales?.find((t) => t.locale === lang)?.value || "",
             image: n.image,

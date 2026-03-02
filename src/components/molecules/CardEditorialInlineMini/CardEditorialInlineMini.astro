@@ -2,21 +2,12 @@
 import { ChipLink } from "@components/atoms/Chip";
 import { DateTime } from "@components/atoms/DateTime";
 import { Image } from "@components/atoms/Image";
-import type { ImageProps } from "@components/atoms/Image/types";
-
-export type CardEditorialInlineMiniProps = {
-  title: string;
-  description?: string;
-  image: ImageProps;
-  linkTo: string;
-  category?: string;
-  dateTime?: string;
-  ariaLabelCardCategory?: string;
-};
+import type { CardEditorialInlineMiniProps } from "./types";
 
 type Props = CardEditorialInlineMiniProps;
 
 const {
+  id = "",
   title,
   description,
   image,
@@ -27,12 +18,14 @@ const {
 } = Astro.props;
 
 const shouldShowFooter = category || dateTime;
+const cardTitleId = `card-title-${id}`;
 ---
 
 <article
   class="it-card it-card-image it-card-height-full rounded shadow-sm border"
+  aria-labelledby={cardTitleId}
 >
-  <h3 class="it-card-title">
+  <h3 class="it-card-title" id={cardTitleId}>
     <a href={linkTo}>{title}</a>
   </h3>
 

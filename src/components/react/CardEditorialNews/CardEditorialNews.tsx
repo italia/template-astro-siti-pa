@@ -1,8 +1,11 @@
 import type { ImageProps } from "@components/atoms/Image/types";
 import { DateTime } from "@components/react/DateTime";
 import { Image } from "@components/react/Image";
+import type { SiteLocale } from "@graphql/types";
+import { getI18n } from "@i18n/ui";
 
 export type CardEditorialNewsProps = {
+  id?: string;
   title: string;
   description: string;
   image: ImageProps;
@@ -17,6 +20,7 @@ export type CardEditorialNewsProps = {
 };
 
 export function CardEditorialNews({
+  id = "",
   title,
   description,
   image,
@@ -30,13 +34,18 @@ export function CardEditorialNews({
   ariaLabelCardAction,
 }: CardEditorialNewsProps) {
   const shouldShowFooter = !!category || !!dateTime;
+  const cardTitleId = `card-title-${id}`;
+  const t = getI18n(lang as SiteLocale);
 
   return (
     <article
       className={`it-card it-card-image ${fullHeight ? "it-card-height-full" : ""} rounded shadow-sm border`}
+      aria-labelledby={cardTitleId}
     >
-      <h3 className="it-card-title">
-        <a href={linkTo}>{title}</a>
+      <h3 className="it-card-title" id={cardTitleId}>
+        <a href={linkTo} aria-label={t["link.external"]}>
+          {title}
+        </a>
       </h3>
       <div className="it-card-image-wrapper">
         <div className="ratio ratio-16x9">
@@ -62,11 +71,12 @@ export function CardEditorialNews({
         </footer>
       )}
       {action && (
-        <div className="it-card-footer" aria-label={ariaLabelCardAction}>
+        <div className="it-card-footer">
           <a
             href={new URL(linkTo).origin}
             className="it-card-link"
             target="_blank"
+            aria-label={`${ariaLabelCardAction}: ${action}`}
           >
             {action}
           </a>

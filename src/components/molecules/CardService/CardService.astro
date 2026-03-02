@@ -1,34 +1,34 @@
 ---
+import { getI18n } from "@i18n/ui";
 import ItExternalLink from "@static/assets/ItExternalLink.astro";
-import type { CardInfoAndServiceProps } from "./types";
+import type { CardServiceProps } from "./types";
 
-type Props = CardInfoAndServiceProps;
+type Props = CardServiceProps;
 
 const { title, description, linkTo } = Astro.props;
+const { lang } = Astro.locals;
+const t = getI18n(lang);
 
 const isExternal = linkTo?.startsWith("http");
-const TitleTag = linkTo ? "a" : "span";
 ---
 
 <article class="it-card rounded shadow-sm border">
   <h3 class="it-card-title it-card-title-icon">
-    <TitleTag
-      class={`${TitleTag === "span" ? "fs-3" : ""}`}
+    <a
       href={linkTo}
-      target={TitleTag === "a" && isExternal ? "_blank" : undefined}
-      rel={TitleTag === "a" && isExternal ? "noopener noreferrer" : undefined}
+      target={isExternal ? "_blank" : undefined}
+      rel={isExternal ? "noopener noreferrer" : undefined}
+      aria-label={isExternal ? t["link.external"] : t["link.internal"]}
     >
       {title}
       {
-        linkTo && (
-          <div
-            class={`it-card-title-icon-wrapper ${TitleTag === "span" ? "fs-6" : ""}`}
-          >
+        isExternal && (
+          <div class="it-card-title-icon-wrapper">
             <ItExternalLink color="primary" />
           </div>
         )
       }
-    </TitleTag>
+    </a>
   </h3>
   <div class="it-card-body">
     <p class="it-card-text">
