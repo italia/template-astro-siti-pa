@@ -6,10 +6,9 @@ import { linkResolver } from "@utils/linkResolver";
 
 type Props = {
   locales: string[];
-  ariaLabelLanguageSelector: string;
 };
 
-const { locales, ariaLabelLanguageSelector } = Astro.props;
+const { locales } = Astro.props;
 const { lang: currentLocale, recordId: currentRecordId } = Astro.locals;
 
 const getTranslatedHref = (targetLocale: string) => {
@@ -32,7 +31,7 @@ const t = getI18n(currentLocale);
     aria-expanded="false"
     id="languagesDropButton"
   >
-    <span class="visually-hidden">{ariaLabelLanguageSelector}</span>
+    <span class="visually-hidden">{t["header.languageSelector"]}</span>
     <span lang={currentLocale}>{t["language.short"]}</span>
     <ItExpand class="d-none d-lg-block" />
   </a>

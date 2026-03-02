@@ -1,7 +1,7 @@
 ---
 import { ChipLink } from "@components/atoms/Chip";
 import { Link } from "@components/atoms/Link";
-import { getGlobalSettings } from "@lib/dataFetcher";
+import { getI18n } from "@i18n/ui";
 import FooterUtility from "./FooterUtility.astro";
 import type { FooterTopicsProps, FooterUtilityProps } from "./types";
 
@@ -11,7 +11,7 @@ type Props = {
 };
 const { topics, utilities } = Astro.props;
 const lang = Astro.locals.lang || "it";
-const globalSetting = await getGlobalSettings(lang);
+const t = getI18n(lang);
 ---
 
 <div class="it-footer-main" id="footer">
@@ -30,9 +30,7 @@ const globalSetting = await getGlobalSettings(lang);
                     {...topic}
                     variant="outline-white"
                     size="large"
-                    visuallyHidden={
-                      globalSetting?.ariaLabelInternalLink || "Link interno"
-                    }
+                    visuallyHidden={t["link.internal"]}
                   />
                 </li>
               ))

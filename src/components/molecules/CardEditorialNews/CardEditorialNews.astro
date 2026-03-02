@@ -16,8 +16,6 @@ const {
   dateTime,
   action,
   fullHeight = true,
-  ariaLabelCardCategory = "",
-  ariaLabelCardAction = "",
 } = Astro.props;
 
 const shouldShowFooter = category || dateTime;
@@ -52,7 +50,7 @@ const t = getI18n(lang);
       <footer class="it-card-related it-card-footer">
         {category && (
           <div class="it-card-taxonomy">
-            <span class="visually-hidden">{ariaLabelCardCategory}</span>
+            <span class="visually-hidden">{t["card.topic"]}</span>
             <p class="it-card-category">{category}</p>
           </div>
         )}
@@ -67,7 +65,7 @@ const t = getI18n(lang);
           href={linkTo !== "#" ? new URL(linkTo).origin : "#"}
           class="it-card-link"
           target="_blank"
-          aria-label={`${ariaLabelCardAction}: ${action}`}
+          aria-label={`${t["card.action"]} ${action}`}
         >
           {action}
         </a>

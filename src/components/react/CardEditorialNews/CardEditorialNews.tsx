@@ -14,9 +14,7 @@ export type CardEditorialNewsProps = {
   dateTime?: string;
   action?: string;
   fullHeight?: boolean;
-  lang: string;
-  ariaLabelCardCategory?: string;
-  ariaLabelCardAction?: string;
+  lang: SiteLocale;
 };
 
 export function CardEditorialNews({
@@ -30,12 +28,10 @@ export function CardEditorialNews({
   action,
   fullHeight = true,
   lang,
-  ariaLabelCardCategory,
-  ariaLabelCardAction,
 }: CardEditorialNewsProps) {
   const shouldShowFooter = !!category || !!dateTime;
   const cardTitleId = `card-title-${id}`;
-  const t = getI18n(lang as SiteLocale);
+  const t = getI18n(lang);
 
   return (
     <article
@@ -61,7 +57,7 @@ export function CardEditorialNews({
         <footer className="it-card-related it-card-footer">
           {category && (
             <div className="it-card-taxonomy">
-              <span className="visually-hidden">{ariaLabelCardCategory}</span>
+              <span className="visually-hidden">{t["card.topic"]}</span>
               <p className="it-card-category">{category}</p>
             </div>
           )}
@@ -76,7 +72,7 @@ export function CardEditorialNews({
             href={new URL(linkTo).origin}
             className="it-card-link"
             target="_blank"
-            aria-label={`${ariaLabelCardAction}: ${action}`}
+            aria-label={`${t["card.action"]} ${action}`}
           >
             {action}
           </a>

@@ -2,6 +2,7 @@
 import { ChipLink } from "@components/atoms/Chip";
 import { DateTime } from "@components/atoms/DateTime";
 import { Image } from "@components/atoms/Image";
+import { getI18n } from "@i18n/ui";
 import type { CardEditorialInlineMiniProps } from "./types";
 
 type Props = CardEditorialInlineMiniProps;
@@ -14,11 +15,12 @@ const {
   linkTo,
   category,
   dateTime,
-  ariaLabelCardCategory,
 } = Astro.props;
 
 const shouldShowFooter = category || dateTime;
 const cardTitleId = `card-title-${id}`;
+const { lang } = Astro.locals;
+const t = getI18n(lang);
 ---
 
 <article
@@ -49,7 +51,7 @@ const cardTitleId = `card-title-${id}`;
             <ChipLink
               linkTo={""}
               label={category}
-              visuallyHidden={ariaLabelCardCategory || ""}
+              visuallyHidden={t["card.topic"]}
               disabled
             />
           </div>

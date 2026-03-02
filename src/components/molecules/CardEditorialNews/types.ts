@@ -10,6 +10,4 @@ export type CardEditorialNewsProps = {
   dateTime?: string;
   action?: string;
   fullHeight?: boolean;
-  ariaLabelCardCategory?: string;
-  ariaLabelCardAction?: string;
 };

@@ -1,7 +1,6 @@
 ---
 import { NewsFeed } from "@components/organisms/NewsFeed";
 import type { NewsFeedFragmentType } from "@graphql/fragment/sectionFragments";
-import { getGlobalSettings } from "@lib/dataFetcher";
 import { DatoBlockModel } from "@utils/cmsMapper";
 import { linkResolver } from "@utils/linkResolver";
 
@@ -17,8 +16,6 @@ const buttonLink =
     ? linkResolver(block.cta.linkTo.id, lang)
     : undefined;
 const buttonLabel = block.cta?.label;
-
-const globalSetting = await getGlobalSettings(lang);
 ---
 
 <NewsFeed
@@ -51,8 +48,6 @@ const globalSetting = await getGlobalSettings(lang);
                   .label || "",
               dateTime: n.publishedAt,
               action: link ? new URL(link).host : "",
-              ariaLabelCardCategory: globalSetting?.ariaLabelCardCategory,
-              ariaLabelCardAction: globalSetting?.ariaLabelCardAction,
             };
           }),
         };
@@ -71,8 +66,6 @@ const globalSetting = await getGlobalSettings(lang);
               n.allTopicLocales?.find((t) => t.locale === lang)?.value.label ||
               "",
             dateTime: n.publishedAt,
-
-            ariaLabelCardCategory: globalSetting?.ariaLabelCardCategory,
           })),
         };
 
