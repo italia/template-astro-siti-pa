@@ -5,7 +5,7 @@ import {
 import { Chip } from "@components/react/Chip";
 import { Pagination } from "@components/react/Pagination";
 import type { SiteLocale } from "@graphql/types";
-import { getI18n } from "@i18n/ui";
+import { getI18n } from "@i18n/microcopy";
 import { useState } from "react";
 import {
   CardEditorialInlineMini,

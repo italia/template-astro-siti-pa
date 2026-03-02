@@ -3,7 +3,7 @@ import { Chip } from "@components/react/Chip";
 import { DateTime } from "@components/react/DateTime";
 import { Image } from "@components/react/Image";
 import type { SiteLocale } from "@graphql/types";
-import { getI18n } from "@i18n/ui";
+import { getI18n } from "@i18n/microcopy";
 
 export type CardEditorialInlineMiniProps = {
   id?: string;
