@@ -5,20 +5,23 @@ import type { CardServiceProps } from "./types";
 
 type Props = CardServiceProps;
 
-const { title, description, linkTo } = Astro.props;
+const { id, title, description, linkTo } = Astro.props;
 const { lang } = Astro.locals;
 const t = getI18n(lang);
 
 const isExternal = linkTo?.startsWith("http");
+const cardTitleId = `card-title-${id}`;
 ---
 
-<article class="it-card rounded shadow-sm border">
-  <h3 class="it-card-title it-card-title-icon">
+<article class="it-card rounded shadow-sm border" aria-labelledby={cardTitleId}>
+  <h3 class="it-card-title it-card-title-icon" id={cardTitleId}>
     <a
       href={linkTo}
       target={isExternal ? "_blank" : undefined}
       rel={isExternal ? "noopener noreferrer" : undefined}
-      aria-label={isExternal ? t["link.external"] : t["link.internal"]}
+      aria-label={isExternal
+        ? `${title} (${t["link.external"]})`
+        : `${title} (${t["link.internal"]})`}
     >
       {title}
       {
