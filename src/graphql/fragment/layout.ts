@@ -49,9 +49,13 @@ export const HeaderFragment = graphql(
         locale
         value
       }
-      _allOrganizationLocales {
+      _allListNavbarBrandLocales {
         locale
-        value
+        value {
+          label
+          shortLabel
+          url
+        }
       }
       siteName
     }

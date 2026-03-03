@@ -14,7 +14,7 @@ export type HeaderCentralProps = HeaderBase & {
 };
 
 export type HeaderSlimProps = HeaderBase & {
-  slimContent?: string;
+  brandList?: { url: string; label: string; shortLabel: string }[];
   locales: string[];
   metaNav?: MenuItemProps[];
 };

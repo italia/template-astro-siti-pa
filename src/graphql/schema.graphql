@@ -609,6 +609,37 @@ input BooleanFilter {
 """Represents `true` or `false` values."""
 scalar BooleanType
 
+"""Block of type Brand header (brand_header)"""
+type BrandHeaderRecord implements RecordInterface {
+  _createdAt: DateTime!
+
+  """Editing URL"""
+  _editingUrl: String
+  _firstPublishedAt: DateTime!
+  _isValid: BooleanType!
+  _modelApiKey: String!
+  _publicationScheduledAt: DateTime
+  _publishedAt: DateTime!
+
+  """Generates SEO and Social card meta tags to be used in your frontend"""
+  _seoMetaTags(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+  ): [Tag!]!
+  _status: ItemStatus!
+  _unpublishingScheduledAt: DateTime
+  _updatedAt: DateTime!
+  id: ItemId!
+  label: String!
+  shortLabel: String!
+  url: String!
+}
+
+type BrandHeaderRecordListListNonNullMultiLocaleField {
+  locale: SiteLocale
+  value: [BrandHeaderRecord!]!
+}
+
 """Block of type Brand (brand)"""
 type BrandRecord implements RecordInterface {
   _createdAt: DateTime!
@@ -4386,6 +4417,12 @@ type LayoutRecord implements RecordInterface {
     """
     fallbackLocales: [SiteLocale!]
   ): [StringNonNullMultiLocaleField!]
+  _allListNavbarBrandLocales(
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+  ): [BrandHeaderRecordListListNonNullMultiLocaleField!]
   _allMetaNavigationLocales(
     """
     If you want to fallback to a default translation when a translation has not been found
@@ -4404,12 +4441,6 @@ type LayoutRecord implements RecordInterface {
     """
     fallbackLocales: [SiteLocale!]
   ): [LayoutModelNavigationBarSecondaryFieldListListNonNullMultiLocaleField!]
-  _allOrganizationLocales(
-    """
-    If you want to fallback to a default translation when a translation has not been found
-    """
-    fallbackLocales: [SiteLocale!]
-  ): [StringNonNullMultiLocaleField!]
   _allOrganizationsLocales(
     """
     If you want to fallback to a default translation when a translation has not been found
@@ -4484,6 +4515,15 @@ type LayoutRecord implements RecordInterface {
     fallbackLocales: [SiteLocale!]
   ): String!
   id: ItemId!
+  listNavbarBrand(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+  ): [BrandHeaderRecord!]!
   logoSelect: String!
   metaNavigation(
     """The locale to use to fetch the field's content"""
@@ -4512,15 +4552,6 @@ type LayoutRecord implements RecordInterface {
     """
     fallbackLocales: [SiteLocale!]
   ): [LayoutModelNavigationBarSecondaryField!]!
-  organization(
-    """The locale to use to fetch the field's content"""
-    locale: SiteLocale
-
-    """
-    If you want to fallback to a default translation when a translation has not been found
-    """
-    fallbackLocales: [SiteLocale!]
-  ): String!
   organizations(
     """The locale to use to fetch the field's content"""
     locale: SiteLocale

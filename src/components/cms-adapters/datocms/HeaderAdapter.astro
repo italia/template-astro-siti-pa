@@ -13,7 +13,7 @@ type Props = HeaderFragmentType & {
 
 const {
   _allTaglineLocales,
-  _allOrganizationLocales,
+  _allListNavbarBrandLocales,
   siteName,
   allMainNavigation,
   allSecondaryNavigation,
@@ -30,7 +30,7 @@ const currentUrl = Astro.url.pathname;
 const currentSite = Astro.url.origin;
 
 const tagline = _allTaglineLocales?.find((l) => l.locale === lang)?.value;
-const organization = _allOrganizationLocales?.find(
+const organizations = _allListNavbarBrandLocales?.find(
   (l) => l.locale === lang,
 )?.value;
 const mainNavigation = allMainNavigation?.find((l) => l.locale === lang)?.value;
@@ -53,7 +53,7 @@ const metaMenuItems = createMetaMenu(metaNavigation, currentSite);
   variant={variant as VariantHeaderProps}
   brandTagLine={tagline}
   brandTitle={siteName}
-  slimContent={organization}
+  brandList={organizations}
   metaNav={metaMenuItems}
   menuItems={menuItems}
   locales={locales}
