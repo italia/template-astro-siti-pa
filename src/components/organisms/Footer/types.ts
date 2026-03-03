@@ -10,7 +10,6 @@ export type FooterLogoProps = {
 };
 
 export type FooterSmallPrintsProps = {
-  labelVisualHidden: string;
   links: LinkProps[];
 };
 

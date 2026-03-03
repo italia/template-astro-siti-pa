@@ -7,7 +7,7 @@ import type { HeaderProps } from "./types";
 type Props = HeaderProps;
 
 const {
-  slimContent,
+  brandList,
   locales,
   brandTitle,
   brandTagLine,
@@ -15,6 +15,8 @@ const {
   linkBackHome,
   logo,
   search,
+  metaNav,
+  variant = "light",
 } = Astro.props;
 ---
 
@@ -28,9 +30,11 @@ const {
   <SkipLinks idMenu={menuItems.left[0].id} />
 
   <HeaderSlim
-    slimContent={slimContent}
+    brandList={brandList}
     linkBackHome={linkBackHome}
     locales={locales}
+    metaNav={metaNav}
+    variant={variant}
   />
   <HeaderCentral
     search={search}
@@ -39,5 +43,6 @@ const {
     menuItems={menuItems}
     linkBackHome={linkBackHome}
     logo={logo}
+    variant={variant}
   />
 </header>

@@ -15,11 +15,13 @@ const t = getI18n(lang);
   target="_blank"
   rel="noreferrer"
   class="d-block h6 fw-semibold text-decoration-none d-flex align-items-center"
-  aria-label={t["link.external"]}
 >
   {mainLogo && <Icon icon={mainLogo} className="text-white me-3 icon-lg" />}
   {brandLogo && <Icon icon={brandLogo} className="text-white me-3 icon-lg" />}
   <div>
     {label}
+    <span class="visually-hidden">
+      {t["link.external"]}
+    </span>
   </div>
 </a>

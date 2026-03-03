@@ -1,18 +1,120 @@
 ---
+import { Image } from "@components/atoms/Image";
 import type { MenuItemProps } from "./types";
 
 type Props = MenuItemProps;
 
-const { active, id, url, title } = Astro.props;
+const {
+  active,
+  id,
+  url,
+  title,
+  subMenuItems = [],
+  subtitle,
+  image,
+  caption,
+} = Astro.props;
+
+const midIndex = 3;
+const leftColumn = subMenuItems.slice(0, midIndex);
+const rightColumn = subMenuItems.slice(midIndex);
 const ariaCurrent = active ? "page" : undefined;
 ---
 
-<li
-  class={`nav-item ${active ? "active" : ""}`}
-  id={id}
-  aria-current={ariaCurrent}
->
-  <a class={`nav-link ${active ? "active" : ""}`} href={url}>
-    {title}
-  </a>
-</li>
+{
+  subMenuItems.length > 0 ? (
+    <li class="nav-item dropdown megamenu" id={id} aria-current={ariaCurrent}>
+      <button
+        type="button"
+        class="nav-link dropdown-toggle px-lg-2 px-xl-3"
+        data-bs-toggle="dropdown"
+        aria-expanded="false"
+        id="megamenu-completo-B"
+        data-focus-mouse="false"
+      >
+        <>
+          <span>{title}</span>
+          <svg role="img" class="icon icon-xs ms-1">
+            <use href="/bsi-svg/sprites.svg#it-expand" />
+          </svg>
+        </>
+      </button>
+      <div
+        class="dropdown-menu shadow-lg"
+        role="region"
+        aria-labelledby="megamenu-completo-B"
+      >
+        <div class="megamenu pb-5 pt-3 py-lg-0">
+          <div class="row">
+            <div class="col-xs-12 col-lg-4 px-0">
+              <div class="row">
+                <div class="col-12 it-vertical it-description pb-lg-3">
+                  <div class="description-content ps-4 ps-sm-5 ms-3">
+                    {image && (
+                      <div class="ratio ratio-21x9 lightgrey-bg-a1 mb-4 rounded">
+                        <Image {...image} />
+                      </div>
+                    )}
+                    <Fragment set:html={caption} />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-lg-8">
+              <div class="it-heading-link-wrapper">
+                <a class="it-heading-link" href="#">
+                  <>
+                    <svg role="img" class="icon icon-sm me-2 mb-1">
+                      <use href="/bsi-svg/sprites.svg#it-arrow-right-triangle" />
+                    </svg>
+                    <span>{subtitle}</span>
+                  </>
+                </a>
+              </div>
+              <div class="row">
+                <div class="col-12 col-lg-6">
+                  <div class="link-list-wrapper">
+                    <ul class="link-list">
+                      {leftColumn.map((item) => (
+                        <li>
+                          <a class="list-item dropdown-item" href={item.url}>
+                            <svg role="img" class="icon icon-sm me-2">
+                              <use href="/bsi-svg/sprites.svg#it-arrow-right-triangle" />
+                            </svg>
+                            <span>{item.title}</span>
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+                <div class="col-12 col-lg-6">
+                  <div class="link-list-wrapper">
+                    <ul class="link-list">
+                      {rightColumn.map((item) => (
+                        <li>
+                          <a class="list-item dropdown-item" href={item.url}>
+                            <svg role="img" class="icon icon-sm me-2">
+                              <use href="/bsi-svg/sprites.svg#it-arrow-right-triangle" />
+                            </svg>
+                            <span>{item.title}</span>
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </li>
+  ) : (
+    <li class={`nav-item ${active ? "active" : ""}`} id={id}>
+      <a class={`nav-link ${active ? "active" : ""}`} href={url}>
+        {title}
+      </a>
+    </li>
+  )
+}

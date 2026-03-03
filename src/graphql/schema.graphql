@@ -609,6 +609,37 @@ input BooleanFilter {
 """Represents `true` or `false` values."""
 scalar BooleanType
 
+"""Block of type Brand header (brand_header)"""
+type BrandHeaderRecord implements RecordInterface {
+  _createdAt: DateTime!
+
+  """Editing URL"""
+  _editingUrl: String
+  _firstPublishedAt: DateTime!
+  _isValid: BooleanType!
+  _modelApiKey: String!
+  _publicationScheduledAt: DateTime
+  _publishedAt: DateTime!
+
+  """Generates SEO and Social card meta tags to be used in your frontend"""
+  _seoMetaTags(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+  ): [Tag!]!
+  _status: ItemStatus!
+  _unpublishingScheduledAt: DateTime
+  _updatedAt: DateTime!
+  id: ItemId!
+  label: String!
+  shortLabel: String!
+  url: String!
+}
+
+type BrandHeaderRecordListListNonNullMultiLocaleField {
+  locale: SiteLocale
+  value: [BrandHeaderRecord!]!
+}
+
 """Block of type Brand (brand)"""
 type BrandRecord implements RecordInterface {
   _createdAt: DateTime!
@@ -1221,6 +1252,11 @@ type ExternalLinkRecord implements RecordInterface {
   url: String!
 }
 
+type ExternalLinkRecordListListNonNullMultiLocaleField {
+  locale: SiteLocale
+  value: [ExternalLinkRecord!]!
+}
+
 """Block of type FAQ section (faq_section)"""
 type FaqSectionRecord implements RecordInterface {
   _createdAt: DateTime!
@@ -1536,6 +1572,12 @@ type GlobalSettingRecord implements RecordInterface {
     """
     fallbackLocales: [SiteLocale!]
   ): [StringNonNullMultiLocaleField!]
+  _allLinksLocales(
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+  ): [ExternalLinkRecordListListNonNullMultiLocaleField!]
   _allParagraphLocales(
     """Process content as markdown"""
     markdown: Boolean
@@ -1596,6 +1638,15 @@ type GlobalSettingRecord implements RecordInterface {
     """
     fallbackLocales: [SiteLocale!]
   ): String!
+  links(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+  ): [ExternalLinkRecord!]!
   paragraph(
     """Process content as markdown"""
     markdown: Boolean
@@ -1628,6 +1679,8 @@ type GlobalSettingRecord implements RecordInterface {
   ): String!
 }
 
+union HeroModelCtaField = ExternalLinkRecord | InternalLinkRecord
+
 """Block of type Hero (hero)"""
 type HeroRecord implements RecordInterface {
   _createdAt: DateTime!
@@ -1651,6 +1704,7 @@ type HeroRecord implements RecordInterface {
   backgroundColor: String
   backgroundImage: FileField
   backgroundImageForMobile: FileField
+  cta: HeroModelCtaField
   id: ItemId!
   paragraph(
     """Process content as markdown"""
@@ -4324,6 +4378,20 @@ type KpiElementRecord implements RecordInterface {
   valueSuffix: String
 }
 
+union LayoutModelNavigationBarField = MegaMenuItemRecord | MenuItemRecord
+
+type LayoutModelNavigationBarFieldListListNonNullMultiLocaleField {
+  locale: SiteLocale
+  value: [LayoutModelNavigationBarField!]!
+}
+
+union LayoutModelNavigationBarSecondaryField = MegaMenuItemRecord | MenuItemRecord
+
+type LayoutModelNavigationBarSecondaryFieldListListNonNullMultiLocaleField {
+  locale: SiteLocale
+  value: [LayoutModelNavigationBarSecondaryField!]!
+}
+
 union LayoutModelSmallPrintField = ExternalLinkRecord | InternalLinkRecord
 
 type LayoutModelSmallPrintFieldListListNonNullMultiLocaleField {
@@ -4349,24 +4417,30 @@ type LayoutRecord implements RecordInterface {
     """
     fallbackLocales: [SiteLocale!]
   ): [StringNonNullMultiLocaleField!]
+  _allListNavbarBrandLocales(
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+  ): [BrandHeaderRecordListListNonNullMultiLocaleField!]
+  _allMetaNavigationLocales(
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+  ): [ExternalLinkRecordListListNonNullMultiLocaleField!]
   _allNavigationBarLocales(
     """
     If you want to fallback to a default translation when a translation has not been found
     """
     fallbackLocales: [SiteLocale!]
-  ): [MenuItemRecordListListNonNullMultiLocaleField!]
+  ): [LayoutModelNavigationBarFieldListListNonNullMultiLocaleField!]
   _allNavigationBarSecondaryLocales(
     """
     If you want to fallback to a default translation when a translation has not been found
     """
     fallbackLocales: [SiteLocale!]
-  ): [MenuItemRecordListListNonNullMultiLocaleField!]
-  _allOrganizationLocales(
-    """
-    If you want to fallback to a default translation when a translation has not been found
-    """
-    fallbackLocales: [SiteLocale!]
-  ): [StringNonNullMultiLocaleField!]
+  ): [LayoutModelNavigationBarSecondaryFieldListListNonNullMultiLocaleField!]
   _allOrganizationsLocales(
     """
     If you want to fallback to a default translation when a translation has not been found
@@ -4441,7 +4515,25 @@ type LayoutRecord implements RecordInterface {
     fallbackLocales: [SiteLocale!]
   ): String!
   id: ItemId!
+  listNavbarBrand(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+  ): [BrandHeaderRecord!]!
   logoSelect: String!
+  metaNavigation(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+  ): [ExternalLinkRecord!]!
   navigationBar(
     """The locale to use to fetch the field's content"""
     locale: SiteLocale
@@ -4450,7 +4542,7 @@ type LayoutRecord implements RecordInterface {
     If you want to fallback to a default translation when a translation has not been found
     """
     fallbackLocales: [SiteLocale!]
-  ): [MenuItemRecord!]!
+  ): [LayoutModelNavigationBarField!]!
   navigationBarSecondary(
     """The locale to use to fetch the field's content"""
     locale: SiteLocale
@@ -4459,16 +4551,7 @@ type LayoutRecord implements RecordInterface {
     If you want to fallback to a default translation when a translation has not been found
     """
     fallbackLocales: [SiteLocale!]
-  ): [MenuItemRecord!]!
-  organization(
-    """The locale to use to fetch the field's content"""
-    locale: SiteLocale
-
-    """
-    If you want to fallback to a default translation when a translation has not been found
-    """
-    fallbackLocales: [SiteLocale!]
-  ): String!
+  ): [LayoutModelNavigationBarSecondaryField!]!
   organizations(
     """The locale to use to fetch the field's content"""
     locale: SiteLocale
@@ -4533,6 +4616,7 @@ type LayoutRecord implements RecordInterface {
     """
     fallbackLocales: [SiteLocale!]
   ): String!
+  variant: String!
 }
 
 """Specifies how to filter Single-link fields"""
@@ -4839,6 +4923,40 @@ type MacroTopicRecordListListNonNullMultiLocaleField {
   value: [MacroTopicRecord!]!
 }
 
+union MegaMenuItemModelPointsToField = CatalogueRecord | PageRecord
+
+"""Block of type Mega menu item (mega_menu_item)"""
+type MegaMenuItemRecord implements RecordInterface {
+  _createdAt: DateTime!
+
+  """Editing URL"""
+  _editingUrl: String
+  _firstPublishedAt: DateTime!
+  _isValid: BooleanType!
+  _modelApiKey: String!
+  _publicationScheduledAt: DateTime
+  _publishedAt: DateTime!
+
+  """Generates SEO and Social card meta tags to be used in your frontend"""
+  _seoMetaTags(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+  ): [Tag!]!
+  _status: ItemStatus!
+  _unpublishingScheduledAt: DateTime
+  _updatedAt: DateTime!
+  caption(
+    """Process content as markdown"""
+    markdown: Boolean
+  ): String!
+  id: ItemId!
+  image: FileField!
+  pointsTo: MegaMenuItemModelPointsToField!
+  subMenu: [MenuItemRecord!]!
+  subtitle: String!
+  title: String!
+}
+
 """Block of type Menu article item (menu_article_item)"""
 type MenuArticleItemRecord implements RecordInterface {
   _createdAt: DateTime!
@@ -4889,11 +5007,6 @@ type MenuItemRecord implements RecordInterface {
   id: ItemId!
   pointsTo: MenuItemModelPointsToField!
   title: String!
-}
-
-type MenuItemRecordListListNonNullMultiLocaleField {
-  locale: SiteLocale
-  value: [MenuItemRecord!]!
 }
 
 scalar MetaTagAttributes
@@ -8621,7 +8734,7 @@ type WebinarDescriptionRecord implements RecordInterface {
   _unpublishingScheduledAt: DateTime
   _updatedAt: DateTime!
   id: ItemId!
-  resourses: QuickLinkCardRecord!
+  resources: QuickLinkCardRecord
   subjects: FeatureListRecord!
   text: TextBlockRecord!
 }

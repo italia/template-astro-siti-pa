@@ -1,15 +1,18 @@
 ---
 import { Link } from "@components/atoms/Link";
+import { getI18n } from "@i18n/microcopy";
 import type { FooterSmallPrintsProps } from "./types";
 
 type Props = FooterSmallPrintsProps;
 
-const { labelVisualHidden, links } = Astro.props;
+const { links } = Astro.props;
+const lang = Astro.locals.lang || "it";
+const t = getI18n(lang);
 ---
 
 <div class="it-footer-small-prints clearfix">
   <div class="container">
-    <p class="visually-hidden">{labelVisualHidden}</p>
+    <p class="visually-hidden">{t["footer.sectionLink"]}</p>
     <ul
       class="it-footer-small-prints-list list-inline mb-0 d-flex flex-column flex-md-row px-0"
     >

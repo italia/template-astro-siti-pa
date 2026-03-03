@@ -1,9 +1,19 @@
 ---
+import { ButtonLink } from "@components/atoms/Button";
 import { Image } from "@components/atoms/Image";
 import type { HeroProps } from "./types";
 type Props = HeroProps;
 
-const { title, paragraph, image, showBreadcrumb, bgClass } = Astro.props;
+const {
+  title,
+  paragraph,
+  image,
+  showBreadcrumb,
+  bgClass,
+  linkTo,
+  labelButton,
+  variantButton,
+} = Astro.props;
 ---
 
 <style>
@@ -17,6 +27,18 @@ const { title, paragraph, image, showBreadcrumb, bgClass } = Astro.props;
           {showBreadcrumb && <slot name="breadcrumb" />}
           <h1>{title}</h1>
           {paragraph && <p class="font-sans-serif">{paragraph}</p>}
+          {
+            labelButton && linkTo && (
+              <div class="it-btn-container">
+                <ButtonLink
+                  size="small"
+                  label={labelButton}
+                  variant={variantButton}
+                  linkTo={linkTo}
+                />
+              </div>
+            )
+          }
         </div>
       </div>
 

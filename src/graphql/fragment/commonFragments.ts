@@ -422,6 +422,36 @@ export const MenuItemFragment = graphql(`
 
 export type MenuItemFragmentType = FragmentOf<typeof MenuItemFragment>;
 
+export const MegaMenuItemFragment = graphql(
+  `
+    fragment MegaMenuItemFragment on MegaMenuItemRecord @_unmask {
+      id
+      title
+      subtitle
+      pointsTo {
+        ... on CatalogueRecord {
+          id
+        }
+        ... on PageRecord {
+          id
+        }
+      }
+      image {
+        ...ImageFragment
+      }
+      caption(markdown: true)
+      subMenu {
+        ... on MenuItemRecord {
+          ...MenuItemFragment
+        }
+      }
+    }
+  `,
+  [ImageFragment, MenuItemFragment],
+);
+
+export type MegaMenuItemFragmentType = FragmentOf<typeof MegaMenuItemFragment>;
+
 export const StatisticsBoxFragment = graphql(`
   fragment StatisticsBoxFragment on StatisticsBoxRecord @_unmask {
     id

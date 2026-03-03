@@ -2,6 +2,7 @@ import {
   BrandFragment,
   ExternalLinkFragment,
   InternalLinkFragment,
+  MegaMenuItemFragment,
   MenuItemFragment,
   SidebarMenuFragment,
   SupportingBrandFragment,
@@ -11,12 +12,16 @@ import { graphql, type FragmentOf } from "@graphql/graphql";
 export const HeaderFragment = graphql(
   `
     fragment HeaderFragment on LayoutRecord @_unmask {
+      variant
       locales: _locales
       allMainNavigation: _allNavigationBarLocales {
         locale
         value {
           ... on MenuItemRecord {
             ...MenuItemFragment
+          }
+          ... on MegaMenuItemRecord {
+            ...MegaMenuItemFragment
           }
         }
       }
@@ -26,6 +31,17 @@ export const HeaderFragment = graphql(
           ... on MenuItemRecord {
             ...MenuItemFragment
           }
+          ... on MegaMenuItemRecord {
+            ...MegaMenuItemFragment
+          }
+        }
+      }
+      allMetaNavigation: _allMetaNavigationLocales {
+        locale
+        value {
+          ... on ExternalLinkRecord {
+            ...ExternalLinkFragment
+          }
         }
       }
       logoSelect
@@ -33,14 +49,18 @@ export const HeaderFragment = graphql(
         locale
         value
       }
-      _allOrganizationLocales {
+      _allListNavbarBrandLocales {
         locale
-        value
+        value {
+          label
+          shortLabel
+          url
+        }
       }
       siteName
     }
   `,
-  [MenuItemFragment],
+  [MenuItemFragment, ExternalLinkFragment, MegaMenuItemFragment],
 );
 
 export type HeaderFragmentType = FragmentOf<typeof HeaderFragment>;

@@ -1,8 +1,11 @@
 ---
+import Loader from "@components/Loader.astro";
 import PreviewBar from "@components/PreviewBar.astro";
+import type { LinkProps } from "@components/atoms/Link/types";
 import FooterAdapter from "@components/cms-adapters/datocms/FooterAdapter.astro";
 import HeaderAdapter from "@components/cms-adapters/datocms/HeaderAdapter.astro";
 import { LastUpdate } from "@components/molecules/LastUpdate";
+import Feedback from "@components/react/Feedback/Feedback";
 import { Seo, type TitleMetaLinkTag } from "@datocms/astro";
 import type {
   FooterFragmentType,
@@ -46,12 +49,14 @@ if (!layout) return;
 
 const headerLayout: HeaderFragmentType = {
   _allTaglineLocales: layout._allTaglineLocales,
-  _allOrganizationLocales: layout._allOrganizationLocales,
+  _allListNavbarBrandLocales: layout._allListNavbarBrandLocales,
   siteName: layout.siteName,
   allMainNavigation: layout.allMainNavigation,
   allSecondaryNavigation: layout.allSecondaryNavigation,
+  allMetaNavigation: layout.allMetaNavigation,
   locales: layout.locales,
   logoSelect: layout.logoSelect,
+  variant: layout.variant,
 };
 
 const footerLayout: FooterFragmentType = {
@@ -63,6 +68,11 @@ const footerLayout: FooterFragmentType = {
   _allUtilityLocales: layout._allUtilityLocales,
   _allSmallPrintLocales: layout._allSmallPrintLocales,
 };
+
+const linksPrefooter: LinkProps[] =
+  globalSetting?.links?.map((link) => {
+    return { url: link.url, label: link.label };
+  }) || [];
 
 const isShowingPreviewBar = isPreview && redirectUrl;
 const isProd = import.meta.env.PROD;
@@ -103,9 +113,15 @@ const isProd = import.meta.env.PROD;
         <LastUpdate
           label={globalSetting.lastUpdateLabel}
           date={datePublished}
+          links={linksPrefooter}
         />
       )
     }
+    <Feedback client:only="react">
+      <div slot="fallback">
+        <Loader />
+      </div>
+    </Feedback>
     <FooterAdapter {...footerLayout} />
   </body>
 </html>

@@ -1,0 +1,55 @@
+---
+import ItBurger from "@static/assets/ItBurger.astro";
+import ItCloseBig from "@static/assets/ItCloseBig.astro";
+import MenuItem from "./MenuItem.astro";
+import type { HeaderNavbarProps } from "./types";
+import { getI18n } from "@i18n/microcopy";
+
+type Props = {
+  menuItems: HeaderNavbarProps;
+};
+
+const { menuItems } = Astro.props;
+
+const lang = Astro.locals.lang || "it";
+
+const t = getI18n(lang);
+---
+
+<nav
+  class="navbar navbar-expand-lg has-megamenu"
+  aria-label={t["header.mainNav"]}
+>
+  <button
+    class="custom-navbar-toggler"
+    type="button"
+    aria-controls="navC2"
+    aria-label="Mostra/Nascondi la navigazione"
+    data-bs-toggle="navbarcollapsible"
+    data-bs-target="#navC2"
+  >
+    <ItBurger />
+  </button>
+  <div class="navbar-collapsable" id="navC2" tabindex="-1">
+    <div class="close-div">
+      <button class="btn close-menu" type="button">
+        <span class="visually-hidden">Nascondi la navigazione</span>
+        <ItCloseBig />
+      </button>
+    </div>
+    <div class="menu-wrapper justify-content-lg-between">
+      <ul class="navbar-nav">
+        {menuItems.left.map((menuItem) => <MenuItem {...menuItem} />)}
+      </ul>
+      {
+        menuItems.right && (
+          <ul class="navbar-nav">
+            {menuItems.right.map((menuItem) => (
+              <MenuItem {...menuItem} />
+            ))}
+          </ul>
+        )
+      }
+    </div>
+  </div>
+</nav>

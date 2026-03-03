@@ -1,18 +1,81 @@
 ---
+import { getI18n } from "@i18n/microcopy";
 import LanguageSelector from "./LanguageSelector.astro";
 import type { HeaderSlimProps } from "./types";
 
 type Props = HeaderSlimProps;
 
-const { slimContent, linkBackHome, locales } = Astro.props;
+const { brandList, locales, metaNav = [], variant = "light" } = Astro.props;
+
+const lang = Astro.locals.lang || "it";
+const t = getI18n(lang);
+
+const classVariant = variant === "light" ? "theme-light" : "";
 ---
 
-<div class="it-header-slim-wrapper theme-light">
+<div class={`it-header-slim-wrapper ${classVariant}`}>
   <div class="container-xxl">
     <div class="row">
       <div class="col-12">
         <div class="it-header-slim-wrapper-content">
-          <a class="navbar-brand" href={linkBackHome}>{slimContent}</a>
+          <div class="d-none d-lg-block navbar-brand">
+            {
+              brandList?.map((brand, index) => (
+                <>
+                  <a href={brand.url} target="_blank" rel="noopener">
+                    {brand.label}
+                    <span class="visually-hidden"> {t["link.external"]}</span>
+                  </a>
+                  {index < brandList.length - 1 && (
+                    <span class="mx-2" aria-hidden="true">
+                      +
+                    </span>
+                  )}
+                </>
+              ))
+            }
+          </div>
+          {
+            metaNav.length !== 0 && (
+              <div class="nav-mobile">
+                <nav aria-label={t["header.metaNav"]}>
+                  <a
+                    class="it-opener d-lg-none"
+                    data-bs-toggle="collapse"
+                    href="#menu1a"
+                    role="button"
+                    aria-expanded="false"
+                    aria-controls="menu4"
+                  >
+                    <span>
+                      {brandList?.map((brand) => brand.shortLabel).join(" + ")}
+                    </span>
+                    <svg class="icon" aria-hidden="true">
+                      <use href="/bsi-svg/sprites.svg#it-expand" />
+                    </svg>
+                  </a>
+                  <div class="link-list-wrapper collapse" id="menu1a">
+                    <ul class="link-list">
+                      {metaNav.map((link) => (
+                        <li id={link.id}>
+                          <a
+                            class={`dropdown-item list-item ${link.active ? "active" : ""}`}
+                            href={link.url}
+                            target="_blank"
+                          >
+                            {link.title}
+                            <span class="visually-hidden">
+                              {t["link.external"]}
+                            </span>
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </nav>
+              </div>
+            )
+          }
           <div class="it-header-slim-right-zone">
             <LanguageSelector locales={locales} />
           </div>

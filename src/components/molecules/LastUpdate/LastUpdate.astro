@@ -1,17 +1,38 @@
 ---
 import { DateTime } from "@components/atoms/DateTime";
+import { Link } from "@components/atoms/Link";
+import type { LinkProps } from "@components/atoms/Link/types";
 
 type Props = {
   label: string;
   date: string;
+  links?: LinkProps[];
 };
 
-const { label, date } = Astro.props;
+const { label, date, links = [] } = Astro.props;
 ---
 
 <section class="border-top">
   <div class="container py-4">
-    <span class="fw-semibold">{label}:</span>
-    <DateTime value={date} />
+    <div class="row">
+      <div class="col-12 col-lg-6">
+        <span class="fw-semibold">{label}:</span>
+        <DateTime value={date} />
+      </div>
+      <div class="col-12 col-lg-6 text-start text-lg-end">
+        <ul
+          class="list-unstyled mb-0 d-flex flex-column flex-md-row px-0 fs-6 justify-content-lg-end"
+          aria-label="Link correlati"
+        >
+          {
+            links.map((link) => (
+              <li class="ms-lg-4 mt-2 mt-lg-0">
+                <Link {...link} openInNewTab={true} isIcon={true} />
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
   </div>
 </section>

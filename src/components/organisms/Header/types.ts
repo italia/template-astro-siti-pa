@@ -1,5 +1,8 @@
+import type { ImageProps } from "@components/atoms/Image/types";
+
 type HeaderBase = {
   linkBackHome: string;
+  variant?: VariantHeaderProps;
 };
 
 export type HeaderCentralProps = HeaderBase & {
@@ -11,8 +14,9 @@ export type HeaderCentralProps = HeaderBase & {
 };
 
 export type HeaderSlimProps = HeaderBase & {
-  slimContent?: string;
+  brandList?: { url: string; label: string; shortLabel: string }[];
   locales: string[];
+  metaNav?: MenuItemProps[];
 };
 
 export type HeaderProps = HeaderCentralProps & HeaderSlimProps;
@@ -28,9 +32,15 @@ export type MenuItemProps = {
   url: string;
   active: boolean;
   title: string;
+  image?: ImageProps;
+  caption?: string;
+  subtitle?: string;
+  subMenuItems?: MenuItemProps[];
 };
 
 export type HeaderNavbarProps = {
   left: MenuItemProps[];
   right?: MenuItemProps[];
 };
+
+export type VariantHeaderProps = "dark" | "light";

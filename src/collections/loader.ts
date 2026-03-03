@@ -94,16 +94,26 @@ export const globalSettingsLoader = async () => {
     const fieldMapping: Record<string, string> = {
       _allSiteNameLocales: "siteName",
       _allLastUpdateLabelLocales: "lastUpdateLabel",
+      _allLinksLocales: "links",
     };
 
     Object.entries(fieldMapping).forEach(([datoKey, zodKey]) => {
       const translations = data.globalSetting[datoKey] || [];
 
-      translations.forEach((item: { locale: string; value: string }) => {
+      translations.forEach((item: { locale: string; value: any }) => {
         if (!localesMap[item.locale]) {
           localesMap[item.locale] = {};
         }
-        localesMap[item.locale][zodKey] = item.value;
+        if (zodKey === "links") {
+          localesMap[item.locale][zodKey] = (item.value || []).map(
+            (link: any) => ({
+              label: link.label,
+              url: link.url,
+            }),
+          );
+        } else {
+          localesMap[item.locale][zodKey] = item.value;
+        }
       });
     });
 

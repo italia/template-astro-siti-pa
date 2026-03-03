@@ -15,5 +15,9 @@ const { block } = Astro.props;
 <WebinarDescription>
   <TextContainerAdapter slot="text" block={block.text} variant="light" />
   <FeatureListAdapter slot="subjects" block={block.subjects} />
-  <QuickLinkCardAdapter slot="resources" block={block.resourses} />
+  {
+    block.resources && (
+      <QuickLinkCardAdapter slot="resources" block={block.resources} />
+    )
+  }
 </WebinarDescription>

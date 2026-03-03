@@ -45,9 +45,21 @@ export const HeroFragment = graphql(
       showBreadcrumb
       variant
       backgroundColor
+      cta {
+        ... on RecordInterface {
+          id
+          componentName: __typename
+        }
+        ... on InternalLinkRecord {
+          ...InternalLinkFragment
+        }
+        ... on ExternalLinkRecord {
+          ...ExternalLinkFragment
+        }
+      }
     }
   `,
-  [ImageFragment],
+  [ImageFragment, InternalLinkFragment, ExternalLinkFragment],
 );
 
 export type HeroFragmentType = FragmentOf<typeof HeroFragment>;
@@ -454,7 +466,7 @@ export const WebinarDescriptionFragment = graphql(
       subjects {
         ...FeatureListBlockFragment
       }
-      resourses {
+      resources {
         ...QuickLinkCardFragment
       }
     }

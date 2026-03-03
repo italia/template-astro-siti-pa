@@ -1,24 +1,32 @@
 ---
 import { Icon } from "@components/atoms/Icon";
 import { getI18n } from "@i18n/microcopy";
-import ItBurger from "@static/assets/ItBurger.astro";
-import ItCloseBig from "@static/assets/ItCloseBig.astro";
 import ItSearch from "@static/assets/ItSearch.astro";
-import MenuItem from "./MenuItem.astro";
+import HeaderNavbar from "./HeaderNavbar.astro";
 import type { HeaderCentralProps } from "./types";
 
 type Props = HeaderCentralProps;
 
-const { brandTitle, brandTagLine, menuItems, linkBackHome, logo, search } =
-  Astro.props;
+const {
+  brandTitle,
+  brandTagLine,
+  menuItems,
+  linkBackHome,
+  logo,
+  search,
+  variant = "light",
+} = Astro.props;
 
 const lang = Astro.locals.lang || "it";
 
 const t = getI18n(lang);
+
+const classVariant = variant === "light" ? "theme-light" : "";
+const classVariantNav = variant === "light" ? "theme-light-desk" : "";
 ---
 
 <div class="it-nav-wrapper">
-  <div class="it-header-center-wrapper theme-light">
+  <div class={`it-header-center-wrapper ${classVariant}`}>
     <div class="container-xxl">
       <div class="row">
         <div class="col-12">
@@ -59,48 +67,12 @@ const t = getI18n(lang);
   </div>
   <div
     id="header-nav-wrapper"
-    class="it-header-navbar-wrapper theme-light-desk"
+    class={`it-header-navbar-wrapper ${classVariantNav}`}
   >
     <div class="container-xxl">
       <div class="row">
         <div class="col-12">
-          <nav
-            class="navbar navbar-expand-lg has-megamenu"
-            aria-label={t["header.mainNav"]}
-          >
-            <button
-              class="custom-navbar-toggler"
-              type="button"
-              aria-controls="navC2"
-              aria-label={t["header.showHideMenu"]}
-              data-bs-toggle="navbarcollapsible"
-              data-bs-target="#navC2"
-            >
-              <ItBurger />
-            </button>
-            <div class="navbar-collapsable" id="navC2" tabindex="-1">
-              <div class="close-div">
-                <button class="btn close-menu" type="button">
-                  <span class="visually-hidden">{t["header.hideMenu"]}</span>
-                  <ItCloseBig />
-                </button>
-              </div>
-              <div class="menu-wrapper justify-content-lg-between">
-                <ul class="navbar-nav">
-                  {menuItems.left.map((menuItem) => <MenuItem {...menuItem} />)}
-                </ul>
-                {
-                  menuItems.right && (
-                    <ul class="navbar-nav">
-                      {menuItems.right.map((menuItem) => (
-                        <MenuItem {...menuItem} />
-                      ))}
-                    </ul>
-                  )
-                }
-              </div>
-            </div>
-          </nav>
+          <HeaderNavbar menuItems={menuItems} />
         </div>
       </div>
     </div>
