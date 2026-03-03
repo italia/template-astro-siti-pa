@@ -14,9 +14,11 @@
   "header.hideMenu": "Nascondi navigazione",
   "header.mainNav": "Navigazione principale",
   "header.skiplink": "Scorciatoie di navigazione",
+  "header.metaNav": "Navigazione accessoria",
   "filter.topic": "Argomento: ",
   "card.topic": "Categoria: ",
   "card.action": "Link correlati: ",
   "loading": "Caricamento...",
-  "breadcrumb": "Breadcrumb"
+  "breadcrumb": "Breadcrumb",
+  "footer.sectionLink": "Sezione link utili"
 }
