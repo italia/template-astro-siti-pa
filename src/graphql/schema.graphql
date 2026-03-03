@@ -1541,21 +1541,12 @@ type GlobalSettingRecord implements RecordInterface {
     """
     fallbackLocales: [SiteLocale!]
   ): [StringNonNullMultiLocaleField!]
-<<<<<<< HEAD
-=======
   _allLinksLocales(
     """
     If you want to fallback to a default translation when a translation has not been found
     """
     fallbackLocales: [SiteLocale!]
   ): [ExternalLinkRecordListListNonNullMultiLocaleField!]
-  _allLoadingLocales(
-    """
-    If you want to fallback to a default translation when a translation has not been found
-    """
-    fallbackLocales: [SiteLocale!]
-  ): [StringNonNullMultiLocaleField!]
->>>>>>> d662721 (feat: add links in pre footer)
   _allParagraphLocales(
     """Process content as markdown"""
     markdown: Boolean
@@ -1616,8 +1607,6 @@ type GlobalSettingRecord implements RecordInterface {
     """
     fallbackLocales: [SiteLocale!]
   ): String!
-<<<<<<< HEAD
-=======
   links(
     """The locale to use to fetch the field's content"""
     locale: SiteLocale
@@ -1627,16 +1616,6 @@ type GlobalSettingRecord implements RecordInterface {
     """
     fallbackLocales: [SiteLocale!]
   ): [ExternalLinkRecord!]!
-  loading(
-    """The locale to use to fetch the field's content"""
-    locale: SiteLocale
-
-    """
-    If you want to fallback to a default translation when a translation has not been found
-    """
-    fallbackLocales: [SiteLocale!]
-  ): String!
->>>>>>> d662721 (feat: add links in pre footer)
   paragraph(
     """Process content as markdown"""
     markdown: Boolean
