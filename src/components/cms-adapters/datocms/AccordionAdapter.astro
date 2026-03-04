@@ -9,4 +9,8 @@ type Props = {
 const { block } = Astro.props;
 ---
 
-<Accordion {...block.accordion} variant="background-active" />
+<Accordion
+  {...block.accordion}
+  label={block.title || undefined}
+  variant="background-active"
+/>
