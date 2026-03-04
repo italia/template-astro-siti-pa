@@ -2,6 +2,7 @@
 import { TopicFilter } from "@components/organisms/TopicFilter";
 import type { ContentCollectionProps } from "@components/organisms/TopicFilter/types";
 import type { TopicFilterFragmentType } from "@graphql/fragment/sectionFragments";
+import { getLocaleValue } from "@utils/getLocaleValue";
 import { linkResolver } from "@utils/linkResolver";
 
 type Props = {
@@ -13,17 +14,23 @@ const { lang } = Astro.locals;
 
 const contentCollection: ContentCollectionProps[] = block.content.map(
   (content) => {
+    const topicSlug = getLocaleValue(
+      content.content[0]._allTopicLocales,
+      lang,
+      null,
+    );
     return {
       title: content.title,
-      topicSlug: content.content[0] ? content.content[0].topic.label : "",
+      topicSlug: getLocaleValue(topicSlug?._allLabelLocales, lang),
       paragraph: content.paragraph || undefined,
       items: content.content.map((item) => {
+        const topicRecord = getLocaleValue(item._allTopicLocales, lang, null);
         return {
-          title: item.title,
-          description: item.abstract,
+          title: getLocaleValue(item._allTitleLocales, lang),
+          description: getLocaleValue(item._allAbstractLocales, lang),
           image: item.image,
           linkTo: linkResolver(item.id, lang),
-          category: item.topic.label,
+          category: getLocaleValue(topicRecord?._allLabelLocales, lang),
         };
       }),
     };

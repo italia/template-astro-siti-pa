@@ -8,22 +8,22 @@ import type {
   WebinarItemFragmentType,
 } from "@graphql/fragment/commonFragments";
 import type { SiteLocale } from "@graphql/types";
+import { getLocaleValue } from "@utils/getLocaleValue";
 import { linkResolver } from "@utils/linkResolver";
 
 export const mapNewsToCardEditorialNewsProps = (
   news: NewsItemFragmentType,
   lang: SiteLocale,
 ): CardEditorialNewsProps => {
-  const link = news.allLinkLocales?.find((t) => t.locale === lang)?.value;
+  const link = getLocaleValue(news.allLinkLocales, lang);
+  const topic = getLocaleValue(news.allTopicLocales, lang, null);
   return {
     id: news.id,
-    title: news.allTitleLocales?.find((t) => t.locale === lang)?.value || "",
-    description:
-      news.allParagraphLocales?.find((t) => t.locale === lang)?.value || "",
+    title: getLocaleValue(news.allTitleLocales, lang),
+    description: getLocaleValue(news.allParagraphLocales, lang),
     image: news.image,
     linkTo: link || "#",
-    category:
-      news.allTopicLocales?.find((t) => t.locale === lang)?.value.label || "",
+    category: getLocaleValue(topic._allLabelLocales, lang),
     dateTime: news.publishedAt,
     action: link ? new URL(link).host : "",
     lang: lang,
@@ -33,33 +33,36 @@ export const mapNewsToCardEditorialNewsProps = (
 export const mapStoryToCardEditorialInlineMiniProps = (
   story: StoryCardFragmentType,
   lang: SiteLocale,
-): CardEditorialInlineMiniProps => ({
-  id: story.id,
-  title: story.allTitleLocales?.find((t) => t.locale === lang)?.value || "",
-  image: story.image,
-  linkTo: linkResolver(story.id, lang),
-  category:
-    story.allTopicLocales?.find((t) => t.locale === lang)?.value.label || "",
-  dateTime: story.publishedAt,
-  description: "",
-  lang: lang,
-});
+): CardEditorialInlineMiniProps => {
+  const topic = getLocaleValue(story.allTopicLocales, lang, null);
+  return {
+    id: story.id,
+    title: getLocaleValue(story.allTitleLocales, lang),
+    image: story.image,
+    linkTo: linkResolver(story.id, lang),
+    category: getLocaleValue(topic._allLabelLocales, lang),
+    dateTime: story.publishedAt,
+    description: "",
+    lang: lang,
+  };
+};
 
 export const mapWebinarToCardEditorialNewsProps = (
   webinar: WebinarItemFragmentType,
   lang: SiteLocale,
-): CardEditorialNewsProps => ({
-  id: webinar.id,
-  title: webinar.allTitleLocales?.find((t) => t.locale === lang)?.value || "",
-  description:
-    webinar.allParagraphLocales?.find((t) => t.locale === lang)?.value || "",
-  image: webinar.image,
-  linkTo: linkResolver(webinar.id, lang),
-  category:
-    webinar.allTopicLocales?.find((t) => t.locale === lang)?.value.label || "",
-  dateTime: webinar.publishedAt,
-  lang: lang,
-});
+): CardEditorialNewsProps => {
+  const topic = getLocaleValue(webinar.allTopicLocales, lang, null);
+  return {
+    id: webinar.id,
+    title: getLocaleValue(webinar.allTitleLocales, lang),
+    description: getLocaleValue(webinar.allParagraphLocales, lang),
+    image: webinar.image,
+    linkTo: linkResolver(webinar.id, lang),
+    category: getLocaleValue(topic._allLabelLocales, lang),
+    dateTime: webinar.publishedAt,
+    lang: lang,
+  };
+};
 export const mapResourceToResourceProps = (
   resource: ResourceFragmentType,
   lang: SiteLocale,
@@ -84,18 +87,17 @@ export const mapResourceToResourceProps = (
     isDownload = true;
   }
 
+  const categories = getLocaleValue(resource.allCategoryLocales, lang, null);
+  const type = getLocaleValue(resource.allTypeResourceLocales, lang, null);
   return {
     title: resourceContent.label,
     category:
-      resource.allCategoryLocales
-        ?.find((t) => t.locale === lang)
-        ?.value.map((v) => v.label) || [],
+      categories.map((v: any) => getLocaleValue(v._allLabelLocales, lang)) ||
+      [],
     description: resourceContent.description || "",
     url: url,
     download: isDownload,
-    type:
-      resource.allTypeResourceLocales?.find((t) => t.locale === lang)?.value
-        .label || "",
+    type: getLocaleValue(type._allLabelLocales, lang),
     lang: lang,
   };
 };

@@ -8,6 +8,7 @@ import type {
 } from "@graphql/fragment/metaFragments";
 import type { SiteLocale } from "@graphql/types";
 import { DatoBlockModel } from "@utils/cmsMapper";
+import { getLocaleValue } from "@utils/getLocaleValue";
 
 type tabType = { type: string; title: string };
 type catalogueMapCategory = { type: tabType[]; title?: string };
@@ -15,9 +16,8 @@ export const getCategoryName = (
   page: PageLocalesFragmentType | CatalogueLocalesFragmentType | null,
   lang: SiteLocale,
 ): string => {
-  return (
-    page?.allTitleLocales?.find((t: any) => t.locale === lang)?.value || ""
-  );
+  if (!page) return "";
+  return getLocaleValue(page.allTitleLocales, lang);
 };
 
 export const resolveArticleCategory = (
@@ -28,10 +28,7 @@ export const resolveArticleCategory = (
 
   if (!firstValidParent) return "";
 
-  return (
-    firstValidParent.allTitleLocales?.find((t: any) => t.locale === lang)
-      ?.value || ""
-  );
+  return getLocaleValue(firstValidParent.allTitleLocales, lang);
 };
 
 export const getTitleByTypeNews = (
@@ -63,9 +60,7 @@ export const getCataloguesMapCategory = (
   lang: SiteLocale,
 ): catalogueMapCategory[] => {
   return allCatalogues.map((catalogue) => {
-    const title = catalogue?.allTitleLocales?.find(
-      (t: any) => t.locale === lang,
-    )?.value;
+    const title = getLocaleValue(catalogue.allTitleLocales, lang);
     const feedRecord = catalogue.content.find(
       (item) => item.componentName === DatoBlockModel.CatalogueFeed,
     );

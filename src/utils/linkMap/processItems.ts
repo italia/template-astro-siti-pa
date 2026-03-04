@@ -1,6 +1,7 @@
 import type { CatalogueIndexingFragmentType } from "@graphql/fragment/indexing";
 import type { HomepageFragmentType } from "@graphql/fragment/slugFragments";
 import type { SiteLocale } from "@graphql/types";
+import { getLocaleValue } from "@utils/getLocaleValue";
 import { getCataloguesMapCategory } from "@utils/indexing/getCategory";
 import { resolveRoutePath, type RoutableRecord } from "@utils/pathHelper";
 
@@ -27,8 +28,10 @@ export type LocaleMap = Record<SiteLocale, PageRouteInfo>;
 
 export type SiteMap = Record<string, LocaleMap>;
 
-export const getTitle = (item: HasTitles, locale: string) =>
-  item?.allTitleLocales?.find((t) => t.locale === locale)?.value || "No title";
+export const getTitle = (item: HasTitles, locale: string) => {
+  if (!item) return "";
+  return getLocaleValue(item.allTitleLocales, locale);
+};
 
 const processGenericItems = <T extends RoutableRecord>(
   items: T[],

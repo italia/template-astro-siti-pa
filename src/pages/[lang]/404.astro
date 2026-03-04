@@ -5,6 +5,7 @@ import { SplitContent } from "@components/layout/SplitContent";
 import type { ImageFragmentType } from "@graphql/fragment/commonFragments";
 import type { SiteLocale } from "@graphql/types";
 import Layout from "@layouts/Layout.astro";
+import { getLocaleValue } from "@utils/getLocaleValue";
 import { linkResolver } from "@utils/linkResolver";
 import { getCollection, getEntry } from "astro:content";
 
@@ -37,15 +38,9 @@ export async function getStaticPaths() {
       return {
         params: { lang },
         props: {
-          title:
-            globalSetting?._allTitleLocales?.find((l) => l.locale === lang)
-              ?.value || "",
-          paragraph:
-            globalSetting?._allParagraphLocales?.find((l) => l.locale === lang)
-              ?.value || "",
-          labelCta:
-            globalSetting?._allLabelCtaLocales?.find((l) => l.locale === lang)
-              ?.value || "",
+          title: getLocaleValue(globalSetting._allTitleLocales, lang),
+          paragraph: getLocaleValue(globalSetting._allParagraphLocales, lang),
+          labelCta: getLocaleValue(globalSetting._allLabelCtaLocales, lang),
           image: globalSetting.image,
           homepageId,
         },

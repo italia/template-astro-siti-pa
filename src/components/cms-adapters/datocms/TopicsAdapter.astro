@@ -12,9 +12,13 @@ type Props = {
 };
 
 const { block } = Astro.props;
+const { lang } = Astro.locals;
 ---
 
 <Topics
   title={block.title || undefined}
-  topics={block.topics.map((topic) => topic.label)}
+  topics={block.topics.map(
+    (topic) =>
+      topic._allLabelLocales?.find((l) => l.locale === lang)?.value || "",
+  )}
 />
