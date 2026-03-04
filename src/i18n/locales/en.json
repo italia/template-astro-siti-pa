@@ -21,5 +21,8 @@
   "loading": "Caricamento...",
   "breadcrumb": "Breadcrumb",
   "footer.sectionLink": "Sezione link utili",
-  "sidebar.openButton": "Apri/chiudi sidebar"
+  "sidebar.openButton": "Apri/chiudi sidebar",
+  "nav.pagination": "Pagination",
+  "nav.prev": "Previous page",
+  "nav.next": "Next page"
 }
