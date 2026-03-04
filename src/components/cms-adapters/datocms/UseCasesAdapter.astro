@@ -5,6 +5,7 @@ import type {
 } from "@components/molecules/UseCaseCard/types";
 import { UseCases } from "@components/molecules/UseCases";
 import type { UseCaseBlockFragmentType } from "@graphql/fragment/commonFragments";
+import { getLocaleValue } from "@utils/getLocaleValue";
 import { linkResolver } from "@utils/linkResolver";
 
 type Props = {
@@ -17,8 +18,8 @@ const { lang } = Astro.locals;
 
 const usecases: UseCaseCardProps[] = block.useCases.map((usecase) => {
   return {
-    title: usecase.title,
-    paragraph: usecase.paragraph || "",
+    title: getLocaleValue(usecase._allTitleLocales, lang),
+    paragraph: getLocaleValue(usecase._allParagraphLocales, lang),
     linkTo: linkResolver(usecase.id, lang),
     image: usecase.image || undefined,
   };

@@ -4,6 +4,7 @@ import { linkResolver } from "@utils/linkResolver";
 import type { UseCaseCardProps } from "@components/molecules/UseCaseCard/types";
 import { UseCaseContainer } from "@components/organisms/UseCaseContainer";
 import type { UseCaseContainerFragmentType } from "@graphql/fragment/sectionFragments";
+import { getLocaleValue } from "@utils/getLocaleValue";
 
 type Props = {
   block: UseCaseContainerFragmentType;
@@ -13,18 +14,25 @@ const { block } = Astro.props;
 const { lang } = Astro.locals;
 
 const useCases: UseCaseCardProps[] = block.useCases.map((useCase) => {
+  const listTopics =
+    useCase._allTopicsLocales?.find((l) => l.locale === lang)?.value ||
+    undefined;
   return {
     id: useCase.id,
-    title: useCase.title,
-    paragraph: useCase.paragraph || "",
+    title: getLocaleValue(useCase._allTitleLocales, lang),
+    paragraph: getLocaleValue(useCase._allParagraphLocales, lang),
     linkTo: linkResolver(useCase.id, lang),
     image: useCase.image || undefined,
     listTopics: {
-      title: useCase.topics?.title || undefined,
-      topics: useCase.topics?.topics.map((topic) => topic.label) || [],
+      title: listTopics?.title || "",
+      topics:
+        listTopics?.topics.map(
+          (topic) =>
+            topic._allLabelLocales?.find((l) => l.locale === lang)?.value || "",
+        ) || [],
     },
-    descriptionTitle: useCase.descriptionTitle || undefined,
-    description: useCase.description || undefined,
+    descriptionTitle: getLocaleValue(useCase._allDescriptionTitleLocales, lang),
+    description: getLocaleValue(useCase._allDescriptionLocales, lang),
   };
 });
 ---

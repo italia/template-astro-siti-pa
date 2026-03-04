@@ -78,7 +78,10 @@ export const TopicsBlockFragment = graphql(`
     title
     topics {
       id
-      label
+      _allLabelLocales {
+        locale
+        value
+      }
     }
   }
 `);
@@ -133,16 +136,31 @@ export const ArticleCardPreviewFragment = graphql(
   `
     fragment ArticleCardPreviewFragment on ArticleRecord @_unmask {
       id
-      title
-      paragraph
-      topics {
-        ...TopicsBlockFragment
+      _allTitleLocales {
+        locale
+        value
+      }
+      _allParagraphLocales {
+        locale
+        value
+      }
+      _allTopicsLocales {
+        locale
+        value {
+          ...TopicsBlockFragment
+        }
       }
       image {
         ...ImageFragment
       }
-      descriptionTitle
-      description(markdown: true)
+      _allDescriptionTitleLocales {
+        locale
+        value
+      }
+      _allDescriptionLocales(markdown: true) {
+        locale
+        value
+      }
     }
   `,
   [ImageFragment, TopicsBlockFragment],
@@ -167,7 +185,10 @@ export const NewsItemFragment = graphql(
       allTopicLocales: _allTopicLocales {
         value {
           id
-          label
+          _allLabelLocales {
+            locale
+            value
+          }
         }
         locale
       }
@@ -201,7 +222,10 @@ export const WebinarItemFragment = graphql(
       allTopicLocales: _allTopicLocales {
         value {
           id
-          label
+          _allLabelLocales {
+            locale
+            value
+          }
         }
         locale
       }
@@ -246,7 +270,10 @@ export const StoryCardFragment = graphql(
       allTopicLocales: _allTopicLocales {
         value {
           id
-          label
+          _allLabelLocales {
+            locale
+            value
+          }
         }
         locale
       }
@@ -521,25 +548,48 @@ export type AdditionalContentFragmentType = FragmentOf<
   typeof AdditionalContentFragment
 >;
 
+export const InsightCardFragment = graphql(
+  `
+    fragment InsightCardFragment on InsightRecord @_unmask {
+      id
+      _allTitleLocales {
+        locale
+        value
+      }
+      _allAbstractLocales {
+        locale
+        value
+      }
+      _allTopicLocales {
+        locale
+        value {
+          _allLabelLocales {
+            locale
+            value
+          }
+        }
+      }
+      image {
+        ...ImageFragment
+      }
+    }
+  `,
+  [ImageFragment],
+);
+
+export type InsightCardFragmentType = FragmentOf<typeof InsightCardFragment>;
+
 export const ListCollectionFragment = graphql(
   `
     fragment ListCollectionFragment on ListCollectionRecord @_unmask {
       title
       paragraph
       content {
-        id
-        title
-        abstract
-        topic {
-          label
-        }
-        image {
-          ...ImageFragment
-        }
+        ...InsightCardFragment
       }
     }
   `,
-  [ImageFragment],
+  [InsightCardFragment],
 );
 
 export type ListCollectionFragmentType = FragmentOf<
@@ -781,13 +831,19 @@ export const ResourceFragment = graphql(
       allTypeResourceLocales: _allTypeResourceLocales {
         locale
         value {
-          label
+          _allLabelLocales {
+            locale
+            value
+          }
         }
       }
       allCategoryLocales: _allCategoryLocales {
         locale
         value {
-          label
+          _allLabelLocales {
+            locale
+            value
+          }
         }
       }
       allResourceLocales: _allResourceLocales {

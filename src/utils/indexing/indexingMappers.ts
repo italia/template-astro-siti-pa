@@ -10,6 +10,7 @@ import type {
 import type { SiteLocale } from "@graphql/types";
 import { DatoBlockModel } from "@utils/cmsMapper";
 import { createDownloadUrl } from "@utils/createDownloadUrl";
+import { getLocaleValue } from "@utils/getLocaleValue";
 import {
   flattenBlocks,
   getSearchRenderOptions,
@@ -33,9 +34,8 @@ export const getMapArticle = (
     id: article.id,
     category,
     internalLink: linkResolver(article.id, lang),
-    title: article.allTitleLocales?.find((t) => t.locale === lang)?.value,
-    description: article.allParagraphLocales?.find((t) => t.locale === lang)
-      ?.value,
+    title: getLocaleValue(article.allTitleLocales, lang),
+    description: getLocaleValue(article.allParagraphLocales, lang),
     content: render(structuredText, stOptions),
   };
 };
@@ -55,9 +55,8 @@ export const getMapInsight = (
     id: insight.id,
     category,
     internalLink: linkResolver(insight.id, lang),
-    title: insight.allTitleLocales?.find((t) => t.locale === lang)?.value,
-    description: insight.allAbstractLocales?.find((t) => t.locale === lang)
-      ?.value,
+    title: getLocaleValue(insight.allTitleLocales, lang),
+    description: getLocaleValue(insight.allAbstractLocales, lang),
     content: content,
   };
 };
@@ -78,7 +77,7 @@ export const getMapStory = (
     id: story.id,
     category,
     internalLink: linkResolver(story.id, lang),
-    title: story.allTitleLocales?.find((t) => t.locale === lang)?.value,
+    title: getLocaleValue(story.allTitleLocales, lang),
     description: "",
     content: content,
   };
@@ -100,9 +99,8 @@ export const getMapWebinar = (
     id: webinar.id,
     category,
     internalLink: linkResolver(webinar.id, lang),
-    title: webinar.allTitleLocales?.find((t) => t.locale === lang)?.value,
-    description: webinar.allParagraphLocales?.find((t) => t.locale === lang)
-      ?.value,
+    title: getLocaleValue(webinar.allTitleLocales, lang),
+    description: getLocaleValue(webinar.allParagraphLocales, lang),
     content: content,
   };
 };
@@ -116,11 +114,10 @@ export const getMapNews = (
     type: "news",
     id: news.id,
     category,
-    externalLink: news.allLinkLocales?.find((t) => t.locale === lang)?.value,
-    title: news.allTitleLocales?.find((t) => t.locale === lang)?.value,
-    description: news.allParagraphLocales?.find((t) => t.locale === lang)
-      ?.value,
-    content: news.allParagraphLocales?.find((t) => t.locale === lang)?.value,
+    externalLink: getLocaleValue(news.allLinkLocales, lang),
+    title: getLocaleValue(news.allTitleLocales, lang),
+    description: getLocaleValue(news.allParagraphLocales, lang),
+    content: getLocaleValue(news.allParagraphLocales, lang),
   };
 };
 
@@ -175,7 +172,7 @@ export const getMapPages = (
     id: page.id,
     category: "",
     internalLink: linkResolver(page.id, lang),
-    title: page.allTitleLocales?.find((t) => t.locale === lang)?.value,
+    title: getLocaleValue(page.allTitleLocales, lang),
     description: "",
     content: content,
   };

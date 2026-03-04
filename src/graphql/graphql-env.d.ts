@@ -1,4 +1,4 @@
- 
+/* eslint-disable */
 /* prettier-ignore */
 
 export type introspection_types = {
@@ -326,7 +326,7 @@ export type introspection = {
   types: introspection_types;
 };
 
-import 'gql.tada';
+import * as gqlTada from 'gql.tada';
 
 declare module 'gql.tada' {
   interface setupSchema {

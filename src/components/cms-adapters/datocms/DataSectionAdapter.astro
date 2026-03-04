@@ -6,6 +6,7 @@ import type {
   ResultProps,
 } from "@components/organisms/DataSection/types";
 import type { DataSectionRecordFragmentType } from "@graphql/fragment/sectionFragments";
+import { getLocaleValue } from "@utils/getLocaleValue";
 import { linkResolver } from "@utils/linkResolver";
 
 type Props = {
@@ -37,8 +38,8 @@ const panel = {
 const newsResult: CardEditorialNewsProps[] = block.result.useCases.map(
   (useCase) => {
     return {
-      title: useCase.title,
-      description: useCase.paragraph || "",
+      title: getLocaleValue(useCase._allTitleLocales, lang),
+      description: getLocaleValue(useCase._allParagraphLocales, lang),
       image: useCase.image || undefined,
       linkTo: linkResolver(useCase.id, lang),
     };

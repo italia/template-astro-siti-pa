@@ -2,6 +2,7 @@
 import { NewsFeed } from "@components/organisms/NewsFeed";
 import type { NewsFeedFragmentType } from "@graphql/fragment/sectionFragments";
 import { DatoBlockModel } from "@utils/cmsMapper";
+import { getLocaleValue } from "@utils/getLocaleValue";
 import { linkResolver } from "@utils/linkResolver";
 
 type Props = {
@@ -31,21 +32,15 @@ const buttonLabel = block.cta?.label;
           componentName: "CardEditorialNews",
           title: tab.title,
           news: tab.news.map((n) => {
-            const link = n.allLinkLocales?.find(
-              (t) => t.locale === lang,
-            )?.value;
+            const link = getLocaleValue(n.allLinkLocales, lang);
+            const topic = getLocaleValue(n.allTopicLocales, lang, null);
             return {
               id: n.id,
-              title:
-                n.allTitleLocales?.find((t) => t.locale === lang)?.value || "",
-              description:
-                n.allParagraphLocales?.find((t) => t.locale === lang)?.value ||
-                "",
+              title: getLocaleValue(n.allTitleLocales, lang),
+              description: getLocaleValue(n.allParagraphLocales, lang),
               image: n.image,
               linkTo: link || "#",
-              category:
-                n.allTopicLocales?.find((t) => t.locale === lang)?.value
-                  .label || "",
+              category: getLocaleValue(topic._allLabelLocales, lang),
               dateTime: n.publishedAt,
               action: link ? new URL(link).host : "",
             };
@@ -56,17 +51,17 @@ const buttonLabel = block.cta?.label;
         return {
           componentName: "CardEditorialInlineMini",
           title: tab.title,
-          news: tab.news.map((n) => ({
-            id: n.id,
-            title:
-              n.allTitleLocales?.find((t) => t.locale === lang)?.value || "",
-            image: n.image,
-            linkTo: linkResolver(n.id, lang),
-            category:
-              n.allTopicLocales?.find((t) => t.locale === lang)?.value.label ||
-              "",
-            dateTime: n.publishedAt,
-          })),
+          news: tab.news.map((n) => {
+            const topic = getLocaleValue(n.allTopicLocales, lang, null);
+            return {
+              id: n.id,
+              title: getLocaleValue(n.allTitleLocales, lang),
+              image: n.image,
+              linkTo: linkResolver(n.id, lang),
+              category: getLocaleValue(topic._allLabelLocales, lang),
+              dateTime: n.publishedAt,
+            };
+          }),
         };
 
       default:
