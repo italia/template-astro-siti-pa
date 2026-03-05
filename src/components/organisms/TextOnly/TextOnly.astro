@@ -1,0 +1,21 @@
+---
+import { SplitContent } from "@components/layout/SplitContent";
+import type { TextOnlyProps } from "./types";
+
+type Props = TextOnlyProps;
+
+const { background = "default" } = Astro.props;
+const columnLeftSize = 6;
+const columnRightSize = 6;
+
+const alignItems = "top";
+---
+
+<SplitContent
+  leftColumns={columnLeftSize}
+  rightColumns={columnRightSize}
+  alignItems={alignItems}
+  background={background}
+>
+  <slot name="text" slot="left" />
+</SplitContent>
