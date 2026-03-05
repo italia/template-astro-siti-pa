@@ -604,3 +604,17 @@ export const CalloutLinkFragment = graphql(
 );
 
 export type CalloutLinkFragmentType = FragmentOf<typeof CalloutLinkFragment>;
+
+export const TextOnlyFragment = graphql(
+  `
+    fragment TextOnlyFragment on TextOnlyRecord @_unmask {
+      text {
+        ...TextBlockFragment
+      }
+      backgroundColor
+    }
+  `,
+  [TextBlockFragment],
+);
+
+export type TextOnlyFragmentType = FragmentOf<typeof TextOnlyFragment>;

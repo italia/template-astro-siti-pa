@@ -1745,7 +1745,7 @@ type HighlightRecord implements RecordInterface {
   title: String!
 }
 
-union HomepageModelContentField = HeroRecord | NewsFeedRecord | SupportChannelsSectionRecord | TextImageRecord | TextStatisticRecord | TextUseCaseRecord
+union HomepageModelContentField = HeroRecord | NewsFeedRecord | SupportChannelsSectionRecord | TextImageRecord | TextOnlyRecord | TextStatisticRecord | TextUseCaseRecord
 
 type HomepageModelContentFieldListListNonNullMultiLocaleField {
   locale: SiteLocale
@@ -5344,7 +5344,7 @@ input OrientationFilter {
   neq: UploadOrientation
 }
 
-union PageModelContentField = DataSectionRecord | FaqSectionRecord | HeroRecord | NewsFeedRecord | StructuredTextRecord | SupportChannelsSectionRecord | SupportCtaSectionRecord | TextAccordionRecord | TextImageRecord | TopicFilterRecord | UseCaseContainerRecord
+union PageModelContentField = DataSectionRecord | FaqSectionRecord | HeroRecord | NewsFeedRecord | StructuredTextRecord | SupportChannelsSectionRecord | SupportCtaSectionRecord | TextAccordionRecord | TextImageRecord | TextOnlyRecord | TopicFilterRecord | UseCaseContainerRecord
 
 type PageModelContentFieldListListNonNullMultiLocaleField {
   locale: SiteLocale
@@ -7909,6 +7909,31 @@ type TextImageRecord implements RecordInterface {
   image: FileField!
   text: TextBlockRecord!
   variant: String!
+}
+
+"""Block of type Text only (text_only)"""
+type TextOnlyRecord implements RecordInterface {
+  _createdAt: DateTime!
+
+  """Editing URL"""
+  _editingUrl: String
+  _firstPublishedAt: DateTime!
+  _isValid: BooleanType!
+  _modelApiKey: String!
+  _publicationScheduledAt: DateTime
+  _publishedAt: DateTime!
+
+  """Generates SEO and Social card meta tags to be used in your frontend"""
+  _seoMetaTags(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+  ): [Tag!]!
+  _status: ItemStatus!
+  _unpublishingScheduledAt: DateTime
+  _updatedAt: DateTime!
+  backgroundColor: String!
+  id: ItemId!
+  text: TextBlockRecord!
 }
 
 """Block of type Text + statistics (text_statistic)"""

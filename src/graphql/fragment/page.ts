@@ -8,6 +8,7 @@ import {
   SupportCTASectionFragment,
   TextAndAccordionFragment,
   TextAndImageFragment,
+  TextOnlyFragment,
   TopicFilterFragment,
   UseCaseContainerFragment,
 } from "@graphql/fragment/sectionFragments";
@@ -55,6 +56,9 @@ export const PageContentFragment = graphql(
       ... on TextAccordionRecord {
         ...TextAndAccordionFragment
       }
+      ... on TextOnlyRecord {
+        ...TextOnlyFragment
+      }
     }
   `,
   [
@@ -69,6 +73,7 @@ export const PageContentFragment = graphql(
     StructuredTextFragment,
     TextAndImageFragment,
     TextAndAccordionFragment,
+    TextOnlyFragment,
   ],
 );
 

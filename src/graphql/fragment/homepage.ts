@@ -5,6 +5,7 @@ import {
   TextAndImageFragment,
   TextAndStatisticsFragment,
   TextAndUseCasesFragment,
+  TextOnlyFragment,
 } from "@graphql/fragment/sectionFragments";
 import { graphql, type FragmentOf } from "@graphql/graphql";
 
@@ -34,6 +35,9 @@ export const HomepageModelContentFragment = graphql(
       ... on TextImageRecord {
         ...TextAndImageFragment
       }
+      ... on TextOnlyRecord {
+        ...TextOnlyFragment
+      }
     }
   `,
   [
@@ -43,6 +47,7 @@ export const HomepageModelContentFragment = graphql(
     TextAndImageFragment,
     TextAndStatisticsFragment,
     TextAndUseCasesFragment,
+    TextOnlyFragment,
   ],
 );
 
