@@ -17,6 +17,7 @@ import TextAndAccordionAdapter from "@components/cms-adapters/datocms/TextAndAcc
 import TextAndImageAdapter from "@components/cms-adapters/datocms/TextAndImageAdapter.astro";
 import TextAndStatisticsAdapter from "@components/cms-adapters/datocms/TextAndStatisticsAdapter.astro";
 import TextAndUseCasesAdapter from "@components/cms-adapters/datocms/TextAndUseCasesAdapter.astro";
+import TextOnlyAdapter from "@components/cms-adapters/datocms/TextOnlyAdapter.astro";
 import TopicFilterAdapter from "@components/cms-adapters/datocms/TopicFilterAdapter.astro";
 import UseCaseContainerAdapter from "@components/cms-adapters/datocms/UseCaseContainerAdapter.astro";
 import WebinarDescriptionAdapter from "@components/cms-adapters/datocms/WebinarDescriptionAdapter.astro";
@@ -96,6 +97,8 @@ const { content, isFontSerif = false } = Astro.props;
         return <IntroArticleAdapter block={block} />;
       case DatoBlockModel.CalloutLink:
         return <CalloutLinkAdapter block={block} />;
+      case DatoBlockModel.TextOnly:
+        return <TextOnlyAdapter block={block} />;
       default:
         return null;
     }

@@ -1,0 +1,27 @@
+---
+import TextContainerAdapter from "@components/cms-adapters/datocms/TextContainerAdapter.astro";
+import { TextOnly } from "@components/organisms/TextOnly";
+import type { TextOnlyFragmentType } from "@graphql/fragment/sectionFragments";
+import type { SectionBackground } from "@utils/background";
+
+type Props = {
+  block: TextOnlyFragmentType;
+};
+
+const { block } = Astro.props;
+
+const variantTextContainer =
+  block.backgroundColor === "dark"
+    ? "dark"
+    : block.backgroundColor === "primary"
+      ? "primary"
+      : "light";
+---
+
+<TextOnly background={block.backgroundColor as SectionBackground}>
+  <TextContainerAdapter
+    slot="text"
+    block={block.text}
+    variant={variantTextContainer}
+  />
+</TextOnly>

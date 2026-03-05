@@ -42,6 +42,7 @@ export enum DatoBlockModel {
   StatisticBlock = "StatisticBlockRecord",
   UseCaseBlock = "UseCaseBlockRecord",
   TextBlock = "TextBlockRecord",
+  TextOnly = "TextOnlyRecord",
 }
 
 export type DatoBlockModelType =
