@@ -1,0 +1,35 @@
+name: Deploy to Vercel
+
+on:
+  push:
+    branches:
+      - ci
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    env:
+      DATOCMS_API_TOKEN: ${{ secrets.DATOCMS_API_TOKEN }}
+      DATOCMS_DRAFT_API_TOKEN: ${{ secrets.DATOCMS_DRAFT_API_TOKEN }}
+      SITE_URL: ${{ secrets.SITE_URL }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.2.19
+
+      - name: Install dependencies
+        run: bun install
+
+      - name: Build project
+        run: bun run build
+
+      - name: Deploy to Vercel (prebuilt)
+        env:
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+        run: bunx vercel deploy --prebuilt --token ${{ secrets.VERCEL_TOKEN }}  --prod
