@@ -117,7 +117,7 @@ const isProd = import.meta.env.PROD;
         />
       )
     }
-    <Feedback client:only="react">
+    <Feedback client:only="react" lang={lang}>
       <div slot="fallback">
         <Loader />
       </div>
