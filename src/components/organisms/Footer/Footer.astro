@@ -14,13 +14,19 @@ type Props = {
   topics: FooterTopicsProps;
   utilities: FooterUtilityProps[];
   smallPrints: FooterSmallPrintsProps;
+  showMailingListForm?: boolean;
 };
 
-const { brand, utilities, topics, smallPrints } = Astro.props;
+const { brand, utilities, topics, smallPrints, showMailingListForm } =
+  Astro.props;
 ---
 
 <footer class="it-footer">
   <FooterBrand {...brand} />
-  <FooterMain topics={topics} utilities={utilities} />
+  <FooterMain
+    topics={topics}
+    utilities={utilities}
+    showMailingListForm={showMailingListForm}
+  />
   <FooterSmallPrints {...smallPrints} />
 </footer>

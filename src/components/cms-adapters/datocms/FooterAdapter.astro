@@ -20,6 +20,8 @@ const {
   _allUtilityTitleLocales,
   _allUtilityLocales,
   _allSmallPrintLocales,
+  showMailingListForm,
+  showSitemapLink,
 } = Astro.props;
 
 const { lang } = Astro.locals;
@@ -84,9 +86,12 @@ const smallPrints: FooterLinkProps[] =
       [isExternal ? "url" : "linkTo"]: url,
     };
   }) || [];
+
+console.log("showSitemap", showSitemapLink);
 ---
 
 <Footer
+  showMailingListForm={showMailingListForm}
   brand={{
     heading: heading,
     logos: logos,
@@ -104,5 +109,6 @@ const smallPrints: FooterLinkProps[] =
   ]}
   smallPrints={{
     links: smallPrints,
+    showSitemap: showSitemapLink,
   }}
 />

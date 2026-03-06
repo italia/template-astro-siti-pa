@@ -11,6 +11,7 @@ export type FooterLogoProps = {
 
 export type FooterSmallPrintsProps = {
   links: LinkProps[];
+  showSitemap?: boolean;
 };
 
 export type FooterBrandProps = {

@@ -4561,6 +4561,8 @@ type LayoutRecord implements RecordInterface {
     """
     fallbackLocales: [SiteLocale!]
   ): [BrandRecord!]!
+  showMailingListForm: BooleanType!
+  showSitemapLink: BooleanType!
   siteName: String!
   smallPrint(
     """The locale to use to fetch the field's content"""

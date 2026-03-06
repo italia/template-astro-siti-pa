@@ -130,6 +130,8 @@ export const FooterFragment = graphql(
           }
         }
       }
+      showMailingListForm
+      showSitemapLink
     }
   `,
   [
