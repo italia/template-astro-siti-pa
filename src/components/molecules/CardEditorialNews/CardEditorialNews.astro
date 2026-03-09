@@ -58,18 +58,5 @@ const t = getI18n(lang);
       </footer>
     )
   }
-  {
-    action && (
-      <div class="it-card-footer">
-        <a
-          href={linkTo !== "#" ? new URL(linkTo).origin : "#"}
-          class="it-card-link"
-          target="_blank"
-          aria-label={`${t["card.action"]} ${action}`}
-        >
-          {action}
-        </a>
-      </div>
-    )
-  }
+  {action && <div class="it-card-footer">{action}</div>}
 </article>

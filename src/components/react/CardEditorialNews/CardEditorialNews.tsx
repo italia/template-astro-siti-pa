@@ -66,18 +66,7 @@ export function CardEditorialNews({
           )}
         </footer>
       )}
-      {action && (
-        <div className="it-card-footer">
-          <a
-            href={new URL(linkTo).origin}
-            className="it-card-link"
-            target="_blank"
-            aria-label={`${t["card.action"]} ${action}`}
-          >
-            {action}
-          </a>
-        </div>
-      )}
+      {action && <div className="it-card-footer">{action}</div>}
     </article>
   );
 }
