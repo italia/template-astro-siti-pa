@@ -82,14 +82,14 @@ export function PaginatedCollection({
 
   return (
     <div className="container">
-      <div className="row justify-content-between align-items-top">
+      <div className="d-flex flex-lg-row flex-column justify-content-between align-items-top">
         <div className="col-lg-5 col-12">
           <div className={`text-container mb-4 mb-lg-0`}>
             <h2 className="mb-3">{title}</h2>
             <div className="mb-4">{paragraph}</div>
           </div>
         </div>
-        <div className="col-lg-5 col-12">
+        <div className="mw-lg-filter">
           <div className="it-list-wrapper d-flex flex-column">
             <span id="filterPagination" className="it-label text-dark mt-1">
               {filterTitle}
