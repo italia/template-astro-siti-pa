@@ -1,0 +1,53 @@
+---
+import { getI18n } from "@i18n/microcopy";
+import ItArrowRight from "@static/assets/ItArrowRight.astro";
+import ItExternalLink from "@static/assets/ItExternalLink.astro";
+import type { FooterLinkProps } from "./types";
+
+type Props = FooterLinkProps;
+
+const {
+  label,
+  titleIcon,
+  linkTo,
+  url,
+  openInNewTab = false,
+  isIcon = false,
+  variant = "light",
+} = Astro.props;
+
+const finalHref = url || linkTo || "#";
+const target = openInNewTab ? "_blank" : "_self";
+const rel = openInNewTab ? "noopener noreferrer" : "";
+
+const colorIcon = variant === "dark" ? "white" : "primary";
+
+const lang = Astro.locals.lang || "it";
+const t = getI18n(lang);
+---
+
+<a
+  href={finalHref}
+  target={target}
+  rel={rel}
+  class="d-inline-flex align-items-center gap-2"
+>
+  <span>{label}</span>
+  {
+    url && (
+      <>
+        <ItExternalLink color={colorIcon} size="sm" title={titleIcon} />
+        <span class="visually-hidden">{t["link.external"]}</span>
+      </>
+    )
+  }
+
+  {
+    !isIcon && linkTo && (
+      <>
+        <ItArrowRight color={colorIcon} size="sm" title={titleIcon} />
+        <span class="visually-hidden">{t["link.internal"]}</span>
+      </>
+    )
+  }
+</a>

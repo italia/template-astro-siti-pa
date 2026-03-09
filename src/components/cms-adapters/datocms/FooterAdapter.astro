@@ -1,8 +1,8 @@
 ---
-import type { LinkProps } from "@components/atoms/Link/types";
 import { Footer } from "@components/organisms/Footer";
 import type {
   FooterLinkProps,
+  FooterLinkSupportingBrandProps,
   FooterLogoProps,
 } from "@components/organisms/Footer/types";
 import type { FooterFragmentType } from "@graphql/fragment/layout";
@@ -54,7 +54,7 @@ const topicItems =
     };
   }) || [];
 
-const socialUtilities: FooterLinkProps[] =
+const socialUtilities: FooterLinkSupportingBrandProps[] =
   utility
     ?.filter((util) => util.componentName === "SupportingBrandRecord")
     .map((util) => ({
@@ -64,7 +64,7 @@ const socialUtilities: FooterLinkProps[] =
       url: util.url,
     })) || [];
 
-const linkUtilities: LinkProps[] =
+const linkUtilities: FooterLinkProps[] =
   utility
     ?.filter((util) => util.componentName === DatoBlockModel.ExternalLink)
     .map((util) => ({
@@ -74,7 +74,7 @@ const linkUtilities: LinkProps[] =
       openInNewTab: true,
     })) || [];
 
-const smallPrints: LinkProps[] =
+const smallPrints: FooterLinkProps[] =
   smallPrint?.map((link) => {
     const isExternal = link.componentName === DatoBlockModel.ExternalLink;
     const url = isExternal ? link.url : linkResolver(link.linkTo?.id, lang);

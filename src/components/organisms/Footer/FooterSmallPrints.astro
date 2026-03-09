@@ -1,6 +1,7 @@
 ---
-import { Link } from "@components/atoms/Link";
 import { getI18n } from "@i18n/microcopy";
+
+import FooterLink from "./FooterLink.astro";
 import type { FooterSmallPrintsProps } from "./types";
 
 type Props = FooterSmallPrintsProps;
@@ -19,7 +20,12 @@ const t = getI18n(lang);
       {
         links.map((link) => (
           <li class="list-inline-item d-flex align-items-center gap-2">
-            <Link {...link} openInNewTab={true} isIcon={true} variant="dark" />
+            <FooterLink
+              {...link}
+              openInNewTab={true}
+              isIcon={true}
+              variant="dark"
+            />
           </li>
         ))
       }

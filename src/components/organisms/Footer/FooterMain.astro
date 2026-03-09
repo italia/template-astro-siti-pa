@@ -1,8 +1,9 @@
 ---
 import { ChipLink } from "@components/atoms/Chip";
-import { Link } from "@components/atoms/Link";
+
 import { getI18n } from "@i18n/microcopy";
-import FooterUtility from "./FooterUtility.astro";
+import FooterLink from "./FooterLink.astro";
+import FooterLinkSupportingBrand from "./FooterLinkSupportingBrand.astro";
 import type { FooterTopicsProps, FooterUtilityProps } from "./types";
 
 type Props = {
@@ -48,7 +49,7 @@ const t = getI18n(lang);
               <ul class="list-inline mb-0 d-flex flex-column flex-md-row">
                 {utility.socialItems.map((item) => (
                   <li class="list-inline-item me-4 mb-2">
-                    <FooterUtility {...item} />
+                    <FooterLinkSupportingBrand {...item} />
                   </li>
                 ))}
                 <li
@@ -61,7 +62,7 @@ const t = getI18n(lang);
                 />
                 {utility.linkItems.map((item) => (
                   <li class="list-inline-item me-4 mb-2">
-                    <Link variant="dark" {...item} />
+                    <FooterLink variant="dark" {...item} />
                   </li>
                 ))}
               </ul>

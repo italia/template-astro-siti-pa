@@ -25,12 +25,22 @@ export type FooterTopicsProps = {
 
 export type FooterUtilityProps = {
   title: string;
-  socialItems: FooterLinkProps[];
+  socialItems: FooterLinkSupportingBrandProps[];
   linkItems: LinkProps[];
 };
 
-export type FooterLinkProps = {
+export type FooterLinkSupportingBrandProps = {
   icon?: string;
   label: string;
   url: string;
+};
+
+export type FooterLinkProps = {
+  label: string;
+  linkTo?: string;
+  url?: string;
+  openInNewTab?: boolean;
+  variant?: "dark" | "light";
+  titleIcon?: string;
+  isIcon?: boolean;
 };
