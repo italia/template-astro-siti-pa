@@ -1,5 +1,3 @@
-@use "bootstrap-italia/src/scss/bootstrap-italia" as *;
-
 @use "./palette.scss" as col;
 
 html,
@@ -13,6 +11,10 @@ body {
   .py-lg-80 {
     padding-top: 80px !important;
     padding-bottom: 80px !important;
+  }
+
+  .mw-lg-filter {
+    max-width: calc(100% / 12 * 5);
   }
 }
 
