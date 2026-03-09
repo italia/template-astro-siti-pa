@@ -10,11 +10,13 @@ const { title, paragraph, chart, externalLink } = Astro.props;
 ---
 
 <div class="row align-items-top justify-content-between mb-5">
-  <div class="col-12">
+  <div class="col-lg-6 col-12">
     <h3 class="mb-3">
       {title}
     </h3>
     <p class="mb-4">{paragraph}</p>
+  </div>
+  <div class="col-12">
     {
       chart && (
         <Chart client:only="react" data={chart}>
