@@ -130,7 +130,15 @@ export const FooterFragment = graphql(
           }
         }
       }
-      showMailingListForm
+      _allMailingListFormLocales {
+        locale
+        value {
+          title
+          privacyPolicy {
+            ...InternalLinkFragment
+          }
+        }
+      }
       showSitemapLink
     }
   `,

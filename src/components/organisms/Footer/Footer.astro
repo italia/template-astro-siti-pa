@@ -2,23 +2,11 @@
 import FooterBrand from "./FooterBrand.astro";
 import FooterMain from "./FooterMain.astro";
 import FooterSmallPrints from "./FooterSmallPrints.astro";
-import type {
-  FooterBrandProps,
-  FooterSmallPrintsProps,
-  FooterTopicsProps,
-  FooterUtilityProps,
-} from "./types";
+import type { FooterProps } from "./types";
 
-type Props = {
-  brand: FooterBrandProps;
-  topics: FooterTopicsProps;
-  utilities: FooterUtilityProps[];
-  smallPrints: FooterSmallPrintsProps;
-  showMailingListForm?: boolean;
-};
+type Props = FooterProps;
 
-const { brand, utilities, topics, smallPrints, showMailingListForm } =
-  Astro.props;
+const { brand, utilities, topics, smallPrints, mailingListForm } = Astro.props;
 ---
 
 <footer class="it-footer">
@@ -26,7 +14,7 @@ const { brand, utilities, topics, smallPrints, showMailingListForm } =
   <FooterMain
     topics={topics}
     utilities={utilities}
-    showMailingListForm={showMailingListForm}
+    mailingListForm={mailingListForm}
   />
   <FooterSmallPrints {...smallPrints} />
 </footer>

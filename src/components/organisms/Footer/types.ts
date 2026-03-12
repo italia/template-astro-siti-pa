@@ -1,6 +1,17 @@
 import type { ChipLinkProps } from "@components/atoms/Chip/types";
 import type { LinkProps } from "@components/atoms/Link/types";
 
+export type FooterProps = FooterMainProps & {
+  brand: FooterBrandProps;
+  smallPrints: FooterSmallPrintsProps;
+};
+
+export type FooterMainProps = {
+  topics: FooterTopicsProps;
+  utilities: FooterUtilityProps[];
+  mailingListForm?: MailingListFormProps;
+};
+
 export type FooterLogoProps = {
   label: string;
   mainLogo: string;
@@ -44,4 +55,9 @@ export type FooterLinkProps = {
   variant?: "dark" | "light";
   titleIcon?: string;
   isIcon?: boolean;
+};
+
+export type MailingListFormProps = {
+  title: string;
+  privacyPolicy: FooterLinkProps;
 };
