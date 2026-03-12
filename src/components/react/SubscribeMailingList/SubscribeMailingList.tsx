@@ -1,5 +1,6 @@
 import type { SiteLocale } from "@graphql/types";
 import { getI18n } from "@i18n/microcopy";
+import { postRequest } from "@utils/apiUtils";
 import { useState } from "react";
 
 export type SubscribeProps = {
@@ -26,7 +27,7 @@ export function SubscribeMailingList({ idForm, lang }: SubscribeProps) {
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const endpoint = "https://sendportal.cloud.italia.it/api/v1/subscribe";
+    const endpoint = import.meta.env.PUBLIC_SENDPORTAL_SUBSCRIBE_URL;
     const data: SubscribeData = {};
 
     new FormData(e.currentTarget).forEach((value, key) => {
@@ -36,29 +37,16 @@ export function SubscribeMailingList({ idForm, lang }: SubscribeProps) {
     try {
       setState(StateClass.LOADING);
 
-      const r = await fetch(endpoint, {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
+      await postRequest(endpoint, data);
 
-      if (!r.ok) {
-        throw new Error(`HTTP response: ${r.status}`);
-      }
+      setState(StateClass.SUCCESS);
+      setMessage(t["subscribe.successText"]);
     } catch (ex) {
       setState(StateClass.ERROR);
 
       console.error(`Mailing list subscribe error: ${ex}`);
       setMessage(t["subscribe.errorText"]);
-
-      return;
     }
-
-    setState(StateClass.SUCCESS);
-    setMessage(t["subscribe.successText"]);
   };
 
   return (
