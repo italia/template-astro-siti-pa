@@ -32,7 +32,82 @@ export default defineConfig({
   ],
   adapter: vercel(),
   redirects: {
-    "/": "/it",
+    "/": {
+      status: 301,
+      destination: "/it",
+    },
+    "/crediti": {
+      status: 301,
+      destination: "/it/crediti",
+    },
+    "/glossario": {
+      status: 301,
+      destination: "/it/approfondimenti",
+    },
+    "/notizie": {
+      status: 301,
+      destination: "/it/novita",
+    },
+    "/notizie/2022-03-29-qualificazione-cloud-approfondimento-sul-quadro-regolatorio":
+      {
+        status: 301,
+        destination: "/it/novita/storie-in-evidenza/titolo-articolo",
+      },
+    "notizie/2022-07-12-cloud-della-pa-realizziamo-sistema-operativo-del-paese":
+      {
+        status: 301,
+        destination: "/it/novita/storie-in-evidenza/titolo-articolo",
+      },
+    "/privacy-policy": {
+      status: 301,
+      destination: "/it/privacy-policy",
+    },
+    "/programma-abilitazione-cloud": {
+      status: 301,
+      destination: "/it/guide",
+    },
+    "/programma-abilitazione-cloud/candidarsi-agli-avvisi-del-pnrr": {
+      status: 301,
+      destination: "/it/guide/prepararsi-alla-migrazione",
+    },
+    "/programma-abilitazione-cloud/come-classificare-dati-e-servizi": {
+      status: 301,
+      destination: "/it/strategia",
+    },
+    "/programma-abilitazione-cloud/framework-di-lavoro": {
+      status: 301,
+      destination: "/it/guide/gestire-la-migrazione",
+    },
+    "/qualificazione-servizi-cloud": {
+      status: 301,
+      destination: "/it/approfondimenti",
+    },
+    "/qualificazione-servizi-cloud/catalogo-servizi-cloud": {
+      status: 301,
+      destination: "/it/materiali-e-strumenti",
+    },
+    "/qualificazione-servizi-cloud/qualificazione-cloud-approfondimento-sul-quadro-regolatorio":
+      {
+        status: 301,
+        destination: "/it/novita/storie-in-evidenza/titolo-articolo",
+      },
+    "/strategia-cloud-pa": {
+      status: 301,
+      destination: "/it/strategia",
+    },
+    "/strategia-cloud-pa/classificazione-di-dati-e-servizi": {
+      status: 301,
+      destination: "/it/strategia",
+    },
+    "/strategia-cloud-pa/le-misure-del-piano-nazionale-di-ripresa-e-resilienza":
+      {
+        status: 301,
+        destination: "/it/strategia",
+      },
+    "/strategia-cloud-pa/polo-strategico-nazionale": {
+      status: 301,
+      destination: "/it/strategia",
+    },
   },
   vite: {
     ssr: {
