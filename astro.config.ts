@@ -51,12 +51,12 @@ export default defineConfig({
     "/notizie/2022-03-29-qualificazione-cloud-approfondimento-sul-quadro-regolatorio":
       {
         status: 301,
-        destination: "/it/novita/storie-in-evidenza/titolo-articolo",
+        destination: "/it/novita",
       },
     "notizie/2022-07-12-cloud-della-pa-realizziamo-sistema-operativo-del-paese":
       {
         status: 301,
-        destination: "/it/novita/storie-in-evidenza/titolo-articolo",
+        destination: "/it/novita",
       },
     "/privacy-policy": {
       status: 301,
@@ -72,7 +72,8 @@ export default defineConfig({
     },
     "/programma-abilitazione-cloud/come-classificare-dati-e-servizi": {
       status: 301,
-      destination: "/it/strategia",
+      destination:
+        "it/guide/prepararsi-alla-migrazione/classificare-dati-e-servizi",
     },
     "/programma-abilitazione-cloud/framework-di-lavoro": {
       status: 301,
@@ -89,7 +90,7 @@ export default defineConfig({
     "/qualificazione-servizi-cloud/qualificazione-cloud-approfondimento-sul-quadro-regolatorio":
       {
         status: 301,
-        destination: "/it/novita/storie-in-evidenza/titolo-articolo",
+        destination: "/it/novita",
       },
     "/strategia-cloud-pa": {
       status: 301,
@@ -97,7 +98,8 @@ export default defineConfig({
     },
     "/strategia-cloud-pa/classificazione-di-dati-e-servizi": {
       status: 301,
-      destination: "/it/strategia",
+      destination:
+        "it/guide/prepararsi-alla-migrazione/classificare-dati-e-servizi",
     },
     "/strategia-cloud-pa/le-misure-del-piano-nazionale-di-ripresa-e-resilienza":
       {
