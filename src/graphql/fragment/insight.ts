@@ -4,9 +4,9 @@ import {
   TagFragment,
 } from "@graphql/fragment/commonFragments";
 import {
+  ArticleSTFragment,
   FaqSectionRecordFragment,
   HeroFragment,
-  StructuredTextFragment,
 } from "@graphql/fragment/sectionFragments";
 import { AllInsightsSlugFragment } from "@graphql/fragment/slugFragments";
 import { graphql, type FragmentOf } from "@graphql/graphql";
@@ -25,9 +25,7 @@ export const InsightContentFragment = graphql(
         ...FaqSectionRecordFragment
       }
       ... on StructuredTextRecord {
-        textContent: content {
-          ...StructuredTextFragment
-        }
+        ...ArticleSTFragment
       }
       ... on ListCollectionRecord {
         ...ListCollectionFragment
@@ -39,7 +37,7 @@ export const InsightContentFragment = graphql(
     HeroFragment,
     ListCollectionFragment,
     CalloutFragment,
-    StructuredTextFragment,
+    ArticleSTFragment,
   ],
 );
 

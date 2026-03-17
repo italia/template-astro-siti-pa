@@ -666,3 +666,17 @@ export const CardLinkListFragment = graphql(
 );
 
 export type CardLinkListFragmentType = FragmentOf<typeof CardLinkListFragment>;
+
+export const ArticleSTFragment = graphql(
+  `
+    fragment ArticleSTFragment on StructuredTextRecord @_unmask {
+      backgroundColor
+      textContent: content {
+        ...StructuredTextFragment
+      }
+    }
+  `,
+  [StructuredTextFragment],
+);
+
+export type ArticleSTFragmentType = FragmentOf<typeof ArticleSTFragment>;

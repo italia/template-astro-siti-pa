@@ -3,9 +3,9 @@ import {
   TagFragment,
 } from "@graphql/fragment/commonFragments";
 import {
+  ArticleSTFragment,
   HeroFragment,
   IntroArticleFragment,
-  StructuredTextFragment,
   SupportCTASectionFragment,
 } from "@graphql/fragment/sectionFragments";
 import { AllStoryItemsSlugFragment } from "@graphql/fragment/slugFragments";
@@ -22,9 +22,7 @@ export const StoryContentFragment = graphql(
         ...HeroFragment
       }
       ... on StructuredTextRecord {
-        textContent: content {
-          ...StructuredTextFragment
-        }
+        ...ArticleSTFragment
       }
       ... on SupportCtaSectionRecord {
         ...SupportCTASectionFragment
@@ -37,7 +35,7 @@ export const StoryContentFragment = graphql(
   [
     HeroFragment,
     CalloutFragment,
-    StructuredTextFragment,
+    ArticleSTFragment,
     SupportCTASectionFragment,
     IntroArticleFragment,
   ],

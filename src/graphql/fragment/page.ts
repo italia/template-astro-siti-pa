@@ -1,10 +1,10 @@
 import {
+  ArticleSTFragment,
   CardLinkListFragment,
   DataSectionRecordFragment,
   FaqSectionRecordFragment,
   HeroFragment,
   NewsFeedFragment,
-  StructuredTextFragment,
   SupportChannelsSectionFragment,
   SupportCTASectionFragment,
   TextAndAccordionFragment,
@@ -47,9 +47,7 @@ export const PageContentFragment = graphql(
         ...SupportCTASectionFragment
       }
       ... on StructuredTextRecord {
-        textContent: content {
-          ...StructuredTextFragment
-        }
+        ...ArticleSTFragment
       }
       ... on TextImageRecord {
         ...TextAndImageFragment
@@ -74,7 +72,7 @@ export const PageContentFragment = graphql(
     UseCaseContainerFragment,
     TopicFilterFragment,
     SupportCTASectionFragment,
-    StructuredTextFragment,
+    ArticleSTFragment,
     TextAndImageFragment,
     TextAndAccordionFragment,
     TextOnlyFragment,
