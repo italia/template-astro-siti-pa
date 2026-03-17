@@ -1,18 +1,25 @@
 ---
 import StructuredTextAdapter from "@components/cms-adapters/datocms/StructuredTextAdapter.astro";
-import { SectionContainer } from "@components/organisms/SectionContainer";
-import type { StructuredTextFragmentType } from "@graphql/fragment/sectionFragments";
+import type { ArticleSTFragmentType } from "@graphql/fragment/sectionFragments";
+import { getSectionBgClass, type SectionBackground } from "@utils/background";
 
 type Props = {
-  block: StructuredTextFragmentType;
+  block: ArticleSTFragmentType;
   isFontSerif?: boolean;
 };
 
 const { block, isFontSerif = false } = Astro.props;
+
+const background = block.backgroundColor || "default";
+const bgClass = getSectionBgClass(background as SectionBackground);
+
+const fontClass = isFontSerif ? "font-serif-p" : "";
 ---
 
-<SectionContainer
-  className=`col-12 col-lg-8 structured-text-container ${isFontSerif ? "font-serif-p" : ""} m-auto`
->
-  <StructuredTextAdapter block={block} />
-</SectionContainer>
+<section class={bgClass}>
+  <div class=`structured-text-container ${fontClass}  col-12 col-lg-8 m-auto `>
+    <div class="container py-5 py-lg-80">
+      <StructuredTextAdapter block={block.textContent} />
+    </div>
+  </div>
+</section>
