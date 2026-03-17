@@ -33,6 +33,15 @@ export const InternalLinkFragment = graphql(`
       ... on PageRecord {
         id
       }
+      ... on InsightRecord {
+        id
+      }
+      ... on ArticleRecord {
+        id
+      }
+      ... on StoryItemRecord {
+        id
+      }
     }
   }
 `);
@@ -659,22 +668,17 @@ export const CalloutFragment = graphql(`
 
 export type CalloutFragmentType = FragmentOf<typeof CalloutFragment>;
 
-export const ListInternalLinkFragment = graphql(`
-  fragment ListInternalLinkFragment on ListInternalLinkRecord @_unmask {
-    id
-    links {
-      label
-      linkTo {
-        ... on CatalogueRecord {
-          id
-        }
-        ... on PageRecord {
-          id
-        }
+export const ListInternalLinkFragment = graphql(
+  `
+    fragment ListInternalLinkFragment on ListInternalLinkRecord @_unmask {
+      id
+      links {
+        ...InternalLinkFragment
       }
     }
-  }
-`);
+  `,
+  [InternalLinkFragment],
+);
 
 export type ListInternalLinkFragmentType = FragmentOf<
   typeof ListInternalLinkFragment

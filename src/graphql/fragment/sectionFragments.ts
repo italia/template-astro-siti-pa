@@ -5,6 +5,7 @@ import {
   ArticleCardPreviewFragment,
   AuthorListFragment,
   CalloutFragment,
+  CardLinkFragment,
   ChannelFragment,
   ChartFragment,
   DownloadLinkFragment,
@@ -634,35 +635,11 @@ export const CardLinkListFragment = graphql(
       backgroundColor
       title
       listContent {
-        title
-        paragraph
-        link {
-          link {
-            ... on ArticleRecord {
-              id
-            }
-            ... on CatalogueRecord {
-              id
-            }
-            ... on StoryItemRecord {
-              id
-            }
-            ... on PageRecord {
-              id
-            }
-            ... on InsightRecord {
-              id
-            }
-          }
-          externalUrl
-        }
-        image {
-          ...ImageFragment
-        }
+        ...CardLinkFragment
       }
     }
   `,
-  [TextBlockFragment, ImageFragment],
+  [TextBlockFragment, ImageFragment, CardLinkFragment],
 );
 
 export type CardLinkListFragmentType = FragmentOf<typeof CardLinkListFragment>;

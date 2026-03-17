@@ -85,15 +85,7 @@ export const FooterFragment = graphql(
       _allTopicLinkLocales {
         locale
         value {
-          linkTo {
-            ... on CatalogueRecord {
-              id
-            }
-            ... on PageRecord {
-              id
-            }
-          }
-          label
+          ...InternalLinkFragment
         }
       }
       _allUtilityTitleLocales {

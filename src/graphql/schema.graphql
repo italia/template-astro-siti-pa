@@ -4262,7 +4262,7 @@ Represents non-fractional signed whole numeric values. Int can represent values 
 """
 scalar IntType
 
-union InternalLinkModelLinkToField = CatalogueRecord | PageRecord
+union InternalLinkModelLinkToField = ArticleRecord | CatalogueRecord | InsightRecord | PageRecord | StoryItemRecord
 
 """Block of type Internal link (internal_link)"""
 type InternalLinkRecord implements RecordInterface {
