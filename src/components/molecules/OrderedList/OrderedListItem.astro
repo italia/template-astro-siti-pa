@@ -1,12 +1,12 @@
 ---
+import { Link } from "@components/atoms/Link";
 import { NumberContainer } from "@components/atoms/NumberContainer";
 import type { ListItemProps, VariantListProps } from "./types";
-
 type Props = ListItemProps & {
   index: string;
   variant: VariantListProps;
 };
-const { title, paragraph, index, variant } = Astro.props;
+const { title, paragraph, index, variant, resources } = Astro.props;
 
 const titleClass = variant === "small" ? "fs-4 m-0 fw-semibold" : "fs-3 h3";
 const textClass = variant === "small" ? "text-secondary" : "";
@@ -26,6 +26,29 @@ const align = variant === "small" ? "center" : "top";
     <div class="item-text">
       <div class=`${titleClass} text-dark`>{title}</div>
       <div class=`${textClass} m-0` set:html={paragraph} />
+      {
+        resources && (
+          <div class="mt-5">
+            <p class="h6 text-uppercase">{resources.title}</p>
+            <div class="it-list-wrapper">
+              <ul class="it-list">
+                {resources.links.map((item) => {
+                  return (
+                    <li class="mb-2">
+                      <Link
+                        label={item.label}
+                        isIcon={true}
+                        url={item.url}
+                        linkTo={item.linkTo}
+                      />
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+          </div>
+        )
+      }
     </div>
   </div>
 </li>

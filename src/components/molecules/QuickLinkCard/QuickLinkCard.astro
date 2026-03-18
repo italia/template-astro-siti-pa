@@ -1,11 +1,8 @@
 ---
-import type { GenericListItemProps } from "@components/molecules/GenericList/types";
 import { ListLink } from "@components/molecules/ListLink";
+import type { QuickLinkCardProps } from "./types";
 
-type Props = {
-  title: string;
-  links: GenericListItemProps[];
-};
+type Props = QuickLinkCardProps;
 
 const { title, links } = Astro.props;
 ---

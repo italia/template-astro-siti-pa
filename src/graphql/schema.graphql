@@ -4960,6 +4960,38 @@ type ListItemRecord implements RecordInterface {
   title: String!
 }
 
+union ListItemResourceModelLinksField = ExternalLinkRecord | InternalLinkRecord
+
+"""Block of type List item with resources (list_item_resource)"""
+type ListItemResourceRecord implements RecordInterface {
+  _createdAt: DateTime!
+
+  """Editing URL"""
+  _editingUrl: String
+  _firstPublishedAt: DateTime!
+  _isValid: BooleanType!
+  _modelApiKey: String!
+  _publicationScheduledAt: DateTime
+  _publishedAt: DateTime!
+
+  """Generates SEO and Social card meta tags to be used in your frontend"""
+  _seoMetaTags(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+  ): [Tag!]!
+  _status: ItemStatus!
+  _unpublishingScheduledAt: DateTime
+  _updatedAt: DateTime!
+  id: ItemId!
+  links: [ListItemResourceModelLinksField!]!
+  paragraph(
+    """Process content as markdown"""
+    markdown: Boolean
+  ): String!
+  subtitle: String
+  title: String!
+}
+
 """Specifies how to filter by locale"""
 input LocalesFilter {
   """Filter records that are localized in all the specified locales"""
@@ -5475,6 +5507,8 @@ type NewsTopicRecordNonNullMultiLocaleField {
   value: NewsTopicRecord!
 }
 
+union OrderedListModelItemsField = ListItemRecord | ListItemResourceRecord
+
 """Block of type Ordered list (ordered_list)"""
 type OrderedListRecord implements RecordInterface {
   _createdAt: DateTime!
@@ -5496,7 +5530,7 @@ type OrderedListRecord implements RecordInterface {
   _unpublishingScheduledAt: DateTime
   _updatedAt: DateTime!
   id: ItemId!
-  items: [ListItemRecord!]!
+  items: [OrderedListModelItemsField!]!
 }
 
 """Specifies how to filter by image orientation"""

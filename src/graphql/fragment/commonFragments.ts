@@ -541,7 +541,7 @@ export type StatisticsBoxFragmentType = FragmentOf<
 export const ListItemFragment = graphql(`
   fragment ListItemFragment on ListItemRecord @_unmask {
     id
-    paragraph
+    paragraph(markdown: true)
     title
   }
 `);
@@ -658,18 +658,6 @@ export const ListCardEditorialWithIconFragment = graphql(
 export type ListCardEditorialWithIconFragmentType = FragmentOf<
   typeof ListCardEditorialWithIconFragment
 >;
-
-export const OrderedListFragment = graphql(`
-  fragment OrderedListFragment on OrderedListRecord @_unmask {
-    id
-    items {
-      title
-      paragraph(markdown: true)
-    }
-  }
-`);
-
-export type OrderedListFragmentType = FragmentOf<typeof OrderedListFragment>;
 
 export const CalloutFragment = graphql(`
   fragment CalloutFragment on CalloutRecord @_unmask {
@@ -954,3 +942,32 @@ export const CardLinkFragment = graphql(
 );
 
 export type CardLinkFragmentType = FragmentOf<typeof CardLinkFragment>;
+
+export const OrderedListFragment = graphql(
+  `
+    fragment OrderedListFragment on OrderedListRecord @_unmask {
+      id
+      items {
+        ... on ListItemRecord {
+          ...ListItemFragment
+        }
+        ... on ListItemResourceRecord {
+          title
+          paragraph(markdown: true)
+          subtitle
+          links {
+            ... on ExternalLinkRecord {
+              ...ExternalLinkFragment
+            }
+            ... on InternalLinkRecord {
+              ...InternalLinkFragment
+            }
+          }
+        }
+      }
+    }
+  `,
+  [ListItemFragment, ExternalLinkFragment, InternalLinkFragment],
+);
+
+export type OrderedListFragmentType = FragmentOf<typeof OrderedListFragment>;
