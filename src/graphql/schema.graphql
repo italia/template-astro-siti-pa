@@ -5542,7 +5542,7 @@ input OrientationFilter {
   neq: UploadOrientation
 }
 
-union PageModelContentField = CardLinkListRecord | DataSectionRecord | FaqSectionRecord | HeroRecord | NewsFeedRecord | StructuredTextRecord | SupportChannelsSectionRecord | SupportCtaSectionRecord | TextAccordionRecord | TextImageRecord | TextOnlyRecord | TopicFilterRecord | UseCaseContainerRecord
+union PageModelContentField = CardLinkListRecord | DataSectionRecord | FaqSectionRecord | HeroRecord | NewsFeedRecord | StructuredTextRecord | SupportChannelsSectionRecord | SupportCtaSectionRecord | TextAccordionRecord | TextImageRecord | TextOnlyRecord | TextStatisticRecord | TopicFilterRecord | UseCaseContainerRecord
 
 type PageModelContentFieldListListNonNullMultiLocaleField {
   locale: SiteLocale

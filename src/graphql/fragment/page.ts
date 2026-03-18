@@ -9,6 +9,7 @@ import {
   SupportCTASectionFragment,
   TextAndAccordionFragment,
   TextAndImageFragment,
+  TextAndStatisticsFragment,
   TextOnlyFragment,
   TopicFilterFragment,
   UseCaseContainerFragment,
@@ -61,6 +62,9 @@ export const PageContentFragment = graphql(
       ... on CardLinkListRecord {
         ...CardLinkListFragment
       }
+      ... on TextStatisticRecord {
+        ...TextAndStatisticsFragment
+      }
     }
   `,
   [
@@ -77,6 +81,7 @@ export const PageContentFragment = graphql(
     TextAndAccordionFragment,
     TextOnlyFragment,
     CardLinkListFragment,
+    TextAndStatisticsFragment,
   ],
 );
 
