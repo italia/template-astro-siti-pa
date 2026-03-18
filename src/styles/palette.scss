@@ -1,4 +1,5 @@
 $accent-color: #79ece8;
+$accent-color-dark: #004d33;
 $primary-darker: #036;
 $color-text-base: #1a1a1a;
 $bg-medium: #bfdfff;
@@ -16,4 +17,8 @@ $gray-400: #a3a3a3;
 
 .text-accent {
   color: $accent-color;
+}
+
+.text-accent-dark {
+  color: $accent-color-dark;
 }

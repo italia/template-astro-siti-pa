@@ -15,7 +15,7 @@ const { info, title, contentIcon, variant = "light" } = Astro.props;
 
 const colors: Record<VariantTextDataContainerProps, ColorTheme> = {
   dark: { title: "text-white", text: "text-accent" },
-  light: { title: "", text: "" },
+  light: { title: "", text: "text-accent-dark" },
 };
 
 const theme = colors[variant];
