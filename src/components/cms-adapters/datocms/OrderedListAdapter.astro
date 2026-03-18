@@ -3,7 +3,6 @@ import type { LinkProps } from "@components/atoms/Link/types";
 import { OrderedList } from "@components/molecules/OrderedList";
 import type { ListItemProps } from "@components/molecules/OrderedList/types";
 import type { OrderedListFragmentType } from "@graphql/fragment/commonFragments";
-import { getI18n } from "@i18n/microcopy";
 import { linkResolver } from "@utils/linkResolver";
 
 type DatoRecord = OrderedListFragmentType & {
@@ -18,13 +17,10 @@ type Props = {
 const { block } = Astro.props;
 const { lang } = Astro.locals;
 
-const t = getI18n(lang);
-
 const items: ListItemProps[] = block.items.map((item) => {
   let links: LinkProps[] = [];
   if ("links" in item) {
     links = item?.links.map((link) => {
-      console.log(link);
       if ("url" in link) {
         return {
           url: link.url,
