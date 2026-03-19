@@ -5013,7 +5013,6 @@ type ListItemResourceRecord implements RecordInterface {
     """Process content as markdown"""
     markdown: Boolean
   ): String!
-  res: [ResourceRecord!]!
   subtitle: String
   title: String!
 }
