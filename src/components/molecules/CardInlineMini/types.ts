@@ -1,10 +1,9 @@
 import type { ImageProps } from "@components/atoms/Image/types";
 
-export type CardEditorialInlineMiniProps = {
+export type CardInlineMiniProps = {
   id?: string;
   title: string;
-  description?: string;
-  image: ImageProps;
+  image?: ImageProps;
   linkTo: string;
   category?: string;
   dateTime?: string;

@@ -1,0 +1,58 @@
+---
+import { ChipLink } from "@components/atoms/Chip";
+import { DateTime } from "@components/atoms/DateTime";
+import { Image } from "@components/atoms/Image";
+import { getI18n } from "@i18n/microcopy";
+import type { CardInlineMiniProps } from "./types";
+
+type Props = CardInlineMiniProps;
+
+const { id = "", title, image, linkTo, category, dateTime } = Astro.props;
+
+const shouldShowFooter = category || dateTime;
+const cardTitleId = `card-title-${id}`;
+const { lang } = Astro.locals;
+const t = getI18n(lang);
+---
+
+<article
+  class="it-card it-card-inline it-card-inline-mini it-card-image it-card-height-full rounded shadow-sm border"
+  aria-labelledby={cardTitleId}
+>
+  <h3
+    class="d-flex flex-column it-card-title justify-content-center mt-0"
+    id={cardTitleId}
+  >
+    <a href={linkTo}>{title}</a>
+  </h3>
+
+  {
+    image && (
+      <div class="it-card-image-wrapper">
+        <div class="ratio ratio-16x9">
+          <figure class="figure img-full">
+            <Image {...image} />
+          </figure>
+        </div>
+      </div>
+    )
+  }
+
+  {
+    shouldShowFooter && (
+      <footer class="it-card-related it-card-footer">
+        {category && (
+          <div class="it-card-taxonomy">
+            <ChipLink
+              linkTo={""}
+              label={category}
+              visuallyHidden={t["card.topic"]}
+              disabled
+            />
+          </div>
+        )}
+        {dateTime && <DateTime className="it-card-date" value={dateTime} />}
+      </footer>
+    )
+  }
+</article>

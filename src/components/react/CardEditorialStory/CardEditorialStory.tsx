@@ -5,7 +5,7 @@ import { Image } from "@components/react/Image";
 import type { SiteLocale } from "@graphql/types";
 import { getI18n } from "@i18n/microcopy";
 
-export type CardEditorialInlineMiniProps = {
+export type CardEditorialStoryProps = {
   id?: string;
   title: string;
   description: string;
@@ -17,7 +17,7 @@ export type CardEditorialInlineMiniProps = {
   ariaLabelCardCategory?: string;
 };
 
-export function CardEditorialInlineMini({
+export function CardEditorialStory({
   id = "",
   title,
   description,
@@ -26,7 +26,7 @@ export function CardEditorialInlineMini({
   category,
   dateTime,
   lang,
-}: CardEditorialInlineMiniProps) {
+}: CardEditorialStoryProps) {
   const shouldShowFooter = !!category || !!dateTime;
   const cardTitleId = `card-title-${id}`;
   const t = getI18n(lang);
