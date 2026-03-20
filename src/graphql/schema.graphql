@@ -776,6 +776,7 @@ type CardLinkListRecord implements RecordInterface {
   backgroundColor: String!
   id: ItemId!
   listContent: [CardLinkRecord!]!
+  showInlineCard: BooleanType!
   title: String!
 }
 
