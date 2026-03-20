@@ -49,7 +49,7 @@ const buttonLabel = block.cta?.label;
 
       case DatoBlockModel.StoryTab:
         return {
-          componentName: "CardEditorialInlineMini",
+          componentName: "CardEditorialStory",
           title: tab.title,
           news: tab.news.map((n) => {
             const topic = getLocaleValue(n.allTopicLocales, lang, null);

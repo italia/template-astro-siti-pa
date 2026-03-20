@@ -5,4 +5,5 @@ export type ListCollectionProps = {
   background?: SectionBackground;
   title: string;
   items: CardEditorialNewsProps[];
+  showInline?: boolean;
 };

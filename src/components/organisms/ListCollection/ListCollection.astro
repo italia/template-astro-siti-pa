@@ -1,5 +1,6 @@
 ---
 import { CardEditorialNews } from "@components/molecules/CardEditorialNews";
+import { CardInlineMini } from "@components/molecules/CardInlineMini";
 import { Carousel, CarouselItem } from "@components/molecules/Carousel";
 import { SectionContainer } from "@components/organisms/SectionContainer";
 import { getSectionBgClass } from "@utils/background";
@@ -7,7 +8,12 @@ import type { ListCollectionProps } from "./types";
 
 type Props = ListCollectionProps;
 
-const { title, items, background = "lighter" } = Astro.props;
+const {
+  title,
+  items,
+  background = "lighter",
+  showInline = false,
+} = Astro.props;
 
 const textColorClass =
   background === "primary" || background === "dark" ? "text-white" : "";
@@ -24,11 +30,17 @@ const textColorClass =
     <div class="d-none d-lg-block">
       <ul class="it-card-list row">
         {
-          items.map((item) => (
-            <li class="col-12 col-lg-4 mb-3">
-              <CardEditorialNews {...item} />
-            </li>
-          ))
+          items.map((item) => {
+            return showInline ? (
+              <li class="col-12 col-lg-6 mb-3">
+                <CardInlineMini {...item} />
+              </li>
+            ) : (
+              <li class="col-12 col-lg-4 mb-3">
+                <CardEditorialNews {...item} />
+              </li>
+            );
+          })
         }
       </ul>
     </div>

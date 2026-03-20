@@ -2,17 +2,16 @@ import {
   CardEditorialNews,
   type CardEditorialNewsProps,
 } from "@components/react/CardEditorialNews";
+import {
+  CardEditorialStory,
+  type CardEditorialStoryProps,
+} from "@components/react/CardEditorialStory";
 import { Chip } from "@components/react/Chip";
 import { Pagination } from "@components/react/Pagination";
 import type { SiteLocale } from "@graphql/types";
 import { getI18n } from "@i18n/microcopy";
 import { useState } from "react";
-import {
-  CardEditorialInlineMini,
-  type CardEditorialInlineMiniProps,
-} from "../CardEditorialInlineMini/CardEditorialInlineMini";
 import { Resource, type ResourceProps } from "../Resource";
-
 type PaginatedCollectionCommonProps = {
   title: string;
   paragraph: string;
@@ -28,7 +27,7 @@ type PaginatedCollectionProps =
       newsPageTabType: "news_item";
     })
   | (PaginatedCollectionCommonProps & {
-      items: CardEditorialInlineMiniProps[];
+      items: CardEditorialStoryProps[];
       newsPageTabType: "story_item";
     })
   | (PaginatedCollectionCommonProps & {
@@ -131,9 +130,7 @@ export function PaginatedCollection({
               )}
 
               {newsPageTabType === "story_item" && (
-                <CardEditorialInlineMini
-                  {...(n as CardEditorialInlineMiniProps)}
-                />
+                <CardEditorialStory {...(n as CardEditorialStoryProps)} />
               )}
 
               {newsPageTabType === "webinar_item" && (

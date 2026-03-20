@@ -1,5 +1,5 @@
-import type { CardEditorialInlineMiniProps } from "@components/react/CardEditorialInlineMini/CardEditorialInlineMini";
 import type { CardEditorialNewsProps } from "@components/react/CardEditorialNews";
+import type { CardEditorialStoryProps } from "@components/react/CardEditorialStory";
 import type { ResourceProps } from "@components/react/Resource";
 import type {
   NewsItemFragmentType,
@@ -30,10 +30,10 @@ export const mapNewsToCardEditorialNewsProps = (
   };
 };
 
-export const mapStoryToCardEditorialInlineMiniProps = (
+export const mapStoryToCardEditorialStoryProps = (
   story: StoryCardFragmentType,
   lang: SiteLocale,
-): CardEditorialInlineMiniProps => {
+): CardEditorialStoryProps => {
   const topic = getLocaleValue(story.allTopicLocales, lang, null);
   return {
     id: story.id,

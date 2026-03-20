@@ -12,7 +12,7 @@ import { isDraftModeEnabled } from "@lib/draftMode";
 import {
   mapNewsToCardEditorialNewsProps,
   mapResourceToResourceProps,
-  mapStoryToCardEditorialInlineMiniProps,
+  mapStoryToCardEditorialStoryProps,
   mapWebinarToCardEditorialNewsProps,
 } from "@utils/mappers";
 import type { ElementType, UpdateTabSectionProps } from "./types";
@@ -55,7 +55,7 @@ function getFilteredItems(tabType: ElementType, tabCategoryReference?: string) {
         : stories;
 
       return filteredStories.map((s) =>
-        mapStoryToCardEditorialInlineMiniProps(s.data, lang),
+        mapStoryToCardEditorialStoryProps(s.data, lang),
       );
 
     case "news_item":
