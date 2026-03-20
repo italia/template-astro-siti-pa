@@ -6,6 +6,8 @@ import type { HighlightsProps } from "./types";
 
 type Props = HighlightsProps;
 const { title, paragraph, image, cards } = Astro.props;
+
+const colSize = cards?.length && cards.length % 3 === 0 ? 4 : 6;
 ---
 
 <div class="row align-items-center justify-content-between">
@@ -24,7 +26,7 @@ const { title, paragraph, image, cards } = Astro.props;
   cards && cards.length > 0 && (
     <div class="row align-item-center justify-content-between pt-5 mb-4">
       {cards.map((card) => (
-        <div class="col-12 col-md-6 mb-3 mb-md-4 col-lg-4">
+        <div class={`col-12 mb-3 mb-md-4 col-lg-${colSize}`}>
           <StatisticsBox {...card} />
         </div>
       ))}
