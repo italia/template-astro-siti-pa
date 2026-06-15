@@ -5,6 +5,7 @@ import CardLinkListAdapter from "@components/cms-adapters/datocms/CardLinkListAd
 import CatalogueFeedAdapter from "@components/cms-adapters/datocms/CatalogueFeedAdapter.astro";
 import DataSectionAdapter from "@components/cms-adapters/datocms/DataSectionAdapter.astro";
 import FAQSectionAdapter from "@components/cms-adapters/datocms/FAQSectionAdapter.astro";
+import GraphitaliaDashboardAdapter from "@components/cms-adapters/datocms/GraphitaliaDashboardAdapter.astro";
 import HeroAdapter from "@components/cms-adapters/datocms/HeroAdapter.astro";
 import IntroArticleAdapter from "@components/cms-adapters/datocms/IntroArticleAdapter.astro";
 import ListCollectionAdapter from "@components/cms-adapters/datocms/ListCollectionAdapter.astro";
@@ -19,6 +20,7 @@ import TextAndImageAdapter from "@components/cms-adapters/datocms/TextAndImageAd
 import TextAndStatisticsAdapter from "@components/cms-adapters/datocms/TextAndStatisticsAdapter.astro";
 import TextAndUseCasesAdapter from "@components/cms-adapters/datocms/TextAndUseCasesAdapter.astro";
 import TextOnlyAdapter from "@components/cms-adapters/datocms/TextOnlyAdapter.astro";
+import ThirdPartyCookieAdapter from "@components/cms-adapters/datocms/ThirdPartyCookieAdapter.astro";
 import TopicFilterAdapter from "@components/cms-adapters/datocms/TopicFilterAdapter.astro";
 import UseCaseContainerAdapter from "@components/cms-adapters/datocms/UseCaseContainerAdapter.astro";
 import WebinarDescriptionAdapter from "@components/cms-adapters/datocms/WebinarDescriptionAdapter.astro";
@@ -51,6 +53,8 @@ const { content, isFontSerif = false } = Astro.props;
 {
   content.map((block) => {
     switch (block.componentName) {
+      case DatoBlockModel.GraphitaliaDashboard:
+        return <GraphitaliaDashboardAdapter block={block} />;
       case DatoBlockModel.Hero:
         return <HeroAdapter block={block} />;
       case DatoBlockModel.NewsFeed:
@@ -65,6 +69,8 @@ const { content, isFontSerif = false } = Astro.props;
         return <UseCaseContainerAdapter block={block} />;
       case DatoBlockModel.TopicFilter:
         return <TopicFilterAdapter block={block} />;
+      case DatoBlockModel.ThirdPartyCookie:
+        return <ThirdPartyCookieAdapter block={block} />;
       case DatoBlockModel.SupportCta:
         return <SupportCTASectionAdapter block={block} size="default" />;
       case DatoBlockModel.StructuredText:

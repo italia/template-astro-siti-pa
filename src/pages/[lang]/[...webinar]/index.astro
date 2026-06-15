@@ -1,10 +1,14 @@
 ---
 import PageAdapter from "@components/cms-adapters/datocms/PageAdapter.astro";
+import { Breadcrumb } from "@components/molecules/Breadcrumb";
 import type { TagFragmentType } from "@graphql/fragment/commonFragments";
 import type { SeoFieldFragmentType } from "@graphql/fragment/seoFragments";
 import type { WebinarContentFragmentType } from "@graphql/fragment/webinar";
 import type { SiteLocale } from "@graphql/types";
 import Layout from "@layouts/Layout.astro";
+import { DatoBlockModel } from "@utils/cmsMapper";
+import { createBreadcrumb } from "@utils/createBreadcrumb";
+import { decorateExternalLinks } from "@utils/decorateExternalLinks";
 import { getLocaleValue } from "@utils/getLocaleValue";
 import { extractFaqItems, type JsonLdPageData } from "@utils/JsonLD/seoJsonLd";
 import { linkResolver } from "@utils/linkResolver";
@@ -21,6 +25,8 @@ export async function getStaticPaths() {
       seoMeta: TagFragmentType[];
       seo: SeoFieldFragmentType | null;
       content: WebinarContentFragmentType[];
+      /** Corpo dell'evento (markdown -> HTML), non localizzato */
+      eventBody: string | null;
       id: string;
       publishedAt: string;
       updatedAt: string;
@@ -53,6 +59,7 @@ export async function getStaticPaths() {
             seo: seoRes?.seo || null,
             id: page.id,
             content: getLocaleValue(page.allContentLocales, lang, null),
+            eventBody: page.eventBody ?? null,
             publishedAt: page.publishedAt,
             updatedAt: seoRes?.updatedAt || page.updatedAt,
           },
@@ -65,7 +72,8 @@ export async function getStaticPaths() {
   return paths.filter((path): path is PathItem => !!path.params.lang);
 }
 
-const { id, content, seo, seoMeta, publishedAt, updatedAt } = Astro.props;
+const { id, content, eventBody, seo, seoMeta, publishedAt, updatedAt } =
+  Astro.props;
 const { lang } = Astro.params;
 
 Astro.locals.lang = lang;
@@ -79,8 +87,33 @@ const jsonLd: JsonLdPageData = {
   updatedAt,
   faq: extractFaqItems(content ?? []),
 };
+
+// L'Hero renderizza già il proprio breadcrumb: lo mostriamo a parte solo per i
+// contenuti che non iniziano con un Hero (es. contenuti editoriali).
+const hasHero = (content ?? []).some(
+  (block) => block.componentName === DatoBlockModel.Hero,
+);
+const breadcrumbItems = hasHero ? [] : createBreadcrumb(id, lang as SiteLocale);
 ---
 
 <Layout pageSeo={seoMeta} datePublished={publishedAt} jsonLd={jsonLd}>
+  {
+    breadcrumbItems.length > 0 && (
+      <div class="container pt-4">
+        <Breadcrumb items={breadcrumbItems} />
+      </div>
+    )
+  }
   <PageAdapter content={content} />
+  {
+    eventBody && (
+      <section class="container py-5">
+        <div class="row justify-content-center">
+          <div class="col-12 col-lg-8">
+            <div set:html={decorateExternalLinks(eventBody)} />
+          </div>
+        </div>
+      </section>
+    )
+  }
 </Layout>

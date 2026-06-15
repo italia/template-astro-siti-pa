@@ -39,6 +39,7 @@ import {
 import {
   AllStoriesContentQuery,
   AllStoryCardQuery,
+  AllStoryClassesQuery,
 } from "@graphql/query/story";
 import {
   AllWebinarQuery,
@@ -48,7 +49,7 @@ import { executeAutoPagingQuery, executeQuery } from "@lib/datocms";
 
 export const newsLoader = async () => {
   const oneYearAgo = new Date();
-  oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
+  oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 10);
   const dateLimit = oneYearAgo.toISOString();
   const response = await executeAutoPagingQuery(AllNewsQuery, {
     variables: {
@@ -328,4 +329,19 @@ export const allDocumentsLoader = async () => {
       allPages: pagesRes.allPages || [],
     },
   ];
+};
+
+export const allStoryClassesLoader = async () => {
+  const response = await executeQuery(AllStoryClassesQuery);
+
+  if (!response?.allStoryClasses) return [];
+
+  return response.allStoryClasses.flatMap((item) => {
+    return (
+      item.allLabelsLocales?.map((label) => ({
+        id: `${item.id}_${label.locale}`,
+        value: label.value,
+      })) || []
+    );
+  });
 };

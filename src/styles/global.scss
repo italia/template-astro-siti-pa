@@ -15,6 +15,11 @@ body {
     padding-bottom: 80px !important;
   }
 
+  .my-lg-80 {
+    margin-top: 80px !important;
+    margin-bottom: 80px !important;
+  }
+
   .mw-lg-filter {
     max-width: calc(100% / 12 * 5);
   }
@@ -28,22 +33,22 @@ body {
   }
 }
 
-.structured-text-container.font-serif-p .container > p,
-.structured-text-container.font-serif-p .container > ul > li > p,
+.structured-text-container.font-serif-p .container p,
+.structured-text-container.font-serif-p .container ul > li > p,
 .structured-text-container.font-serif-p .container .it-list li .item-text p {
   font-family: "Lora", Georgia, serif !important;
 }
 
-.structured-text-container .container > * + :is(h2, h3, h4, h5, h6) {
+.structured-text-container .container * + :is(h2, h3, h4, h5, h6) {
   margin-top: 3rem !important;
   margin-bottom: 1rem !important;
 }
 
-.structured-text-container .container > * + :is(h1) {
+.structured-text-container .container * + :is(h1) {
   margin-bottom: 1rem !important;
 }
 
-.structured-text-container .container > section {
+.structured-text-container .container section {
   margin-top: 3rem !important;
   margin-bottom: 3rem !important;
 }
@@ -90,6 +95,19 @@ body {
   @extend .fw-semibold;
   @extend .fs-6;
   @extend .text-uppercase;
+}
+
+// Link esterni in evidenza nei testi markdown del CMS (vedi
+// utils/decorateExternalLinks.ts), come il "simple-cta" di designers.italia.it
+.simple-cta {
+  display: flex;
+  align-items: center;
+  font-weight: 600;
+  text-decoration: none;
+
+  .icon {
+    flex-shrink: 0;
+  }
 }
 
 @media (min-width: 992px) {
