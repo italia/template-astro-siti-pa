@@ -123,16 +123,13 @@ type ActionCardRecord implements RecordInterface {
   category: String
   cta: DownloadLinkRecord
   id: ItemId!
-  isSharable: BooleanType!
   paragraph(
     """Process content as markdown"""
     markdown: Boolean
   ): String
   readLessLabel: String
   readMoreLabel: String
-  shareLabel: String
   title: String
-  videoUrl: String
 }
 
 """Block of type Additional content (additional_content)"""
@@ -211,14 +208,14 @@ input ArticleModelFilter {
   _updatedAt: UpdatedAtFilter
   _isValid: BooleanFilter
   _locales: LocalesFilter
+  content: StructuredTextFilter
+  title: StringFilter
+  seo: SeoFilter
+  parentPage: LinkFilter
   image: FileFilter
   paragraph: TextFilter
   descriptionTitle: StringFilter
   description: TextFilter
-  title: StringFilter
-  seo: SeoFilter
-  parentPage: LinkFilter
-  content: StructuredTextFilter
   slug: SlugFilter
   OR: [ArticleModelFilter]
   AND: [ArticleModelFilter]
@@ -245,10 +242,10 @@ enum ArticleModelOrderBy {
   _updatedAt_DESC
   _isValid_ASC
   _isValid_DESC
-  descriptionTitle_ASC
-  descriptionTitle_DESC
   title_ASC
   title_DESC
+  descriptionTitle_ASC
+  descriptionTitle_DESC
 }
 
 """Block of type Article navigation (article_navigation)"""
@@ -1042,7 +1039,6 @@ type CatalogueTabRecord implements RecordInterface {
     """Process content as markdown"""
     markdown: Boolean
   ): String
-  storyType: String
   title: String
 }
 
@@ -1775,31 +1771,6 @@ type GlobalSettingRecord implements RecordInterface {
     """
     fallbackLocales: [SiteLocale!]
   ): String
-}
-
-"""Block of type GraphItalia Dashboard (graphitalia_dashboard)"""
-type GraphitaliaDashboardRecord implements RecordInterface {
-  _createdAt: DateTime!
-
-  """Editing URL"""
-  _editingUrl: String
-  _firstPublishedAt: DateTime!
-  _isValid: BooleanType!
-  _modelApiKey: String!
-  _publicationScheduledAt: DateTime
-  _publishedAt: DateTime!
-
-  """Generates SEO and Social card meta tags to be used in your frontend"""
-  _seoMetaTags(
-    """The locale to use to fetch the field's content"""
-    locale: SiteLocale
-  ): [Tag!]!
-  _status: ItemStatus!
-  _unpublishingScheduledAt: DateTime
-  _updatedAt: DateTime!
-  dashboardId: String
-  id: ItemId!
-  title: String
 }
 
 union HeroModelCtaField = ExternalLinkRecord | InternalLinkRecord
@@ -4033,12 +4004,12 @@ input InsightModelFilter {
   _updatedAt: UpdatedAtFilter
   _isValid: BooleanFilter
   _locales: LocalesFilter
-  seo: SeoFilter
+  topic: LinkFilter
   title: StringFilter
   image: FileFilter
   abstract: TextFilter
   parentPage: LinkFilter
-  topic: LinkFilter
+  seo: SeoFilter
   slug: SlugFilter
   OR: [InsightModelFilter]
   AND: [InsightModelFilter]
@@ -4405,7 +4376,6 @@ input KpiElementModelFilter {
   _status: StatusFilter
   _updatedAt: UpdatedAtFilter
   _isValid: BooleanFilter
-  openDataPath: StringFilter
   title: StringFilter
   value: StringFilter
   backgroundColor: StringFilter
@@ -4417,6 +4387,7 @@ input KpiElementModelFilter {
   footerText: StringFilter
   percentage: StringFilter
   valueSuffix: StringFilter
+  openDataPath: StringFilter
   OR: [KpiElementModelFilter]
   AND: [KpiElementModelFilter]
 }
@@ -4440,8 +4411,6 @@ enum KpiElementModelOrderBy {
   _updatedAt_DESC
   _isValid_ASC
   _isValid_DESC
-  openDataPath_ASC
-  openDataPath_DESC
   title_ASC
   title_DESC
   value_ASC
@@ -4464,6 +4433,8 @@ enum KpiElementModelOrderBy {
   percentage_DESC
   valueSuffix_ASC
   valueSuffix_DESC
+  openDataPath_ASC
+  openDataPath_DESC
 }
 
 """Record of type Kpi element (kpi_element)"""
@@ -5263,10 +5234,29 @@ type MenuItemRecord implements RecordInterface {
 
 scalar MetaTagAttributes
 
+enum MuxThumbnailFitMode {
+  preserve
+  stretch
+  crop
+  smartcrop
+  pad
+}
+
 enum MuxThumbnailFormatType {
   jpg
   png
   gif
+}
+
+enum MuxThumbnailRotation {
+  """Rotate 90° clockwise"""
+  ROTATE_90
+
+  """Rotate 180° clockwise"""
+  ROTATE_180
+
+  """Rotate 270° clockwise"""
+  ROTATE_270
 }
 
 union NewsFeedModelTabsField = NewsTabRecord | StoryTabRecord
@@ -5313,12 +5303,12 @@ input NewsItemModelFilter {
   _updatedAt: UpdatedAtFilter
   _isValid: BooleanFilter
   _locales: LocalesFilter
-  topic: LinkFilter
   title: StringFilter
   paragraph: TextFilter
   dateOfPublication: DateFilter
   image: FileFilter
   link: StringFilter
+  topic: LinkFilter
   OR: [NewsItemModelFilter]
   AND: [NewsItemModelFilter]
 }
@@ -5599,7 +5589,7 @@ input OrientationFilter {
   neq: UploadOrientation
 }
 
-union PageModelContentField = CardLinkListRecord | DataSectionRecord | FaqSectionRecord | GraphitaliaDashboardRecord | HeroRecord | NewsFeedRecord | StructuredTextRecord | SupportChannelsSectionRecord | SupportCtaSectionRecord | TextAccordionRecord | TextImageRecord | TextOnlyRecord | TextStatisticRecord | ThirdPartyCookieRecord | TopicFilterRecord | UseCaseContainerRecord
+union PageModelContentField = CardLinkListRecord | DataSectionRecord | FaqSectionRecord | HeroRecord | NewsFeedRecord | StructuredTextRecord | SupportChannelsSectionRecord | SupportCtaSectionRecord | TextAccordionRecord | TextImageRecord | TextOnlyRecord | TextStatisticRecord | TopicFilterRecord | UseCaseContainerRecord
 
 type PageModelContentFieldListListNonNullMultiLocaleField {
   locale: SiteLocale
@@ -7615,7 +7605,6 @@ input StoryClassModelFilter {
   _updatedAt: UpdatedAtFilter
   _isValid: BooleanFilter
   _locales: LocalesFilter
-  sort: StringFilter
   label: StringFilter
   OR: [StoryClassModelFilter]
   AND: [StoryClassModelFilter]
@@ -7640,8 +7629,6 @@ enum StoryClassModelOrderBy {
   _updatedAt_DESC
   _isValid_ASC
   _isValid_DESC
-  sort_ASC
-  sort_DESC
   label_ASC
   label_DESC
 }
@@ -7685,7 +7672,6 @@ type StoryClassRecord implements RecordInterface {
     """
     fallbackLocales: [SiteLocale!]
   ): String
-  sort: String
 }
 
 type StoryClassRecordMultiLocaleField {
@@ -7712,13 +7698,12 @@ input StoryItemModelFilter {
   _isValid: BooleanFilter
   _locales: LocalesFilter
   dateOfPublication: DateFilter
-  title: StringFilter
-  parentPage: LinkFilter
-  storyType: StringFilter
-  topic: LinkFilter
-  seo: SeoFilter
   image: FileFilter
   paragraph: TextFilter
+  title: StringFilter
+  parentPage: LinkFilter
+  topic: LinkFilter
+  seo: SeoFilter
   articleClassification: LinkFilter
   slug: SlugFilter
   OR: [StoryItemModelFilter]
@@ -7748,8 +7733,6 @@ enum StoryItemModelOrderBy {
   dateOfPublication_DESC
   title_ASC
   title_DESC
-  storyType_ASC
-  storyType_DESC
 }
 
 union StoryItemModelParentPageField = CatalogueRecord | PageRecord
@@ -7905,7 +7888,6 @@ type StoryItemRecord implements RecordInterface {
     """
     fallbackLocales: [SiteLocale!]
   ): String
-  storyType: String
   title(
     """The locale to use to fetch the field's content"""
     locale: SiteLocale
@@ -8420,35 +8402,6 @@ type TextUseCaseRecord implements RecordInterface {
   id: ItemId!
   text: TextBlockRecord
   useCases: UseCaseBlockRecord
-}
-
-"""Block of type Third Party Cookies (third_party_cookie)"""
-type ThirdPartyCookieRecord implements RecordInterface {
-  _createdAt: DateTime!
-
-  """Editing URL"""
-  _editingUrl: String
-  _firstPublishedAt: DateTime!
-  _isValid: BooleanType!
-  _modelApiKey: String!
-  _publicationScheduledAt: DateTime
-  _publishedAt: DateTime!
-
-  """Generates SEO and Social card meta tags to be used in your frontend"""
-  _seoMetaTags(
-    """The locale to use to fetch the field's content"""
-    locale: SiteLocale
-  ): [Tag!]!
-  _status: ItemStatus!
-  _unpublishingScheduledAt: DateTime
-  _updatedAt: DateTime!
-  cookiePrefix: String
-  description(
-    """Process content as markdown"""
-    markdown: Boolean
-  ): String
-  id: ItemId!
-  title: String
 }
 
 """Block of type Cards container with filter (topic_filter)"""
@@ -9021,13 +8974,41 @@ type UploadVideoField {
   ): String
   muxAssetId: String!
   muxPlaybackId: String!
+
+  """
+  Default poster frame, in seconds into the video. Resolves to the record-level field override when present, otherwise the upload-level default. `null` means Mux's default (middle of the video).
+  """
+  posterTime: Float
   streamingUrl: String!
   thumbhash: String
   thumbnailUrl(
-    """
-    The file extension of the requested image format. Either png, jpg or gif
-    """
+    """The file extension of the requested image. Either jpg, png or gif"""
     format: MuxThumbnailFormatType = jpg
+
+    """
+    Maps to the Mux `time` param: seconds into the video to grab the frame. When omitted, the upload's poster time is auto-injected (not applied to gif)
+    """
+    time: Float
+
+    """Maps to the Mux `width` param: thumbnail width in pixels"""
+    width: Int
+
+    """Maps to the Mux `height` param: thumbnail height in pixels"""
+    height: Int
+
+    """
+    Maps to the Mux `fit_mode` param: how the image fits the given dimensions
+    """
+    fitMode: MuxThumbnailFitMode
+
+    """Maps to the Mux `rotate` param: clockwise rotation in degrees"""
+    rotate: MuxThumbnailRotation
+
+    """Maps to the Mux `flip_v` param: flip the image vertically"""
+    flipV: Boolean
+
+    """Maps to the Mux `flip_h` param: flip the image horizontally"""
+    flipH: Boolean
   ): String!
   title(
     """The locale to use to fetch the field's content"""
@@ -9229,7 +9210,7 @@ type WebinarDescriptionRecord implements RecordInterface {
   text: TextBlockRecord
 }
 
-union WebinarItemModelContentField = ActionCardRecord | HeroRecord | IntroArticleRecord | SpeakerRecord | TextBlockRecord | WebinarDescriptionRecord
+union WebinarItemModelContentField = ActionCardRecord | HeroRecord | IntroArticleRecord | SpeakerRecord | WebinarDescriptionRecord
 
 type WebinarItemModelContentFieldListListNonNullMultiLocaleField {
   locale: SiteLocale
@@ -9247,7 +9228,6 @@ input WebinarItemModelFilter {
   _updatedAt: UpdatedAtFilter
   _isValid: BooleanFilter
   _locales: LocalesFilter
-  eventBody: TextFilter
   date: DateFilter
   image: FileFilter
   paragraph: TextFilter
@@ -9382,10 +9362,6 @@ type WebinarItemRecord implements RecordInterface {
     """
     fallbackLocales: [SiteLocale!]
   ): Date
-  eventBody(
-    """Process content as markdown"""
-    markdown: Boolean
-  ): String
   id: ItemId!
   image: FileField
   paragraph(
