@@ -34,7 +34,7 @@
     "@datocms/cda-client": "^0.2.10",
     "@datocms/cma-client": "^5.4.21",
     "@opensearch-project/opensearch": "^3.6.0",
-    "@types/react": "^19.2.15",
+    "@types/react": "^19.2.17",
     "@types/react-dom": "^19.2.3",
     "astro": "^5.18.2",
     "bootstrap-italia": "^2.18.1",
@@ -43,7 +43,7 @@
     "gql.tada": "^1.9.2",
     "graph-italia-components": "^0.3.25",
     "jsonwebtoken": "^9.0.3",
-    "react": "^19.2.6",
+    "react": "^19.2.7",
     "react-dom": "^19.2.6",
     "react-grid-layout": "^2.2.3",
     "react-resizable": "^4.0.1"

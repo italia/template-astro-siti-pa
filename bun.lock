@@ -14,7 +14,7 @@
         "@datocms/cda-client": "^0.2.10",
         "@datocms/cma-client": "^5.4.21",
         "@opensearch-project/opensearch": "^3.6.0",
-        "@types/react": "^19.2.15",
+        "@types/react": "^19.2.17",
         "@types/react-dom": "^19.2.3",
         "astro": "^5.18.2",
         "bootstrap-italia": "^2.18.1",
@@ -23,7 +23,7 @@
         "gql.tada": "^1.9.2",
         "graph-italia-components": "^0.3.25",
         "jsonwebtoken": "^9.0.3",
-        "react": "^19.2.6",
+        "react": "^19.2.7",
         "react-dom": "^19.2.6",
         "react-grid-layout": "^2.2.3",
         "react-resizable": "^4.0.1",
@@ -517,7 +517,7 @@
 
     "@types/rbush": ["@types/rbush@4.0.0", "https://registry.npmjs.com/@types/rbush/-/rbush-4.0.0.tgz", {}, "sha512-+N+2H39P8X+Hy1I5mC6awlTX54k3FhiUmvt7HWzGJZvF+syUAAxP/stwppS8JE84YHqFgRMv6fCy31202CMFxQ=="],
 
-    "@types/react": ["@types/react@19.2.15", "https://registry.npmjs.com/@types/react/-/react-19.2.15.tgz", { "dependencies": { "csstype": "^3.2.2" } }, "sha512-eRwcGNHve+E8qtEQSSRl6urh+rFop4v8gm6O8rGv25CodbvFdLjA1vVQ1KkiFE0w0UPOnb8tDiFKL5lp0rtY5Q=="],
+    "@types/react": ["@types/react@19.2.17", "", { "dependencies": { "csstype": "^3.2.2" } }, "sha512-MXfmqaVPEVgkBT/aY0aGCkRWWtByiYQXo3xdQ8r5RzuFrPiRn8Gar2tQdXSUQ2GKV3bkXckek89V8wQBY2Q/Aw=="],
 
     "@types/react-dom": ["@types/react-dom@19.2.3", "https://registry.npmjs.com/@types/react-dom/-/react-dom-19.2.3.tgz", { "peerDependencies": { "@types/react": "^19.2.0" } }, "sha512-jp2L/eY6fn+KgVVQAOqYItbF0VY/YApe5Mz2F0aykSO8gx31bYCZyvSeYxCHKvzHG5eZjc+zyaS5BrBWya2+kQ=="],
 
@@ -1575,7 +1575,7 @@
 
     "rbush": ["rbush@4.0.1", "https://registry.npmjs.com/rbush/-/rbush-4.0.1.tgz", { "dependencies": { "quickselect": "^3.0.0" } }, "sha512-IP0UpfeWQujYC8Jg162rMNc01Rf0gWMMAb2Uxus/Q0qOFw4lCcq6ZnQEZwUoJqWyUGJ9th7JjwI4yIWo+uvoAQ=="],
 
-    "react": ["react@19.2.6", "https://registry.npmjs.com/react/-/react-19.2.6.tgz", {}, "sha512-sfWGGfavi0xr8Pg0sVsyHMAOziVYKgPLNrS7ig+ivMNb3wbCBw3KxtflsGBAwD3gYQlE/AEZsTLgToRrSCjb0Q=="],
+    "react": ["react@19.2.7", "", {}, "sha512-HNe9WslTbXmFK8o8cmwgAeJFSBvt1bPdHCVKtaaV+WlAN36mpT4hcRpwbf3fY56ar2oIXzsBpOAiIRHAdY0OlQ=="],
 
     "react-data-table-component": ["react-data-table-component@7.7.1", "", { "dependencies": { "deepmerge": "^4.3.1" }, "peerDependencies": { "react": ">= 17.0.0", "styled-components": ">= 5.0.0" } }, "sha512-F1qciUONe0EiItxd+LZg9K7UXxvilSQH8WvUoSnPnAVZ/PK2x4Djr3nzkuCqCIfiMuU3imI+8gI7nYRIW2Kfxw=="],
 
